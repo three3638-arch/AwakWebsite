@@ -50,7 +50,7 @@ awak_will/
 - 认证标识（FDA、研究论文、专利等）
 
 ### 6. 产品对比区（Product Comparison）
-- Awak Will 2 vs Awak Will 2 MAX 功能对比表
+- Awak Will Ring vs Awak Will Ring Pro 功能对比表
 
 ### 7. 底部区域（Footer）
 - 四栏式信息架构

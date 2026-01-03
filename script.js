@@ -91,7 +91,7 @@ const translations = {
         shopNow: '立即购买',
         tagline: '觉醒意志',
         promo: {
-            text: '🎉 限时优惠：Awak Will 2 MAX 现享$219特价 | 免费全球配送'
+            text: '🎉 限时优惠：Awak Will Ring 现享$219特价 | 免费全球配送'
         },
         nav: {
             shop: '商店',
@@ -160,7 +160,7 @@ const translations = {
                 desc: '生理周期追踪，贴心记录女性健康数据，提供个性化健康建议。'
             },
             disclaimer: '*非医疗诊断工具',
-            learnMore: '了解更多 →'
+            // learnMore: '了解更多 →'
         },
         proof: {
             title: '专家信赖',
@@ -205,8 +205,8 @@ const translations = {
                 from: '起',
                 discount: '限时优惠'
             },
-            buy2: '立即购买 Awak Will 2',
-            buyMax: '立即购买 Awak Will 2 MAX'
+            buy2: '立即购买 Awak Will Ring',
+            buyMax: '立即购买 Awak Will Ring Pro'
         },
         footer: {
             about: {
@@ -248,7 +248,7 @@ const translations = {
         shopNow: 'Shop Now',
         tagline: 'Awaken Will',
         promo: {
-            text: '🎉 Limited Time Offer: Awak Will 2 MAX Now $219 | Free Global Shipping'
+            text: '🎉 Limited Time Offer: Awak Will Ring Pro Now $219 | Free Global Shipping'
         },
         nav: {
             shop: 'Shop',
@@ -362,8 +362,8 @@ const translations = {
                 from: 'from',
                 discount: 'Limited Offer'
             },
-            buy2: 'Buy Awak Will 2',
-            buyMax: 'Buy Awak Will 2 MAX'
+            buy2: 'Buy Awak Will Ring',
+            buyMax: 'Buy Awak Will Ring Pro'
         },
         footer: {
             about: {
