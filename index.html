@@ -11,25 +11,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 促销条 -->
-    <div class="promo-bar">
-        <p data-i18n="promo.text">🎉 限时优惠：Awak Will Ring 现享$219特价 | 免费全球配送</p>
-    </div>
-
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <h1>Awak Will</h1>
-                    <span class="tagline" data-i18n="tagline">觉醒意志</span>
+                    <img src="image/logo_white.png" alt="Awak Will">
                 </div>
                 <nav class="nav">
                     <ul class="nav-list">
-                        <li><a href="#shop" data-i18n="nav.shop">Shop</a></li>
-                        <li><a href="#technology" data-i18n="nav.technology">Technology</a></li>
-                        <li><a href="#science" data-i18n="nav.science">Science</a></li>
-                        <li><a href="#support" data-i18n="nav.support">Support</a></li>
+                        <li><a href="#" data-i18n="nav.home">首页</a></li>
+                        <li class="nav-item-has-dropdown">
+                            <span class="nav-dropdown-trigger" data-i18n="nav.products">产品</span>
+                            <ul class="nav-dropdown">
+                                <li><a href="#products-ring" data-i18n="nav.productsRing">戒指</a></li>
+                                <li><a href="#products-band" data-i18n="nav.productsBand">手环</a></li>
+                                <li><a href="#products-glasses" data-i18n="nav.productsGlasses">眼镜</a></li>
+                                <li><a href="#products-mask" data-i18n="nav.productsMask">眼罩</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item-has-dropdown">
+                            <span class="nav-dropdown-trigger" data-i18n="nav.app">APP</span>
+                            <ul class="nav-dropdown">
+                                <li><a href="#app-health" data-i18n="nav.appHealth">健康</a></li>
+                                <li><a href="#app-sleep" data-i18n="nav.appSleep">睡眠</a></li>
+                                <li><a href="#app-exercise" data-i18n="nav.appExercise">运动</a></li>
+                                <li><a href="#app-nutrition" data-i18n="nav.appNutrition">营养师</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#ecosystem" data-i18n="nav.ecosystem">开放生态</a></li>
+                        <li><a href="#about" data-i18n="nav.about">关于我们</a></li>
                     </ul>
                 </nav>
                 <div class="header-actions">
@@ -39,7 +50,6 @@
                             <span class="language-text" data-i18n="lang">中文</span>
                         </button>
                     </div>
-                    <button class="cta-button primary" data-i18n="shopNow">Shop Now</button>
                 </div>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
@@ -86,18 +96,6 @@
                                 <h4 data-i18n="hero.feature4.title">AI-Powered Health Metrics</h4>
                                 <p data-i18n="hero.feature4.desc">AI驱动健康指标</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="hero-cta">
-                        <button class="cta-button large" data-i18n="hero.buyNow">立即购买</button>
-                        <button class="cta-button large outline" data-i18n="hero.learnMore">了解更多</button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="ring-3d">
-                        <div class="ring-glow"></div>
-                        <div class="ring-model">
-                            <img src="image/AEC_透明.png" alt="Awak Will Ring" />
                         </div>
                     </div>
                 </div>

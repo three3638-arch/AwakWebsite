@@ -44,16 +44,34 @@ function initMobileMenu() {
             document.body.classList.toggle('menu-open');
         });
         
-        // 点击导航链接后关闭菜单
-        const navLinks = document.querySelectorAll('.nav-list a');
+        // 点击导航链接（含下拉子项）后关闭菜单
+        const navLinks = document.querySelectorAll('.nav-list a, .nav-dropdown a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
                 menuToggle.classList.remove('active');
                 document.body.classList.remove('menu-open');
+                document.querySelectorAll('.nav-item-has-dropdown').forEach(el => el.classList.remove('open'));
             });
         });
     }
+
+    // 点击「产品」「APP」展开/收起下拉
+    document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            const item = trigger.closest('.nav-item-has-dropdown');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.nav-item-has-dropdown').forEach(el => el.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+
+    // 点击页面其他区域关闭下拉
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.nav-item-has-dropdown')) return;
+        document.querySelectorAll('.nav-item-has-dropdown').forEach(el => el.classList.remove('open'));
+    });
 }
 
 // ============================================
@@ -94,13 +112,22 @@ const translations = {
             text: '🎉 限时优惠：Awak Will Ring 现享$219特价 | 免费全球配送'
         },
         nav: {
-            shop: '商店',
-            technology: '技术',
-            science: '科学',
-            support: '支持'
+            home: '首页',
+            products: '产品',
+            productsRing: '戒指',
+            productsBand: '手环',
+            productsGlasses: '眼镜',
+            productsMask: '眼罩',
+            app: 'APP',
+            appHealth: '健康',
+            appSleep: '睡眠',
+            appExercise: '运动',
+            appNutrition: '营养师',
+            ecosystem: '开放生态',
+            about: '关于我们'
         },
         hero: {
-            title: '全球最佳<br>睡眠监测<br>智能戒指',
+            title: '以智能科技<br>重新定义时尚健康品牌',
             subtitle: '专业级健康监测，全天候舒适佩戴',
             feature1: {
                 title: '24/7 舒适佩戴',
@@ -251,10 +278,19 @@ const translations = {
             text: '🎉 Limited Time Offer: Awak Will Ring Pro Now $219 | Free Global Shipping'
         },
         nav: {
-            shop: 'Shop',
-            technology: 'Technology',
-            science: 'Science',
-            support: 'Support'
+            home: 'Home',
+            products: 'Products',
+            productsRing: 'Ring',
+            productsBand: 'Band',
+            productsGlasses: 'Glasses',
+            productsMask: 'Mask',
+            app: 'APP',
+            appHealth: 'Health',
+            appSleep: 'Sleep',
+            appExercise: 'Exercise',
+            appNutrition: 'Nutrition',
+            ecosystem: 'Open Ecosystem',
+            about: 'About Us'
         },
         hero: {
             title: 'WORLD\'S BEST<br>SLEEP-MONITORING<br>SMART RING',
@@ -470,7 +506,7 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(10, 14, 39, 0.98)';
         header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
     } else {
-        header.style.background = 'rgba(10, 14, 39, 0.95)';
+        header.style.background = 'rgba(0,0,0,1)';
         header.style.boxShadow = 'none';
     }
     
