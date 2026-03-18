@@ -149,7 +149,7 @@ const translations = {
             learnMore: '了解更多'
         },
         tech: {
-            title: '先进技术',
+            title: '应用场景',
             subtitle: '突破性技术，重新定义智能健康监测',
             adaptive: {
                 title: '自适应设计',
@@ -159,12 +159,12 @@ const translations = {
                 feature3: '✓ 防水设计，运动无忧'
             },
             sensor: {
-                title: 'Advanced SST™ Ultra 2.0 传感器',
+                title: 'Nordic Rf54L15 低功耗无线连接解决方案的全球领导者',
                 desc: '专业级传感器技术，支持血氧、心率、睡眠等多项健康指标监测，准确率对标医疗标准AASM。',
                 metric1: '心率准确率',
                 metric2: '血氧准确率',
-                metric3: '睡眠监测',
-                value3: 'AASM标准'
+                metric3: '体温测温',
+                value3: '±0.1 °C'
             }
         },
         health: {

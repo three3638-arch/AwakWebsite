@@ -20,7 +20,7 @@
                 </div>
                 <nav class="nav">
                     <ul class="nav-list">
-                        <li><a href="#" data-i18n="nav.home">首页</a></li>
+                        <li class="active"><a href="index.html" data-i18n="nav.home">首页</a></li>
                         <li class="nav-item-has-dropdown">
                             <span class="nav-dropdown-trigger" data-i18n="nav.products">产品</span>
                             <ul class="nav-dropdown">
@@ -33,14 +33,14 @@
                         <li class="nav-item-has-dropdown">
                             <span class="nav-dropdown-trigger" data-i18n="nav.app">APP</span>
                             <ul class="nav-dropdown">
-                                <li><a href="#app-health" data-i18n="nav.appHealth">健康</a></li>
-                                <li><a href="#app-sleep" data-i18n="nav.appSleep">睡眠</a></li>
-                                <li><a href="#app-exercise" data-i18n="nav.appExercise">运动</a></li>
-                                <li><a href="#app-nutrition" data-i18n="nav.appNutrition">营养师</a></li>
+                                <li><a href="app.html#app-health" data-i18n="nav.appHealth">健康</a></li>
+                                <li><a href="app.html#app-sleep" data-i18n="nav.appSleep">睡眠</a></li>
+                                <li><a href="app.html#app-exercise" data-i18n="nav.appExercise">运动</a></li>
+                                <li><a href="app.html#app-nutrition" data-i18n="nav.appNutrition">营养师</a></li>
                             </ul>
                         </li>
                         <li><a href="#ecosystem" data-i18n="nav.ecosystem">开放生态</a></li>
-                        <li><a href="#about" data-i18n="nav.about">关于我们</a></li>
+                        <li><a href="about.html" data-i18n="nav.about">关于我们</a></li>
                     </ul>
                 </nav>
                 <div class="header-actions">
@@ -110,48 +110,32 @@
                 <h2 class="section-title" data-i18n="tech.title">Advanced Technology</h2>
                 <p class="section-subtitle" data-i18n="tech.subtitle">突破性技术，重新定义智能健康监测</p>
             </div>
+            <img src="image/scenario.png" alt="Tech Info" class="tech-info-image" />
             <div class="tech-content">
-                <div class="tech-item">
-                    <div class="tech-visual">
-                        <div class="tech-animation">
-                            <img src="image/size.png" alt="Ring Size" class="size-image" />
-                        </div>
-                    </div>
-                    <div class="tech-info">
-                        <img src="image/img04.png" alt="Tech Info" class="tech-info-image" />
-                        <h3 data-i18n="tech.adaptive.title">自适应设计</h3>
-                        <p data-i18n="tech.adaptive.desc">6#-13#美标戒指尺寸，智能适配不同手指粗细，确保全天候舒适佩戴体验。</p>
-                        <ul class="tech-features">
-                            <li data-i18n="tech.adaptive.feature1">✓ 无感佩戴，24小时舒适</li>
-                            <li data-i18n="tech.adaptive.feature2">✓ 自动调节，完美贴合</li>
-                            <li data-i18n="tech.adaptive.feature3">✓ 防水设计，运动无忧</li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="tech-item reverse">
                     <div class="tech-visual">
                         <div class="tech-animation">
                             <div class="sensor-demo">
-                                <div class="sensor-core">SST™ Ultra 2.0</div>
+                                <div class="sensor-core">Nordic Rf54</div>
                                 <div class="sensor-beams"></div>
                             </div>
                         </div>
                     </div>
                     <div class="tech-info">
-                        <h3 data-i18n="tech.sensor.title">Advanced SST™ Ultra 2.0 传感器</h3>
+                        <h3 data-i18n="tech.sensor.title">Nordic Rf54L15 低功耗无线连接解决方案的全球领导者</h3>
                         <p data-i18n="tech.sensor.desc">专业级传感器技术，支持血氧、心率、睡眠等多项健康指标监测，准确率对标医疗标准AASM。</p>
                         <div class="accuracy-comparison">
                             <div class="comparison-item">
                                 <span class="metric" data-i18n="tech.sensor.metric1">心率准确率</span>
-                                <span class="value">99.2%</span>
+                                <span class="value">±2 bpm</span>
                             </div>
                             <div class="comparison-item">
                                 <span class="metric" data-i18n="tech.sensor.metric2">血氧准确率</span>
-                                <span class="value">98.7%</span>
+                                <span class="value">± 1%</span>
                             </div>
                             <div class="comparison-item">
-                                <span class="metric" data-i18n="tech.sensor.metric3">睡眠监测</span>
-                                <span class="value" data-i18n="tech.sensor.value3">AASM标准</span>
+                                <span class="metric" data-i18n="tech.sensor.metric3">体温测温</span>
+                                <span class="value" data-i18n="tech.sensor.value3">±0.1 °C</span>
                             </div>
                         </div>
                     </div>
@@ -189,112 +173,6 @@
         </div>
     </section>
 
-    <!-- Social Proof Section -->
-    <section class="social-proof-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="proof.title">Trusted by Experts</h2>
-                <p class="section-subtitle" data-i18n="proof.subtitle">专业认可，值得信赖</p>
-            </div>
-            <div class="proof-content">
-                <div class="testimonials">
-                    <div class="testimonial">
-                        <p class="quote" data-i18n="proof.quote1">"FDA认证的唯一戒指血氧仪，准确率达到了医疗级标准。"</p>
-                        <p class="author" data-i18n="proof.author1">— 耶鲁大学睡眠医学教授</p>
-                    </div>
-                    <div class="testimonial">
-                        <p class="quote" data-i18n="proof.quote2">"Awak Will的连续监测能力为健康研究提供了前所未有的数据支持。"</p>
-                        <p class="author" data-i18n="proof.author2">— 斯坦福大学健康数据专家</p>
-                    </div>
-                </div>
-                <div class="certifications">
-                    <div class="cert-item">
-                        <div class="cert-icon">🏆</div>
-                        <h4 data-i18n="proof.cert1.title">FDA认证</h4>
-                        <p data-i18n="proof.cert1.desc">医疗级血氧监测</p>
-                    </div>
-                    <div class="cert-item">
-                        <div class="cert-icon">📄</div>
-                        <h4 data-i18n="proof.cert2.title">20+ 研究论文</h4>
-                        <p data-i18n="proof.cert2.desc">科学验证</p>
-                    </div>
-                    <div class="cert-item">
-                        <div class="cert-icon">🔬</div>
-                        <h4 data-i18n="proof.cert3.title">专利设计</h4>
-                        <p data-i18n="proof.cert3.desc">创新技术</p>
-                    </div>
-                    <div class="cert-item">
-                        <div class="cert-icon">⭐</div>
-                        <h4 data-i18n="proof.cert4.title">4.8/5 用户评分</h4>
-                        <p data-i18n="proof.cert4.desc">10,000+ 用户</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Product Comparison Section -->
-    <section id="shop" class="comparison-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="shop.title">Choose Your Perfect Ring</h2>
-                <p class="section-subtitle" data-i18n="shop.subtitle">选择最适合你的智能戒指</p>
-            </div>
-            <div class="comparison-table-wrapper">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th data-i18n="shop.table.feature">功能</th>
-                            <th>Awak Will Ring</th>
-                            <th class="highlight">Awak Will Ring Pro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-i18n="shop.table.sensor">传感器精度</td>
-                            <td data-i18n="shop.table.standard">标准版</td>
-                            <td class="highlight" data-i18n="shop.table.ultra">Ultra 2.0升级版</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.adaptive">自适应设计</td>
-                            <td>✓</td>
-                            <td class="highlight">✓</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.spo2">血氧监测</td>
-                            <td>✓</td>
-                            <td class="highlight">✓</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.heart">心率监测</td>
-                            <td>✓</td>
-                            <td class="highlight">✓</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.sleep">睡眠分析</td>
-                            <td>✓</td>
-                            <td class="highlight">✓</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.warranty">保修期</td>
-                            <td data-i18n="shop.table.basic">基础保修</td>
-                            <td class="highlight" data-i18n="shop.table.extra">额外3个月</td>
-                        </tr>
-                        <tr>
-                            <td data-i18n="shop.table.price">价格</td>
-                            <td>$199<span data-i18n="shop.table.from">起</span></td>
-                            <td class="highlight">$219 <span class="discount" data-i18n="shop.table.discount">限时优惠</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="comparison-cta">
-                <button class="cta-button large" data-i18n="shop.buy2">立即购买 Awak Will Ring</button>
-                <button class="cta-button large primary" data-i18n="shop.buyMax">立即购买 Awak Will Ring Pro</button>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -302,7 +180,7 @@
                 <div class="footer-column">
                     <h4 data-i18n="footer.about.title">关于 Awak Will</h4>
                     <ul>
-                        <li><a href="#about" data-i18n="footer.about.us">关于我们</a></li>
+                        <li><a href="about.html" target="_blank" rel="noopener" data-i18n="footer.about.us">关于我们</a></li>
                         <li><a href="#story" data-i18n="footer.about.story">品牌故事</a></li>
                         <li><a href="#contact" data-i18n="footer.about.contact">联系我们</a></li>
                         <li><a href="#careers" data-i18n="footer.about.careers">加入我们</a></li>
@@ -363,7 +241,7 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Awak Will. All rights reserved.</p>
-                <p class="company-info">BodiMetrics, LLC | 杭州麦格森科技</p>
+                <p class="company-info">Awak Will | 觉醒意志（杭州）健康科技有限公司</p>
             </div>
         </div>
     </footer>

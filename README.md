@@ -118,7 +118,7 @@ awak_will/
 ## 许可证
 
 © 2025 Awak Will. All rights reserved.
-BodiMetrics, LLC | 杭州麦格森科技
+Awak Will | 觉醒意志（杭州）健康科技有限公司
 
 ## 联系方式
 

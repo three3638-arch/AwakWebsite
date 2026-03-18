@@ -208,6 +208,19 @@ body {
     background: rgba(0, 212, 255, 0.08);
 }
 
+/* 当前页导航高亮 */
+.nav-list li.active a,
+.nav-list li.active .nav-dropdown-trigger {
+    color: var(--primary-color);
+}
+.nav-list li.active a::after {
+    width: 100%;
+}
+.nav-list li.active .nav-dropdown-trigger {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 3px;
+}
+
 .header-actions {
     display: flex;
     align-items: center;
