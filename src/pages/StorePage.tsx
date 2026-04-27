@@ -628,7 +628,7 @@ export default function StorePage() {
             <>
               <div className="mb-24">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight text-black">
-                  读懂你的恢复与身体状态
+                银发守护 |早点，让一切都来得及
                 </h2>
                 <p className="text-[#86868B] text-lg md:text-xl max-w-2xl leading-relaxed">
                   从睡眠到压力，从恢复到训练负荷，持续理解你的身体节奏
@@ -671,7 +671,7 @@ export default function StorePage() {
             <>
               <div className="mb-24">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-black">
-                  读懂你的身体与运动状态
+                特殊关爱 |听视障人群伴身智能
                 </h2>
                 <p className="text-[#86868B] text-lg md:text-xl max-w-2xl leading-relaxed">
                   从日常健康到专业训练，持续理解你的身体变化
@@ -714,7 +714,7 @@ export default function StorePage() {
             <>
               <div className="mb-24">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-black">
-                  让沟通与感知回归平等
+                特殊关爱|听视障人群伴身智能
                 </h2>
                 <p className="text-[#86868B] text-lg md:text-xl max-w-2xl leading-relaxed">
                   信息不再阻断你，而是主动为你传达世界
@@ -757,7 +757,7 @@ export default function StorePage() {
             <>
               <div className="mb-24">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-[#000000]">
-                  读懂你的健康，从来不需要妥协
+                年轻时尚| 指尖健康触手可及
                 </h2>
                 <p className="text-[#86868B] text-lg md:text-xl max-w-2xl leading-relaxed">
                   从心率到睡眠，从压力到血氧，AWAK 智能戒指持续追踪 50+ 项生理指标，让你成为最了解自己身体的人。
