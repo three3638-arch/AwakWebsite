@@ -1,252 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Awak Will - 全球首款自适应智能戒指，专业级健康监测，全天候舒适佩戴">
-    <title>Awak Will - 觉醒意志 | 全球首款自适应智能戒指</title>
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWAK - 沉浸式高级风格</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="image/logo_white.png" alt="Awak Will">
-                </div>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="active"><a href="index.html" data-i18n="nav.home">首页</a></li>
-                        <li class="nav-item-has-dropdown">
-                            <span class="nav-dropdown-trigger" data-i18n="nav.products">产品</span>
-                            <ul class="nav-dropdown">
-                                <li><a href="#products-ring" data-i18n="nav.productsRing">戒指</a></li>
-                                <li><a href="#products-band" data-i18n="nav.productsBand">手环</a></li>
-                                <li><a href="#products-glasses" data-i18n="nav.productsGlasses">眼镜</a></li>
-                                <li><a href="#products-mask" data-i18n="nav.productsMask">眼罩</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item-has-dropdown">
-                            <span class="nav-dropdown-trigger" data-i18n="nav.app">APP</span>
-                            <ul class="nav-dropdown">
-                                <li><a href="app.html#app-health" data-i18n="nav.appHealth">健康</a></li>
-                                <li><a href="app.html#app-sleep" data-i18n="nav.appSleep">睡眠</a></li>
-                                <li><a href="app.html#app-exercise" data-i18n="nav.appExercise">运动</a></li>
-                                <li><a href="app.html#app-nutrition" data-i18n="nav.appNutrition">营养师</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#ecosystem" data-i18n="nav.ecosystem">开放生态</a></li>
-                        <li><a href="about.html" data-i18n="nav.about">关于我们</a></li>
-                    </ul>
-                </nav>
-                <div class="header-actions">
-                    <div class="language-switcher">
-                        <button id="languageToggle" class="language-button" aria-label="切换语言">
-                            <span class="language-icon">🌐</span>
-                            <span class="language-text" data-i18n="lang">中文</span>
-                        </button>
-                    </div>
-                </div>
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h2 class="hero-title" data-i18n="hero.title">WORLD'S BEST<br>SLEEP-MONITORING<br>SMART RING</h2>
-                    <p class="hero-subtitle" data-i18n="hero.subtitle">Professional-grade health monitoring with 24/7 comfort</p>
-                    <div class="hero-features">
-                        <div class="feature-item" data-animate>
-                            <div class="feature-icon">⏰</div>
-                            <div class="feature-text">
-                                <h4 data-i18n="hero.feature1.title">24/7 Comfortable Wear</h4>
-                                <p data-i18n="hero.feature1.desc">全天候舒适</p>
-                            </div>
-                        </div>
-                        <div class="feature-item" data-animate>
-                            <div class="feature-icon">📊</div>
-                            <div class="feature-text">
-                                <h4 data-i18n="hero.feature2.title">Professional-grade Monitoring</h4>
-                                <p data-i18n="hero.feature2.desc">专业级监测</p>
-                            </div>
-                        </div>
-                        <div class="feature-item" data-animate>
-                            <div class="feature-icon">📈</div>
-                            <div class="feature-text">
-                                <h4 data-i18n="hero.feature3.title">True Continuous Tracking</h4>
-                                <p data-i18n="hero.feature3.desc">真连续追踪</p>
-                            </div>
-                        </div>
-                        <div class="feature-item" data-animate>
-                            <div class="feature-icon">🤖</div>
-                            <div class="feature-text">
-                                <h4 data-i18n="hero.feature4.title">AI-Powered Health Metrics</h4>
-                                <p data-i18n="hero.feature4.desc">AI驱动健康指标</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technology Section -->
-    <section id="technology" class="technology-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="tech.title">Advanced Technology</h2>
-                <p class="section-subtitle" data-i18n="tech.subtitle">突破性技术，重新定义智能健康监测</p>
-            </div>
-            <img src="image/scenario.png" alt="Tech Info" class="tech-info-image" />
-            <div class="tech-content">
-                <div class="tech-item reverse">
-                    <div class="tech-visual">
-                        <div class="tech-animation">
-                            <div class="sensor-demo">
-                                <div class="sensor-core">Nordic Rf54</div>
-                                <div class="sensor-beams"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tech-info">
-                        <h3 data-i18n="tech.sensor.title">Nordic Rf54L15 低功耗无线连接解决方案的全球领导者</h3>
-                        <p data-i18n="tech.sensor.desc">专业级传感器技术，支持血氧、心率、睡眠等多项健康指标监测，准确率对标医疗标准AASM。</p>
-                        <div class="accuracy-comparison">
-                            <div class="comparison-item">
-                                <span class="metric" data-i18n="tech.sensor.metric1">心率准确率</span>
-                                <span class="value">±2 bpm</span>
-                            </div>
-                            <div class="comparison-item">
-                                <span class="metric" data-i18n="tech.sensor.metric2">血氧准确率</span>
-                                <span class="value">± 1%</span>
-                            </div>
-                            <div class="comparison-item">
-                                <span class="metric" data-i18n="tech.sensor.metric3">体温测温</span>
-                                <span class="value" data-i18n="tech.sensor.value3">±0.1 °C</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Health Features Section -->
-    <section id="science" class="health-features-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="health.title">Comprehensive Health Monitoring</h2>
-                <p class="section-subtitle" data-i18n="health.subtitle">全方位健康管理，让数据成为你的健康伙伴</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card feature-card-sleep">
-                    <h3 data-i18n="health.sleep.title">睡眠管理</h3>
-                    <p data-i18n="health.sleep.desc">深度睡眠分期分析、睡眠呼吸暂停风险评估，助你了解睡眠质量。</p>
-                    <p class="disclaimer" data-i18n="health.disclaimer">*非医疗诊断工具</p>
-                </div>
-                <div class="feature-card feature-card-exercise">
-                    <h3 data-i18n="health.exercise.title">运动监测</h3>
-                    <p data-i18n="health.exercise.desc">支持跑步、骑行等多种运动模式，实时心率反馈，科学指导训练强度。</p>
-                </div>
-                <div class="feature-card feature-card-stress">
-                    <h3 data-i18n="health.stress.title">压力管理</h3>
-                    <p data-i18n="health.stress.desc">HRV（心率变异性）分析+个性化放松建议，帮助管理日常压力。</p>
-                </div>
-                <div class="feature-card feature-card-women">
-                    <h3 data-i18n="health.women.title">女性健康</h3>
-                    <p data-i18n="health.women.desc">生理周期追踪，贴心记录女性健康数据，提供个性化健康建议。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h4 data-i18n="footer.about.title">关于 Awak Will</h4>
-                    <ul>
-                        <li><a href="about.html" target="_blank" rel="noopener" data-i18n="footer.about.us">关于我们</a></li>
-                        <li><a href="#story" data-i18n="footer.about.story">品牌故事</a></li>
-                        <li><a href="#contact" data-i18n="footer.about.contact">联系我们</a></li>
-                        <li><a href="#careers" data-i18n="footer.about.careers">加入我们</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 data-i18n="footer.support.title">支持服务</h4>
-                    <ul>
-                        <li><a href="#faq" data-i18n="footer.support.faq">常见问题</a></li>
-                        <li><a href="#tracking" data-i18n="footer.support.tracking">订单追踪</a></li>
-                        <li><a href="#returns" data-i18n="footer.support.returns">退换政策</a></li>
-                        <li><a href="#warranty" data-i18n="footer.support.warranty">保修服务</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 data-i18n="footer.resources.title">资源中心</h4>
-                    <ul>
-                        <li><a href="#guide" data-i18n="footer.resources.guide">用户指南</a></li>
-                        <li><a href="#developers" data-i18n="footer.resources.developers">开发者合作</a></li>
-                        <li><a href="#api" data-i18n="footer.resources.api">API文档</a></li>
-                        <li><a href="#community" data-i18n="footer.resources.community">社区论坛</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 data-i18n="footer.legal.title">法律条款</h4>
-                    <ul>
-                        <li><a href="#privacy" data-i18n="footer.legal.privacy">隐私政策</a></li>
-                        <li><a href="#terms" data-i18n="footer.legal.terms">服务条款</a></li>
-                        <li><a href="#cookies" data-i18n="footer.legal.cookies">Cookie政策</a></li>
-                        <li><a href="#compliance" data-i18n="footer.legal.compliance">合规声明</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-social">
-                <div class="social-links">
-                    <a href="#" aria-label="Facebook">📘</a>
-                    <a href="#" aria-label="Twitter">🐦</a>
-                    <a href="#" aria-label="Instagram">📷</a>
-                    <a href="#" aria-label="YouTube">📺</a>
-                    <a href="#" aria-label="LinkedIn">💼</a>
-                </div>
-                <div class="app-downloads">
-                    <a href="#" class="app-link">
-                        <span>📱</span>
-                        <div>
-                            <span class="app-label" data-i18n="footer.app.download">Download on the</span>
-                            <span class="app-name">App Store</span>
-                        </div>
-                    </a>
-                    <a href="#" class="app-link">
-                        <span>🤖</span>
-                        <div>
-                            <span class="app-label" data-i18n="footer.app.get">Get it on</span>
-                            <span class="app-name">Google Play</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Awak Will. All rights reserved.</p>
-                <p class="company-info">Awak Will | 觉醒意志（杭州）健康科技有限公司</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        // Since React renders dynamically, we might need a MutationObserver or run this after render.
+        // For static initial HTML, this works, but for React, we should probably run it via a MutationObserver on body.
+        const observer = new MutationObserver(() => {
+          document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+            el.classList.add('observed');
+            io.observe(el);
+          });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script>
+  </body>
 </html>
 
