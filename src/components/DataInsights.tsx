@@ -79,7 +79,7 @@ export default function DataInsights() {
           <div className="flex-1 space-y-12">
             <div className="space-y-6">
               <h2 className="text-[#080808] text-5xl md:text-7xl font-black leading-tight tracking-tighter">
-                看见数据<br />
+                看懂数据<br />
                 才能改变生活
               </h2>
               <div className="h-[2px] w-24 bg-black" />
