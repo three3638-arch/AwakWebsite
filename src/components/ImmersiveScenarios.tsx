@@ -114,8 +114,7 @@ export default function ImmersiveScenarios() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-10"
-            style={{ paddingLeft: '170px', paddingRight: '170px' }}
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-10 pl-6 pr-6 md:pl-[170px] md:pr-6"
           >
             {activeProductData.features.map((feature: any, idx: number) => {
               // Asymmetric width logic: 1st=65vw, 2nd=30vw, others=30vw
@@ -155,8 +154,6 @@ export default function ImmersiveScenarios() {
               );
             })}
             
-            {/* End padding spacer */}
-            <div className="flex-shrink-0 w-[170px]" />
           </motion.div>
         </AnimatePresence>
 

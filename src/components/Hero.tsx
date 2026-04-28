@@ -3,13 +3,13 @@ import { ArrowRight, Smartphone, Cpu } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-end justify-center pt-24 pb-24 mb-0 overflow-hidden bg-[#161617] text-white w-full px-6 md:px-[170px]">
+    <section className="relative min-h-screen flex flex-col items-end justify-center pt-24 pb-24 mb-0 overflow-hidden bg-[#161617] text-white w-full pl-6 pr-6 md:pl-[170px] md:pr-[85px]">
       {/* 交互式背景 - 视频/图片 */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-brand-white">
         <img 
           src="https://i.ibb.co/6JqSk9k4/hero.png"
           alt="Hero Background"
-          className="w-full h-full object-cover transition-all duration-1000 scale-[1.5]"
+          className="w-full h-full object-cover transition-all duration-1000 scale-[1.2]"
           referrerPolicy="no-referrer"
         />
       </div>

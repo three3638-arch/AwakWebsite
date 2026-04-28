@@ -43,7 +43,7 @@ export default function TeamSection() {
            viewport={{ once: true }}
            className="mb-8"
         >
-          <h2 className="text-3xl md:text-5xl lg:text-5xl font-black text-[#1D1D1F] tracking-tight">
+          <h2 className="text-2xl md:text-4xl lg:text-4xl leading-[1.2] font-black text-[#1D1D1F] tracking-tight">
             智能硬件+应用服务 <br />
             构建 7×24H 全周期健康与睡眠
           </h2>
