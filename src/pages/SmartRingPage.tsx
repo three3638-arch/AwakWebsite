@@ -6,10 +6,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useLocalePath } from '../hooks/useLocalePath';
 
 const RING_VARIANTS = [
-  { id: 'base', name: 'Awak Ring 基础版', price: '¥1,999', color: '钛金银', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png' },
-  { id: 'sport', name: 'Awak Ring 运动版', price: '¥2,199', color: '墨影黑', img: 'https://i.ibb.co/zTQKV09Y/jimeng-2026-04-20-2515.png' },
-  { id: 'fashion', name: 'Awak Ring 时尚版', price: '¥2,399', color: '璀璨金', img: 'https://i.ibb.co/8Djdy2VY/jimeng-2026-04-20-2444.png' },
-  { id: 'premium', name: 'Awak Ring 定制款', price: '¥2,999', color: '玫瑰金', img: 'https://i.ibb.co/N28C7vWs/2.png' },
+  { id: 'base', name: 'Awak Ring 基础款', price: '¥1,999', color: '钛金银', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png' },
+  { id: 'sport', name: 'Awak Ring 运动款', price: '¥2,199', color: '墨影黑', img: 'https://i.ibb.co/yBFXz43J/018aa8cd061047db86cc870ea392dcd6.png' },
+  { id: 'fashion', name: 'Awak Ring 时尚款', price: '¥2,399', color: '璀璨金', img: 'https://i.ibb.co/N28C7vWs/2.png' },
+  { id: 'premium', name: 'Awak Ring 定制款', price: '¥2,999', color: '玫瑰金', img: 'https://i.ibb.co/hR6jS51T/6.png' },
 ];
 
 const SmartRingPage: React.FC = () => {
@@ -44,9 +44,9 @@ const SmartRingPage: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-12 uppercase">
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight mb-16 uppercase">
               AWAK RING <br/> 
-              <span className="text-white">看懂身体变化</span>
+              <span className="text-white block mt-6">看懂身体变化</span>
             </h1>
             <p className="text-white/60 text-xl md:text-2xl font-medium leading-relaxed mb-12 max-w-2xl">
               用一枚戒指，持续感知你的状态。读懂身体每一次细微变化，并转化为可执行的健康行动。
@@ -106,21 +106,21 @@ const SmartRingPage: React.FC = () => {
             {[
               {
                 id: 'base',
-                title: '基础版',
+                title: '基础款',
                 subtitle: '日常生理监测',
                 img: RING_VARIANTS[0].img,
                 specs: ["钛合金", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查）", "运动检测", "梅脱METS", "姿态和行沩轨迹 AI营养师", "炎症反应"]
               },
               {
                 id: 'sport',
-                title: '运动版',
+                title: '运动款',
                 subtitle: '针对训练优化',
                 img: RING_VARIANTS[1].img,
                 specs: ["外圈可拆卸", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查） 血压检测", "运动检测", "梅脱METS", "姿态和行为轨迹 AI营养师", "炎症反应"]
               },
               {
                 id: 'fashion',
-                title: '时尚版',
+                title: '时尚款',
                 subtitle: '时尚设计',
                 img: RING_VARIANTS[2].img,
                 specs: ["时尚设计", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查） 血压检测", "运动检测", "梅脱METS", "姿态和行轨迹 AI营养师", "炎症反应"]
@@ -132,10 +132,13 @@ const SmartRingPage: React.FC = () => {
                 img: RING_VARIANTS[3].img,
                 specs: ["贵金属", "IP联名", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查） 血压检测", "运动检测", "梅脱METS", "姿态和行轨迹 AI营养师", "炎症反应"]
               }
-            ].map((card) => (
+            ].map((card) => {
+              // 统一视觉尺寸：运动款/定制款源图留白更大，需要单独放大以匹配基础款
+              const imageScale = card.id === 'sport' ? 'scale-[1.55]' : card.id === 'premium' ? 'scale-[1.4]' : 'scale-100';
+              return (
               <div key={card.id} className="bg-black rounded-[24px] overflow-hidden flex flex-col transform transition-all hover:scale-[1.02] h-full min-h-[680px] border border-white/10 shadow-2xl">
-                <div className="bg-white/[0.03] aspect-square flex items-center justify-center p-12">
-                  <img src={card.img} alt={card.title} className="w-full h-auto object-contain" />
+                <div className="bg-white/[0.03] h-[280px] sm:h-[300px] md:h-[340px] shrink-0 flex items-center justify-center p-10 md:p-12">
+                  <img src={card.img} alt={card.title} className={`max-h-full w-full max-w-full object-contain transition-transform ${imageScale}`} />
                 </div>
                 <div className="p-10 flex flex-col items-center text-center flex-1">
                   <h3 className="text-white text-2xl font-black mb-2">{card.title}</h3>
@@ -152,24 +155,25 @@ const SmartRingPage: React.FC = () => {
                   </button>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* SECTION: LIFESTYLE GALLERY */}
-      <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
-        <div className="flex flex-col gap-12 mb-16">
+      <section className="bg-[#FFFFFF] min-h-[100dvh] md:h-[100dvh] py-12 md:py-14 px-6 md:px-[170px] border-none flex flex-col">
+        <div className="flex flex-col gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
           <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">指尖健康，触手可及</h2>
-          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">Awak Ring 以航空级钛合金铸造，重量仅 4.8g，全程无屏，数据在感知，生活不打扰。</p>
+          <p className="text-[#1D1D1F] text-lg md:text-xl font-medium max-w-2xl">Awak Ring 以航空级钛合金铸造，重量仅 4.8g，全程无屏，数据在感知，生活不打扰。</p>
         </div>
         
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5 md:gap-6 md:flex-1 md:min-h-0">
           {/* Row 1: 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[500px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 h-auto md:flex-[0_0_58%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/N62vFRxv/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring-2.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">静谧监测</span>
                      <h3 className="text-white text-2xl font-black">24/7全天候呼吸频率与心率捕捉</h3>
@@ -178,7 +182,7 @@ const SmartRingPage: React.FC = () => {
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/B5tmTR92/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring-3.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">睡眠追踪</span>
                      <h3 className="text-white text-2xl font-black">深度睡眠阶段精准分析</h3>
@@ -188,22 +192,22 @@ const SmartRingPage: React.FC = () => {
           </div>
           
           {/* Row 2: 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 h-auto md:flex-[0_0_42%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
-                <img src="https://i.ibb.co/fG4mkFd2/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring-4.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <img src="https://i.ibb.co/xKgfc5rN/Oura.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">运动感知自动识别</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/rGBsRRmc/Dreame-AI-Smart-Ring-Life-s-little-moments-upgraded.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">AI 智能分析方案</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/NdKRwh1g/Dreame-AI-Smart-Ring-Stay-present-yet-connected.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">时刻连接，尽在掌控</h3>
                 </div>
              </div>

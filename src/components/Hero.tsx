@@ -8,25 +8,25 @@ export default function Hero() {
   const navigate = useNavigate();
   const { withPath } = useLocalePath();
   return (
-    <section className="relative min-h-screen flex flex-col items-end justify-center pt-24 pb-24 mb-0 overflow-hidden bg-[#161617] text-white w-full pl-6 pr-6 md:pl-[170px] md:pr-[85px]">
+    <section className="relative flex flex-1 min-h-0 flex-col items-end justify-center pt-20 pb-6 md:pt-16 md:pb-8 mb-0 overflow-hidden bg-[#161617] text-white w-full pl-6 pr-6 md:pl-[170px] md:pr-[85px]">
       {/* 交互式背景 - 视频/图片 */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-brand-white">
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#161617]">
         <img 
           src="https://i.ibb.co/6JqSk9k4/hero.png"
           alt="Hero Background"
-          className="w-full h-full object-cover transition-all duration-1000 scale-[1.2]"
+          className="w-full h-full object-cover object-left transition-all duration-1000 scale-[1.02] translate-x-0"
           referrerPolicy="no-referrer"
         />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 w-full mx-auto pb-12 flex flex-col items-end text-right">
+      <div className="relative z-20 w-full mx-auto pb-4 md:pb-6 flex flex-col items-end text-right">
         <div className="max-w-7xl flex flex-col items-end">
           <motion.h1 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-7xl md:text-[100px] lg:text-[120px] font-black leading-[1.05] tracking-[-3px] text-white"
+            className="text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] font-black leading-[1.05] tracking-[-3px] text-white"
           >
             {t('home.hero.title')}
           </motion.h1>
@@ -44,7 +44,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap justify-end gap-6 mt-12"
+            className="flex flex-wrap justify-end gap-4 md:gap-6 mt-6 md:mt-8"
           >
             <motion.button
               whileHover={{ scale: 0.97, backgroundColor: "#E6FF00", color: "#1D1D1F" }}

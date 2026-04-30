@@ -375,11 +375,7 @@ export default function StorePage() {
               />
             </AnimatePresence>
 
-            {/* 360° Indicator */}
-            <div className="absolute bottom-4 right-4 bg-white/10 text-white shadow-sm backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2 pointer-events-none">
-              <RefreshCw className="w-4 h-4 text-white/70" />
-              <span className="text-white/70 text-xs font-bold font-mono">360°</span>
-            </div>
+            {/* 360° Indicator removed */}
             
             {/* Hover hint */}
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 text-white shadow-sm backdrop-blur-md p-2 rounded-full border border-white/10 pointer-events-none">
@@ -395,7 +391,15 @@ export default function StorePage() {
                 onClick={() => setActiveThumb(idx)}
                 className={`w-[80px] h-[80px] rounded-lg overflow-hidden border ${activeThumb === idx ? 'border-white' : 'border-white/10 opacity-50 hover:opacity-100'} transition-all`}
               >
-                <img src={v.img} className="w-full h-full object-contain bg-white/5" referrerPolicy="no-referrer" />
+                <img
+                  src={v.img}
+                  referrerPolicy="no-referrer"
+                  className={`w-full h-full object-contain bg-white/5 transition-transform ${
+                    activeCategory.id === 'ring' && v?.name?.includes('唯一定制款') ? 'scale-[1.25]' :
+                    activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款') ? 'scale-[0.72]' :
+                    'scale-100'
+                  }`}
+                />
               </button>
             ))}
           </div>
@@ -491,39 +495,41 @@ export default function StorePage() {
             ) : null}
 
             {/* ④ 尺寸选择器 */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[13px] text-white/40">戒圈尺寸</span>
-                <button onClick={() => setIsSizeGuideOpen(true)} className="text-[13px] text-white/60 hover:underline">尺寸指南</button>
+            {activeCategory.id === 'ring' && (
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[13px] text-white/40">戒圈尺寸</span>
+                  <button onClick={() => setIsSizeGuideOpen(true)} className="text-[13px] text-white/60 hover:underline">尺寸指南</button>
+                </div>
+                <div className="grid grid-cols-7 gap-2">
+                  {[7, 8, 9, 10, 11, 12, 13].map(size => {
+                    const outOfStock = false;
+                    const isSelected = selectedSize === size;
+                    return (
+                      <button
+                        key={size}
+                        disabled={outOfStock}
+                        onClick={() => setSelectedSize(size)}
+                        className={`relative h-10 rounded-full flex items-center justify-center text-[12px] font-mono transition-colors ${
+                          outOfStock ? 'border border-white/10 text-white/25 cursor-not-allowed overflow-hidden' :
+                          isSelected ? 'border-2 border-white bg-white/10 text-white font-bold' :
+                          'border border-white/15 bg-transparent text-white/60 hover:text-white hover:border-white/30'
+                        }`}
+                      >
+                        {outOfStock && <div className="absolute w-[120%] h-[1px] bg-white/20 rotate-45" />}
+                        US {size}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
-              <div className="grid grid-cols-5 gap-2">
-                {[6, 7, 8, 9, 10].map(size => {
-                  const outOfStock = size === 11;
-                  const isSelected = selectedSize === size;
-                  return (
-                    <button
-                      key={size}
-                      disabled={outOfStock}
-                      onClick={() => setSelectedSize(size)}
-                      className={`relative h-10 rounded-full flex items-center justify-center text-sm font-mono transition-colors ${
-                        outOfStock ? 'border border-white/10 text-white/25 cursor-not-allowed overflow-hidden' :
-                        isSelected ? 'border-2 border-white bg-white/10 text-white font-bold' : 
-                        'border border-white/15 bg-transparent text-white/60 hover:text-white hover:border-white/30'
-                      }`}
-                    >
-                      {outOfStock && <div className="absolute w-[120%] h-[1px] bg-white/20 rotate-45" />}
-                      US {size}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
+            )}
 
             {/* ⑤ CTA 操作区 */}
             <div className="flex flex-col gap-[var(--card-gap)] mb-6 mt-[var(--block-gap)]">
               <div className="flex items-center justify-center gap-2 mb-3">
                 <Box className="w-4 h-4 text-[#86868B]" />
-                <span className="text-[length:var(--text-small)] text-[#86868B]">免费配送 · 30天无忧退换</span>
+                <span className="text-[length:var(--text-small)] text-[#86868B]">免费配送 • 7天无理由退货</span>
               </div>
               <button onClick={() => setIsCartOpen(true)} className="bg-white/10 hover:bg-white/20 text-[#FFFFFF] px-8 py-4 rounded-full text-base font-bold shadow-none border-none transition-all w-full text-center">
                 加入购物车
@@ -539,9 +545,9 @@ export default function StorePage() {
             {/* ⑥ 信任背书小图标栏 */}
             <div className="grid grid-cols-4 gap-2 mb-10 pt-8 border-t border-[rgba(255,255,255,0.08)]">
               {[
-                { icon: Shield, text: '18个月质保' },
-                { icon: RefreshCw, text: '30天退换' },
-                { icon: Zap, text: '当日发货' },
+                { icon: Shield, text: '官方质保' },
+                { icon: RefreshCw, text: '以旧换新' },
+                { icon: Zap, text: '7天价保' },
                 { icon: Lock, text: '数据加密' }
               ].map((item, i) => (
                 <div key={i} className="flex flex-col items-center justify-center gap-2 text-[#6E6E73]">
@@ -555,16 +561,16 @@ export default function StorePage() {
             <div className="border-t border-[rgba(255,255,255,0.08)]">
               <HeroAccordion title="产品简介" defaultOpen>
                 <ul className="text-[#86868B] text-sm space-y-2 list-disc pl-4">
-                  <li>航空级钛合金材质，重量仅 4.8g，无感佩戴</li>
-                  <li>医疗级传感器阵列，7×24小时连续监测血氧及心率</li>
-                  <li>最长 7 天超长续航，支持 50 米深度防水</li>
+                  <li>无感佩戴 重量仅 5g</li>
+                  <li>医疗级传感器阵列，全天候监测血氧及心率</li>
+                  <li>最长7天超长续航，支持深度防水</li>
                 </ul>
               </HeroAccordion>
               <HeroAccordion title="配送说明">
                 <p className="text-[#86868B] text-sm">所有订单由顺丰速运免费配送，预计工作日内发货将在 1-3 天送达。如有延迟将另行通知。</p>
               </HeroAccordion>
               <HeroAccordion title="退换政策">
-                <p className="text-[#86868B] text-sm">自您签收商品起 30 日内，如商品及包装完好（不影响二次销售），我们提供无理由退换货服务。</p>
+                <p className="text-[#86868B] text-sm">自您签收商品起 7 日内，如商品及包装完好（不影响二次销售），我们提供无理由退货服务。</p>
               </HeroAccordion>
               <HeroAccordion title="产品证书">
                 <p className="text-[#86868B] text-sm">本产品已符合FCC、CE、RoSH等强制标准，并符合 ISO 13485 医疗器械质量管理体系标准。</p>
@@ -576,62 +582,50 @@ export default function StorePage() {
       </div>
       </div>
       {/* SECTION 4: IN THE BOX (REWRITTEN) */}
-      <section className="bg-[#F5F5F7] py-[60px] px-6 md:px-[170px] text-[#1D1D1F] overflow-hidden">
-        <div className="max-w-[1700px] mx-auto">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            {/* LEFT: Large Image */}
-            <div className="w-full md:w-[60%] px-10 reveal">
-               <div className="relative w-full h-full">
-                 <img 
-                   src={activeCategory.id === 'bracelet' ? 'https://i.ibb.co/xS01Jf1z/image.png' : 'https://i.ibb.co/WvZDYkvK/image.png'} 
-                   className="w-full h-auto scale-110 object-cover" 
-                   alt="Packaging Large" 
-                 />
-               </div>
-            </div>
-
-            {/* RIGHT: Text Content */}
-            <div className="w-full md:w-[40%] reveal" style={{ transitionDelay: '200ms' }}>
-              <div className="mb-10">
-                <h2 className="text-[length:var(--text-hero)] font-bold mb-4 tracking-tighter leading-[var(--leading-title)] text-[#1D1D1F]">每一件，<br/>都经过精心设计</h2>
-                <p className="text-[#86868B] text-[length:var(--text-small)] tracking-[0.4em] uppercase font-bold">包装内容 IN THE BOX</p>
+      {(activeCategory.id === 'ring' || activeCategory.id === 'bracelet') && (
+        <section className="bg-[#F5F5F7] py-[60px] px-6 md:px-[170px] text-[#1D1D1F] overflow-hidden">
+          <div className="max-w-[1700px] mx-auto">
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              {/* LEFT: Large Image */}
+              <div className="w-full md:w-[60%] px-10 reveal">
+                 <div className="relative w-full h-full">
+                   <img 
+                     src={activeCategory.id === 'bracelet' ? 'https://i.ibb.co/xS01Jf1z/image.png' : 'https://i.ibb.co/WvZDYkvK/image.png'} 
+                     className="w-full h-auto scale-110 object-cover" 
+                     alt="Packaging Large" 
+                   />
+                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                {activeCategory.id === 'bracelet' ? (
-                  <>
-                    <BoxItem icon={<Box size={24}/>} name="AWAK BRACELET × 1" desc="主机｜轻量化健康监测手环" />
-                    <BoxItem icon={<Zap size={24}/>} name="磁吸充电模块 × 1" desc="专用充电方式｜支持全天候佩戴设计" />
-                    <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="官方质保服务（12–18个月，视地区）" />
-                    <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语说明｜含 App 下载与绑定指引" />
-                  </>
-                ) : activeCategory.id === 'watch' ? (
-                  <>
-                    <BoxItem icon={<Box size={24}/>} name="AWAK WATCH × 1" desc="主机｜按所选型号与尺寸交付" />
-                    <BoxItem icon={<Zap size={24}/>} name="磁吸充电线 × 1" desc="专用充电接口｜快速磁吸充电" />
-                    <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="官方质保服务（18个月）" />
-                    <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语说明｜含 App 下载与连接指引" />
-                  </>
-                ) : activeCategory.id === 'glasses' ? (
-                  <>
-                    <BoxItem icon={<Box size={24}/>} name="无障碍智能眼镜 × 1" desc="轻量化佩戴设备｜支持听障与视障辅助功能" />
-                    <BoxItem icon={<Zap size={24}/>} name="智能充电盒 × 1" desc="便携收纳 + 快速充电一体设计" />
-                    <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="官方质保服务（12–18个月）" />
-                    <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语说明｜含功能使用与连接引导" />
-                  </>
-                ) : (
-                  <>
-                    <BoxItem icon={<Box size={24}/>} name="AWAK Ring × 1" desc="本体，含所选颜色尺寸" />
-                    <BoxItem icon={<Zap size={24}/>} name="触点充电仓 × 1" desc="支持无线充电，兼容Qi" />
-                    <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="18个月官方质保" />
-                    <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语，含App下载码" />
-                  </>
-                )}
+              {/* RIGHT: Text Content */}
+              <div className="w-full md:w-[40%] reveal" style={{ transitionDelay: '200ms' }}>
+                <div className="mb-10">
+                  <h2 className="text-[length:var(--text-hero)] font-bold mb-4 tracking-tighter leading-[var(--leading-title)] text-[#1D1D1F]">每一件，<br/>都经过精心设计</h2>
+                  <p className="text-[#86868B] text-[length:var(--text-small)] tracking-[0.4em] uppercase font-bold">包装内容 IN THE BOX</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  {activeCategory.id === 'bracelet' ? (
+                    <>
+                      <BoxItem icon={<Box size={24}/>} name="AWAK BRACELET × 1" desc="主机｜轻量化健康监测手环" />
+                      <BoxItem icon={<Zap size={24}/>} name="磁吸充电模块 × 1" desc="专用充电方式｜支持全天候佩戴设计" />
+                      <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="官方质保服务（12–18个月，视地区）" />
+                      <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语说明｜含 App 下载与绑定指引" />
+                    </>
+                  ) : (
+                    <>
+                      <BoxItem icon={<Box size={24}/>} name="AWAK Ring × 1" desc="本体，含所选颜色尺寸" />
+                      <BoxItem icon={<Zap size={24}/>} name="触点充电仓 × 1" desc="支持无线充电，兼容Qi" />
+                      <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="18个月官方质保" />
+                      <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语，含App下载码" />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* SECTION 3: HEALTH METRICS (REWRITTEN) */}
       <section className="bg-[#F5F5F7] py-16 px-6 md:px-[170px] text-[#1D1D1F] border-t-0">
@@ -1002,19 +996,21 @@ export default function StorePage() {
                 <table className="w-full min-w-[500px]">
                   <thead>
                     <tr className="border-b border-white/10 text-[#6E6E73] text-left text-sm uppercase">
-                      <th className="py-3 font-medium">AWAK Ring 尺寸</th>
-                      <th className="py-3 font-medium">内径 (mm)</th>
-                      <th className="py-3 font-medium">对应指围 (mm)</th>
-                      <th className="py-3 font-medium">适合手指宽度</th>
+                      <th className="py-3 font-medium">尺寸（US）</th>
+                      <th className="py-3 font-medium">内径（mm）</th>
+                      <th className="py-3 font-medium">对应指围（mm）</th>
+                      <th className="py-3 font-medium">适合手指类型</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[
-                      { size: 'US 6', d: '16.5', c: '51.8', t: '细手指' },
                       { size: 'US 7', d: '17.3', c: '54.4', t: '标准细' },
                       { size: 'US 8', d: '18.2', c: '57.1', t: '标准' },
-                      { size: 'US 9', d: '19.0', c: '59.7', t: '标准粗' },
+                      { size: 'US 9', d: '19.0', c: '59.7', t: '标准偏粗' },
                       { size: 'US 10', d: '19.8', c: '62.2', t: '粗手指' },
+                      { size: 'US 11', d: '20.6', c: '64.6', t: '较粗手指' },
+                      { size: 'US 12', d: '21.4', c: '67.2', t: '更粗手指' },
+                      { size: 'US 13', d: '22.2', c: '69.7', t: '宽手指' },
                     ].map((row, i) => (
                       <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/5">
                         <td className="py-4 font-bold text-[#DDF700]">{row.size}</td>

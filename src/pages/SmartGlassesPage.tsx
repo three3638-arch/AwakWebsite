@@ -48,9 +48,9 @@ const SmartGlassesPage: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-12 uppercase">
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight mb-16 uppercase">
               AWAK GLASSES <br/> 
-              <span className="text-white">听见看见世界</span>
+              <span className="text-white block mt-6">听见看见世界</span>
             </h1>
             <p className="text-white/60 text-xl md:text-2xl font-medium leading-relaxed mb-12 max-w-2xl">
               科技助残，让生活更无障碍。专为听视障人群设计的智能感知硬件，让感官能力得以延展。
@@ -155,29 +155,27 @@ const SmartGlassesPage: React.FC = () => {
       </section>
 
       {/* SECTION: LIFESTYLE GALLERY */}
-      <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
-        <div className="flex flex-col gap-12 mb-16">
+      <section className="bg-[#FFFFFF] min-h-[100dvh] md:h-[100dvh] py-12 md:py-14 px-6 md:px-[170px] border-none flex flex-col">
+        <div className="flex flex-col gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
           <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">科技让沟通无国界，感官无阻碍</h2>
-          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">无论是听视障人群，或是在复杂环境中的每一个人，AWAK Glasses 让声音被看见，文字被听见，让世界重新变得可理解与可抵达</p>
+          <p className="text-[#1D1D1F] text-lg md:text-xl font-medium max-w-2xl">无论是听视障人群，或是在复杂环境中的每一个人，AWAK Glasses 让声音被看见，文字被听见，让世界重新变得可理解与可抵达</p>
         </div>
         
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5 md:gap-6 md:flex-1 md:min-h-0">
           {/* Row 1: 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[500px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 h-auto md:flex-[0_0_58%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
-                <img src="https://i.ibb.co/spF95CMZ/51-Pinterest.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <img src="https://i.ibb.co/fGyWsKLp/image.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
-                     <span className="text-white/40 text-xs font-black tracking-widest uppercase">社交办公</span>
                      <h3 className="text-white text-2xl font-black">手语翻译，让交流如指尖般流利</h3>
                    </div>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/twqY60cm/HEKTIK-Optics-Pin.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
-                     <span className="text-white/40 text-xs font-black tracking-widest uppercase">智能导航</span>
                      <h3 className="text-white text-2xl font-black">视界延展，避障预警安全随行</h3>
                    </div>
                 </div>
@@ -185,22 +183,22 @@ const SmartGlassesPage: React.FC = () => {
           </div>
           
           {/* Row 2: 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 h-auto md:flex-[0_0_42%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/XZgJph37/Metas-New-Personal-Superintelligence-AI-Is-Coming-to-Its-Smart-Glasses.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">AI 智能分析方案</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/7JhBLGs9/image.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">多场景沟通无碍</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/j9m3kTfk/image.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">时刻感知，生活无阻</h3>
                 </div>
              </div>

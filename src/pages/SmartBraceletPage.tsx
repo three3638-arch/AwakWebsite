@@ -59,9 +59,9 @@ const SmartBraceletPage: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-12">
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight mb-16">
               AWAK BRACELET <br/> 
-              <span className="text-white">轻盈守护，时刻在线</span>
+              <span className="text-white block mt-6">轻盈守护，时刻在线</span>
             </h1>
             <p className="text-white/60 text-xl md:text-2xl font-medium leading-relaxed mb-12 max-w-2xl">
               55-75岁银发专属健康守护。不仅是一枚手环，更是理解你身体频率的贴身伙伴。
@@ -90,7 +90,7 @@ const SmartBraceletPage: React.FC = () => {
           
           <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
-              { title: "紧急呼救", value: 99, suffix: "%", subtitle: "异常状态极速响应" },
+              { title: "持续监测", value: 24, suffix: "小时", subtitle: "关键体征全天候自主记录" },
               { title: "精准预警", value: 95, suffix: "%", subtitle: "房颤/早搏精准筛查" },
               { title: "超长续航", value: 30, suffix: "天", subtitle: "免除频繁充电烦忧" },
               { title: "家人共享", value: 100, suffix: "%", subtitle: "健康数据全家云同步" },
@@ -121,36 +121,36 @@ const SmartBraceletPage: React.FC = () => {
             {[
               {
                 id: 'base',
-                title: '基础版',
+                title: '尼龙款',
                 subtitle: '银发守护基础',
                 img: BRACELET_VARIANTS[0].img,
                 specs: commonSpecs
               },
               {
                 id: 'sport',
-                title: '运动版',
+                title: '橡胶款',
                 subtitle: '科学运动辅助',
                 img: BRACELET_VARIANTS[1].img,
                 specs: commonSpecs
               },
               {
                 id: 'fashion',
-                title: '时尚款',
+                title: '真皮款',
                 subtitle: '精致百变设计',
                 img: BRACELET_VARIANTS[2].img,
                 specs: commonSpecs
               },
               {
                 id: 'premium',
-                title: '定制款',
+                title: '金属款',
                 subtitle: '极奢专属定制',
                 img: BRACELET_VARIANTS[3].img,
                 specs: commonSpecs
               }
             ].map((card) => (
               <div key={card.id} className="bg-black rounded-[24px] overflow-hidden flex flex-col transform transition-all hover:scale-[1.02] h-full min-h-[680px] border border-white/10 shadow-2xl">
-                <div className="bg-white/[0.03] aspect-square flex items-center justify-center p-12">
-                  <img src={card.img} alt={card.title} className="w-full h-auto object-contain" />
+                <div className="bg-white/[0.03] h-[320px] md:h-[360px] flex items-center justify-center p-10 md:p-12">
+                  <img src={card.img} alt={card.title} className="w-full h-full object-contain" />
                 </div>
                 <div className="p-10 flex flex-col items-center text-center flex-1">
                   <h3 className="text-white text-2xl font-black mb-2">{card.title}</h3>
@@ -173,18 +173,18 @@ const SmartBraceletPage: React.FC = () => {
       </section>
 
       {/* SECTION: LIFESTYLE GALLERY */}
-      <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
-        <div className="flex flex-col gap-12 mb-16">
+      <section className="bg-[#FFFFFF] min-h-[100dvh] md:h-[100dvh] py-12 md:py-14 px-6 md:px-[170px] border-none flex flex-col">
+        <div className="flex flex-col gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
           <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight">早点，让一切都来得及</h2>
-          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">每一个细微变化都被看见不打扰，却始终在场，让关爱从未缺席</p>
+          <p className="text-[#1D1D1F] text-lg md:text-xl font-medium max-w-2xl">每一个细微变化都被看见不打扰，却始终在场，让关爱从未缺席</p>
         </div>
         
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5 md:gap-6 md:flex-1 md:min-h-0">
           {/* Row 1: 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[500px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 h-auto md:flex-[0_0_58%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/4gS1WHS4/51-Pinterest.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">静谧监测</span>
                      <h3 className="text-white text-2xl font-black">24/7 全天候心率捕捉</h3>
@@ -192,8 +192,8 @@ const SmartBraceletPage: React.FC = () => {
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
-                <img src="https://i.ibb.co/kgQMX4yK/Quote.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <img src="https://i.ibb.co/twR5nDWT/WHOOP-Unlock-Human-Performance-Healthspan.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">深度睡眠</span>
                      <h3 className="text-white text-2xl font-black">精准分析睡眠阶段</h3>
@@ -203,22 +203,22 @@ const SmartBraceletPage: React.FC = () => {
           </div>
           
           {/* Row 2: 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 h-auto md:flex-[0_0_42%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/DHN2kG05/MG-Super-Knit-Band-WHOOP-The-Worlds-Most-Powerful-Fitness-Membership.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">运动负荷感知</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
-                <img src="https://i.ibb.co/twR5nDWT/WHOOP-Unlock-Human-Performance-Healthspan.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <img src="https://i.ibb.co/kgQMX4yK/Quote.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">AI 智能方案</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/jvdwpsVj/jimeng-2026-04-03-1901-1-logo.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">持久续航，时刻相伴</h3>
                 </div>
              </div>

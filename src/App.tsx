@@ -26,8 +26,10 @@ import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
 function HomePage() {
   return (
     <>
-      <Hero />
-      <TrustBanner />
+      <div className="flex min-h-[100dvh] flex-col">
+        <Hero />
+        <TrustBanner />
+      </div>
       <TeamSection />
       <section className="bg-[#F5F5F3]">
         <ImmersiveScenarios />

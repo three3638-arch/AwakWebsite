@@ -1,155 +1,198 @@
-import React, { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useMemo } from 'react';
+import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 
-const NODE_ANGLES = [-90, -18, 54, 126, 198];
+const ACCENT = '#d4ff00';
+const CARD_CLASSES = ['vp-m1', 'vp-m2', 'vp-m3', 'vp-m4', 'vp-m5'] as const;
 
 export default function ValueProposition() {
-  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const { t } = useTranslation('common');
 
+  const ticks = useMemo(() => Array.from({ length: 360 }, (_, i) => i), []);
   const cycleNodes = useMemo(() => {
     const nodes = t('home.valueLoop.nodes', { returnObjects: true }) as { title: string; desc: string }[];
-    return nodes.map((n, i) => ({
-      ...n,
+    return nodes.map((node, i) => ({
+      ...node,
       id: String(i + 1).padStart(2, '0'),
-      angle: NODE_ANGLES[i],
+      className: CARD_CLASSES[i] ?? CARD_CLASSES[0],
     }));
   }, [t]);
 
   return (
-    <section className="relative bg-[#F5F5F7] py-[100px] px-6 md:px-[170px] overflow-hidden min-h-[850px] flex flex-col items-center justify-start w-full">
-      
-      {/* Title - Optimized spacing and contrast */}
-      <div className="relative text-center z-[10] mt-[20px] px-6">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-[#1D1D1F] text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight mb-4"
-        >
-          {t('home.valueLoop.title')}
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-[#1D1D1F]/60 text-lg md:text-xl max-w-2xl mx-auto font-medium"
-        >
-          {t('home.valueLoop.subtitle')}
-        </motion.p>
-      </div>
+    <>
+      <style>{`
+        :root {
+          --vp-bg-deep: #050505;
+          --vp-accent-glow: ${ACCENT};
+          --vp-card-bg: rgba(20, 20, 20, 0.9);
+          --vp-text-muted: #888;
+        }
 
-      <div className="relative w-[300px] h-[300px] md:w-[600px] md:h-[600px] mt-[60px] flex items-center justify-center shrink-0">
-        
-        {/* Orbital Structure - Precision base layer with explicit viewBox */}
-        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-          <defs>
-            <linearGradient id="orbitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.8" />
-            </linearGradient>
-          </defs>
+        @keyframes vp-laser-rotate {
+          from { transform: rotate(0deg) translateZ(5px); }
+          to { transform: rotate(360deg) translateZ(5px); }
+        }
 
-          {/* Orbital Circle - Radius 40 */}
-          <circle cx="50" cy="50" r="40" fill="none" stroke="url(#orbitGradient)" strokeWidth="0.5" strokeOpacity="1" />
-          
-          {/* Active Data Trace */}
-          <motion.circle 
-            cx="50" cy="50" r="40" fill="none" stroke="#DDF700" strokeWidth="1" 
-            strokeDasharray="4 1000"
-            strokeLinecap="round"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            style={{ originX: "50px", originY: "50px" }}
-          />
-        </svg>
+        .vp-precision-stage {
+          position: relative;
+          width: 1000px;
+          height: 700px;
+          transform: rotateX(25deg);
+          transform-style: preserve-3d;
+          z-index: 0;
+        }
 
-        {/* Central Core Pulse - Top layer of the center */}
-        <div className="relative z-20">
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.1, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center bg-black/10 backdrop-blur-md"
+        .vp-gyro-dial {
+          position: absolute;
+          width: 650px;
+          height: 650px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) rotateX(-25deg);
+          z-index: 0;
+          pointer-events: none;
+          border-radius: 9999px;
+          border: 4px solid #111;
+          background:
+            radial-gradient(circle at center, #1a1a1a 0%, #000 70%),
+            repeating-radial-gradient(transparent, transparent 1px, rgba(255,255,255,0.02) 2px);
+          box-shadow:
+            0 0 50px rgba(0,0,0,0.8),
+            inset 0 0 30px rgba(212, 255, 0, 0.05);
+        }
+
+        .vp-ticks-layer {
+          position: absolute;
+          inset: 0;
+          transform: translateZ(2px);
+        }
+
+        .vp-tick {
+          position: absolute;
+          width: 1px;
+          height: 8px;
+          background: rgba(255,255,255,0.1);
+          left: 50%;
+          top: 0;
+          transform-origin: center 325px;
+        }
+
+        .vp-laser-pointer {
+          position: absolute;
+          width: 6px;
+          height: 310px;
+          left: 50%;
+          bottom: 50%;
+          transform-origin: bottom center;
+          border-radius: 6px;
+          background: linear-gradient(to top, transparent, var(--vp-accent-glow) 80%, white);
+          filter: drop-shadow(0 0 12px var(--vp-accent-glow));
+          animation: vp-laser-rotate 60s linear infinite;
+          z-index: 0;
+        }
+
+        .vp-awak-module {
+          position: absolute;
+          width: 180px;
+          padding: 25px;
+          border-radius: 20px;
+          background: var(--vp-card-bg);
+          border: 1px solid rgba(255,255,255,0.03);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 15px rgba(212,255,0,0.1);
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          z-index: 10;
+          backface-visibility: hidden;
+        }
+
+        .vp-awak-module:hover {
+          border-color: var(--vp-accent-glow);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,255,0,0.4);
+          transform: translateY(-8px) scale(1.05) !important;
+        }
+
+        /* 卡片在独立 2D 覆盖层中定位（不参与舞台 3D 绘制顺序） */
+        .vp-m1 { top: -5%; left: 50%; transform: translateX(-50%); }
+        .vp-m2 { top: 25%; right: -5%; }
+        .vp-m3 { bottom: 5%; right: 10%; }
+        .vp-m4 { bottom: 5%; left: 10%; }
+        .vp-m5 { top: 25%; left: -5%; }
+      `}</style>
+
+      <section className="relative isolate h-[100dvh] bg-[#050505] px-6 md:px-[170px] pt-14 md:pt-16 pb-8 overflow-hidden text-white flex flex-col">
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-50"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+
+        <div className="relative z-20 text-center mb-4 md:mb-6 shrink-0">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-white text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight mb-3"
           >
-            <div className="w-2.5 h-2.5 bg-[#DDF700] rounded-full shadow-[0_0_15px_#DDF700]" />
-          </motion.div>
+            {t('home.valueLoop.title')}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[#888] text-base md:text-xl max-w-2xl mx-auto font-medium"
+          >
+            {t('home.valueLoop.subtitle')}
+          </motion.p>
         </div>
 
-        {/* Nodes - Center Anchored Coordinate Positioning (Middle layer) */}
-        {cycleNodes.map((node, index) => {
-          const angleRad = (node.angle * Math.PI) / 180;
-          // Exact coordinate calculation to lock onto the 40 radius orbit
-          const x = 50 + 40 * Math.cos(angleRad);
-          const y = 50 + 40 * Math.sin(angleRad);
-
-          return (
-            <motion.div
-              key={node.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-              className="absolute z-10"
-              style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
-              onMouseEnter={() => setHoveredNode(node.id)}
-              onMouseLeave={() => setHoveredNode(null)}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="relative cursor-pointer group"
-              >
-                {/* Premium Dark Glassmorphism Card for Absolute Contrast */}
-                <div className="w-[140px] md:w-[170px] p-5 rounded-[22px] bg-[#1D1D1F] backdrop-blur-2xl border border-white/[0.05] transition-all duration-500 group-hover:border-white/50 shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
-                  
-                  {/* Cyber Green Number ID */}
-                  <span className="text-white text-4xl font-extralight leading-none mb-3 block">
-                    {node.id}
-                  </span>
-                  
-                  <h3 className="text-[#FFFFFF] text-sm md:text-base font-black mb-1.5 tracking-tight uppercase">
-                    {node.title}
-                  </h3>
-                  
-                  {/* High Contrast White Text for readability on Dark Background */}
-                  <p className="text-[#FFFFFF]/70 text-[10px] md:text-[11px] leading-relaxed font-medium">
-                    {node.desc}
-                  </p>
+        <div className="relative z-0 flex flex-1 min-h-0 items-center justify-center [perspective:2000px]">
+          <div className="relative origin-center scale-[0.58] sm:scale-[0.68] md:scale-[0.78] lg:scale-[0.86] xl:scale-[0.92]">
+            <div className="vp-precision-stage">
+              <div className="vp-gyro-dial">
+                <div className="vp-ticks-layer">
+                  {ticks.map((tick) => {
+                    const major = tick % 15 === 0;
+                    const keyNode = tick % 90 === 0;
+                    return (
+                      <div
+                        key={tick}
+                        className="vp-tick"
+                        style={{
+                          height: major ? 18 : 8,
+                          width: major ? 2 : 1,
+                          background: keyNode ? ACCENT : major ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)',
+                          filter: keyNode ? `drop-shadow(0 0 5px ${ACCENT})` : undefined,
+                          transform: `rotate(${tick}deg)`,
+                        }}
+                      />
+                    );
+                  })}
                 </div>
-              </motion.div>
-            </motion.div>
-          );
-        })}
+                <div className="vp-laser-pointer" aria-hidden />
+              </div>
+            </div>
 
-        {/* Data Ripple interaction */}
-        <AnimatePresence>
-          {hoveredNode && (
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-[5]">
-              <motion.line
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                exit={{ pathLength: 0 }}
-                x1="50%" y1="50%"
-                x2={`${50 + 40 * Math.cos((cycleNodes.find(n => n.id === hoveredNode)!.angle * Math.PI) / 180)}%`}
-                y2={`${50 + 40 * Math.sin((cycleNodes.find(n => n.id === hoveredNode)!.angle * Math.PI) / 180)}%`}
-                stroke="#DDF700"
-                strokeWidth="0.5"
-                strokeOpacity="0.3"
-                strokeDasharray="2 4"
-              />
-            </svg>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Spacing Guardrails */}
-      <div className="absolute left-[170px] inset-y-0 w-[1px] bg-black/5 pointer-events-none" />
-      <div className="absolute right-[170px] inset-y-0 w-[1px] bg-black/5 pointer-events-none" />
-    </section>
+            <div className="absolute inset-0 z-10">
+              {cycleNodes.map((node, idx) => (
+                <motion.div
+                  key={node.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.25 }}
+                  className={`vp-awak-module ${node.className}`}
+                >
+                  <div className="mb-2.5 font-mono text-sm text-[#555]">AWAK / SYSTEM_{node.id}</div>
+                  <h3 className="m-0 mb-2 text-xl font-semibold text-white">{node.title}</h3>
+                  <p className="m-0 text-[13px] leading-normal text-[#888]">{node.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

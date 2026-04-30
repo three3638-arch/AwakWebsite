@@ -44,9 +44,9 @@ const SmartWatchPage: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-12 uppercase">
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight mb-16 uppercase">
               AWAK WATCH <br/> 
-              <span className="text-white">掌控运动状态</span>
+              <span className="text-white block mt-6">掌控运动状态</span>
             </h1>
             <p className="text-white/60 text-xl md:text-2xl font-medium leading-relaxed mb-12 max-w-2xl">
               持续感知状态，理解每一次身体变化。航天级金属打造，专为突破潜能的你而生。
@@ -109,33 +109,33 @@ const SmartWatchPage: React.FC = () => {
                 title: '基础版',
                 subtitle: '日常监控',
                 img: WATCH_VARIANTS[0].img,
-                specs: ["睡眠监测", "心率监测", "血氧饱和度", "运动检测", "运动模式", "轻量分析", "运动强度", "情绪压力"]
+                specs: ["睡眠监测", "心率监测", "血氧饱和度", "运动检测", "运动模式", "轻量分析", "运动强度", "情绪压力", "姿势&行为轨迹"]
               },
               {
                 id: 'pro',
                 title: '专业版',
                 subtitle: '专业训练',
                 img: WATCH_VARIANTS[1].img,
-                specs: ["心率", "睡眠监测", "血氧饱和度", "运动模式", "运动强度", "运动分析", "姿态 & 行为轨迹", "训练负荷分析", "HRV"]
+                specs: ["睡眠监测", "心率监测", "血氧饱和度", "运动检测", "运动模式", "轻量分析", "运动强度", "情绪压力", "姿势&行为轨迹"]
               },
               {
                 id: 'custom',
                 title: '尊享款',
                 subtitle: '极限探索',
                 img: WATCH_VARIANTS[2].img,
-                specs: ["高精度心率", "血氧饱和度", "睡眠监测", "运动模式", "潜水模式", "专业分析", "运动强度", "姿态 & 行为轨迹", "HRV", "训练负荷"]
+                specs: ["睡眠监测", "高精度心率监测", "血氧饱和度", "运动检测", "运动模式", "轻量分析", "运动强度", "情绪压力", "姿势&行为轨迹", "潜水模式"]
               },
               {
                 id: 'medical',
                 title: '医疗款',
                 subtitle: '医疗级监护',
                 img: WATCH_VARIANTS[3].img,
-                specs: ["心率监测", "HRV", "ECG 心电监测", "血压检测", "血氧饱和度", "体温监测", "睡眠监测", "行为与健康分析", "姿态 & 行为轨迹", "运动检测", "运动强度", "情绪压力分析"]
+                specs: ["睡眠监测", "高精度心率监测", "血氧饱和度", "运动检测", "运动模式", "轻量分析", "运动强度", "情绪压力", "姿势&行为轨迹", "潜水模式", "ECG心电监测", "血压检测", "行为与健康分析"]
               }
             ].map((card) => (
               <div key={card.id} className="bg-black rounded-[24px] overflow-hidden flex flex-col transform transition-all hover:scale-[1.02] h-full min-h-[680px] border border-white/10 shadow-2xl">
-                <div className="bg-white/[0.03] aspect-square flex items-center justify-center p-12">
-                  <img src={card.img} alt={card.title} className="w-full h-auto object-contain" />
+                <div className="bg-white/[0.03] h-[320px] md:h-[360px] flex items-center justify-center p-10 md:p-12">
+                  <img src={card.img} alt={card.title} className="w-full h-full object-contain" />
                 </div>
                 <div className="p-10 flex flex-col items-center text-center flex-1">
                   <h3 className="text-white text-2xl font-black mb-2">{card.title}</h3>
@@ -158,18 +158,18 @@ const SmartWatchPage: React.FC = () => {
       </section>
 
       {/* SECTION: LIFESTYLE GALLERY */}
-      <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
-        <div className="flex flex-col gap-12 mb-16">
+      <section className="bg-[#FFFFFF] min-h-[100dvh] md:h-[100dvh] py-12 md:py-14 px-6 md:px-[170px] border-none flex flex-col">
+        <div className="flex flex-col gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
           <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">专业运动，腕上全能教练</h2>
-          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">从极地荒野到繁华都市，AWAK Watch 始终以最精准的姿态引领你的每一步。</p>
+          <p className="text-[#1D1D1F] text-lg md:text-xl font-medium max-w-2xl">从极地荒野到繁华都市，AWAK Watch 始终以最精准的姿态引领你的每一步。</p>
         </div>
         
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5 md:gap-6 md:flex-1 md:min-h-0">
           {/* Row 1: 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[500px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 h-auto md:flex-[0_0_58%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/WWpxcs9y/51-Pinterest-1.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">户外训练</span>
                      <h3 className="text-white text-2xl font-black">多频双星，位置分秒不差</h3>
@@ -178,7 +178,7 @@ const SmartWatchPage: React.FC = () => {
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/bjhJcCt1/51-Pinterest-2.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8 md:p-10">
                    <div className="flex flex-col gap-2">
                      <span className="text-white/40 text-xs font-black tracking-widest uppercase">静息生活</span>
                      <h3 className="text-white text-2xl font-black">24/7 深度睡眠与压力监测</h3>
@@ -188,22 +188,22 @@ const SmartWatchPage: React.FC = () => {
           </div>
           
           {/* Row 2: 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 h-auto md:flex-[0_0_42%] md:min-h-0">
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/rGrWSFvw/51-Pinterest.webp" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">极致竞技分析</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/0pQfqZQL/Ironway-Pin.png" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">全天候探险伴随</h3>
                 </div>
              </div>
              <div className="rounded-[24px] overflow-hidden group relative">
                 <img src="https://i.ibb.co/ynqTH9m4/CHANEL-Pin.jpg" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-7 md:p-8">
                    <h3 className="text-white text-xl font-black">优雅与力量。</h3>
                 </div>
              </div>
