@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Search, ChevronRight, ArrowRight, Download, Mail, Share2, X, Plus } from 'lucide-react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 // --- Types & Constants ---
 type Category = 'ALL' | 'BRAND' | 'LAUNCH' | 'INSIGHTS' | 'PRESS' | 'STORIES';
@@ -228,9 +228,10 @@ const GlobalStyles = () => (
 
 const ArticleCard = ({ article, type }: { article: Article, type: 'hero' | 'medium' | 'small', onClick?: (a: Article) => void }) => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   return (
     <motion.div 
-      onClick={() => navigate(`/news/${article.id}`)}
+      onClick={() => navigate(withPath(`/news/${article.id}`))}
       className={`article-card flex flex-col group cursor-pointer ${type === 'hero' ? 'md:col-span-6' : type === 'medium' ? 'md:col-span-3' : 'md:col-span-2'}`}
     >
       <div className="article-card-img-wrap mb-6">
@@ -260,6 +261,7 @@ const ArticleCard = ({ article, type }: { article: Article, type: 'hero' | 'medi
 
 const HeaderSection = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   return (
     <section className="relative h-[85vh] w-full bg-[#080808] overflow-hidden flex items-end">
       <div className="absolute inset-0">
@@ -280,7 +282,7 @@ const HeaderSection = () => {
             {MOCK_ARTICLES[0].summary}
           </p>
           <button 
-            onClick={() => navigate(`/news/${MOCK_ARTICLES[0].id}`)}
+            onClick={() => navigate(withPath(`/news/${MOCK_ARTICLES[0].id}`))}
             className="group w-fit bg-white text-black px-10 py-5 rounded-full text-base font-bold flex items-center gap-3 hover:scale-105 transition-all"
           >
             阅读全文 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -327,6 +329,7 @@ const ContentFilterBar = ({ activeTab, onTabChange }: { activeTab: string, onTab
 
 const EditorialPicks = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   return (
     <section className="bg-white py-32 border-t border-black/5">
       <div className="w-full px-6 md:px-[170px] mx-auto flex flex-col gap-16">
@@ -342,7 +345,7 @@ const EditorialPicks = () => {
           <div className="md:col-span-1" />
           <div className="md:col-span-6 flex flex-col gap-10">
             {[MOCK_ARTICLES[2], MOCK_ARTICLES[3]].map((a, i) => (
-              <div key={a.id} onClick={() => navigate(`/news/${a.id}`)} className="grid grid-cols-5 gap-8 group cursor-pointer items-center">
+              <div key={a.id} onClick={() => navigate(withPath(`/news/${a.id}`))} className="grid grid-cols-5 gap-8 group cursor-pointer items-center">
                 <div className="col-span-2 article-card-img-wrap !aspect-video"><img src={a.img} alt={a.title} /></div>
                 <div className="col-span-3 flex flex-col justify-center gap-3">
                   <span className="text-[#86868B] text-[10px] font-bold uppercase tracking-widest">{a.category}</span>
@@ -504,18 +507,18 @@ const BrandChronicle = () => {
 export default function NewsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [activeTab, setActiveTab] = useState<Category>('ALL');
   
   const selectedArticle = id ? MOCK_ARTICLES.find(a => a.id === id) : null;
 
   const filtered = MOCK_ARTICLES.filter(a => activeTab === 'ALL' || a.category === activeTab);
 
-  if (selectedArticle) return (<><Navbar /><ArticleDetail article={selectedArticle} onBack={() => navigate('/news')} /><FooterSections /></>);
+  if (selectedArticle) return (<><ArticleDetail article={selectedArticle} onBack={() => navigate(withPath('/news'))} /><FooterSections /></>);
 
   return (
     <div className="bg-white min-h-screen">
       <GlobalStyles />
-      <Navbar />
       <HeaderSection />
       <EditorialPicks />
       <ContentFilterBar activeTab={activeTab} onTabChange={(c) => setActiveTab(c as Category)} />

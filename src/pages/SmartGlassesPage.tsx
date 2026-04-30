@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Activity, Zap, ShieldCheck, FileText, Ruler, ChevronDown } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 const GLASSES_VARIANTS = [
   { id: 'base', name: 'Awak Glasses 基础款', price: '¥2,499', color: '经典黑', img: 'https://i.ibb.co/gbpwCydx/a618c6efdd3c4e599a9b760453c224ac.png' },
@@ -13,6 +13,7 @@ const GLASSES_VARIANTS = [
 
 const SmartGlassesPage: React.FC = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const paramsRef = useRef<HTMLDivElement>(null);
 
@@ -143,7 +144,7 @@ const SmartGlassesPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => navigate('/store/glasses')} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
+                  <button onClick={() => navigate(withPath('/store/glasses'))} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
                     立即购买
                   </button>
                 </div>

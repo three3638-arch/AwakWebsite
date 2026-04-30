@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Activity, Zap, ShieldCheck, FileText, Ruler, ChevronDown } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 const RING_VARIANTS = [
   { id: 'base', name: 'Awak Ring 基础版', price: '¥1,999', color: '钛金银', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png' },
@@ -14,6 +14,7 @@ const RING_VARIANTS = [
 
 const SmartRingPage: React.FC = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const paramsRef = useRef<HTMLDivElement>(null);
 
@@ -75,9 +76,9 @@ const SmartRingPage: React.FC = () => {
           <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
               { title: "健康指标", value: 50, suffix: "+", subtitle: "全维度生理数据追踪" },
-              { title: "采样频率", value: 256, suffix: "Hz", subtitle: "医学级光学监测精度" },
+              { title: "采样精度", value: 1, suffix: "%", subtitle: "医学级血氧和脉搏精度" },
               { title: "超长续航", value: 7, suffix: "天", subtitle: "不间断的健康守护" },
-              { title: "极致轻盈", value: 2, suffix: ".3g", subtitle: "感知不到的佩戴体验" },
+              { title: "极致轻盈", value: 4, suffix: ".8g", subtitle: "感知不到的佩戴体验" },
             ].map((card, idx) => (
               <DataCard 
                 key={idx} 
@@ -108,7 +109,7 @@ const SmartRingPage: React.FC = () => {
                 title: '基础版',
                 subtitle: '日常生理监测',
                 img: RING_VARIANTS[0].img,
-                specs: ["钛合金", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查） 血压检测", "运动检测", "梅脱METS", "姿态和行沩轨迹 AI营养师", "炎症反应"]
+                specs: ["钛合金", "1芯+6传感", "睡眠监测", "心率", "血氧饱和度", "情绪压力（HRV 生理期/孕期管理", "ECG（房颤/早搏筛查）", "运动检测", "梅脱METS", "姿态和行沩轨迹 AI营养师", "炎症反应"]
               },
               {
                 id: 'sport',
@@ -146,7 +147,7 @@ const SmartRingPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => navigate('/store/ring')} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
+                  <button onClick={() => navigate(withPath('/store/ring'))} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
                     立即购买
                   </button>
                 </div>
@@ -159,8 +160,8 @@ const SmartRingPage: React.FC = () => {
       {/* SECTION: LIFESTYLE GALLERY */}
       <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
         <div className="flex flex-col gap-12 mb-16">
-          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">消失在指尖，存在于数据</h2>
-          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">Awak Ring 以航空级钛合金铸造，重量仅 2.3g，全程无屏，数据在感知，生活不打扰。</p>
+          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">指尖健康，触手可及</h2>
+          <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">Awak Ring 以航空级钛合金铸造，重量仅 4.8g，全程无屏，数据在感知，生活不打扰。</p>
         </div>
         
         <div className="flex flex-col gap-6">

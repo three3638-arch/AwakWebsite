@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import FooterSections from '../components/FooterSections';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 // 4. Hero Section
 const Hero = ({ onScrollToForm }: { onScrollToForm: () => void }) => (
@@ -116,6 +117,7 @@ const EntryCards = () => {
 
 // 6. Form Section
 const ContactContent = () => {
+    const { withPath } = useLocalePath();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -188,7 +190,7 @@ const ContactContent = () => {
                                 <p className="caption text-[#9B9B96]">你可以凭工单编号在「我的账户 → 工单记录」中查看处理进度</p>
                             </div>
                             <div className="flex flex-col md:flex-row gap-4">
-                                <Link to="/" className="btn-secondary">返回首页</Link>
+                                <Link to={withPath('/')} className="btn-secondary">返回首页</Link>
                                 <button className="btn-primary">查看我的工单</button>
                             </div>
                         </motion.div>
@@ -328,7 +330,7 @@ const ContactContent = () => {
                             </div>
                         ))}
                     </div>
-                    <Link to="/" className="text-white font-bold flex items-center gap-2 group">
+                    <Link to={withPath('/')} className="text-white font-bold flex items-center gap-2 group">
                         <span>查看完整 FAQ</span>
                         <ChevronDown className="-rotate-90 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>

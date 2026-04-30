@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // 动画配置常量，确保持续时间和缓动效果高级且统一
 const duration = 1.2;
@@ -29,6 +30,11 @@ const itemVariants = {
 
 export default function IntroSection() {
   const constraintsRef = useRef(null); // 用于 3D 悬浮的引用
+  const { t } = useTranslation('common');
+  const introStats = useMemo(
+    () => t('home.intro.stats', { returnObjects: true }) as { label: string; value: string; desc: string }[],
+    [t],
+  );
 
   return (
     <section className="py-2 bg-[#FFFFFF] text-brand-black overflow-hidden relative">
@@ -54,7 +60,7 @@ export default function IntroSection() {
               {/* 1. 服务生态：流光标题 */}
               <motion.div variants={itemVariants} className="relative group overflow-hidden inline-block">
                 <h2 className="text-7xl md:text-[90px] lg:text-[100px] font-black leading-[1.05] tracking-[-3px] mb-2 relative z-10 text-brand-black">
-                  服务生态
+                  {t('home.intro.title')}
                 </h2>
                 {/* 超级炫酷：滑过的流光 */}
                 <motion.div 
@@ -68,13 +74,13 @@ export default function IntroSection() {
 
               {/* 2. APP名称：淡入 & 模糊解冻 */}
               <motion.p variants={itemVariants} className="text-xl font-light text-brand-black/80 mb-8 mt-4">
-                AwakHealth APP — 全栈健康服务
+                {t('home.intro.appLine')}
               </motion.p>
               
               {/* 3. 描述文本：淡入 & 上浮 */}
               <motion.div variants={itemVariants} className="space-y-4 mb-6">
                 <p className="text-base md:text-lg font-light text-brand-black/60 leading-relaxed max-w-xl pl-6">
-                  提供健康+睡眠+运动+营养全链路解决方案。涵盖睡眠管理、健康监测、运动指导、AI营养师及社区互动，满足【商城/保险/体检】全方位需求。
+                  {t('home.intro.body')}
                 </p>
               </motion.div>
 
@@ -88,16 +94,9 @@ export default function IntroSection() {
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   className="px-8 py-3 bg-accent text-brand-black font-medium text-sm rounded-full relative overflow-hidden group shadow-none"
                 >
-                  <span className="relative z-10">立即体验</span>
+                  <span className="relative z-10">{t('home.intro.ctaTry')}</span>
                   {/* 悬浮时的背景光波 */}
                   <div className="absolute inset-0 bg-brand-black/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 0.97 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-8 py-3 font-medium text-sm rounded-full hover:bg-brand-black/5 transition-all duration-300 text-brand-black/90 shadow-none"
-                >
-                  查看演示
                 </motion.button>
               </motion.div>
 
@@ -106,11 +105,7 @@ export default function IntroSection() {
                 variants={itemVariants} 
                 className="grid grid-cols-3 gap-8 pt-6"
               >
-                {[
-                  { label: '体检', value: '首年优惠', desc: '首年优惠赠送' },
-                  { label: '100万', value: '1,000,000', desc: '医疗报销' },
-                  { label: '一站式', value: '全流程', desc: '体检/保险预约服务' },
-                ].map((stat, i) => (
+                {introStats.map((stat, i) => (
                   <div key={i}>
                     {/* 炫酷：模拟数字滚动淡入 */}
                     <motion.p 

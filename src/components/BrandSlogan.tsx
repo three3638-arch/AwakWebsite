@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 export default function BrandSlogan() {
+  const { t } = useTranslation('common');
   const titleMotion = {
     initial: { letterSpacing: "0.5em", opacity: 0, filter: "blur(15px)", y: 20 },
     whileInView: { 
@@ -31,11 +33,11 @@ export default function BrandSlogan() {
         }}
         className="text-[#FFFFFF] text-7xl md:text-[90px] lg:text-[100px] font-black leading-[1.05] tracking-[-3px] text-center"
       >
-        智能科技<br/>定义时尚健康
+        {t('home.slogan.titleLine1')}<br />{t('home.slogan.titleLine2')}
       </motion.h2>
       
       <motion.p {...descMotion} className="text-[#FFFFFF]/60 text-xl md:text-2xl font-medium max-w-2xl text-center mt-12">
-        个体 / 家庭精准健康生态服务商。我们认为，科技的终点不应是冰冷的数据，而是对生命律动的深刻理解。
+        {t('home.slogan.desc')}
       </motion.p>
     </section>
   );

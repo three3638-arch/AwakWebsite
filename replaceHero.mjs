@@ -190,7 +190,7 @@ const newHero = `      {/* Configurator Section - PRODUCT HERO REWRITTEN */}
             <div className="border-t border-[rgba(255,255,255,0.06)]">
               <HeroAccordion title="产品简介" defaultOpen>
                 <ul className="text-[rgba(255,255,255,0.75)] text-sm space-y-2 list-disc pl-4">
-                  <li>航空级钛合金材质，重量仅 2.3g，无感佩戴</li>
+                  <li>航空级钛合金材质，重量仅 4.8g，无感佩戴</li>
                   <li>医疗级传感器阵列，7×24小时连续监测血氧及心率</li>
                   <li>最长 7 天超长续航，支持 50 米深度防水</li>
                 </ul>
@@ -202,7 +202,7 @@ const newHero = `      {/* Configurator Section - PRODUCT HERO REWRITTEN */}
                 <p className="text-[rgba(255,255,255,0.75)] text-sm">自您签收商品起 30 日内，如商品及包装完好（不影响二次销售），我们提供无理由退换货服务。</p>
               </HeroAccordion>
               <HeroAccordion title="产品证书">
-                <p className="text-[rgba(255,255,255,0.75)] text-sm">本产品已通过 CE 及 FDA 双重注册认证，并符合 ISO 13485 医疗器械质量管理体系标准。</p>
+                <p className="text-[rgba(255,255,255,0.75)] text-sm">本产品已符合FCC、CE、RoSH等强制标准，并符合 ISO 13485 医疗器械质量管理体系标准。</p>
               </HeroAccordion>
             </div>
             

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Activity, Zap, ShieldCheck, FileText, Ruler, ChevronDown } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 const WATCH_VARIANTS = [
   { id: 'base', name: 'Awak Watch 基础版', price: '¥1,999', color: '运动深空黑', img: 'https://i.ibb.co/vvL3qfjv/b5c1d041fbff4e6a8ca3dde3072a8742.png' },
@@ -14,6 +14,7 @@ const WATCH_VARIANTS = [
 
 const SmartWatchPage: React.FC = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const paramsRef = useRef<HTMLDivElement>(null);
 
@@ -146,7 +147,7 @@ const SmartWatchPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => navigate('/store/watch')} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
+                  <button onClick={() => navigate(withPath('/store/watch'))} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
                     立即购买
                   </button>
                 </div>
@@ -159,7 +160,7 @@ const SmartWatchPage: React.FC = () => {
       {/* SECTION: LIFESTYLE GALLERY */}
       <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
         <div className="flex flex-col gap-12 mb-16">
-          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">掌控全场，不仅仅是时间</h2>
+          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight uppercase">专业运动，腕上全能教练</h2>
           <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">从极地荒野到繁华都市，AWAK Watch 始终以最精准的姿态引领你的每一步。</p>
         </div>
         

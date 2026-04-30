@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Activity, Zap, ShieldCheck, FileText, Ruler, ChevronDown } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 const BRACELET_VARIANTS = [
   { id: 'base', name: 'Awak Bracelet 基础版', price: '¥999', color: '运动深空黑', img: 'https://i.ibb.co/tP4mcmbJ/image.png' },
@@ -14,6 +14,7 @@ const BRACELET_VARIANTS = [
 
 const SmartBraceletPage: React.FC = () => {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const paramsRef = useRef<HTMLDivElement>(null);
 
@@ -161,7 +162,7 @@ const SmartBraceletPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => navigate('/store/bracelet')} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
+                  <button onClick={() => navigate(withPath('/store/bracelet'))} className="mt-10 w-full py-4 bg-[#DDF700] text-[#080808] rounded-full text-sm font-bold hover:brightness-110 transition-all border-0 shadow-none">
                     立即购买
                   </button>
                 </div>
@@ -174,7 +175,7 @@ const SmartBraceletPage: React.FC = () => {
       {/* SECTION: LIFESTYLE GALLERY */}
       <section className="bg-[#FFFFFF] py-40 px-6 md:px-[170px] border-none">
         <div className="flex flex-col gap-12 mb-16">
-          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight">从日常起居到夜间睡眠</h2>
+          <h2 className="text-[#000000] text-4xl md:text-5xl font-black tracking-tight">早点，让一切都来得及</h2>
           <p className="text-[#1D1D1F] text-xl font-medium max-w-2xl">每一个细微变化都被看见不打扰，却始终在场，让关爱从未缺席</p>
         </div>
         
@@ -236,7 +237,7 @@ const SmartBraceletPage: React.FC = () => {
             不是一枚手环 <br /> 是多种可能
           </h2>
           <div className="flex flex-wrap gap-4 mb-12">
-            {['专注', '释放', '表达自我'].map((tag) => (
+            {['陪伴', '健康', '子女守护'].map((tag) => (
               <span key={tag} className="px-8 py-3 rounded-full bg-[rgba(0,0,0,0.05)] text-sm font-bold text-[#000000] uppercase font-bold">{tag}</span>
             ))}
           </div>
@@ -255,7 +256,7 @@ const SmartBraceletPage: React.FC = () => {
              <img src="https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png" alt="AWAK Ring" className="w-full h-auto object-contain rotate-12 drop-shadow-2xl hover:scale-110 transition-transform duration-500" />
            </div>
            <div className="w-full md:w-2/3 flex flex-col gap-8">
-              <h2 className="text-[#000000] text-4xl md:text-6xl font-black tracking-tight uppercase">配合 AWAK WATCH <br/>健康数据更完整</h2>
+              <h2 className="text-[#000000] text-4xl md:text-6xl font-black tracking-tight uppercase">配合 AWAK RING <br/>健康数据更完整</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                 <BoxItem icon={<Activity size={24}/>} name="完整监测" desc="全身数据采集" />
                 <BoxItem icon={<Zap size={24}/>} name="昼夜追踪" desc="24小时不间断" />

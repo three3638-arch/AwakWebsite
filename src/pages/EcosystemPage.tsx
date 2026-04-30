@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Shield, Smartphone, Globe, Lock, Activity, BarChart3, Fingerprint, Plus, ArrowRight, Zap, Target, CheckCircle2, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import FooterSections from '../components/FooterSections';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 export default function EcosystemPage() {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
 
   const privacyContent = (
@@ -200,7 +202,7 @@ export default function EcosystemPage() {
                 </motion.div>
               ))}
             </div>
-            <button onClick={() => navigate('/download')} className="px-10 py-4 bg-[#1D1D1F] text-white font-bold rounded-full hover:bg-black transition-all flex items-center gap-2 group">
+            <button onClick={() => navigate(withPath('/download'))} className="px-10 py-4 bg-[#1D1D1F] text-white font-bold rounded-full hover:bg-black transition-all flex items-center gap-2 group">
               立即下载 APP <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -210,16 +212,7 @@ export default function EcosystemPage() {
         </div>
       </section>
 
-      {/* 合作伙伴 Logo 横排 */}
-      <section className="py-12 bg-white border-y border-[#F5F5F7]">
-        <div className="w-full px-6 md:px-[120px] mx-auto flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-30 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-700">
-           <span className="text-lg font-black tracking-tighter">Apple Health</span>
-           <span className="text-lg font-black tracking-tighter">Google Fit</span>
-           <span className="text-lg font-black tracking-tighter">WeiXin Health</span>
-           <span className="text-lg font-black tracking-tighter">Keep</span>
-           <span className="text-lg font-black tracking-tighter">Garmin Sync</span>
-        </div>
-      </section>
+
 
       {/* 05. App 功能模块详解 */}
       <section className="py-24 md:py-[160px] bg-[#F5F5F7]">
@@ -263,7 +256,7 @@ export default function EcosystemPage() {
                 支持开放 API 并与主流生态实现双向同步。我们不仅是记录者，更是数字健康的纽带。
               </p>
             </div>
-            <button onClick={() => navigate('/ecosystem/open-api')} className="px-8 py-3 rounded-full border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all">申请接入平台</button>
+            <button onClick={() => navigate(withPath('/ecosystem/open-api'))} className="px-8 py-3 rounded-full border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all">申请接入平台</button>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -438,7 +431,7 @@ export default function EcosystemPage() {
               <h3 className="text-sm font-black text-[#86868B] mb-4 tracking-widest uppercase">还没有 AWAK 硬件</h3>
               <h4 className="text-2xl font-bold text-white mb-6">先拥有一枚戒指</h4>
               <p className="text-white/30 text-sm leading-[1.7] mb-10 flex-1">从 AWAK Ring 开始，这是最简单、也最完整的数字健康管理入口。</p>
-              <button onClick={() => navigate('/products')} className="w-full bg-white text-black font-black py-4 rounded-2xl hover:bg-[#DDF700] transition-all">
+              <button onClick={() => navigate(withPath('/products'))} className="w-full bg-white text-black font-black py-4 rounded-2xl hover:bg-[#DDF700] transition-all">
                 选购所有产品
               </button>
             </div>
@@ -451,7 +444,7 @@ export default function EcosystemPage() {
               <h3 className="text-sm font-black text-black/50 mb-4 tracking-widest uppercase">已有硬件，尚未配对</h3>
               <h4 className="text-2xl font-bold text-black mb-6">下载 AwakHealth</h4>
               <p className="text-black/60 text-sm leading-[1.7] mb-10 flex-1">让硬件开始为您工作。目前已在主流市场同步上架，配对只需 30 秒。</p>
-              <button onClick={() => navigate('/download')} className="w-full bg-black text-white font-black py-4 rounded-2xl hover:brightness-125 transition-all">
+              <button onClick={() => navigate(withPath('/download'))} className="w-full bg-black text-white font-black py-4 rounded-2xl hover:brightness-125 transition-all">
                 下载应用
               </button>
             </div>
@@ -464,7 +457,7 @@ export default function EcosystemPage() {
               <h3 className="text-sm font-black text-[#86868B] mb-4 tracking-widest uppercase">已是用户，考虑升级</h3>
               <h4 className="text-2xl font-bold text-white mb-6">解锁 Premium</h4>
               <p className="text-white/30 text-sm leading-[1.7] mb-10 flex-1">是时候让 AI 顾问为您做更深入的报告分析了。首单订阅享 14 天试用。</p>
-              <button onClick={() => navigate('/auth?plan=plus_trial')} className="w-full bg-white/10 text-white font-black py-4 rounded-2xl border border-white/10 hover:bg-white hover:text-black transition-all">
+              <button onClick={() => navigate(withPath('/auth?plan=plus_trial'))} className="w-full bg-white/10 text-white font-black py-4 rounded-2xl border border-white/10 hover:bg-white hover:text-black transition-all">
                 开始免费试用
               </button>
             </div>

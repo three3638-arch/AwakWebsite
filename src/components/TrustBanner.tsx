@@ -1,12 +1,8 @@
-import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 export default function TrustBanner() {
-  const stats = [
-    { value: "1,000,000+", label: "目标用户" },
-    { value: "50+", label: "健康指标" },
-    { value: "99.2%", label: "满意度" },
-    { value: "18个月", label: "质保" },
-  ];
+  const { t } = useTranslation('common');
+  const stats = t('home.trust.stats', { returnObjects: true }) as { value: string; label: string }[];
 
   return (
     <section className="bg-[#080808] py-12 border-t border-white/10">

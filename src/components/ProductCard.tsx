@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 interface ProductCardProps {
   title: string;
@@ -13,6 +15,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ title, material, dark, img1, img2, specs, path }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const { withPath } = useLocalePath();
 
   return (
     <motion.div
@@ -48,10 +52,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ title, material, dark, img1, 
       
       {/* Action Buttons */}
       <div className="w-full flex gap-3 mt-6 pt-6 border-t border-[rgba(0,0,0,0.05)]">
-        <button className="flex-1 h-12 bg-transparent border border-[rgba(0,0,0,0.1)] text-[#1D1D1F] rounded-lg text-sm font-semibold hover:bg-[rgba(0,0,0,0.05)] transition-all" onClick={() => window.location.href=`/products/${path}`}>
+        <button className="flex-1 h-12 bg-transparent border border-[rgba(0,0,0,0.1)] text-[#1D1D1F] rounded-lg text-sm font-semibold hover:bg-[rgba(0,0,0,0.05)] transition-all" onClick={() => navigate(withPath(`/products/${path}`))}>
           了解详情
         </button>
-        <button className="flex-1 h-12 bg-[#000000] text-[#FFFFFF] rounded-lg text-sm font-bold hover:bg-[#1D1D1F] transition-all" onClick={() => window.location.href=`/checkout?product=${path}`}>
+        <button className="flex-1 h-12 bg-[#000000] text-[#FFFFFF] rounded-lg text-sm font-bold hover:bg-[#1D1D1F] transition-all" onClick={() => navigate(withPath(`/checkout?product=${path}`))}>
           立即购买
         </button>
       </div>

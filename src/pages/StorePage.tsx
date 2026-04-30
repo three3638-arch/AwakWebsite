@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValue, useTransform, animate, useInView } from 'motion/react';
 import { Shield, RefreshCw, Lock, ZoomIn, Check, Search, User, ShoppingCart, X, Plus, Minus, Star, ChevronDown, Box, Battery, Zap, ShieldCheck, FileText, Circle, Activity, Eye, Watch as WatchIcon } from 'lucide-react';
 import { useNavigate, useParams, useLocation, Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 const categories = [
   { 
@@ -230,6 +230,7 @@ const HeroAccordion: React.FC<{title: string, children: React.ReactNode, default
 
 export default function StorePage() {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   const { category } = useParams();
   const location = useLocation();
   
@@ -249,6 +250,19 @@ export default function StorePage() {
       }
     }
   }, [category]);
+
+  useLayoutEffect(() => {
+    // Force reset scroll position when entering/changing store routes.
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    const rafId = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+
+    return () => window.cancelAnimationFrame(rafId);
+  }, [location.pathname]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [sizingOption, setSizingOption] = useState<'kit' | 'size'>('kit');
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -292,8 +306,6 @@ export default function StorePage() {
 
   return (
     <div className="min-h-screen bg-[#000000] text-white font-sans overflow-x-hidden pb-[100px] md:pb-[88px] relative">
-      <Navbar />
-
       {/* FIXED SIDE NAVIGATION (DESKTOP) */}
       <div className="hidden md:flex fixed left-10 top-1/2 -translate-y-1/2 w-[140px] bg-[#000000]/80 backdrop-blur-xl flex-col items-center py-8 gap-6 z-[100] rounded-[24px]">
         <div className="flex flex-col items-center gap-2 w-full px-4">
@@ -302,7 +314,7 @@ export default function StorePage() {
             return (
               <Link
                 key={cat.id}
-                to={cat.path}
+                to={withPath(cat.path)}
                 className={`w-full py-3 px-4 rounded-xl text-[14px] font-medium tracking-wide transition-all duration-300 text-center ${isActive ? 'text-white bg-white/10' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
               >
                 {cat.name}
@@ -517,7 +529,7 @@ export default function StorePage() {
                 加入购物车
               </button>
               <button 
-                onClick={() => navigate('/checkout')} 
+                onClick={() => navigate(withPath('/checkout'))} 
                 className="bg-[#DDF700] hover:brightness-110 active:scale-[0.98] text-[#000000] text-base font-bold px-8 py-4 rounded-full shadow-xl transition-all w-full text-center"
               >
                 立即购买
@@ -543,7 +555,7 @@ export default function StorePage() {
             <div className="border-t border-[rgba(255,255,255,0.08)]">
               <HeroAccordion title="产品简介" defaultOpen>
                 <ul className="text-[#86868B] text-sm space-y-2 list-disc pl-4">
-                  <li>航空级钛合金材质，重量仅 2.3g，无感佩戴</li>
+                  <li>航空级钛合金材质，重量仅 4.8g，无感佩戴</li>
                   <li>医疗级传感器阵列，7×24小时连续监测血氧及心率</li>
                   <li>最长 7 天超长续航，支持 50 米深度防水</li>
                 </ul>
@@ -555,7 +567,7 @@ export default function StorePage() {
                 <p className="text-[#86868B] text-sm">自您签收商品起 30 日内，如商品及包装完好（不影响二次销售），我们提供无理由退换货服务。</p>
               </HeroAccordion>
               <HeroAccordion title="产品证书">
-                <p className="text-[#86868B] text-sm">本产品已通过 CE 及 FDA 双重注册认证，并符合 ISO 13485 医疗器械质量管理体系标准。</p>
+                <p className="text-[#86868B] text-sm">本产品已符合FCC、CE、RoSH等强制标准，并符合 ISO 13485 医疗器械质量管理体系标准。</p>
               </HeroAccordion>
             </div>
             
@@ -610,7 +622,7 @@ export default function StorePage() {
                 ) : (
                   <>
                     <BoxItem icon={<Box size={24}/>} name="AWAK Ring × 1" desc="本体，含所选颜色尺寸" />
-                    <BoxItem icon={<Zap size={24}/>} name="磁吸充电底座 × 1" desc="支持无线充电，兼容Qi" />
+                    <BoxItem icon={<Zap size={24}/>} name="触点充电仓 × 1" desc="支持无线充电，兼容Qi" />
                     <BoxItem icon={<ShieldCheck size={24}/>} name="质保卡 × 1" desc="18个月官方质保" />
                     <BoxItem icon={<FileText size={24}/>} name="快速上手指南 × 1" desc="中英双语，含App下载码" />
                   </>
@@ -811,7 +823,7 @@ export default function StorePage() {
               {activeCategory.id === 'bracelet' ? '多维生理感知系统' : 
                activeCategory.id === 'watch' ? '多频多星卫星定位系统' : 
                activeCategory.id === 'glasses' ? '多重感知辅助系统' : 
-               '四核传感，精准从不将就'}
+               '六核传感，精准从不将就'}
             </h2>
             <p className="text-[#1D1D1F] max-w-2xl leading-relaxed">
               {activeCategory.id === 'bracelet' ? '持续采集，构建你的身体模型' : 
@@ -948,7 +960,7 @@ export default function StorePage() {
                   <span className="font-mono text-xl font-bold">¥{total.toFixed(2)}</span>
                 </div>
                 <button 
-                  onClick={() => navigate('/checkout')}
+                  onClick={() => navigate(withPath('/checkout'))}
                   className="w-full bg-black text-white font-bold py-4 text-sm tracking-widest uppercase hover:bg-black/80 transition-colors rounded-none"
                 >
                   去结账

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
-const cycleNodes = [
-  { id: '01', title: '数据采集', desc: '持续记录，自动获取身体数据', angle: -90 },
-  { id: '02', title: 'AI理解', desc: '清晰结论，不看图表，只看结果', angle: -18 },
-  { id: '03', title: '行动建议', desc: '立即可做，给你当下最合适的建议', angle: 54 },
-  { id: '04', title: '结果反馈', desc: '变化可见，每一步都有反馈', angle: 126 },
-  { id: '05', title: '持续优化', desc: '越来越准，越用越懂你', angle: 198 },
-];
+const NODE_ANGLES = [-90, -18, 54, 126, 198];
 
 export default function ValueProposition() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const { t } = useTranslation('common');
+
+  const cycleNodes = useMemo(() => {
+    const nodes = t('home.valueLoop.nodes', { returnObjects: true }) as { title: string; desc: string }[];
+    return nodes.map((n, i) => ({
+      ...n,
+      id: String(i + 1).padStart(2, '0'),
+      angle: NODE_ANGLES[i],
+    }));
+  }, [t]);
 
   return (
     <section className="relative bg-[#F5F5F7] py-[100px] px-6 md:px-[170px] overflow-hidden min-h-[850px] flex flex-col items-center justify-start w-full">
@@ -23,7 +28,7 @@ export default function ValueProposition() {
           viewport={{ once: true }}
           className="text-[#1D1D1F] text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight mb-4"
         >
-          AWAK 健康闭环
+          {t('home.valueLoop.title')}
         </motion.h2>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +37,7 @@ export default function ValueProposition() {
           transition={{ delay: 0.1 }}
           className="text-[#1D1D1F]/60 text-lg md:text-xl max-w-2xl mx-auto font-medium"
         >
-          从无感记录到由AI驱动的行动建议，为您构建完美的数字生命闭环。
+          {t('home.valueLoop.subtitle')}
         </motion.p>
       </div>
 

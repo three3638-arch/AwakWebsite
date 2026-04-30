@@ -6,10 +6,11 @@ import {
   MessageSquare, LayoutGrid
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   // 1: Information, 2: Payment, 3: Success
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F7] text-[#1D1D1F] font-sans selection:bg-[#DDF700] selection:text-black pt-[90px]">
-      <Navbar />
       <style>{`
         .checkout-nav {
           height: 64px;
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                     <section>
                       <div className="flex justify-between items-end mb-6">
                         <h2 className="text-[20px] font-bold text-[#1D1D1F]">联系方式</h2>
-                        <span className="text-[13px] text-[#86868B]">已有账号？ <Link to="/auth#login" className="text-[#1D1D1F] font-bold">登录</Link></span>
+                        <span className="text-[13px] text-[#86868B]">已有账号？ <Link to={`${withPath('/auth')}#login`} className="text-[#1D1D1F] font-bold">登录</Link></span>
                       </div>
                       <div className="flex flex-col gap-4">
                         <input type="email" placeholder="邮箱地址（接收订单收据）" className="co-input" />
@@ -304,7 +304,7 @@ export default function CheckoutPage() {
                       >
                         继续支付方式 <ArrowRight className="w-5 h-5" />
                       </button>
-                      <Link to="/store" className="text-[#86868B] hover:text-[#1D1D1F] text-[13px] font-bold flex items-center gap-1 self-center transition-colors py-2">
+                      <Link to={withPath('/store')} className="text-[#86868B] hover:text-[#1D1D1F] text-[13px] font-bold flex items-center gap-1 self-center transition-colors py-2">
                         <ChevronLeft className="w-4 h-4" /> 返回购物车
                       </Link>
                       <p className="text-[#86868B] text-[12px] text-center mt-2 flex items-center justify-center gap-2 font-medium opacity-60">
@@ -598,7 +598,7 @@ export default function CheckoutPage() {
 
           {/* Action Cards */}
           <div className="w-full max-w-[560px] grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-             <div className="flex flex-col justify-between bg-white border-none rounded-[16px] p-6 hover:scale-[1.02] hover:shadow-md transition-all group cursor-pointer" onClick={() => navigate('/auth')}>
+             <div className="flex flex-col justify-between bg-white border-none rounded-[16px] p-6 hover:scale-[1.02] hover:shadow-md transition-all group cursor-pointer" onClick={() => navigate(withPath('/auth'))}>
                <div>
                   <h4 className="font-bold text-[15px] text-[#1D1D1F] mb-2 flex items-center gap-2"><Download className="w-4 h-4 text-[#1D1D1F]" /> 准备好迎接你的设备</h4>
                   <p className="text-[12px] text-[#86868B] leading-relaxed mb-4 font-medium">下载 AwakHealth App，注册账号并探索生态系统，为激活做准备。</p>
@@ -607,14 +607,14 @@ export default function CheckoutPage() {
              </div>
 
              <div className="flex flex-col gap-4">
-               <div className="flex items-center justify-between bg-white border-none rounded-[12px] p-4 hover:scale-[1.02] hover:shadow-md transition-all cursor-pointer group" onClick={() => navigate('/auth')}>
+               <div className="flex items-center justify-between bg-white border-none rounded-[12px] p-4 hover:scale-[1.02] hover:shadow-md transition-all cursor-pointer group" onClick={() => navigate(withPath('/auth'))}>
                   <div className="flex items-center gap-3">
                     <Box className="w-5 h-5 text-[#86868B]" />
                     <span className="text-[14px] font-bold text-[#1D1D1F]">追踪物流状态</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-[#86868B] group-hover:text-black transition-colors group-hover:translate-x-1" />
                </div>
-               <div className="flex items-center justify-between bg-white border-none rounded-[12px] p-4 hover:scale-[1.02] hover:shadow-md transition-all cursor-pointer group" onClick={() => navigate('/store')}>
+               <div className="flex items-center justify-between bg-white border-none rounded-[12px] p-4 hover:scale-[1.02] hover:shadow-md transition-all cursor-pointer group" onClick={() => navigate(withPath('/store'))}>
                   <div className="flex items-center gap-3">
                     <LayoutGrid className="w-5 h-5 text-[#86868B]" />
                     <span className="text-[14px] font-bold text-[#1D1D1F]">继续选购商品</span>

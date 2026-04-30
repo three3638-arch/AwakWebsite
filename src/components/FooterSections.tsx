@@ -1,51 +1,59 @@
-import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 export default function FooterSections() {
-  const footerGroups = [
-    {
-      title: '产品',
-      links: [
-        { name: 'AWAK Ring', path: '/smart-ring' },
-        { name: 'AWAK Watch', path: '/smart-watch' },
-        { name: 'AWAK Band', path: '/smart-bracelet' },
-      ]
-    },
-    {
-      title: '公司',
-      links: [
-        { name: '关于我们', path: '/' },
-        { name: '品牌资讯', path: '/news' },
-        { name: '联系我们', path: '/contact' },
-      ]
-    },
-    {
-      title: '支持',
-      links: [
-        { name: '帮助中心', path: '/' },
-        { name: '用户手册', path: '/' },
-        { name: '保修政策', path: '/' },
-      ]
-    },
-    {
-      title: '下载',
-      links: [
-        { name: 'iOS 下载', path: '/' },
-        { name: 'Android 下载', path: '/' },
-        { name: 'AwakHealth Web', path: '/' },
-      ]
-    }
-  ];
+  const { withPath } = useLocalePath();
+  const { t } = useTranslation('common');
+
+  const footerGroups = useMemo(
+    () => [
+      {
+        title: t('footer.groups.products'),
+        links: [
+          { name: t('footer.links.ring'), path: '/products/ring' },
+          { name: t('footer.links.band'), path: '/products/band' },
+          { name: t('footer.links.watch'), path: '/products/watch' },
+          { name: t('footer.links.glasses'), path: '/products/glasses' },
+        ],
+      },
+      {
+        title: t('footer.groups.company'),
+        links: [
+          { name: t('footer.links.about'), path: '/' },
+          { name: t('footer.links.news'), path: '/news' },
+          { name: t('footer.links.contact'), path: '/contact' },
+        ],
+      },
+      {
+        title: t('footer.groups.support'),
+        links: [
+          { name: t('footer.links.help'), path: '/' },
+          { name: t('footer.links.manual'), path: '/' },
+          { name: t('footer.links.warranty'), path: '/' },
+        ],
+      },
+      {
+        title: t('footer.groups.download'),
+        links: [
+          { name: t('footer.links.ios'), path: '/' },
+          { name: t('footer.links.android'), path: '/' },
+          { name: t('footer.links.web'), path: '/' },
+        ],
+      },
+    ],
+    [t],
+  );
 
   return (
     <footer className="bg-[#030303] border-t border-white/5 pt-24 pb-24">
       <div className="w-full mx-auto px-6 md:px-[170px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-12 mb-32">
-          {/* Brand Info */}
           <div className="lg:col-span-1 space-y-8">
             <div className="space-y-4">
               <h2 className="text-white text-3xl font-black tracking-tight">AWAK WILL</h2>
-              <p className="text-white/40 text-sm font-medium tracking-widest uppercase">感知生命律动</p>
+              <p className="text-white/40 text-sm font-medium tracking-widest uppercase">{t('footer.tagline')}</p>
             </div>
             <div className="flex gap-4">
               <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
@@ -60,7 +68,6 @@ export default function FooterSections() {
             </div>
           </div>
 
-          {/* Links Grid */}
           <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
             {footerGroups.map((group) => (
               <div key={group.title} className="space-y-8">
@@ -68,7 +75,7 @@ export default function FooterSections() {
                 <ul className="space-y-4">
                   {group.links.map((link) => (
                     <li key={link.name}>
-                      <Link to={link.path} className="text-white/40 hover:text-[#C8FF00] transition-colors text-sm">
+                      <Link to={withPath(link.path)} className="text-white/40 hover:text-[#C8FF00] transition-colors text-sm">
                         {link.name}
                       </Link>
                     </li>
@@ -79,18 +86,20 @@ export default function FooterSections() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-white/20 text-xs font-mono uppercase tracking-[0.2em]">
             © {new Date().getFullYear()} AWAK WILL. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-8">
-            <Link to="/" className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">Privacy Policy</Link>
-            <Link to="/" className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">Terms of Service</Link>
+            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+              {t('footer.privacy')}
+            </Link>
+            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+              {t('footer.terms')}
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

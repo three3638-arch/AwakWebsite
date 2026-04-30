@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import Navbar from '../components/Navbar';
 import FooterSections from '../components/FooterSections';
 
 const newsItems = [
@@ -51,8 +50,6 @@ const newsItems = [
 export default function BrandNewsPage() {
   return (
     <div className="bg-white min-h-screen font-sans selection:bg-[#C8FF00] selection:text-black pt-[100px]">
-      <Navbar />
-      
       {/* Header Section */}
       <section className="px-6 md:px-[170px] pt-20 pb-12">
         <motion.div

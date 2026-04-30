@@ -1,66 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
-const dimensions = [
-  {
-    id: 'sleep',
-    title: '目标用户睡眠评分趋势对比',
-    subtitle: '睡眠质量',
-    description: '典型目标用户A：入睡潜伏期从 53min 显著降低至 22min，睡眠评分持续提升。',
-    stats: [
-      { value: '+23%', label: '深度睡眠提升' },
-      { value: '14.2天', label: '异常预警提前' },
-      { value: '95.3%', label: '睡眠分期准确率' },
-      { value: '+12分', label: '平均评分增幅' }
-    ],
-    chartType: 'line',
-    color: '#080808'
-  },
-  {
-    id: 'sports',
-    title: '有氧运动能力（VO₂Max）增幅',
-    subtitle: '运动提升',
-    description: '遵循科学训练建议，高强度运动后恢复时长缩短了 35%。',
-    stats: [
-      { value: '+18.5%', label: 'VO₂Max 提升' },
-      { value: '-22min', label: '心率恢复时长' },
-      { value: '4.8级', label: '平均体能等级' },
-      { value: '98.1%', label: '动作识别准确率' }
-    ],
-    chartType: 'bar',
-    color: '#080808'
-  },
-  {
-    id: 'weight',
-    title: '目标用户体脂率与BMI变化曲线',
-    subtitle: '体重下降',
-    description: '通过精准代谢监测，目标用户平均在 12 周内实现了 4.5kg 的健康体脂下降。',
-    stats: [
-      { value: '-4.5kg', label: '平均减重' },
-      { value: '-3.2%', label: '体脂率下降' },
-      { value: '+15%', label: '基础代谢提升' },
-      { value: '88天', label: '持续达标天数' }
-    ],
-    chartType: 'downward',
-    color: '#080808'
-  },
-  {
-    id: 'heart',
-    title: '静息心率稳定性监测报告',
-    subtitle: '心率正常',
-    description: '7x24小时全天候监测，静息心率波动范围回归至健康基准线。',
-    stats: [
-      { value: '62 bpm', label: '平均静息心率' },
-      { value: '99.9%', label: '房颤早搏监测' },
-      { value: '-12%', label: '压力指数降低' },
-      { value: '≤5 bpm', label: '昼夜波动差' }
-    ],
-    chartType: 'pulsing',
-    color: '#080808'
-  }
-];
+const DIM_IDS = ['sleep', 'sports', 'weight', 'heart'] as const;
+
+const DIM_VALUES: Record<(typeof DIM_IDS)[number], string[]> = {
+  sleep: ['+23%', '14.2天', '95.3%', '+12分'],
+  sports: ['+18.5%', '-22min', '4.8级', '98.1%'],
+  weight: ['-4.5kg', '-3.2%', '+15%', '88天'],
+  heart: ['62 bpm', '99.9%', '-12%', '≤5 bpm'],
+};
+
+const CHART_TYPES: Record<(typeof DIM_IDS)[number], 'line' | 'bar' | 'downward' | 'pulsing'> = {
+  sleep: 'line',
+  sports: 'bar',
+  weight: 'downward',
+  heart: 'pulsing',
+};
 
 export default function DataInsights() {
+  const { t } = useTranslation('common');
+  const dimensions = useMemo(
+    () =>
+      DIM_IDS.map((id) => {
+        const labels = t(`home.dataInsights.${id}.statLabels`, { returnObjects: true }) as string[];
+        return {
+          id,
+          title: t(`home.dataInsights.${id}.title`),
+          subtitle: t(`home.dataInsights.${id}.subtitle`),
+          description: t(`home.dataInsights.${id}.description`),
+          stats: DIM_VALUES[id].map((value, i) => ({ value, label: labels[i] ?? '' })),
+          chartType: CHART_TYPES[id],
+          color: '#080808',
+        };
+      }),
+    [t],
+  );
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const activeData = dimensions[currentIndex];
 
@@ -69,7 +45,7 @@ export default function DataInsights() {
       setCurrentIndex((prev) => (prev + 1) % dimensions.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [dimensions.length]);
 
   return (
     <section className="bg-[#F5F5F3] py-24 px-6 md:px-[170px]">
@@ -79,8 +55,8 @@ export default function DataInsights() {
           <div className="flex-1 space-y-12">
             <div className="space-y-6">
               <h2 className="text-[#080808] text-5xl md:text-7xl font-black leading-tight tracking-tighter">
-                看懂数据<br />
-                才能改变生活
+                {t('home.dataInsights.headline1')}<br />
+                {t('home.dataInsights.headline2')}
               </h2>
               <div className="h-[2px] w-24 bg-black" />
             </div>
@@ -198,9 +174,9 @@ export default function DataInsights() {
 
                     {/* Labels and Axis */}
                     <g className="text-[#999] font-black" style={{ fontSize: '10px' }}>
-                      <text x="50" y="240">初始</text>
-                      <text x="250" y="240" textAnchor="middle">第6周</text>
-                      <text x="450" y="240" textAnchor="end">第12周</text>
+                      <text x="50" y="240">{t('home.dataInsights.chartStart')}</text>
+                      <text x="250" y="240" textAnchor="middle">{t('home.dataInsights.chartMid')}</text>
+                      <text x="450" y="240" textAnchor="end">{t('home.dataInsights.chartEnd')}</text>
                     </g>
                   </svg>
                 </div>

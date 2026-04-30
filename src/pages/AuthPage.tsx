@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocalePath } from '../hooks/useLocalePath';
 import { BarChart3, Zap, Users, EyeOff, Eye, MessageSquare, Smartphone, Check, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function AuthPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { withPath } = useLocalePath();
   
   // Hash can be '#login', '#register', '#forgot'
   const currentHash = location.hash || '#login';
@@ -47,7 +49,7 @@ export default function AuthPage() {
     // Reset states
     setPassword(''); setConfirmPassword(''); setIdentifier(''); setCode('');
     setSuccess(false); setLoading(false); setForgotStep(1); setCountdown(0);
-    navigate(`/auth${newMode}`, { replace: true });
+    navigate(`${withPath('/auth')}${newMode}`, { replace: true });
   };
 
   // Countdown timer for SMS
@@ -110,8 +112,8 @@ export default function AuthPage() {
         setFadeout(true);
         setTimeout(() => {
           const params = new URLSearchParams(location.search);
-          if (params.get('plan') === 'plus_trial') navigate('/checkout?plan=plus');
-          else navigate('/');
+          if (params.get('plan') === 'plus_trial') navigate(withPath('/checkout?plan=plus'));
+          else navigate(withPath('/'));
         }, 300);
       }, 500);
     }, 800);
@@ -168,11 +170,6 @@ export default function AuthPage() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[9997] flex items-center px-6 md:px-[170px] h-[72px] bg-transparent">
-        <Link to="/" className="flex items-center">
-          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">AWAK</span>
-        </Link>
-      </nav>
       <style>{`
         /* Tab 切换器 - 登录/注册 */
         .auth-tabs {
@@ -499,9 +496,9 @@ export default function AuthPage() {
                           <div className={`checkbox-box ${agreed ? 'checked' : ''} ${privacyError ? 'error' : ''}`} />
                           <div className="text-[13px] text-[#444444] leading-[1.6]">
                             我已阅读并同意 AWAK 的 
-                            <Link to="/privacy" className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>用户服务协议</Link>
+                            <Link to={withPath('/privacy')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>用户服务协议</Link>
                             和
-                            <Link to="/privacy" className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>隐私政策</Link>
+                            <Link to={withPath('/privacy')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>隐私政策</Link>
                           </div>
                         </div>
                         {privacyError && <div className="text-[#FF4D4D] text-[12px] mt-1 pl-7">请阅读并同意用户协议</div>}
@@ -755,7 +752,7 @@ export default function AuthPage() {
                 <button 
                   onClick={() => {
                     setRegisterModalOpen(false);
-                    navigate('/account'); // Navigate to personal center or completion page
+                    navigate(withPath('/account')); // Navigate to personal center or completion page
                   }}
                   className="w-full h-[52px] bg-[#C8FF00] text-[#080808] font-bold text-[16px] rounded-lg hover:bg-white transition-colors"
                 >
@@ -764,7 +761,7 @@ export default function AuthPage() {
                 <button 
                   onClick={() => {
                     setRegisterModalOpen(false);
-                    navigate('/');
+                    navigate(withPath('/'));
                   }}
                   className="text-[#9B9B96] hover:text-white transition-colors text-sm font-medium"
                 >
