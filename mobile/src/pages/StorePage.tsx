@@ -922,62 +922,145 @@ export default function StorePage() {
           
           {/* LEFT: Product Images (55%) */}
         <div
-          className={`relative z-10 flex w-full flex-col items-center justify-center px-8 md:w-[55%] ${
+          className={`relative z-10 flex w-full flex-col items-center justify-center md:w-[55%] ${
+            useUnified ? 'max-md:px-3 md:px-8' : 'px-8'
+          } ${
             useUnified
               ? 'max-md:pt-8 max-md:pb-[18px] md:py-[var(--block-gap)]'
               : 'py-[var(--block-gap)]'
           }`}
         >
-          <div
-            className={`relative flex aspect-square w-full cursor-zoom-in items-center justify-center group ${useUnified ? 'max-w-[245px]' : 'max-w-[500px]'}`}
-            onClick={() => setIsLightboxOpen(true)}
-          >
-            <AnimatePresence mode="wait">
-              <motion.img 
-                key={activeCategory.id + selectedColor.id + activeThumb}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                src={((activeCategory as any).variants?.[activeThumb]?.colors) ? (selectedColor.img || (activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img) : ((activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img)} 
-                alt={activeCategory.name} 
-                className="w-full h-full object-contain"
-                referrerPolicy="no-referrer"
-              />
-            </AnimatePresence>
+          {useUnified ? (
+            <>
+              <div className="relative mx-auto w-full max-w-[min(92vw,300px)] md:max-w-[245px]">
+                <div
+                  className="group relative flex aspect-square w-full cursor-zoom-in items-center justify-center"
+                  onClick={() => setIsLightboxOpen(true)}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeCategory.id + selectedColor.id + activeThumb}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      src={
+                        (activeCategory as any).variants?.[activeThumb]?.colors
+                          ? selectedColor.img ||
+                            (activeCategory as any).variants?.[activeThumb]?.img ||
+                            activeCategory.img
+                          : (activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img
+                      }
+                      alt={activeCategory.name}
+                      className="h-full w-full object-contain"
+                      referrerPolicy="no-referrer"
+                    />
+                  </AnimatePresence>
 
-            {/* 360° Indicator removed */}
-            
-            {/* Hover hint */}
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 text-white backdrop-blur-md p-2 rounded-full border-none pointer-events-none">
-              <ZoomIn className="h-5 w-5 text-white/70" strokeWidth={1.75} aria-hidden />
-            </div>
-          </div>
+                  <div className="pointer-events-none absolute top-4 right-4 rounded-full border-none bg-white/10 p-2 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+                    <ZoomIn className="h-5 w-5 text-white/70" strokeWidth={1.75} aria-hidden />
+                  </div>
+                </div>
+              </div>
 
-          {/* Thumbnails */}
-          <div className={`flex gap-4 ${useUnified ? 'mt-[12px]' : 'mt-8'}`}>
-            {((activeCategory as any).variants || []).map((v: any, idx: number) => (
-              <button 
-                key={idx}
-                onClick={() => setActiveThumb(idx)}
-                className={`rounded-lg overflow-hidden transition-all ${
-                  useUnified
-                    ? `border-0 ${activeThumb === idx ? 'opacity-100' : 'opacity-50 hover:opacity-100'}`
-                    : `border ${activeThumb === idx ? 'border-white' : 'border-white/10 opacity-50 hover:opacity-100'}`
-                } ${useUnified ? 'h-[56px] w-[56px]' : 'h-[80px] w-[80px]'}`}
+              {/* 移动端：缩略图叠在大图左侧，左缘与页面内容区对齐（max-md:px-3 = 12px）；桌面：大图下方横排 */}
+              <div
+                role="tablist"
+                aria-label="产品图切换"
+                className="z-20 flex max-md:absolute max-md:left-0 max-md:top-1/2 max-md:translate-x-6 max-md:-translate-y-1/2 max-md:flex-col max-md:gap-3 max-md:items-center md:static md:mt-[12px] md:translate-x-0 md:translate-y-0 md:flex-row md:justify-center md:gap-4"
               >
-                <img
-                  src={v.img}
-                  referrerPolicy="no-referrer"
-                  className={`w-full h-full object-contain bg-white/5 transition-transform ${
-                    activeCategory.id === 'ring' && v?.name?.includes('唯一定制款') ? 'scale-[1.25]' :
-                    activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款') ? 'scale-[0.72]' :
-                    'scale-100'
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
+                {((activeCategory as any).variants || []).map((v: any, idx: number) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeThumb === idx}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveThumb(idx);
+                    }}
+                    className={`overflow-hidden rounded-lg shadow-md ring-1 transition-all max-md:bg-black/35 max-md:backdrop-blur-md max-md:ring-white/25 md:bg-transparent md:shadow-none md:ring-0 ${
+                      activeThumb === idx
+                        ? 'opacity-100 ring-white/50 md:ring-transparent'
+                        : 'opacity-60 hover:opacity-100 md:opacity-50'
+                    } h-11 w-11 max-md:h-[48.4px] max-md:w-[48.4px] md:h-14 md:w-14`}
+                  >
+                    <img
+                      src={v.img}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className={`h-full w-full bg-white/5 object-contain transition-transform ${
+                        activeCategory.id === 'ring' && v?.name?.includes('唯一定制款')
+                          ? 'scale-[1.25]'
+                          : activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款')
+                            ? 'scale-[0.72]'
+                            : 'scale-100'
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="flex w-full max-w-[500px] flex-col items-center justify-center">
+              <div
+                className="group relative flex aspect-square w-full max-w-[500px] cursor-zoom-in items-center justify-center"
+                onClick={() => setIsLightboxOpen(true)}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeCategory.id + selectedColor.id + activeThumb}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    src={
+                      (activeCategory as any).variants?.[activeThumb]?.colors
+                        ? selectedColor.img ||
+                          (activeCategory as any).variants?.[activeThumb]?.img ||
+                          activeCategory.img
+                        : (activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img
+                    }
+                    alt={activeCategory.name}
+                    className="h-full w-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                </AnimatePresence>
+
+                <div className="pointer-events-none absolute top-4 right-4 rounded-full border-none bg-white/10 p-2 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+                  <ZoomIn className="h-5 w-5 text-white/70" strokeWidth={1.75} aria-hidden />
+                </div>
+              </div>
+
+              <div className="mt-8 flex gap-4" role="tablist" aria-label="产品图切换">
+                {((activeCategory as any).variants || []).map((v: any, idx: number) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeThumb === idx}
+                    onClick={() => setActiveThumb(idx)}
+                    className={`h-[80px] w-[80px] overflow-hidden rounded-lg border transition-all ${
+                      activeThumb === idx ? 'border-white' : 'border-white/10 opacity-50 hover:opacity-100'
+                    }`}
+                  >
+                    <img
+                      src={v.img}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className={`h-full w-full bg-white/5 object-contain transition-transform ${
+                        activeCategory.id === 'ring' && v?.name?.includes('唯一定制款')
+                          ? 'scale-[1.25]'
+                          : activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款')
+                            ? 'scale-[0.72]'
+                            : 'scale-100'
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* RIGHT: Purchasing Info (45%) */}
@@ -1589,7 +1672,7 @@ export default function StorePage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsSizeGuideOpen(false)}
-            className="fixed inset-0 bg-black/85 backdrop-blur-sm z-[80] flex justify-center items-center p-4"
+            className="fixed inset-0 bg-black/85 backdrop-blur-sm z-[20000] flex justify-center items-center p-4"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}

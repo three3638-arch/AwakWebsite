@@ -2,7 +2,8 @@ import React, { useMemo, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 
-const PRODUCT_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+// “智能硬件的场景”左侧按钮顺序（含对应内容/图片）
+const PRODUCT_IDS = ['ring', 'band', 'glasses', 'watch'] as const;
 
 const FEATURE_IMAGES: Record<(typeof PRODUCT_IDS)[number], string[]> = {
   ring: [
@@ -56,7 +57,7 @@ export default function ImmersiveScenarios() {
     });
   }, [t]);
 
-  const [activeProductId, setActiveProductId] = useState<(typeof PRODUCT_IDS)[number]>('ring');
+  const [activeProductId, setActiveProductId] = useState<(typeof PRODUCT_IDS)[number]>(PRODUCT_IDS[0]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.3 });

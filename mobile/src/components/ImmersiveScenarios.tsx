@@ -126,7 +126,7 @@ export default function ImmersiveScenarios() {
       <div className="z-10 flex min-w-0 flex-col gap-8 px-[12px]">
         <div className="flex w-full max-w-full flex-col md:max-w-[min(100%,520px)]">
           <div
-            className="flex w-full shrink-0 flex-row flex-wrap items-center gap-x-2 gap-y-2 sm:gap-x-4"
+            className="flex w-full shrink-0 flex-row flex-wrap items-center gap-x-2 gap-y-2 max-md:flex-nowrap max-md:justify-between max-md:gap-2 sm:gap-x-4 md:flex-wrap md:justify-start"
             role="tablist"
             aria-label={t('home.immersive.tablistAria')}
           >
@@ -143,7 +143,7 @@ export default function ImmersiveScenarios() {
                   title={product.name}
                   onClick={() => setActiveIndex(idx)}
                   className={[
-                    'shrink-0 rounded-full px-4 py-2 text-left text-[15px] font-normal leading-snug tracking-tight transition-colors duration-200 sm:px-5 sm:text-[16px] md:text-[17px]',
+                    'inline-flex shrink-0 items-center justify-center rounded-full px-3 py-1.5 text-center text-[13px] font-normal leading-snug tracking-tight transition-colors duration-200 max-md:min-h-[48px] max-md:min-w-0 max-md:flex-1 max-md:px-2 max-md:py-3 sm:px-4 sm:py-2 sm:text-[14px] md:inline-flex md:min-h-0 md:flex-initial md:px-3 md:py-1.5 md:text-left md:text-[15px]',
                     isActive
                       ? 'bg-neutral-900 text-white'
                       : 'bg-white/80 text-neutral-600 ring-1 ring-neutral-300/80 hover:bg-white hover:text-neutral-900',
@@ -171,8 +171,8 @@ export default function ImmersiveScenarios() {
                 key={`${activeProductId}-${idx}`}
                 className={
                   isLarge
-                    ? 'w-[min(560px,calc(100%-16px))] shrink-0 snap-start snap-always'
-                    : 'w-[min(320px,min(72vw,calc(100%-24px)))] shrink-0 snap-start snap-always'
+                    ? 'w-[min(260px,calc(100vw-36px))] shrink-0 snap-start snap-always md:w-[min(560px,calc(100%-16px))]'
+                    : 'w-[min(260px,calc(100vw-36px))] shrink-0 snap-start snap-always md:w-[min(320px,min(72vw,calc(100%-24px)))]'
                 }
               >
                 <div className="overflow-hidden rounded-[10px] bg-neutral-200 border-none">
@@ -187,6 +187,8 @@ export default function ImmersiveScenarios() {
                       <img
                         src={feature.img}
                         alt={feature.title}
+                        loading="eager"
+                        decoding="async"
                         className="absolute inset-0 h-full w-full object-cover"
                         referrerPolicy="no-referrer"
                         draggable={false}

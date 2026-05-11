@@ -13,6 +13,9 @@ const TOP_ITEMS = [
   { id: 'b6' as const, img: 'https://i.ibb.co/m5J3KvJN/Alzheimers.jpg' },
 ];
 
+/** 品牌动态配图 URL，供首页预加载 */
+export const BRAND_DYNAMICS_IMAGE_URLS = TOP_ITEMS.map((it) => it.img);
+
 /** 左列：大—小—中；右列：小—小—大（第三张在「标准大」aspect 3/5 基础上高度 +60% → aspect-[3/8]） */
 function brandCardAspectClass(column: 'L' | 'R', rowIdx: number): string {
   if (column === 'L') {
@@ -57,6 +60,8 @@ export default function BrandDynamics() {
             <img
               src={item.img}
               alt={title}
+              loading="eager"
+              decoding="async"
               referrerPolicy="no-referrer"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
             />

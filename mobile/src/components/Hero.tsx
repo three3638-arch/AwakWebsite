@@ -28,11 +28,14 @@ export default function Hero() {
   return (
     <section className="relative mb-0 flex min-h-[100dvh] min-h-0 w-full flex-col overflow-hidden bg-black px-4 pt-20 pb-12 text-white md:px-[170px] md:pt-16 md:pb-20">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black">
-        <div className="absolute left-0 top-0 h-[min(92vh,900px)] w-[min(155vw,1500px)] overflow-hidden md:h-[min(94vh,960px)] md:w-[min(98vw,1500px)]">
+        <div className="absolute left-0 top-0 h-[min(92vh,900px)] w-[min(155vw,1500px)] overflow-hidden max-md:-translate-y-6 md:h-[min(94vh,960px)] md:translate-y-0 md:w-[min(98vw,1500px)]">
           <img
             src={HERO_BACKGROUND_IMAGE_URL}
             alt=""
-            className="h-full w-[128%] max-w-none origin-left translate-x-[-6%] md:translate-x-[-10%] scale-[0.952] object-cover object-left object-[0%_42%]"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-[128%] max-w-none origin-left object-cover object-left max-md:-translate-x-[10%] max-md:scale-[0.762] max-md:object-[0%_32%] md:-translate-x-[10%] md:scale-[0.952] md:object-[0%_42%]"
             referrerPolicy="no-referrer"
           />
         </div>
@@ -41,14 +44,14 @@ export default function Hero() {
       <div className="relative z-20 flex min-h-0 flex-1 flex-col">
         <div className="flex flex-1 flex-col justify-end pb-10 pt-8 md:pb-16 md:pt-12">
           <motion.div
-            className="flex max-w-3xl flex-col items-start text-left"
+            className="flex max-w-3xl flex-col items-start text-left max-md:mt-10 max-md:translate-y-4 md:mt-0 md:translate-y-0"
             variants={heroStagger}
             initial="hidden"
             animate="visible"
           >
             <motion.h1
               variants={fadeUp}
-              className="max-w-[min(100%,24ch)] text-[clamp(40px,12vw,72px)] font-normal leading-none tracking-tighter text-white"
+              className="max-w-[min(100%,24ch)] text-[clamp(28px,8vw,36px)] font-normal leading-none tracking-tighter text-white md:text-[clamp(40px,12vw,72px)]"
             >
               {t('home.hero.title')}
             </motion.h1>

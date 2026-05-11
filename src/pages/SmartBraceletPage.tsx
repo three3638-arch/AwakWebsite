@@ -60,8 +60,12 @@ const SmartBraceletPage: React.FC = () => {
             className="max-w-4xl"
           >
             <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight mb-16">
-              AWAK BRACELET <br/> 
-              <span className="text-white block mt-6">轻盈守护，时刻在线</span>
+              AWAK BRACELET <br />
+              <span className="text-white mt-6 block text-5xl leading-tight md:text-6xl lg:text-7xl xl:text-8xl">
+                健康守护，家人就在身边
+                <br />
+                关爱银发健康，让一切都来得及
+              </span>
             </h1>
             <p className="text-white/60 text-xl md:text-2xl font-medium leading-relaxed mb-12 max-w-2xl">
               55-75岁银发专属健康守护。不仅是一枚手环，更是理解你身体频率的贴身伙伴。

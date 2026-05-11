@@ -15,7 +15,7 @@
   },
   "navHw": {
     "ring": { "title": "AWAK RING 智能戒指", "desc": "看懂身体变化" },
-    "watch": { "title": "AWAK WATCH 专业运动智能手表", "desc": "掌控运动状态" },
+    "watch": { "title": "AWAK WATCH 智能手表", "desc": "掌控运动状态" },
     "band": { "title": "AWAK BRACELET 智能手环", "desc": "守护家人健康" },
     "glasses": { "title": "AWAK GLASSES 智能眼镜", "desc": "听见看见世界" }
   },
@@ -47,17 +47,21 @@
   },
   "home": {
     "hero": {
-      "title": "看得懂的健康",
-      "subtitle": "行业TOP级精准监测 | 医疗级AI算法 | 全人群健康守护",
+      "title": "指尖健康  触手可及",
+      "subtitle": "家人健康守护 |医疗级AI算法|全周期健康管理",
       "ctaBuy": "立即购买",
       "ctaApp": "下载APP"
     },
     "trust": {
       "stats": [
-        { "value": "1,000,000+", "label": "目标用户" },
+        { "value": "1,000,000+", "label": "累计服务用户" },
         { "value": "50+", "label": "健康指标" },
-        { "value": "99.2%", "label": "满意度" },
-        { "value": "18个月", "label": "质保" }
+        { "value": "24h", "label": "睡眠记录" },
+        { "value": "100+", "label": "运动陪伴" },
+        { "value": "AI", "label": "营养辅助" },
+        { "value": "3s", "label": "紧急呼救" },
+        { "value": "18个月", "label": "质保周期" },
+        { "value": "98.6%", "label": "算法精度" }
       ]
     },
     "intro": {
@@ -180,29 +184,29 @@
       }
     },
     "team": {
-      "heading1": "智能硬件+应用服务",
-      "heading2": "构建 7×24H 全周期健康与睡眠",
+      "heading1": "AI 伴身智能7*24h",
+      "heading2": "全周期健康管家",
       "cta": "立即购买",
       "cards": {
         "ring": {
-          "brand": "Awak Ring",
-          "category": "智能戒指",
-          "subtitle": "年轻人的第一款时尚智能戒指"
+          "brand": "智能戒指",
+          "category": "年轻时尚元气感知",
+          "subtitle": ""
         },
         "band": {
-          "brand": "Awak Bracelet",
-          "category": "智能手环",
-          "subtitle": "55-75岁银发专属健康守护"
+          "brand": "智能手环",
+          "category": "银发守护紧急呼救",
+          "subtitle": ""
         },
         "watch": {
-          "brand": "Awak Watch",
-          "category": "专业运动智能手表",
-          "subtitle": "全年龄段专业级全场景运动腕表"
+          "brand": "智能手表",
+          "category": "高精心率跑马无忧",
+          "subtitle": ""
         },
         "glasses": {
-          "brand": "Awak Glasses",
-          "category": "智能眼镜",
-          "subtitle": "听视障人群民生刚需智能硬件"
+          "brand": "智能眼镜",
+          "category": "听视陪伴轻松出行",
+          "subtitle": ""
         }
       }
     }

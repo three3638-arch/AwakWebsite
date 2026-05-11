@@ -25,6 +25,16 @@ const HERO_CARD_IMAGE: Record<(typeof HERO_CARD_IDS)[number], string> = {
 /** 首页英雄四图 URL，供预加载 */
 export const HOME_HERO_CARD_IMAGE_URLS = Object.values(HERO_CARD_IMAGE);
 
+/** 「智能硬件+应用服务」横向产品卡四图 URL，供预加载 */
+const TEAM_PRODUCT_CARD_IMAGE: Record<(typeof CARD_IDS)[number], string> = {
+  ring: 'https://i.ibb.co/FLXrp6qv/image.jpg',
+  band: 'https://i.ibb.co/1t1FyW93/image.jpg',
+  watch: 'https://i.ibb.co/YBjhmq8w/image.jpg',
+  glasses: 'https://i.ibb.co/FL1q2zKP/image.jpg',
+};
+
+export const HOME_TEAM_PRODUCT_CARD_IMAGE_URLS = Object.values(TEAM_PRODUCT_CARD_IMAGE);
+
 const PRODUCT_PAGE_LINK: Record<(typeof HERO_CARD_IDS)[number], string> = {
   ring: '/products/ring',
   band: '/products/band',
@@ -54,6 +64,8 @@ function HomeHeroCard({ id }: { id: (typeof HERO_CARD_IDS)[number] }) {
       <img
         src={HERO_CARD_IMAGE[id]}
         alt=""
+        loading="eager"
+        decoding="async"
         className={[
           'absolute inset-0 h-full w-full object-cover',
           id === 'ring' ? '-scale-x-100' : '',
@@ -70,7 +82,7 @@ function HomeHeroCard({ id }: { id: (typeof HERO_CARD_IDS)[number] }) {
       />
       <HomeHeroGlassPanel productId={id} />
       <div className="absolute inset-x-0 top-0 z-10 flex flex-col gap-4 px-6 pt-6 pb-8 md:p-6">
-        <p className="whitespace-pre-line text-left text-[32px] font-normal leading-tight tracking-tight text-white drop-shadow-md">
+        <p className="whitespace-pre-line text-left text-[clamp(28px,8vw,36px)] font-normal leading-tight tracking-tight text-white drop-shadow-md md:text-[32px]">
           {t(`home.heroCards.${id}`)}
         </p>
         <Link
@@ -179,18 +191,12 @@ export default function TeamSection() {
           className="hide-scrollbar flex snap-x snap-mandatory items-start gap-2 overflow-x-auto pb-2 md:snap-none md:overflow-x-visible"
         >
           {CARD_IDS.map((id, index) => {
-            const img =
-              id === 'ring'
-                ? 'https://i.ibb.co/FLXrp6qv/image.jpg'
-                : id === 'band'
-                  ? 'https://i.ibb.co/1t1FyW93/image.jpg'
-                  : id === 'watch'
-                    ? 'https://i.ibb.co/YBjhmq8w/image.jpg'
-                    : 'https://i.ibb.co/FL1q2zKP/image.jpg';
+            const img = TEAM_PRODUCT_CARD_IMAGE[id];
 
             const brand = t(`home.team.cards.${id}.brand`);
             const category = t(`home.team.cards.${id}.category`);
             const subtitle = t(`home.team.cards.${id}.subtitle`);
+            const title = [brand, category].map((s) => s.trim()).filter(Boolean).join(' ');
             const m = cardMotion[index] ?? { scale: 1, y: 0 };
 
             return (
@@ -213,6 +219,8 @@ export default function TeamSection() {
                     <img
                       src={img}
                       alt={brand}
+                      loading="eager"
+                      decoding="async"
                       className="absolute inset-0 h-full w-full object-cover"
                       referrerPolicy="no-referrer"
                       draggable={false}
@@ -223,7 +231,7 @@ export default function TeamSection() {
 
                     <div className="absolute left-0 top-0 z-[2] max-w-[92%] p-5 text-left">
                       <p className="text-lg font-normal leading-snug tracking-tight text-white md:text-xl">
-                        {brand} {category}
+                        {title}
                       </p>
                       <p className="mt-3 text-base font-normal leading-snug text-white/95 md:text-lg">
                         {subtitle}

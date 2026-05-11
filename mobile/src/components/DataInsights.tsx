@@ -32,6 +32,9 @@ const KIND_BACKGROUNDS: Record<InsightItem['kind'], string> = {
   goal: 'https://i.ibb.co/4gS1WHS4/51-Pinterest.jpg',
 };
 
+/** 数据洞察卡片背景图 URL，供首页预加载 */
+export const DATA_INSIGHTS_IMAGE_URLS = Object.values(KIND_BACKGROUNDS);
+
 const ITEMS: InsightItem[] = [
   {
     title: '睡眠恢复',
@@ -381,6 +384,8 @@ function InsightsCarousel({
                   <img
                     src={KIND_BACKGROUNDS[it.kind]}
                     alt=""
+                    loading="eager"
+                    decoding="async"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div

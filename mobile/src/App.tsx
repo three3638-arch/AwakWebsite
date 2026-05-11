@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Hero, { HERO_BACKGROUND_IMAGE_URL } from './components/Hero';
-import TeamSection, { HOME_HERO_CARD_IMAGE_URLS } from './components/TeamSection';
+import TeamSection, {
+  HOME_HERO_CARD_IMAGE_URLS,
+  HOME_TEAM_PRODUCT_CARD_IMAGE_URLS,
+} from './components/TeamSection';
 import ImmersiveScenarios, { getImmersiveFeatureImageUrls } from './components/ImmersiveScenarios';
-import BrandDynamics from './components/BrandDynamics';
+import BrandDynamics, { BRAND_DYNAMICS_IMAGE_URLS } from './components/BrandDynamics';
 import BrandSlogan from './components/BrandSlogan';
 import DataInsights from './components/DataInsights';
 import ValueProposition from './components/ValueProposition';
 import IntroSection, { INTRO_APP_TAB_IMAGE_URLS } from './components/IntroSection';
+import { DATA_INSIGHTS_IMAGE_URLS } from './components/DataInsights';
 import FooterSections from './components/FooterSections';
 import LocaleLayout from './components/LocaleLayout';
 import SmartRingPage from './pages/SmartRingPage';
@@ -23,18 +27,24 @@ import AuthPage from './pages/AuthPage';
 import EcosystemPage from './pages/EcosystemPage';
 import { DEFAULT_LOCALE, isSupportedLocale, ROUTER_BASENAME } from './lib/locale';
 
-function useHomeAboveIntroImageWarmup() {
+function uniqStrings(urls: string[]) {
+  return [...new Set(urls.filter(Boolean))];
+}
+
+/** 首页所有远程配图：`<link rel="preload" as="image">`，避免滚动到模块才触发加载 */
+function useHomePageImagePreload() {
   useEffect(() => {
-    const urls = [
+    const urls = uniqStrings([
       HERO_BACKGROUND_IMAGE_URL,
       ...HOME_HERO_CARD_IMAGE_URLS,
+      ...HOME_TEAM_PRODUCT_CARD_IMAGE_URLS,
       ...getImmersiveFeatureImageUrls(),
       ...INTRO_APP_TAB_IMAGE_URLS,
-    ];
+      ...DATA_INSIGHTS_IMAGE_URLS,
+      ...BRAND_DYNAMICS_IMAGE_URLS,
+    ]);
     const links: HTMLLinkElement[] = [];
     for (const href of urls) {
-      const img = new Image();
-      img.src = href;
       const link = document.createElement('link');
       link.rel = 'preload';
       link.as = 'image';
@@ -51,7 +61,7 @@ function useHomeAboveIntroImageWarmup() {
 }
 
 function HomePage() {
-  useHomeAboveIntroImageWarmup();
+  useHomePageImagePreload();
   return (
     <div className="hds-home bg-base text-fg-primary font-sans antialiased selection:bg-accent selection:text-ink">
       <div className="flex min-h-[100dvh] flex-col">

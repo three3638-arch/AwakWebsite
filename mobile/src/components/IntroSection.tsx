@@ -69,6 +69,8 @@ export default function IntroSection() {
                       key={appTab}
                       src={APP_TAB_IMAGES[appTab]}
                       alt="AwakHealth App"
+                      loading="eager"
+                      decoding="async"
                       className="h-auto w-full origin-center scale-[1.15] object-contain"
                       referrerPolicy="no-referrer"
                       initial={{ opacity: 0 }}
@@ -81,10 +83,10 @@ export default function IntroSection() {
               </div>
               <div className="absolute inset-x-0 bottom-[10px] flex justify-center px-2 pb-2 pt-8">
                 <div
-                  className="inline-flex max-w-full rounded-[99px] border-none bg-white/12 px-2 py-2 backdrop-blur-xl"
+                  className="inline-flex max-w-full rounded-[99px] border-none bg-white/12 px-1.5 py-2 backdrop-blur-xl md:px-2"
                   style={{ WebkitBackdropFilter: 'blur(14px)' }}
                 >
-                  <div className="flex flex-wrap items-center justify-center gap-2.5">
+                  <div className="flex flex-wrap items-center justify-center gap-1 md:gap-2.5">
                     {APP_TABS.map(({ id, label }) => {
                       const active = appTab === id;
                       return (
@@ -93,7 +95,7 @@ export default function IntroSection() {
                           type="button"
                           onClick={() => setAppTab(id)}
                           className={[
-                            'shrink-0 min-w-[64px] rounded-[99px] px-5 py-2.5 text-center text-[12px] font-medium transition-colors sm:min-w-[76px] sm:px-6 sm:py-3 sm:text-[13px]',
+                            'shrink-0 rounded-[99px] py-2.5 text-center text-[12px] font-medium transition-colors max-md:min-w-0 max-md:px-3 md:min-w-[64px] md:px-5 sm:min-w-[76px] sm:px-6 sm:py-3 sm:text-[13px]',
                             active
                               ? 'bg-white text-black'
                               : 'bg-white/12 text-white/85 backdrop-blur-md hover:bg-white/20',
