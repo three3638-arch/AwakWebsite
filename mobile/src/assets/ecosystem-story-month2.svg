@@ -1,0 +1,45 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#151515"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 240) rotate(135) scale(620 620)">
+      <stop stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="0.55" stop-color="#C8F000" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#C8F000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="900" rx="64" fill="url(#bg)"/>
+  <rect width="1200" height="900" rx="64" fill="url(#halo)"/>
+
+  <g transform="translate(120 170)">
+    <rect x="0" y="0" width="960" height="560" rx="56" fill="rgba(255,255,255,0.06)"/>
+    <g transform="translate(72 88)">
+      <rect x="0" y="0" width="816" height="384" rx="44" fill="rgba(0,0,0,0.35)"/>
+      <g transform="translate(74 70)">
+        <rect x="0" y="0" width="340" height="18" rx="9" fill="rgba(255,255,255,0.14)"/>
+        <rect x="0" y="34" width="520" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+        <rect x="0" y="60" width="440" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+        <rect x="0" y="86" width="480" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+      </g>
+
+      <g transform="translate(74 210)">
+        <rect x="0" y="0" width="668" height="128" rx="36" fill="rgba(255,255,255,0.05)"/>
+        <g transform="translate(34 30)">
+          <rect x="0" y="0" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+          <rect x="0" y="0" width="410" height="10" rx="5" fill="#C8F000"/>
+          <rect x="0" y="34" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+          <rect x="0" y="34" width="330" height="10" rx="5" fill="#C8F000" opacity="0.65"/>
+          <rect x="0" y="68" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+          <rect x="0" y="68" width="460" height="10" rx="5" fill="#C8F000" opacity="0.40"/>
+        </g>
+      </g>
+
+      <g transform="translate(770 86)" opacity="0.9">
+        <circle cx="0" cy="0" r="48" fill="rgba(200,240,0,0.20)"/>
+        <circle cx="0" cy="0" r="18" fill="#C8F000"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,298 @@
+{
+  "nav": {
+    "hardware": "Hardware",
+    "ecosystem": "Ecosystem",
+    "news": "News",
+    "contact": "Contact",
+    "store": "Store",
+    "search": "Search",
+    "account": "Account",
+    "chooseLanguage": "Choose language"
+  },
+  "localeMenu": {
+    "zh": "简体中文",
+    "en": "English"
+  },
+  "navHw": {
+    "ring": { "title": "AWAK RING Smart Ring", "desc": "Understand how your body changes" },
+    "watch": { "title": "AWAK WATCH Sports Smartwatch", "desc": "Own your training" },
+    "band": { "title": "AWAK BRACELET Smart Band", "desc": "Care for your family’s health" },
+    "glasses": { "title": "AWAK GLASSES Smart Glasses", "desc": "Hear and see the world" }
+  },
+  "footer": {
+    "tagline": "Sense the rhythm of life",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "groups": {
+      "products": "Products",
+      "company": "Company",
+      "support": "Support",
+      "download": "Downloads"
+    },
+    "links": {
+      "ring": "AWAK Ring",
+      "band": "AWAK Band",
+      "watch": "AWAK Watch",
+      "glasses": "AWAK Glasses",
+      "about": "About us",
+      "news": "News",
+      "contact": "Contact",
+      "help": "Help center",
+      "manual": "User manual",
+      "warranty": "Warranty",
+      "ios": "Download for iOS",
+      "android": "Download for Android",
+      "web": "AwakHealth Web"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Visible health progress",
+      "subtitle": "Monitor → Analyze → Act → Improve",
+      "ctaBuy": "Buy now",
+      "ctaApp": "Download app",
+      "ctaPrimary": "Generate my health report",
+      "trust": "100,000+ target users ｜ 50+ health metrics 98.2% accuracy"
+    },
+    "heroCards": {
+      "ring": "Effortless wear\nProtect every night",
+      "band": "Always with you\nInstant risk alerts",
+      "watch": "Break through\nTrack performance precisely",
+      "glasses": "Hear and see\nConnect more freely",
+      "ctaLearn": "Learn more"
+    },
+    "heroGlass": {
+      "audio": {
+        "label": "Hearing wellness",
+        "colHz": "Hz span",
+        "colDev": "Connected",
+        "colNoise": "dB ANC",
+        "badge": "Live audio analysis"
+      },
+      "sleep": {
+        "label": "Sleep stages",
+        "deep": "Deep %",
+        "score": "Sleep score",
+        "hrv": "HRV",
+        "wake": "Awakenings"
+      },
+      "ecg": {
+        "label": "Live vitals",
+        "alert1": "Rhythm normal · sinus",
+        "alert2": "SpO₂ excellent",
+        "alert3": "24h continuous monitoring"
+      },
+      "sport": {
+        "label": "Workout tracking",
+        "pace": "Pace",
+        "zone": "HR zone",
+        "km": "KM"
+      }
+    },
+    "topSticky": {
+      "title": "AWAK hardware",
+      "price": "From ¥349",
+      "ctaCart": "Add to cart"
+    },
+    "intro": {
+      "title": "Full-chain health ecosystem\nFrom sleep, fitness & nutrition to retail, insurance & checkups",
+      "appLine": "AwakHealth app — full-stack wellness",
+      "body": "",
+      "ctaTry": "Try now",
+      "ctaDemo": "Watch demo",
+      "oneLiner": "Your health isn’t just data",
+      "abilities": ["Monitor", "Analyze", "Intervene"],
+      "featureCards": [
+        { "line1": "Professional checkups", "line2": "See how your body changes", "line3": "Spot risks earlier" },
+        { "line1": "Medical coverage", "line2": "First-year member benefits", "line3": "Up to ¥1M reimbursement" },
+        { "line1": "Health services", "line2": "Checkups × insurance booking", "line3": "One coordinated journey" }
+      ],
+      "stats": [
+        { "label": "Checkups", "value": "Year-one offer", "desc": "Year-one bonus included" },
+        { "label": "¥1M", "value": "1,000,000", "desc": "Medical reimbursement" },
+        { "label": "One-stop", "value": "Full journey", "desc": "Checkups & insurance booking" }
+      ]
+    },
+    "valueLoop": {
+      "title": "AWAK health loop\nDay and night rhythm care",
+      "subtitle": "From effortless logging to AI-guided actions—a closed loop for your digital health.",
+      "cards": [
+        { "icon": "sleep", "title": "Morning | Body wake-up", "desc": "Generate today’s readiness score" },
+        { "icon": "mind", "title": "AM | Stress tracking", "desc": "Capture stress fluctuations" },
+        { "icon": "activity", "title": "Daytime | Performance", "desc": "Balance load and recovery" },
+        { "icon": "activity", "title": "PM | Nutrition", "desc": "Smart fueling suggestions" },
+        { "icon": "mind", "title": "Evening | Daily review", "desc": "Generate next-step optimizations" },
+        { "icon": "sleep", "title": "Night | Sleep recovery", "desc": "Decode recovery quality" }
+      ],
+      "nodes": [
+        { "title": "Capture", "desc": "Always-on sensing that collects what matters." },
+        { "title": "Understand", "desc": "Clear takeaways—not charts you have to decode." },
+        { "title": "Act", "desc": "Doable steps tuned to your moment." },
+        { "title": "Feedback", "desc": "See change after every move." },
+        { "title": "Improve", "desc": "Sharper every day—the more you use it." }
+      ]
+    },
+    "brandDynamics": {
+      "title": "News & stories",
+      "view": "View",
+      "news": {
+        "b1": {
+          "title": "Spring ’26 recap",
+          "subtitle": "Where tech meets aesthetics",
+          "excerpt": "New wearables, tighter loop."
+        },
+        "b2": {
+          "title": "Art of breath",
+          "subtitle": "A chat with our Chief Health Officer",
+          "excerpt": "Read signals. Act daily."
+        },
+        "b3": {
+          "title": "City cycling",
+          "subtitle": "Connecting communities by route",
+          "excerpt": "Commute meets training & crew."
+        },
+        "b4": {
+          "title": "Inclusive design",
+          "subtitle": "Technology that serves everyone",
+          "excerpt": "Tech that serves everyone."
+        },
+        "b5": {
+          "title": "Materials lab",
+          "subtitle": "Finding gentler ways to wear all day",
+          "excerpt": "Softer wear, all day long."
+        },
+        "b6": {
+          "title": "Sleep summit",
+          "subtitle": "Inside deep sleep",
+          "excerpt": "Deep sleep & rhythm, decoded."
+        },
+        "b7": { "title": "Ecosystem partners", "subtitle": "Building an open blueprint for digital life" },
+        "b8": { "title": "User stories", "subtitle": "Turning change into visible progress" }
+      }
+    },
+    "slogan": {
+      "titleLine1": "Smart tech",
+      "titleLine2": "Redefining stylish wellness",
+      "desc": "Precision wellness for individuals and families. We believe technology should end in insight—not cold numbers—but a deeper understanding of life."
+    },
+    "dataInsights": {
+      "headline1": "Understand the data",
+      "headline2": "Change your life",
+      "todayTitle": "Understand the data to change your life",
+      "todaySummary": "Your body looks good today—keep it up",
+      "todayCards": [
+        { "value": "62 bpm", "label": "Heart rate normal" },
+        { "value": "88.9%", "label": "SpO₂ excellent" }
+      ],
+      "chartStart": "Start",
+      "chartMid": "Week 6",
+      "chartEnd": "Week 12",
+      "sleep": {
+        "title": "Sleep score trends",
+        "subtitle": "Sleep quality",
+        "description": "Typical user A: sleep onset dropped from 53 min to 22 min, with steady score gains.",
+        "statLabels": ["Deep sleep gain", "Earlier anomaly alerts", "Sleep staging accuracy", "Avg. score lift"]
+      },
+      "sports": {
+        "title": "VO₂ max improvement",
+        "subtitle": "Training gains",
+        "description": "Following guided plans, recovery after intense sessions shortened by 35%.",
+        "statLabels": ["VO₂ max lift", "HR recovery time", "Fitness level", "Motion recognition"]
+      },
+      "weight": {
+        "title": "Body fat & BMI trajectory",
+        "subtitle": "Weight loss",
+        "description": "With metabolism-aware coaching, users averaged 4.5 kg healthy fat loss in 12 weeks.",
+        "statLabels": ["Avg. weight loss", "Body fat drop", "BMR lift", "Days on track"]
+      },
+      "heart": {
+        "title": "Resting heart rate stability",
+        "subtitle": "Heart health",
+        "description": "24/7 monitoring brought resting HR variability back toward a healthy baseline.",
+        "statLabels": ["Avg. resting HR", "AF & ectopy screening", "Stress index drop", "Day–night delta"]
+      }
+    },
+    "immersive": {
+      "tablistAria": "Choose a product scenario",
+      "tabShort": {
+        "ring": "Smart ring",
+        "band": "Smart bracelet",
+        "glasses": "Smart glasses",
+        "watch": "Smart watch"
+      },
+      "products": {
+        "ring": {
+          "name": "AWAK RING Smart Ring",
+          "features": [
+            { "title": "Designed to wear", "desc": "Feather-light—barely there." },
+            { "title": "Always on", "desc": "24/7 operation with long battery life." },
+            { "title": "Health insight", "desc": "Accurate heart rate & sleep tracking." },
+            { "title": "Smart living", "desc": "Access, tap-to-pay, and device synergy." },
+            { "title": "Mood cues", "desc": "Spot shifts early—stay balanced." },
+            { "title": "Seamless link", "desc": "One tap connects your day." }
+          ]
+        },
+        "band": {
+          "name": "AWAK BRACELET Smart Band",
+          "features": [
+            { "title": "Emergency SOS", "desc": "Fall alerts that notify loved ones." },
+            { "title": "Heart alerts", "desc": "Live monitoring with timely warnings." },
+            { "title": "Battery life", "desc": "Up to 30 days—fewer charges." },
+            { "title": "AI workouts", "desc": "Detect workouts—track and analyze." },
+            { "title": "Comfort fit", "desc": "Skin-friendly straps for daily wear." },
+            { "title": "Always guarded", "desc": "Continuous sync with family alerts." }
+          ]
+        },
+        "glasses": {
+          "name": "AWAK GLASSES Smart Glasses",
+          "features": [
+            { "title": "Accessible chat", "desc": "Live captions & translation—freer conversations." },
+            { "title": "Feather-light", "desc": "49 g—comfortable all day." },
+            { "title": "Safer trips", "desc": "Navigation & obstacle cues—peace of mind." },
+            { "title": "Clear audio", "desc": "Precise voice pickup & noise control." },
+            { "title": "Sign language", "desc": "Recognize signs—two-way understanding." },
+            { "title": "Light & lasting", "desc": "Slim build with all-day endurance." }
+          ]
+        },
+        "watch": {
+          "name": "AWAK WATCH Pro Sports Smartwatch",
+          "features": [
+            { "title": "Training science", "desc": "Personal coaching after every session." },
+            { "title": "Health tracking", "desc": "Sleep, HR, and readiness at a glance." },
+            { "title": "Sport modes", "desc": "Many profiles for every scenario." },
+            { "title": "Outdoor GPS", "desc": "Multi-band GNSS—even off the beaten path." },
+            { "title": "All-round pro", "desc": "Built for every age—serious sports wristwear." },
+            { "title": "Multi-day power", "desc": "Up to twelve days on a charge." }
+          ]
+        }
+      }
+    },
+    "team": {
+      "heading1": "Hardware + apps",
+      "heading2": "24/7 health & sleep—always on",
+      "cta": "Buy now",
+      "cards": {
+        "ring": {
+          "brand": "Awak Ring",
+          "category": "Smart ring",
+          "subtitle": "A stylish smart ring for everyday wellness"
+        },
+        "band": {
+          "brand": "Awak Bracelet",
+          "category": "Smart band",
+          "subtitle": "Dedicated care for ages 55–75"
+        },
+        "watch": {
+          "brand": "Awak Watch",
+          "category": "Sports smartwatch",
+          "subtitle": "Pro-grade training on your wrist"
+        },
+        "glasses": {
+          "brand": "Awak Glasses",
+          "category": "Smart glasses",
+          "subtitle": "Essential assistive tech for hearing & vision needs"
+        }
+      }
+    }
+  }
+}

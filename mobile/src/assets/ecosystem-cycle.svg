@@ -1,0 +1,39 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#141414"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(920 260) rotate(135) scale(560 560)">
+      <stop stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="0.55" stop-color="#C8F000" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#C8F000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" rx="64" fill="url(#bg)"/>
+  <rect width="1200" height="900" rx="64" fill="url(#glow)"/>
+
+  <g transform="translate(140 160)">
+    <rect x="0" y="0" width="920" height="580" rx="56" fill="rgba(255,255,255,0.06)"/>
+    <g transform="translate(72 76)">
+      <rect x="0" y="0" width="776" height="428" rx="44" fill="rgba(0,0,0,0.45)"/>
+      <g transform="translate(74 76)">
+        <circle cx="140" cy="140" r="128" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="14"/>
+        <circle cx="140" cy="140" r="128" fill="none" stroke="#C8F000" stroke-width="14" stroke-linecap="round" stroke-dasharray="360 520" stroke-dashoffset="40"/>
+        <circle cx="140" cy="140" r="10" fill="#C8F000"/>
+        <rect x="340" y="40" width="300" height="16" rx="8" fill="rgba(255,255,255,0.10)"/>
+        <rect x="340" y="72" width="260" height="14" rx="7" fill="rgba(255,255,255,0.08)"/>
+        <rect x="340" y="102" width="220" height="14" rx="7" fill="rgba(255,255,255,0.08)"/>
+        <rect x="340" y="150" width="300" height="16" rx="8" fill="rgba(255,255,255,0.10)"/>
+        <rect x="340" y="182" width="240" height="14" rx="7" fill="rgba(255,255,255,0.08)"/>
+        <rect x="340" y="212" width="200" height="14" rx="7" fill="rgba(255,255,255,0.08)"/>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(920 620)" opacity="0.9">
+    <circle cx="0" cy="0" r="120" fill="rgba(200,240,0,0.16)"/>
+    <path d="M-42 6 C -42 -28, -14 -52, 18 -52 C 54 -52, 82 -24, 82 12 C 82 62, 24 84, -10 98 C -44 84, -84 58, -82 14 C -80 -14, -64 6, -42 6 Z" fill="#C8F000"/>
+  </g>
+</svg>

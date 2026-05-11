@@ -1,0 +1,37 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAFAFA"/>
+      <stop offset="1" stop-color="#F0F0F0"/>
+    </linearGradient>
+    <radialGradient id="accent" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(260 250) rotate(135) scale(520 520)">
+      <stop stop-color="#C8F000" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#C8F000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" rx="64" fill="url(#bg)"/>
+  <rect width="1200" height="900" rx="64" fill="url(#accent)"/>
+
+  <g transform="translate(140 160)">
+    <rect x="0" y="0" width="920" height="580" rx="56" fill="#FFFFFF"/>
+    <rect x="52" y="58" width="360" height="22" rx="11" fill="#0A0A0A" opacity="0.08"/>
+    <rect x="52" y="102" width="520" height="18" rx="9" fill="#0A0A0A" opacity="0.06"/>
+    <rect x="52" y="140" width="460" height="18" rx="9" fill="#0A0A0A" opacity="0.06"/>
+    <rect x="52" y="178" width="380" height="18" rx="9" fill="#0A0A0A" opacity="0.06"/>
+
+    <g transform="translate(52 270)">
+      <rect x="0" y="0" width="816" height="248" rx="40" fill="#FAFAFA"/>
+      <path d="M56 176 C 120 110, 190 206, 262 136 C 320 80, 394 168, 464 118 C 534 68, 610 150, 690 92" stroke="#0A0A0A" stroke-opacity="0.22" stroke-width="12" stroke-linecap="round"/>
+      <path d="M56 170 C 120 104, 190 200, 262 130 C 320 74, 394 162, 464 112 C 534 62, 610 144, 690 86" stroke="#C8F000" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="56" cy="170" r="10" fill="#C8F000"/>
+      <circle cx="690" cy="86" r="10" fill="#C8F000" opacity="0.55"/>
+    </g>
+  </g>
+
+  <g transform="translate(920 170)" opacity="0.9">
+    <rect x="0" y="0" width="160" height="160" rx="48" fill="#0A0A0A" opacity="0.06"/>
+    <path d="M80 34 C 54 34 38 56 38 76 C 38 106 62 122 80 134 C 98 122 122 106 122 76 C 122 56 106 34 80 34 Z" fill="#0A0A0A" opacity="0.20"/>
+    <path d="M80 52 C 66 52 58 64 58 74 C 58 92 72 102 80 108 C 88 102 102 92 102 74 C 102 64 94 52 80 52 Z" fill="#C8F000"/>
+  </g>
+</svg>

@@ -8,23 +8,8 @@ DEPLOY_HOST="${DEPLOY_HOST:-121.196.147.233}"
 REMOTE_TMP_DIR="${REMOTE_TMP_DIR:-/tmp/website-dist}"
 REMOTE_SITE_DIR="${REMOTE_SITE_DIR:-/var/www/website}"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${SCRIPT_DIR}"
-
-echo "==> Building PC site (root)"
+echo "==> Building project"
 npm run build
-
-echo "==> Building mobile site"
-(
-  cd mobile
-  npm ci
-  npm run build
-)
-
-echo "==> Merging mobile dist into dist/m (does not overwrite PC index.html)"
-mkdir -p dist/m
-rm -rf dist/m/*
-cp -a mobile/dist/. dist/m/
 
 echo "==> Uploading dist to ${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_TMP_DIR}"
 ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${REMOTE_TMP_DIR}'"

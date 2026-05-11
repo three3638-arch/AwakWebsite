@@ -1,0 +1,1884 @@
+AWAK 首页 Mobile-first 相关源码合并（生成时间以本地为准）
+
+
+
+================================================================================
+FILE: index.html
+================================================================================
+
+<!doctype html>
+<!--
+  AWAK 首页（Vite + React + TSX）本地预览说明
+  ─────────────────────────────────────────
+  本页仅作为 Vite 入口：直接双击用浏览器打开 index.html 无法运行（/src/main.tsx 需由开发服务器解析）。
+
+  1) 在项目根目录执行：npm install（首次）然后 npm run dev
+     默认地址（见 package.json）：http://localhost:3003/
+
+  2) 首页路由带语言前缀，请打开：
+     中文首页：http://localhost:3003/zh
+     英文首页：http://localhost:3003/en
+
+  3) 在 Cursor / VS Code 中：可用「Simple Browser」或内置预览，地址填上面的 http://localhost:3003/zh
+
+  4) 合并后的首页相关源码（便于一次性复制）：见仓库根目录 HOMEPAGE_MOBILE_FIRST_BUNDLE.txt
+-->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#161617" />
+    <title>AWAK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        // Since React renders dynamically, we might need a MutationObserver or run this after render.
+        // For static initial HTML, this works, but for React, we should probably run it via a MutationObserver on body.
+        const observer = new MutationObserver(() => {
+          document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+            el.classList.add('observed');
+            io.observe(el);
+          });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+================================================================================
+FILE: src/main.tsx
+================================================================================
+
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import './i18n.ts';
+import App from './App.tsx';
+import './index.css';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+
+
+================================================================================
+FILE: src/App.tsx
+================================================================================
+
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import Hero from './components/Hero';
+import TrustBanner from './components/TrustBanner';
+import TeamSection from './components/TeamSection';
+import ImmersiveScenarios from './components/ImmersiveScenarios';
+import BrandDynamics from './components/BrandDynamics';
+import BrandSlogan from './components/BrandSlogan';
+import DataInsights from './components/DataInsights';
+import ValueProposition from './components/ValueProposition';
+import IntroSection from './components/IntroSection';
+import FooterSections from './components/FooterSections';
+import LocaleLayout from './components/LocaleLayout';
+import SmartRingPage from './pages/SmartRingPage';
+import SmartBraceletPage from './pages/SmartBraceletPage';
+import SmartGlassesPage from './pages/SmartGlassesPage';
+import SmartWatchPage from './pages/SmartWatchPage';
+import BrandNewsPage from './pages/BrandNewsPage';
+import NewsPage from './pages/NewsPage';
+import StorePage from './pages/StorePage';
+import CheckoutPage from './pages/CheckoutPage';
+import ContactPage from './pages/ContactPage';
+import AuthPage from './pages/AuthPage';
+import EcosystemPage from './pages/EcosystemPage';
+import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
+
+function HomePage() {
+  return (
+    <>
+      <div className="flex min-h-[100dvh] flex-col">
+        <Hero />
+        <TrustBanner />
+      </div>
+      <TeamSection />
+      <section className="bg-[#F5F5F3]">
+        <ImmersiveScenarios />
+      </section>
+      <IntroSection />
+      <ValueProposition />
+      <BrandDynamics />
+      <BrandSlogan />
+      <DataInsights />
+      <FooterSections />
+    </>
+  );
+}
+
+function LegacyRedirect() {
+  const location = useLocation();
+  const parts = location.pathname.split('/').filter(Boolean);
+  const search = location.search;
+  if (parts.length === 0) return <Navigate to={`/${DEFAULT_LOCALE}`} replace />;
+  if (!isSupportedLocale(parts[0])) {
+    return <Navigate to={`/${DEFAULT_LOCALE}${location.pathname}${search}`} replace />;
+  }
+  return <Navigate to={`/${parts[0]}`} replace />;
+}
+
+export default function App() {
+  return (
+    <Router>
+      <main className="min-h-screen bg-white overflow-x-hidden">
+        <Routes>
+          <Route path="/" element={<Navigate to={`/${DEFAULT_LOCALE}`} replace />} />
+          <Route path="/:lang" element={<LocaleLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="ecosystem" element={<EcosystemPage />} />
+            <Route path="products/ring" element={<SmartRingPage />} />
+            <Route path="products/band" element={<SmartBraceletPage />} />
+            <Route path="products/glasses" element={<SmartGlassesPage />} />
+            <Route path="products/watch" element={<SmartWatchPage />} />
+            <Route path="news" element={<NewsPage />} />
+            <Route path="news/:id" element={<NewsPage />} />
+            <Route path="brand-news" element={<BrandNewsPage />} />
+            <Route path="store" element={<StorePage />} />
+            <Route path="store/:category" element={<StorePage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="auth" element={<AuthPage />} />
+          </Route>
+          <Route path="*" element={<LegacyRedirect />} />
+        </Routes>
+      </main>
+    </Router>
+  );
+}
+
+
+================================================================================
+FILE: src/components/LocaleLayout.tsx
+================================================================================
+
+import { useEffect } from 'react';
+import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
+import i18n from '../i18n';
+import Navbar from './Navbar';
+import { DEFAULT_LOCALE, isSupportedLocale } from '../lib/locale';
+
+export default function LocaleLayout() {
+  const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (lang && isSupportedLocale(lang)) {
+      void i18n.changeLanguage(lang);
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    }
+  }, [lang]);
+
+  if (!lang || !isSupportedLocale(lang)) {
+    const parts = location.pathname.split('/').filter(Boolean);
+    const rest = parts.slice(1).join('/');
+    const target = rest ? `/${DEFAULT_LOCALE}/${rest}` : `/${DEFAULT_LOCALE}`;
+    return <Navigate to={`${target}${location.search}`} replace />;
+  }
+
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
+}
+
+
+================================================================================
+FILE: src/components/Navbar.tsx
+================================================================================
+
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { ChevronDown, Menu, X, User, Search, ShoppingCart } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
+import { stripLocalePrefix } from '../lib/locale';
+import LanguageMenu from './LanguageMenu';
+
+const HW_ITEMS = [
+  { id: 'ring' as const, path: '/products/ring' },
+  { id: 'band' as const, path: '/products/band' },
+  { id: 'watch' as const, path: '/products/watch' },
+  { id: 'glasses' as const, path: '/products/glasses' },
+];
+
+type NavRow =
+  | { kind: 'dropdown'; key: 'hardware' }
+  | { kind: 'link'; key: 'ecosystem' | 'news' | 'contact'; path: '/ecosystem' | '/news' | '/contact' };
+
+const NAV_ROWS: NavRow[] = [
+  { kind: 'dropdown', key: 'hardware' },
+  { kind: 'link', key: 'ecosystem', path: '/ecosystem' },
+  { kind: 'link', key: 'news', path: '/news' },
+  { kind: 'link', key: 'contact', path: '/contact' },
+];
+
+export default function Navbar() {
+  const { t } = useTranslation('common');
+  const [isHardwareOpen, setIsHardwareOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const { withPath } = useLocalePath();
+  const basePath = stripLocalePrefix(location.pathname);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // if (['/store', '/checkout', '/auth'].includes(location.pathname)) {
+  //   return null;
+  // }
+
+  const isStoreOrProduct = basePath.startsWith('/products/') || basePath === '/store';
+  const isCheckout = basePath === '/checkout';
+  const isAuth = basePath === '/auth';
+  const isLightPage = isStoreOrProduct || isCheckout || isAuth;
+
+  if (isAuth) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-[9997] flex items-center justify-between px-6 md:px-[170px] h-[72px] bg-transparent">
+        <Link to={withPath('/')} className="flex items-center">
+          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">AWAK</span>
+        </Link>
+        <LanguageMenu tone="onLight" />
+      </nav>
+    );
+  }
+
+  return (
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-[9997] flex items-center justify-between px-6 md:px-[170px] ${
+        scrolled 
+          ? isLightPage 
+            ? 'h-[72px] bg-[rgba(255,255,255,0.85)] backdrop-blur-[20px] border-b border-black/5'
+            : 'h-[72px] bg-[rgba(8,8,8,0.85)] backdrop-blur-[20px] border-b border-[#1A1A1A]' 
+          : 'h-[90px] bg-transparent'
+      }`}
+      style={{
+        transform: isStoreOrProduct ? (scrolled ? 'translateY(-100%)' : 'translateY(0)') : 'translateY(0)',
+        opacity: isStoreOrProduct ? (scrolled ? 0 : 1) : 1,
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        pointerEvents: isStoreOrProduct && scrolled ? 'none' : 'auto'
+      }}
+    >
+      {/* Logo */}
+      <Link to={withPath('/')} className="relative z-10 flex items-center">
+        <span className={`font-extrabold text-2xl tracking-[1px] ${isLightPage && scrolled ? 'text-black' : 'text-white'}`}>AWAK</span>
+      </Link>
+      
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex items-center gap-2 lg:gap-4">
+        {NAV_ROWS.map((item) => (
+          <div 
+            key={item.key}
+            className="relative"
+            onMouseEnter={() => item.kind === 'dropdown' && setIsHardwareOpen(true)}
+            onMouseLeave={() => item.kind === 'dropdown' && setIsHardwareOpen(false)}
+          >
+            {item.kind === 'dropdown' ? (
+              <button type="button" className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors px-4 py-2 rounded-full ${
+                isLightPage && scrolled ? 'text-black/70 hover:text-black' : 'text-white/70 hover:text-white'
+              }`}>
+                {t(`nav.${item.key}`)}
+                <ChevronDown className={`w-[14px] h-[14px] transition-transform duration-300 ${isHardwareOpen ? 'rotate-180' : ''}`} />
+              </button>
+            ) : (
+              <Link 
+                to={withPath(item.path)} 
+                className={`transition-all relative text-[15px] font-medium px-4 py-2 rounded-full flex items-center ${
+                  basePath === item.path 
+                    ? isLightPage && scrolled ? 'bg-black/5 text-black' : 'bg-white/10 text-white'
+                    : isLightPage && scrolled ? 'text-black/70 hover:text-black' : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {t(`nav.${item.key}`)}
+              </Link>
+            )}
+
+            {/* Dropdown Menu */}
+            {item.kind === 'dropdown' && (
+              <AnimatePresence>
+                {isHardwareOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-[320px] pt-4"
+                  >
+                    <div className="bg-[#111111] border border-white/5 rounded-2xl overflow-hidden p-3 grid gap-1">
+                      {HW_ITEMS.map((hw) => (
+                        <Link
+                          key={hw.id}
+                          to={withPath(hw.path)}
+                          className="flex flex-col p-4 rounded-xl hover:bg-white/5 transition-all group"
+                        >
+                          <span className="text-white text-sm font-bold block">{t(`navHw.${hw.id}.title`)}</span>
+                          <span className="text-white/40 text-[11px] block mt-1">{t(`navHw.${hw.id}.desc`)}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )}
+          </div>
+        ))}
+      </div>
+      
+      {/* Actions */}
+      <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
+        {/* Desktop-only utility actions */}
+        <div className="hidden md:flex items-center gap-2 md:gap-4">
+          <LanguageMenu
+            tone={isLightPage && scrolled ? 'onLight' : 'onDark'}
+            onNavigate={() => setIsMobileMenuOpen(false)}
+          />
+          <button
+            type="button"
+            className={`p-2 transition-colors ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : 'text-white/70 hover:text-white'}`}
+            aria-label={t('nav.search')}
+          >
+            <Search className="w-[18px] h-[18px]" />
+          </button>
+          <Link
+            to={withPath('/auth')}
+            className={`p-2 transition-colors ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : 'text-white/70 hover:text-white'}`}
+            aria-label={t('nav.account')}
+          >
+            <User className="w-[18px] h-[18px]" />
+          </Link>
+        </div>
+
+        {/* Mobile-first: only Store CTA + Hamburger */}
+        {!['/store', '/checkout'].includes(basePath) && (
+          <Link
+            to={withPath('/store')}
+            className="md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold tracking-wide transition-all bg-[#DDF700] text-[#080808] hover:bg-[#E6FF00]"
+          >
+            <ShoppingCart className="w-[15px] h-[15px]" style={{ strokeWidth: 2.5 }} />
+            {t('nav.store')}
+          </Link>
+        )}
+
+        {!['/store', '/checkout'].includes(basePath) && (
+          <Link
+            to={withPath('/store')}
+            className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold transition-all bg-[#DDF700] text-[#080808] hover:bg-[#E6FF00] ml-2"
+          >
+            <ShoppingCart className="w-[15px] h-[15px]" style={{ strokeWidth: 2.5 }} />
+            {t('nav.store')}
+          </Link>
+        )}
+        
+        {/* Mobile Toggle */}
+        <button 
+          className={`md:hidden p-2 ${isLightPage && scrolled ? 'text-black' : 'text-white'}`}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 right-0 bg-[#080808] border-b border-white/5 p-6 flex flex-col gap-6 md:hidden"
+          >
+            {NAV_ROWS.map((item) => (
+              <div key={item.key} className="space-y-4">
+                <span className="text-white/40 text-xs uppercase tracking-widest">{t(`nav.${item.key}`)}</span>
+                {item.kind === 'dropdown' ? (
+                  <div className="grid gap-4 pl-4">
+                    {HW_ITEMS.map(hw => (
+                      <Link key={hw.id} to={withPath(hw.path)} className="text-white text-lg font-bold" onClick={() => setIsMobileMenuOpen(false)}>
+                        {t(`navHw.${hw.id}.title`)}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <Link to={withPath(item.path)} className="text-white text-lg font-bold block pl-4" onClick={() => setIsMobileMenuOpen(false)}>
+                    {t(`nav.${item.key}`)}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+}
+
+
+
+================================================================================
+FILE: src/components/Hero.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
+
+export default function Hero() {
+  const { t } = useTranslation('common');
+  const navigate = useNavigate();
+  const { withPath } = useLocalePath();
+  return (
+    <section className="relative flex flex-1 min-h-0 flex-col items-center md:items-end justify-start md:justify-center pt-24 pb-8 md:pt-16 md:pb-8 mb-0 overflow-hidden bg-[#161617] text-white w-full px-6 md:pl-[170px] md:pr-[85px]">
+      {/* 交互式背景 - 视频/图片 */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#161617]">
+        <img 
+          src="https://i.ibb.co/6JqSk9k4/hero.png"
+          alt="Hero Background"
+          className="w-full h-full object-cover object-left transition-all duration-1000 scale-[1.02] translate-x-0"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+
+      {/* Mobile product image (circular) */}
+      <div className="relative z-20 w-full flex items-center justify-center md:hidden">
+        <div className="w-[92%] max-w-[460px] aspect-square rounded-full overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
+          <img
+            src="https://i.ibb.co/6JqSk9k4/hero.png"
+            alt="Hero Product"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-20 w-full mx-auto pt-8 md:pt-0 pb-2 md:pb-6 flex flex-col items-center md:items-end text-center md:text-right">
+        <div className="max-w-7xl flex flex-col items-center md:items-end">
+          <motion.h1 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[36px] sm:text-[44px] md:text-[80px] lg:text-[100px] font-black leading-[1.08] md:leading-[1.05] tracking-[-1.5px] md:tracking-[-3px] text-white"
+          >
+            {t('home.hero.title')}
+          </motion.h1>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-wrap justify-center md:justify-end mt-4 md:mt-6 text-white/70 text-[14px] sm:text-[15px] md:text-xl font-normal tracking-wide"
+          >
+            {t('home.hero.subtitle')}
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full flex flex-col sm:flex-row justify-center md:justify-end gap-3 md:gap-6 mt-6 md:mt-8"
+          >
+            <motion.button
+              whileHover={{ scale: 0.97, backgroundColor: "#E6FF00", color: "#1D1D1F" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => navigate(withPath('/store'))}
+              className="group relative flex items-center justify-center bg-[#DDF700] px-8 py-4 rounded-full overflow-hidden text-[#080808] w-full sm:w-[48%] md:w-auto md:min-w-[160px] transition-colors duration-200"
+            >
+              <span className="relative z-10 font-bold tracking-widest text-sm">{t('home.hero.ctaBuy')}</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 0.97, backgroundColor: "rgba(255,255,255,0.15)" }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative flex items-center justify-center bg-white/10 px-8 py-4 rounded-full overflow-hidden backdrop-blur-md text-white w-full sm:w-[48%] md:w-auto md:min-w-[160px] transition-all duration-200"
+            >
+              <span className="relative z-10 font-bold tracking-widest text-sm">{t('home.hero.ctaApp')}</span>
+            </motion.button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/TrustBanner.tsx
+================================================================================
+
+import { useTranslation } from 'react-i18next';
+
+export default function TrustBanner() {
+  const { t } = useTranslation('common');
+  const stats = t('home.trust.stats', { returnObjects: true }) as { value: string; label: string }[];
+
+  return (
+    <section className="shrink-0 bg-[#080808] py-5 md:py-6 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-2 gap-4 md:flex md:flex-wrap md:justify-between md:gap-10">
+          {stats.map((stat, i) => (
+            <div
+              key={i}
+              className="text-center rounded-2xl border border-white/10 bg-white/0 py-3 md:py-0 md:bg-transparent md:border-0 md:flex-1 md:min-w-[140px] md:border-r md:border-white/10 md:last:border-0"
+            >
+              <div className="text-white text-[22px] md:text-3xl font-black mb-1 leading-none">{stat.value}</div>
+              <div className="text-white text-[11px] md:text-sm tracking-widest uppercase">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/TeamSection.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
+
+const CARD_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+
+const PRODUCT_LINK: Record<(typeof CARD_IDS)[number], string> = {
+  ring: '/products/ring',
+  band: '/products/band',
+  watch: '/products/watch',
+  glasses: '/products/glasses',
+};
+
+const STORE_LINK: Record<(typeof CARD_IDS)[number], string> = {
+  ring: '/store/ring',
+  band: '/store/bracelet',
+  watch: '/store/watch',
+  glasses: '/store/glasses',
+};
+
+export default function TeamSection() {
+  const { withPath } = useLocalePath();
+  const { t } = useTranslation('common');
+  const navigate = useNavigate();
+
+  return (
+    <div className="relative bg-[#F5F5F7] w-full pt-12 pb-16">
+      <section className="relative w-full mx-auto px-6 md:px-[170px] z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl md:text-4xl lg:text-4xl leading-[1.2] font-black text-[#1D1D1F] tracking-tight">
+            {t('home.team.heading1')} <br />
+            {t('home.team.heading2')}
+          </h2>
+        </motion.div>
+
+        <style>{`
+          .team-scroll::-webkit-scrollbar { display: none; }
+          .team-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        `}</style>
+
+        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory team-scroll pb-2 md:pb-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:overflow-visible md:snap-none">
+          {CARD_IDS.map((id, index) => {
+            const img =
+              id === 'ring'
+                ? 'https://i.ibb.co/FLXrp6qv/image.jpg'
+                : id === 'band'
+                  ? 'https://i.ibb.co/1t1FyW93/image.jpg'
+                  : id === 'watch'
+                    ? 'https://i.ibb.co/YBjhmq8w/image.jpg'
+                    : 'https://i.ibb.co/FL1q2zKP/image.jpg';
+
+            return (
+              <motion.div
+                key={id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className="flex flex-col h-full group cursor-pointer flex-shrink-0 w-[80%] min-w-[280px] max-w-[420px] snap-start md:w-auto md:min-w-0 md:max-w-none"
+                onClick={() => navigate(withPath(PRODUCT_LINK[id]))}
+              >
+                <div className="relative w-full aspect-[2/3] rounded-[24px] overflow-hidden bg-black/40 group-hover:bg-black/60 transition-all duration-500">
+                  <img
+                    src={img}
+                    alt={t(`home.team.cards.${id}.brand`)}
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.2s]"
+                    referrerPolicy="no-referrer"
+                  />
+
+                  <div className="absolute inset-x-0 bottom-0 p-6 flex justify-center translate-y-0 opacity-100 md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 z-20">
+                    <button
+                      type="button"
+                      className="bg-white text-black text-sm font-black px-10 py-3 rounded-full flex items-center gap-2 shadow-xl shadow-black/20"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(withPath(STORE_LINK[id]));
+                      }}
+                    >
+                      {t('home.team.cta')} <span className="text-lg">→</span>
+                    </button>
+                  </div>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                <div className="mt-6 md:mt-8 flex flex-col gap-2">
+                  <h3 className="text-2xl font-black text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors uppercase">
+                    {t(`home.team.cards.${id}.brand`)}
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-sm text-[#86868B] font-bold tracking-widest uppercase">
+                      {t(`home.team.cards.${id}.category`)}
+                    </p>
+                    <p className="text-[#86868B] text-base font-medium leading-relaxed max-w-[90%]">
+                      {t(`home.team.cards.${id}.subtitle`)}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+
+================================================================================
+FILE: src/components/ImmersiveScenarios.tsx
+================================================================================
+
+import React, { useMemo, useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+
+const PRODUCT_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+
+const FEATURE_IMAGES: Record<(typeof PRODUCT_IDS)[number], string[]> = {
+  ring: [
+    'https://i.ibb.co/TDY245bK/image.png',
+    'https://i.ibb.co/xKgfc5rN/Oura.jpg',
+    'https://i.ibb.co/MkPGBT9k/Oura.jpg',
+    'https://i.ibb.co/fYmtwXGT/p12-2.jpg',
+    'https://i.ibb.co/cKjxbXng/image.png',
+    'https://i.ibb.co/9m2JVLrV/p12-2.jpg',
+  ],
+  band: [
+    'https://i.ibb.co/whtz0KFz/The-Best-Ways-To-Prevent-Falling-In-Your-Home-Health-Digest.jpg',
+    'https://i.ibb.co/d4VkCTvf/10-Pains-You-Should-Never-Ever-Ignore.jpg',
+    'https://i.ibb.co/7dw6GWmS/Olive-Stress-Management-Bracelet-by-Hardy-Simes.jpg',
+    'https://i.ibb.co/hxQb6mB2/jimeng-2026-04-20-5496-logo.png',
+    'https://i.ibb.co/zTJpVzSv/image.png',
+    'https://i.ibb.co/99yZStWr/image.png',
+  ],
+  glasses: [
+    'https://i.ibb.co/fGyWsKLp/image.png',
+    'https://i.ibb.co/Xrkc6FL9/XRAI-AR2-The-Original-Captioning-Glasses-Redesigned.jpg',
+    'https://i.ibb.co/39b8QJZW/jimeng-2026-04-03-6916.png',
+    'https://i.ibb.co/bn5r2Hm/jimeng-2026-04-23-1745-1.png',
+    'https://i.ibb.co/Y4sjjjMg/jimeng-2026-04-23-1426.png',
+    'https://i.ibb.co/TxfjjQ91/jimeng-2026-04-23-5862-1.png',
+  ],
+  watch: [
+    'https://i.ibb.co/1fyLt5S6/jimeng-2026-04-03-6305.png',
+    'https://i.ibb.co/ynTmxzW7/image.png',
+    'https://i.ibb.co/yFD7J0BZ/image.png',
+    'https://i.ibb.co/HDfCRBt8/jimeng-2026-04-20-7301-1.png',
+    'https://i.ibb.co/DDk1xWyM/image.png',
+    'https://i.ibb.co/vx1DpGTL/jimeng-2026-04-22-7846.png',
+  ],
+};
+
+export default function ImmersiveScenarios() {
+  const { t } = useTranslation('common');
+  const productsData = useMemo(() => {
+    return PRODUCT_IDS.map((id) => {
+      const featTexts = t(`home.immersive.products.${id}.features`, { returnObjects: true }) as {
+        title: string;
+        desc: string;
+      }[];
+      const imgs = FEATURE_IMAGES[id];
+      return {
+        id,
+        name: t(`home.immersive.products.${id}.name`),
+        features: featTexts.map((f, i) => ({ ...f, img: imgs[i] ?? '' })),
+      };
+    });
+  }, [t]);
+
+  const [activeProductId, setActiveProductId] = useState<(typeof PRODUCT_IDS)[number]>('ring');
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.3 });
+
+  const activeProductData =
+    productsData.find((p) => p.id === activeProductId) ?? productsData[0];
+
+  return (
+    <section
+      ref={containerRef}
+      className="bg-[#F5F5F7] pt-10 md:pt-2 pb-16 font-sans relative overflow-hidden min-h-[80vh] flex flex-col justify-start md:justify-center"
+    >
+      {/* Mobile: horizontal scroll tabs */}
+      <div className="md:hidden px-6 mb-6">
+        <div className="flex gap-3 overflow-x-auto hide-scrollbar whitespace-nowrap">
+          {productsData.map((product) => {
+            const isActive = activeProductId === product.id;
+            return (
+              <button
+                key={product.id}
+                type="button"
+                onClick={() => setActiveProductId(product.id)}
+                className={`shrink-0 px-4 py-2 rounded-full text-[12px] font-black tracking-widest uppercase border transition-all ${
+                  isActive ? 'bg-black text-white border-black' : 'bg-white/60 text-black/50 border-black/10'
+                }`}
+              >
+                {product.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Desktop: left vertical nav */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="hidden md:flex absolute left-0 top-0 bottom-0 w-[300px] z-[40] pointer-events-none flex-col justify-center pl-[170px]"
+      >
+        <div
+          className="absolute inset-y-0 left-0 w-[500px] bg-gradient-to-right from-[#F5F5F7] via-[#F5F5F7]/80 to-transparent z-[-1]"
+          style={{
+            background:
+              'linear-gradient(to right, #F5F5F7 0%, rgba(245, 245, 247, 0.8) 40%, transparent 100%)',
+          }}
+        />
+
+        <div className="flex flex-col gap-10 pointer-events-auto relative">
+          {productsData.map((product) => {
+            const isActive = activeProductId === product.id;
+            return (
+              <button
+                key={product.id}
+                type="button"
+                onClick={() => setActiveProductId(product.id)}
+                className={`relative group text-left transition-all duration-300 w-fit ${
+                  isActive ? 'text-[#1D1D1F]' : 'text-[#86868B] hover:text-[#1D1D1F]'
+                }`}
+              >
+                <span className="text-[20px] font-bold tracking-tight uppercase block leading-none">
+                  {product.name}
+                </span>
+
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeUnderlineSide"
+                      className="absolute -left-6 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-black rounded-full"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                </AnimatePresence>
+              </button>
+            );
+          })}
+        </div>
+      </motion.div>
+
+      <div className="relative group z-10">
+        {/* Mobile: two key images stacked */}
+        <div className="md:hidden px-6 space-y-4">
+          {activeProductData.features.slice(0, 2).map((feature, idx) => (
+            <div
+              key={`m-${idx}`}
+              className="relative rounded-[24px] overflow-hidden bg-black aspect-[16/10] shadow-2xl shadow-black/5"
+            >
+              <img
+                src={feature.img}
+                alt={feature.title}
+                className="absolute inset-0 w-full h-full object-cover opacity-85"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 z-20">
+                <h3 className="text-white text-[22px] font-black mb-2 tracking-tight leading-tight">{feature.title}</h3>
+                <p className="text-white/45 text-[13px] leading-relaxed font-medium">{feature.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: horizontal feature gallery */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeProductId}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            ref={scrollRef}
+            className="hidden md:flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-10 pl-6 pr-6 md:pl-[170px] md:pr-6"
+          >
+            {activeProductData.features.map((feature, idx: number) => {
+              const widthClass = idx === 0 ? 'w-[65vw]' : 'w-[30vw]';
+
+              return (
+                <div
+                  key={idx}
+                  className={`relative flex-shrink-0 snap-start rounded-[24px] overflow-hidden bg-black group/item ${widthClass} aspect-[16/10] shadow-2xl shadow-black/5`}
+                >
+                  <img
+                    src={feature.img}
+                    alt={feature.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-[2s] group-hover/item:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent transition-opacity duration-700" />
+
+                  <div className={`absolute bottom-10 ${idx === 0 ? 'right-10 text-right' : 'left-10'} z-20`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3 className="text-white text-3xl font-black mb-3 tracking-tight leading-tight">{feature.title}</h3>
+                      <p
+                        className={`text-white/40 text-sm max-w-[350px] leading-relaxed font-medium ${idx === 0 ? 'ml-auto' : ''}`}
+                      >
+                        {feature.desc}
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  <div className="absolute top-8 right-8 text-white/20 text-[10px] font-mono tracking-widest uppercase">
+                    SCENARIO.0{idx + 1}
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
+
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .snap-x {
+            scroll-behavior: smooth;
+          }
+        `}</style>
+      </div>
+
+      <div className="hidden md:block absolute left-[170px] top-0 bottom-0 w-[1px] bg-black/5 pointer-events-none z-[45]" />
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/IntroSection.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { useRef, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+// 动画配置常量，确保持续时间和缓动效果高级且统一
+const duration = 1.2;
+const ease = [0.16, 1, 0.3, 1]; // 自定义高级缓动曲线 (easeOutExpo)
+
+// 错位进场动画配置
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // 子元素依次进场的时间间隔
+      delayChildren: 0.3,    // 容器加载后的延迟
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    filter: "blur(0px)",
+    transition: { duration: 1, ease }
+  },
+};
+
+export default function IntroSection() {
+  const constraintsRef = useRef(null); // 用于 3D 悬浮的引用
+  const { t } = useTranslation('common');
+  const introStats = useMemo(
+    () => t('home.intro.stats', { returnObjects: true }) as { label: string; value: string; desc: string }[],
+    [t],
+  );
+
+  return (
+    <section className="py-2 bg-[#FFFFFF] text-brand-black overflow-hidden relative">
+      {/* 🌟 超级炫酷背景：流动光束 */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-black/10 to-transparent animate-pulse" />
+        <div className="absolute top-0 right-1/3 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-black/5 to-transparent animate-pulse delay-700" />
+      </div>
+
+      <motion.div 
+        className="w-full mx-auto px-6 md:px-[170px] relative z-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }} // 当 30% 进入视口时触发
+        variants={containerVariants}
+      >
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
+          
+          {/* 🌟 Left Content: 错位依次进场 */}
+          <div className="w-full lg:w-2/5 max-w-3xl">
+            <div className="space-y-4 mb-6">
+              
+              {/* 1. 服务生态：流光标题 */}
+              <motion.div variants={itemVariants} className="relative group overflow-hidden inline-block">
+                <h2 className="text-[36px] sm:text-[44px] md:text-[90px] lg:text-[100px] font-black leading-[1.08] md:leading-[1.05] tracking-[-1.5px] md:tracking-[-3px] mb-2 relative z-10 text-brand-black">
+                  {t('home.intro.title')}
+                </h2>
+                {/* 超级炫酷：滑过的流光 */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-transparent z-0"
+                  initial={{ x: '-100%' }}
+                  whileInView={{ x: '100%' }}
+                  transition={{ delay: 1, duration: 1.5, ease: "easeInOut", repeat: Infinity, repeatDelay: 3 }}
+                  style={{ mixBlendMode: 'multiply', opacity: 0.5 }}
+                />
+              </motion.div>
+
+              {/* 2. APP名称：淡入 & 模糊解冻 */}
+              <motion.p variants={itemVariants} className="text-[15px] sm:text-[16px] md:text-xl font-light text-brand-black/80 mb-6 md:mb-8 mt-3 md:mt-4">
+                {t('home.intro.appLine')}
+              </motion.p>
+              
+              {/* 3. 描述文本：淡入 & 上浮 */}
+              <motion.div variants={itemVariants} className="space-y-4 mb-6">
+                <p className="text-[14px] sm:text-[15px] md:text-lg font-light text-brand-black/60 leading-relaxed max-w-xl pl-0 md:pl-6">
+                  {t('home.intro.body')}
+                </p>
+              </motion.div>
+
+              {/* 4. 按钮组：弹性光圈效果 */}
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-6 mt-4">
+                <motion.button
+                  whileHover={{ 
+                    scale: 0.97
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  className="px-8 py-3 bg-accent text-brand-black font-medium text-sm rounded-full relative overflow-hidden group shadow-none"
+                >
+                  <span className="relative z-10">{t('home.intro.ctaTry')}</span>
+                  {/* 悬浮时的背景光波 */}
+                  <div className="absolute inset-0 bg-brand-black/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
+                </motion.button>
+              </motion.div>
+
+              {/* 5. 状态栏：数字“加载”动画 (模拟视觉) */}
+              <motion.div 
+                variants={itemVariants} 
+                className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 pt-6"
+              >
+                {introStats.map((stat, i) => (
+                  <div key={i}>
+                    {/* 炫酷：模拟数字滚动淡入 */}
+                    <motion.p 
+                      className="text-[18px] sm:text-[20px] md:text-2xl font-light mb-2 text-brand-black"
+                      initial={{ opacity: 0, filter: "blur(5px)" }}
+                      whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                      transition={{ delay: 1.2 + i * 0.2, duration: 0.8 }}
+                    >
+                      {stat.label}
+                    </motion.p>
+                    <p className="font-mono text-xs text-brand-black/40 uppercase tracking-widest">{stat.desc}</p>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* 🌟 Right Content: 3D 视差悬浮 & 呼吸光晕 */}
+          <div className="w-full lg:w-3/5 relative flex justify-center items-center" ref={constraintsRef}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 60, rotateY: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ 
+                duration: 1.5, 
+                ease: ease,
+                scale: { delay: 0.2, duration: 1.2, ease } // 组合动画，让进场更有层次
+              }}
+              className="relative z-10 cursor-grab active:cursor-grabbing"
+              
+              /* 超级炫酷：鼠标 3D 悬浮视差 */
+              whileHover={{ 
+                rotateX: [0, -5, 5, 0], 
+                rotateY: [0, 10, -10, 0],
+                transition: { duration: 0.5 }
+              }}
+            >
+              <img 
+                src="https://i.ibb.co/RkYkRwH5/app.png" 
+                alt="AwakHealth App Interface" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              
+              {/* 超级炫酷装饰：呼吸光晕 */}
+              <motion.div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-accent rounded-full blur-3xl -z-10" 
+                animate={{
+                  opacity: [0.03, 0.08, 0.03],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/ValueProposition.tsx
+================================================================================
+
+import React, { useMemo } from 'react';
+import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+
+const ACCENT = '#d4ff00';
+const CARD_CLASSES = ['vp-m1', 'vp-m2', 'vp-m3', 'vp-m4', 'vp-m5'] as const;
+
+export default function ValueProposition() {
+  const { t } = useTranslation('common');
+
+  const ticks = useMemo(() => Array.from({ length: 360 }, (_, i) => i), []);
+  const cycleNodes = useMemo(() => {
+    const nodes = t('home.valueLoop.nodes', { returnObjects: true }) as { title: string; desc: string }[];
+    return nodes.map((node, i) => ({
+      ...node,
+      id: String(i + 1).padStart(2, '0'),
+      className: CARD_CLASSES[i] ?? CARD_CLASSES[0],
+    }));
+  }, [t]);
+
+  return (
+    <>
+      <style>{`
+        :root {
+          --vp-bg-deep: #050505;
+          --vp-accent-glow: ${ACCENT};
+          --vp-card-bg: rgba(20, 20, 20, 0.9);
+          --vp-text-muted: #888;
+        }
+
+        @keyframes vp-laser-rotate {
+          from { transform: rotate(0deg) translateZ(5px); }
+          to { transform: rotate(360deg) translateZ(5px); }
+        }
+
+        .vp-precision-stage {
+          position: relative;
+          width: 1000px;
+          height: 700px;
+          transform: rotateX(25deg);
+          transform-style: preserve-3d;
+          z-index: 0;
+        }
+
+        .vp-gyro-dial {
+          position: absolute;
+          width: 650px;
+          height: 650px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) rotateX(-25deg);
+          z-index: 0;
+          pointer-events: none;
+          border-radius: 9999px;
+          border: 4px solid #111;
+          background:
+            radial-gradient(circle at center, #1a1a1a 0%, #000 70%),
+            repeating-radial-gradient(transparent, transparent 1px, rgba(255,255,255,0.02) 2px);
+          box-shadow:
+            0 0 50px rgba(0,0,0,0.8),
+            inset 0 0 30px rgba(212, 255, 0, 0.05);
+        }
+
+        .vp-ticks-layer {
+          position: absolute;
+          inset: 0;
+          transform: translateZ(2px);
+        }
+
+        .vp-tick {
+          position: absolute;
+          width: 1px;
+          height: 8px;
+          background: rgba(255,255,255,0.1);
+          left: 50%;
+          top: 0;
+          transform-origin: center 325px;
+        }
+
+        .vp-laser-pointer {
+          position: absolute;
+          width: 6px;
+          height: 310px;
+          left: 50%;
+          bottom: 50%;
+          transform-origin: bottom center;
+          border-radius: 6px;
+          background: linear-gradient(to top, transparent, var(--vp-accent-glow) 80%, white);
+          filter: drop-shadow(0 0 12px var(--vp-accent-glow));
+          animation: vp-laser-rotate 60s linear infinite;
+          z-index: 0;
+        }
+
+        .vp-awak-module {
+          position: absolute;
+          width: 180px;
+          padding: 25px;
+          border-radius: 20px;
+          background: var(--vp-card-bg);
+          border: 1px solid rgba(255,255,255,0.03);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 15px rgba(212,255,0,0.1);
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          z-index: 10;
+          backface-visibility: hidden;
+        }
+
+        .vp-awak-module:hover {
+          border-color: var(--vp-accent-glow);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,255,0,0.4);
+          transform: translateY(-8px) scale(1.05) !important;
+        }
+
+        /* 卡片在独立 2D 覆盖层中定位（不参与舞台 3D 绘制顺序） */
+        .vp-m1 { top: -5%; left: 50%; transform: translateX(-50%); }
+        .vp-m2 { top: 25%; right: -5%; }
+        .vp-m3 { bottom: 5%; right: 10%; }
+        .vp-m4 { bottom: 5%; left: 10%; }
+        .vp-m5 { top: 25%; left: -5%; }
+
+        @media (max-width: 768px) {
+          .vp-precision-stage { width: 360px; height: 360px; transform: none; }
+          .vp-gyro-dial { width: 320px; height: 320px; border-width: 3px; }
+          .vp-tick { transform-origin: center 160px; }
+          .vp-laser-pointer { height: 150px; }
+        }
+      `}</style>
+
+      <section className="relative isolate bg-[#050505] px-6 md:px-[170px] pt-14 md:pt-16 pb-12 md:pb-8 overflow-hidden text-white flex flex-col">
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-50"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+
+        <div className="relative z-20 text-center mb-4 md:mb-6 shrink-0">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-white text-[32px] sm:text-[36px] md:text-5xl lg:text-[56px] font-black tracking-tight mb-3"
+          >
+            {t('home.valueLoop.title')}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[#888] text-[14px] sm:text-[15px] md:text-xl max-w-2xl mx-auto font-medium"
+          >
+            {t('home.valueLoop.subtitle')}
+          </motion.p>
+        </div>
+
+        <div className="relative z-0 flex items-center justify-center [perspective:2000px]">
+          <div className="relative origin-center scale-[1] md:scale-[0.78] lg:scale-[0.86] xl:scale-[0.92]">
+            <div className="vp-precision-stage">
+              <div className="vp-gyro-dial">
+                <div className="vp-ticks-layer">
+                  {ticks.map((tick) => {
+                    const major = tick % 15 === 0;
+                    const keyNode = tick % 90 === 0;
+                    return (
+                      <div
+                        key={tick}
+                        className="vp-tick"
+                        style={{
+                          height: major ? 18 : 8,
+                          width: major ? 2 : 1,
+                          background: keyNode ? ACCENT : major ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)',
+                          filter: keyNode ? `drop-shadow(0 0 5px ${ACCENT})` : undefined,
+                          transform: `rotate(${tick}deg)`,
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="vp-laser-pointer" aria-hidden />
+              </div>
+            </div>
+
+            <div className="hidden md:block absolute inset-0 z-10">
+              {cycleNodes.map((node, idx) => (
+                <motion.div
+                  key={node.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.25 }}
+                  className={`vp-awak-module ${node.className}`}
+                >
+                  <div className="mb-2.5 font-mono text-sm text-[#555]">AWAK / SYSTEM_{node.id}</div>
+                  <h3 className="m-0 mb-2 text-xl font-semibold text-white">{node.title}</h3>
+                  <p className="m-0 text-[13px] leading-normal text-[#888]">{node.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: nodes extracted into a vertical list to avoid overlap */}
+        <div className="md:hidden relative z-20 mt-10 space-y-3">
+          {cycleNodes.map((node) => (
+            <div
+              key={`m-node-${node.id}`}
+              className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"
+            >
+              <span className="mt-2 inline-flex h-2 w-2 shrink-0 rounded-full bg-[#d4ff00] shadow-[0_0_18px_rgba(212,255,0,0.55)]" />
+              <div className="min-w-0">
+                <div className="font-mono text-[11px] text-[#666] mb-1">AWAK / SYSTEM_{node.id}</div>
+                <div className="text-white text-[16px] font-semibold tracking-tight">{node.title}</div>
+                <div className="text-[#888] text-[13px] leading-relaxed mt-1">{node.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+
+================================================================================
+FILE: src/components/BrandDynamics.tsx
+================================================================================
+
+import React from 'react';
+import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
+
+const newsItems = [
+  {
+    id: 'b1',
+    img: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80',
+    size: 'flex-[2]',
+  },
+  {
+    id: 'b2',
+    img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80',
+    size: 'flex-[1]',
+  },
+  {
+    id: 'b3',
+    img: 'https://i.ibb.co/wFCQp2wk/image.png',
+    size: 'flex-[1]',
+  },
+  {
+    id: 'b4',
+    img: 'https://i.ibb.co/8LKkcKPL/Open-positions-at-Oura.jpg',
+    size: 'flex-[1.5]',
+  },
+  {
+    id: 'b5',
+    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80',
+    size: 'flex-[2]',
+  },
+  {
+    id: 'b6',
+    img: 'https://i.ibb.co/m5J3KvJN/Alzheimers.jpg',
+    size: 'flex-[1]',
+  },
+  {
+    id: 'b7',
+    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80',
+    size: 'flex-[1.2]',
+  },
+];
+
+export default function BrandDynamics() {
+  const navigate = useNavigate();
+  const { withPath } = useLocalePath();
+  const { t } = useTranslation('common');
+
+  return (
+    <section className="bg-white py-12 px-6 md:px-[170px] font-sans overflow-hidden">
+      <div className="mb-10">
+        <h2 className="text-[32px] md:text-[40px] font-black tracking-tight text-black">{t('home.brandDynamics.title')}</h2>
+      </div>
+
+      {/* Mobile: single-column stack */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+        {newsItems.map((item, idx) => {
+          const title = t(`home.brandDynamics.news.${item.id}.title`);
+          const subtitle = t(`home.brandDynamics.news.${item.id}.subtitle`);
+          return (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, scale: 1.02 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.06, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => navigate(withPath(`/news/${item.id}`))}
+              className="relative overflow-hidden rounded-[24px] bg-[#F5F5F7] group cursor-pointer w-full aspect-[16/10]"
+            >
+              <img
+                src={item.img}
+                className="absolute inset-0 w-full h-full object-cover opacity-85"
+                alt={title}
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <h4 className="text-white text-[18px] font-bold mb-1 tracking-tight">{title}</h4>
+                <p className="text-white/60 text-[12px] font-medium">{subtitle}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Desktop: keep asymmetric layout */}
+      <div className="hidden md:flex flex-col gap-4">
+        <div className="flex flex-row gap-4 h-[400px]">
+          {newsItems.slice(0, 3).map((item, idx) => {
+            const title = t(`home.brandDynamics.news.${item.id}.title`);
+            const subtitle = t(`home.brandDynamics.news.${item.id}.subtitle`);
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 1.05 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => navigate(withPath(`/news/${item.id}`))}
+                className={`relative overflow-hidden rounded-[24px] bg-[#F5F5F7] group ${item.size} cursor-pointer`}
+              >
+                <img
+                  src={item.img}
+                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-[2s] ease-out"
+                  alt={title}
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <h4 className="text-white text-xl font-bold mb-1 tracking-tight">{title}</h4>
+                  <p className="text-white/60 text-sm font-medium">{subtitle}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-row gap-4 h-[350px]">
+          {newsItems.slice(3, 7).map((item, idx) => {
+            const title = t(`home.brandDynamics.news.${item.id}.title`);
+            const subtitle = t(`home.brandDynamics.news.${item.id}.subtitle`);
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 1.05 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: (idx + 3) * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => navigate(withPath(`/news/${item.id}`))}
+                className={`relative overflow-hidden rounded-[24px] bg-[#F5F5F7] group ${item.size} cursor-pointer`}
+              >
+                <img
+                  src={item.img}
+                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-[2s] ease-out"
+                  alt={title}
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h4 className="text-white text-lg font-bold mb-1 tracking-tight">{title}</h4>
+                  <p className="text-white/60 text-xs font-medium">{subtitle}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/BrandSlogan.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+
+export default function BrandSlogan() {
+  const { t } = useTranslation('common');
+  const titleMotion = {
+    initial: { letterSpacing: "0.5em", opacity: 0, filter: "blur(15px)", y: 20 },
+    whileInView: { 
+      letterSpacing: "-0.02em", 
+      opacity: 1, 
+      filter: "blur(0px)",
+      y: 0
+    },
+    transition: { duration: 2, ease: [0.16, 1, 0.3, 1] },
+    viewport: { once: true, margin: "-20%" }
+  };
+
+  const descMotion = {
+    initial: { y: 20, opacity: 0, filter: "blur(5px)" },
+    whileInView: { y: 0, opacity: 1, filter: "blur(0px)" },
+    transition: { duration: 1.2, delay: 1.2, ease: [0.16, 1, 0.3, 1] },
+    viewport: { once: true, margin: "-20%" }
+  };
+
+  return (
+    <section className="w-full bg-[#000000] py-[80px] px-6 md:px-[170px] flex flex-col items-center justify-center overflow-hidden">
+      <motion.h2 
+        {...titleMotion} 
+        animate={{ opacity: [1, 0.9, 1] }}
+        transition={{ 
+          opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+          default: { duration: 1.5, ease: [0.16, 1, 0.3, 1] }
+        }}
+        className="text-[#FFFFFF] text-[36px] sm:text-[44px] md:text-[90px] lg:text-[100px] font-black leading-[1.08] md:leading-[1.05] tracking-[-1.5px] md:tracking-[-3px] text-center"
+      >
+        {t('home.slogan.titleLine1')}<br />{t('home.slogan.titleLine2')}
+      </motion.h2>
+      
+      <motion.p {...descMotion} className="text-[#FFFFFF]/60 text-[14px] sm:text-[15px] md:text-2xl font-medium max-w-2xl text-center mt-8 md:mt-12">
+        {t('home.slogan.desc')}
+      </motion.p>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/DataInsights.tsx
+================================================================================
+
+import React, { useMemo, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+
+const DIM_IDS = ['sleep', 'sports', 'weight', 'heart'] as const;
+
+const DIM_VALUES: Record<(typeof DIM_IDS)[number], string[]> = {
+  sleep: ['+23%', '14.2天', '95.3%', '+12分'],
+  sports: ['+18.5%', '-22min', '4.8级', '98.1%'],
+  weight: ['-4.5kg', '-3.2%', '+15%', '88天'],
+  heart: ['62 bpm', '99.9%', '-12%', '≤5 bpm'],
+};
+
+const CHART_TYPES: Record<(typeof DIM_IDS)[number], 'line' | 'bar' | 'downward' | 'pulsing'> = {
+  sleep: 'line',
+  sports: 'bar',
+  weight: 'downward',
+  heart: 'pulsing',
+};
+
+export default function DataInsights() {
+  const { t } = useTranslation('common');
+  const dimensions = useMemo(
+    () =>
+      DIM_IDS.map((id) => {
+        const labels = t(`home.dataInsights.${id}.statLabels`, { returnObjects: true }) as string[];
+        return {
+          id,
+          title: t(`home.dataInsights.${id}.title`),
+          subtitle: t(`home.dataInsights.${id}.subtitle`),
+          description: t(`home.dataInsights.${id}.description`),
+          stats: DIM_VALUES[id].map((value, i) => ({ value, label: labels[i] ?? '' })),
+          chartType: CHART_TYPES[id],
+          color: '#080808',
+        };
+      }),
+    [t],
+  );
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const activeData = dimensions[currentIndex];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % dimensions.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [dimensions.length]);
+
+  return (
+    <section className="bg-[#F5F5F3] py-24 px-6 md:px-[170px]">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-20 items-start">
+          {/* Left Content - Now a Narrative Carousel */}
+          <div className="flex-1 space-y-12">
+            <div className="space-y-6">
+              <h2 className="text-[#080808] text-[32px] sm:text-[36px] md:text-7xl font-black leading-tight tracking-tighter">
+                {t('home.dataInsights.headline1')}<br />
+                {t('home.dataInsights.headline2')}
+              </h2>
+              <div className="h-[2px] w-24 bg-black" />
+            </div>
+
+            {/* Dimensional Toggle (Indicator) */}
+            <div className="flex gap-3 md:gap-4 overflow-x-auto hide-scrollbar whitespace-nowrap pb-1">
+              {dimensions.map((dim, idx) => (
+                <button 
+                  key={dim.id}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`shrink-0 px-4 py-2 md:py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase transition-all duration-300 border ${
+                    idx === currentIndex ? 'bg-black text-white border-black' : 'text-black/30 border-black/10'
+                  }`}
+                >
+                  {dim.subtitle}
+                </button>
+              ))}
+            </div>
+
+            {/* Stats Flip-up Grid */}
+            <div className="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-10 md:gap-y-12 overflow-hidden h-[240px]">
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={currentIndex}
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -100 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="grid grid-cols-2 gap-x-12 gap-y-12 w-full col-span-2"
+                >
+                  {activeData.stats.map((stat, sIdx) => (
+                    <div key={sIdx} className="space-y-1">
+                      <span className="text-[28px] sm:text-[32px] md:text-5xl font-black text-[#080808] tracking-tighter block leading-none">
+                        {stat.value}
+                      </span>
+                      <h4 className="text-[#86868B] text-[11px] font-bold tracking-[0.2em] uppercase">{stat.label}</h4>
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Right Content - Synchronized Dynamic Chart */}
+          <div className="flex-1 w-full lg:mt-0">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="bg-white p-6 sm:p-8 md:p-14 rounded-[32px] md:rounded-[40px] shadow-2xl shadow-black/5 border border-black/5 relative overflow-hidden flex flex-col"
+            >
+              <div className="flex-1 min-h-0 relative">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeData.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <h3 className="text-[#080808] text-2xl md:text-2xl font-black mb-10 tracking-tight">{activeData.title}</h3>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Dynamic SVG Chart */}
+                <div className="relative w-full aspect-[16/10]">
+                  <svg viewBox="0 0 500 250" className="w-full h-full overflow-visible">
+                    {/* Grid Lines */}
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <line key={i} x1="0" y1={50 * i} x2="500" y2={50 * i} stroke="#000" strokeWidth="0.5" strokeOpacity="0.05" />
+                    ))}
+                    
+                    {/* Values Redrawing based on context */}
+                    <AnimatePresence>
+                      {activeData.chartType === 'line' && (
+                        <motion.path 
+                          key="line"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          d="M 50 160 Q 150 140 250 80 T 450 40"
+                          fill="none" stroke="#D1D1D6" strokeWidth="6" strokeLinecap="round"
+                        />
+                      )}
+                      {activeData.chartType === 'downward' && (
+                        <motion.path 
+                          key="downward"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          d="M 50 40 Q 150 60 250 150 T 450 200"
+                          fill="none" stroke="#D1D1D6" strokeWidth="6" strokeLinecap="round"
+                        />
+                      )}
+                      {activeData.chartType === 'pulsing' && (
+                        <motion.path 
+                          key="pulsing"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          d="M 50 120 L 100 120 L 115 60 L 135 180 L 150 120 L 250 120 L 265 60 L 285 180 L 300 120 L 450 120"
+                          fill="none" stroke="#D1D1D6" strokeWidth="4" strokeLinecap="round"
+                        />
+                      )}
+                      {activeData.chartType === 'bar' && (
+                        <g key="bar">
+                          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                            <motion.rect 
+                              key={i}
+                              initial={{ height: 0, y: 200 }}
+                              animate={{ height: 20 + Math.random() * 150, y: 200 - (20 + Math.random() * 150) }}
+                              x={70 + i * 55} width="25" fill="#D1D1D6" rx="4"
+                            />
+                          ))}
+                        </g>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Labels and Axis */}
+                    <g className="text-[#999] font-black" style={{ fontSize: '10px' }}>
+                      <text x="50" y="240">{t('home.dataInsights.chartStart')}</text>
+                      <text x="250" y="240" textAnchor="middle">{t('home.dataInsights.chartMid')}</text>
+                      <text x="450" y="240" textAnchor="end">{t('home.dataInsights.chartEnd')}</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+              {/* Moved description here */}
+              <div className="mt-8 pt-8 border-t border-black/5">
+                <AnimatePresence mode="wait">
+                  <motion.p 
+                    key={`desc-${currentIndex}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-[#555555]/60 text-[14px] sm:text-base leading-relaxed font-medium text-right"
+                  >
+                    {activeData.description}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+    </section>
+  );
+}
+
+
+================================================================================
+FILE: src/components/FooterSections.tsx
+================================================================================
+
+import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../hooks/useLocalePath';
+
+export default function FooterSections() {
+  const { withPath } = useLocalePath();
+  const { t } = useTranslation('common');
+
+  const footerGroups = useMemo(
+    () => [
+      {
+        title: t('footer.groups.products'),
+        links: [
+          { name: t('footer.links.ring'), path: '/products/ring' },
+          { name: t('footer.links.band'), path: '/products/band' },
+          { name: t('footer.links.watch'), path: '/products/watch' },
+          { name: t('footer.links.glasses'), path: '/products/glasses' },
+        ],
+      },
+      {
+        title: t('footer.groups.company'),
+        links: [
+          { name: t('footer.links.about'), path: '/' },
+          { name: t('footer.links.news'), path: '/news' },
+          { name: t('footer.links.contact'), path: '/contact' },
+        ],
+      },
+      {
+        title: t('footer.groups.support'),
+        links: [
+          { name: t('footer.links.help'), path: '/' },
+          { name: t('footer.links.manual'), path: '/' },
+          { name: t('footer.links.warranty'), path: '/' },
+        ],
+      },
+      {
+        title: t('footer.groups.download'),
+        links: [
+          { name: t('footer.links.ios'), path: '/' },
+          { name: t('footer.links.android'), path: '/' },
+          { name: t('footer.links.web'), path: '/' },
+        ],
+      },
+    ],
+    [t],
+  );
+
+  return (
+    <footer className="bg-[#030303] border-t border-white/5 pt-24 pb-24">
+      <div className="w-full mx-auto px-6 md:px-[170px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-12 mb-20 md:mb-32">
+          <div className="lg:col-span-1 space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-white text-3xl font-black tracking-tight">AWAK WILL</h2>
+              <p className="text-white/40 text-sm font-medium tracking-widest uppercase">{t('footer.tagline')}</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </div>
+              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: accordion */}
+          <div className="md:hidden space-y-3">
+            {footerGroups.map((group) => (
+              <details
+                key={group.title}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"
+              >
+                <summary className="cursor-pointer list-none text-white text-sm font-bold tracking-wider flex items-center justify-between">
+                  <span>{group.title}</span>
+                  <span className="text-white/40 text-xs font-mono uppercase tracking-[0.2em]">+</span>
+                </summary>
+                <ul className="space-y-3 mt-4">
+                  {group.links.map((link) => (
+                    <li key={link.name}>
+                      <Link to={withPath(link.path)} className="text-white/50 hover:text-[#C8FF00] transition-colors text-sm">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+
+          {/* Desktop: multi-column links */}
+          <div className="hidden md:grid lg:col-span-4 grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
+            {footerGroups.map((group) => (
+              <div key={group.title} className="space-y-8">
+                <h4 className="text-white text-sm font-bold tracking-wider">{group.title}</h4>
+                <ul className="space-y-4">
+                  {group.links.map((link) => (
+                    <li key={link.name}>
+                      <Link to={withPath(link.path)} className="text-white/40 hover:text-[#C8FF00] transition-colors text-sm">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white/20 text-xs font-mono uppercase tracking-[0.2em]">
+            © {new Date().getFullYear()} AWAK WILL. ALL RIGHTS RESERVED.
+          </p>
+          <div className="flex gap-8">
+            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+              {t('footer.privacy')}
+            </Link>
+            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+              {t('footer.terms')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

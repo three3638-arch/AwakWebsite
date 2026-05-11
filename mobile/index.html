@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+  AWAK 首页（Vite + React + TSX）本地预览说明
+  ─────────────────────────────────────────
+  本页仅作为 Vite 入口：直接双击用浏览器打开 index.html 无法运行（/src/main.tsx 需由开发服务器解析）。
+
+  1) 在项目根目录执行：npm install（首次）然后 npm run dev
+     默认地址（见 package.json）：http://localhost:3003/
+
+  2) 首页路由带语言前缀，请打开：
+     中文首页：http://localhost:3003/zh
+     英文首页：http://localhost:3003/en
+
+  3) 在 Cursor / VS Code 中：可用「Simple Browser」或内置预览，地址填上面的 http://localhost:3003/zh
+
+  4) 合并后的首页相关源码（便于一次性复制）：见仓库根目录 HOMEPAGE_MOBILE_FIRST_BUNDLE.txt
+-->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#161617" />
+    <title>AWAK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        // Since React renders dynamically, we might need a MutationObserver or run this after render.
+        // For static initial HTML, this works, but for React, we should probably run it via a MutationObserver on body.
+        const observer = new MutationObserver(() => {
+          document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+            el.classList.add('observed');
+            io.observe(el);
+          });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script>
+  </body>
+</html>

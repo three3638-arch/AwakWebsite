@@ -1,0 +1,38 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0A"/>
+      <stop offset="1" stop-color="#171717"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(880 200) rotate(135) scale(620 620)">
+      <stop stop-color="#C8F000" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#C8F000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="900" rx="64" fill="url(#bg)"/>
+  <rect width="1200" height="900" rx="64" fill="url(#glow)"/>
+
+  <g transform="translate(120 170)">
+    <rect x="0" y="0" width="960" height="560" rx="56" fill="rgba(255,255,255,0.06)"/>
+    <g transform="translate(72 88)">
+      <rect x="0" y="0" width="816" height="384" rx="44" fill="rgba(0,0,0,0.35)"/>
+      <rect x="56" y="54" width="280" height="18" rx="9" fill="rgba(255,255,255,0.14)"/>
+      <rect x="56" y="86" width="520" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+      <rect x="56" y="112" width="420" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+      <rect x="56" y="138" width="460" height="14" rx="7" fill="rgba(255,255,255,0.10)"/>
+      <g transform="translate(56 220)">
+        <rect x="0" y="0" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+        <rect x="0" y="0" width="380" height="10" rx="5" fill="#C8F000"/>
+        <rect x="0" y="40" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+        <rect x="0" y="40" width="260" height="10" rx="5" fill="#C8F000" opacity="0.6"/>
+        <rect x="0" y="80" width="520" height="10" rx="5" fill="rgba(255,255,255,0.10)"/>
+        <rect x="0" y="80" width="420" height="10" rx="5" fill="#C8F000" opacity="0.35"/>
+      </g>
+      <g transform="translate(640 90)" opacity="0.9">
+        <circle cx="86" cy="86" r="86" fill="rgba(200,240,0,0.18)"/>
+        <circle cx="86" cy="86" r="38" fill="#C8F000"/>
+        <path d="M86 54 C 70 54 60 68 60 78 C 60 92 74 100 86 108 C 98 100 112 92 112 78 C 112 68 102 54 86 54 Z" fill="#0A0A0A" opacity="0.85"/>
+      </g>
+    </g>
+  </g>
+</svg>

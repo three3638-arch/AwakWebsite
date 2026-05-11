@@ -1,0 +1,46 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAFAFA"/>
+      <stop offset="1" stop-color="#F2F2F2"/>
+    </linearGradient>
+    <radialGradient id="accent" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(900 220) rotate(135) scale(560 560)">
+      <stop stop-color="#C8F000" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#C8F000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" rx="64" fill="url(#bg)"/>
+  <rect width="1200" height="900" rx="64" fill="url(#accent)"/>
+
+  <g transform="translate(140 170)">
+    <rect x="0" y="0" width="920" height="560" rx="56" fill="#FFFFFF"/>
+
+    <g transform="translate(92 110)">
+      <circle cx="92" cy="88" r="48" fill="#0A0A0A" opacity="0.08"/>
+      <circle cx="92" cy="78" r="30" fill="#0A0A0A" opacity="0.12"/>
+      <rect x="44" y="130" width="96" height="110" rx="40" fill="#0A0A0A" opacity="0.07"/>
+    </g>
+
+    <g transform="translate(332 90)">
+      <circle cx="120" cy="118" r="60" fill="#0A0A0A" opacity="0.06"/>
+      <circle cx="120" cy="104" r="38" fill="#0A0A0A" opacity="0.10"/>
+      <rect x="58" y="162" width="124" height="150" rx="54" fill="#0A0A0A" opacity="0.06"/>
+    </g>
+
+    <g transform="translate(634 110)">
+      <circle cx="92" cy="88" r="48" fill="#0A0A0A" opacity="0.08"/>
+      <circle cx="92" cy="78" r="30" fill="#0A0A0A" opacity="0.12"/>
+      <rect x="44" y="130" width="96" height="110" rx="40" fill="#0A0A0A" opacity="0.07"/>
+    </g>
+
+    <g transform="translate(92 386)">
+      <rect x="0" y="0" width="736" height="116" rx="40" fill="#FAFAFA"/>
+      <rect x="40" y="30" width="280" height="16" rx="8" fill="#0A0A0A" opacity="0.10"/>
+      <rect x="40" y="58" width="420" height="14" rx="7" fill="#0A0A0A" opacity="0.06"/>
+      <rect x="40" y="82" width="360" height="14" rx="7" fill="#0A0A0A" opacity="0.06"/>
+      <circle cx="672" cy="58" r="22" fill="#C8F000"/>
+      <path d="M664 58 L670 64 L682 50" stroke="#0A0A0A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

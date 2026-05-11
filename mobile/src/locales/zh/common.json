@@ -1,0 +1,304 @@
+{
+  "nav": {
+    "hardware": "硬件产品",
+    "ecosystem": "服务生态",
+    "news": "品牌资讯",
+    "contact": "联系我们",
+    "store": "购买中心",
+    "search": "搜索",
+    "account": "账户",
+    "chooseLanguage": "选择语言"
+  },
+  "localeMenu": {
+    "zh": "简体中文",
+    "en": "English"
+  },
+  "navHw": {
+    "ring": { "title": "AWAK RING 智能戒指", "desc": "看懂身体变化" },
+    "watch": { "title": "AWAK WATCH 专业运动智能手表", "desc": "掌控运动状态" },
+    "band": { "title": "AWAK BRACELET 智能手环", "desc": "守护家人健康" },
+    "glasses": { "title": "AWAK GLASSES 智能眼镜", "desc": "听见看见世界" }
+  },
+  "footer": {
+    "tagline": "感知生命律动",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "groups": {
+      "products": "产品",
+      "company": "公司",
+      "support": "支持",
+      "download": "下载"
+    },
+    "links": {
+      "ring": "AWAK Ring",
+      "band": "AWAK Band",
+      "watch": "AWAK Watch",
+      "glasses": "AWAK Glasses",
+      "about": "关于我们",
+      "news": "品牌资讯",
+      "contact": "联系我们",
+      "help": "帮助中心",
+      "manual": "用户手册",
+      "warranty": "保修政策",
+      "ios": "iOS 下载",
+      "android": "Android 下载",
+      "web": "AwakHealth Web"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "看得见的健康进步",
+      "subtitle": "从监测 → 分析 → 行动 → 改变",
+      "ctaBuy": "立即购买",
+      "ctaApp": "下载APP",
+      "ctaPrimary": "生成我的健康报告",
+      "trust": "100，000+目标用户｜50+健康指标 98.2% 准确率"
+    },
+    "heroCards": {
+      "ring": "无感佩戴\n守护每一次安睡",
+      "band": "时刻陪伴\n风险即时预警",
+      "watch": "见证突破\n精准记录运动表现",
+      "glasses": "听见看见\n更自由地连接世界",
+      "ctaLearn": "了解详情"
+    },
+    "heroGlass": {
+      "audio": {
+        "label": "听觉健康监测",
+        "colHz": "Hz 范围",
+        "colDev": "已连接",
+        "colNoise": "dB 降噪",
+        "badge": "实时音频分析中"
+      },
+      "sleep": {
+        "label": "睡眠阶段分析",
+        "deep": "深睡 %",
+        "score": "睡眠分",
+        "hrv": "HRV",
+        "wake": "醒来次"
+      },
+      "ecg": {
+        "label": "实时健康监测",
+        "alert1": "心律正常·窦性节律",
+        "alert2": "血氧优秀·无需干预",
+        "alert3": "24h 连续监测中"
+      },
+      "sport": {
+        "label": "运动表现追踪",
+        "pace": "配速",
+        "zone": "心率区",
+        "km": "KM"
+      }
+    },
+    "lifestyle": {
+      "ring": { "l1": "无感佩戴", "l2": "守护每一次安睡" },
+      "band": { "l1": "时刻陪伴", "l2": "风险即时预警" },
+      "watch": { "l1": "见证突破", "l2": "精准记录运动表现" },
+      "glasses": { "l1": "听见看见", "l2": "更自由地连接世界" }
+    },
+    "topSticky": {
+      "title": "AWAK 智能硬件",
+      "price": "¥349 起",
+      "ctaCart": "加入购物车"
+    },
+    "intro": {
+      "title": "全链路健康生态\n从睡眠运动营养链接商城险检需求",
+      "appLine": "AwakHealth APP — 全栈健康服务",
+      "body": "",
+      "ctaTry": "立即体验",
+      "ctaDemo": "查看演示",
+      "oneLiner": "你的健康，不只是数据",
+      "abilities": ["监测", "分析", "干预"],
+      "featureCards": [
+        { "line1": "专业体检", "line2": "看见身体变化", "line3": "提前发现风险" },
+        { "line1": "医疗保障", "line2": "首年专属权益", "line3": "最高 100 万报销" },
+        { "line1": "健康服务", "line2": "体检 × 保险预约", "line3": "一站式协同服务" }
+      ],
+      "stats": [
+        { "label": "体检", "value": "首年优惠", "desc": "首年优惠赠送" },
+        { "label": "100万", "value": "1,000,000", "desc": "医疗报销" },
+        { "label": "一站式", "value": "全流程", "desc": "体检/保险预约服务" }
+      ]
+    },
+    "valueLoop": {
+      "title": "AWAK 健康闭环\n昼夜守护身体节律",
+      "subtitle": "从无感记录到由AI驱动的行动建议，为您构建完美的数字生命闭环。",
+      "cards": [
+        { "icon": "sleep", "title": "清晨｜身体唤醒", "desc": "生成当日状态评分" },
+        { "icon": "mind", "title": "上午｜压力监测", "desc": "捕捉压力波动" },
+        { "icon": "activity", "title": "白天｜运动表现", "desc": "平衡负荷与恢复" },
+        { "icon": "activity", "title": "下午｜营养补给", "desc": "智能补给建议" },
+        { "icon": "mind", "title": "夜晚｜日终复盘", "desc": "生成全天优化建议" },
+        { "icon": "sleep", "title": "夜间｜睡眠恢复", "desc": "解析恢复质量" }
+      ],
+      "nodes": [
+        { "title": "数据采集", "desc": "持续记录，自动获取身体数据" },
+        { "title": "AI理解", "desc": "清晰结论，不看图表，只看结果" },
+        { "title": "行动建议", "desc": "立即可做，给你当下最合适的建议" },
+        { "title": "结果反馈", "desc": "变化可见，每一步都有反馈" },
+        { "title": "持续优化", "desc": "越来越准，越用越懂你" }
+      ]
+    },
+    "brandDynamics": {
+      "title": "品牌动态",
+      "view": "查看",
+      "news": {
+        "b1": {
+          "title": "春发精彩回顾",
+          "subtitle": "探索科技与美学的共生",
+          "excerpt": "新品与闭环，更轻更准。"
+        },
+        "b2": {
+          "title": "呼吸的艺术",
+          "subtitle": "对话首席健康官",
+          "excerpt": "读懂身体信号，行动可落地。"
+        },
+        "b3": {
+          "title": "城市骑行",
+          "subtitle": "用轨迹连接社区",
+          "excerpt": "通勤变训练，社区一起骑。"
+        },
+        "b4": {
+          "title": "无障碍未来",
+          "subtitle": "让技术服务于每一个人",
+          "excerpt": "设计服务每一个人。"
+        },
+        "b5": {
+          "title": "材质实验室",
+          "subtitle": "寻找更亲肤的佩戴答案",
+          "excerpt": "亲肤佩戴，全天更舒适。"
+        },
+        "b6": {
+          "title": "睡眠研究峰会",
+          "subtitle": "解码深度睡眠的奥秘",
+          "excerpt": "深睡与节律，一次讲清。"
+        },
+        "b7": { "title": "生态伙伴计划", "subtitle": "共筑开放的数字生命蓝图" },
+        "b8": { "title": "用户故事精选", "subtitle": "把变化记录成可见的进步" }
+      }
+    },
+    "slogan": {
+      "titleLine1": "智能科技",
+      "titleLine2": "定义时尚健康",
+      "desc": "个体/家庭精准健康生态服务商。\n我们认为，科技的终点不应是冰冷的数据，\n而是对生命律动的深刻理解。"
+    },
+    "dataInsights": {
+      "headline1": "看懂数据",
+      "headline2": "才能改变生活",
+      "todayTitle": "看懂数据才能改变生活",
+      "todaySummary": "你的身体状态良好，继续保持",
+      "todayCards": [
+        { "value": "62 bpm", "label": "心率正常" },
+        { "value": "88.9%", "label": "血氧优秀" }
+      ],
+      "chartStart": "初始",
+      "chartMid": "第6周",
+      "chartEnd": "第12周",
+      "sleep": {
+        "title": "目标用户睡眠评分趋势对比",
+        "subtitle": "睡眠质量",
+        "description": "典型目标用户A：入睡潜伏期从 53min 显著降低至 22min，睡眠评分持续提升。",
+        "statLabels": ["深度睡眠提升", "异常预警提前", "睡眠分期准确率", "平均评分增幅"]
+      },
+      "sports": {
+        "title": "有氧运动能力（VO₂Max）增幅",
+        "subtitle": "运动提升",
+        "description": "遵循科学训练建议，高强度运动后恢复时长缩短了 35%。",
+        "statLabels": ["VO₂Max 提升", "心率恢复时长", "平均体能等级", "动作识别准确率"]
+      },
+      "weight": {
+        "title": "目标用户体脂率与BMI变化曲线",
+        "subtitle": "体重下降",
+        "description": "通过精准代谢监测，目标用户平均在 12 周内实现了 4.5kg 的健康体脂下降。",
+        "statLabels": ["平均减重", "体脂率下降", "基础代谢提升", "持续达标天数"]
+      },
+      "heart": {
+        "title": "静息心率稳定性监测报告",
+        "subtitle": "心率正常",
+        "description": "7x24小时全天候监测，静息心率波动范围回归至健康基准线。",
+        "statLabels": ["平均静息心率", "房颤早搏监测", "压力指数降低", "昼夜波动差"]
+      }
+    },
+    "immersive": {
+      "tablistAria": "选择产品应用场景",
+      "tabShort": {
+        "ring": "智能戒指",
+        "band": "智能手环",
+        "glasses": "智能眼镜",
+        "watch": "智能手表"
+      },
+      "products": {
+        "ring": {
+          "name": "AWAK RING 智能戒指",
+          "features": [
+            { "title": "时尚设计", "desc": "轻盈佩戴，无感存在。" },
+            { "title": "持久守护", "desc": "7×24小时持续运行，长效续航。" },
+            { "title": "健康监测", "desc": "精准监测心率与睡眠。" },
+            { "title": "智慧生活", "desc": "门禁、支付与设备互联。" },
+            { "title": "情绪感知", "desc": "提前识别波动，温和调整" },
+            { "title": "无感连接", "desc": "轻触之间，连接你的生活" }
+          ]
+        },
+        "band": {
+          "name": "AWAK BRACELET 智能手环",
+          "features": [
+            { "title": "紧急呼救", "desc": "跌倒自动提醒，守护家人安全。" },
+            { "title": "心率预警", "desc": "异常实时监测，数据变化及时提醒。" },
+            { "title": "超长续航", "desc": "最长 30天续航，减少频繁充电。" },
+            { "title": "AI健身", "desc": "智能识别运动，记录与分析表现。" },
+            { "title": "舒适佩戴", "desc": "亲肤表带，轻盈贴合日常佩戴" },
+            { "title": "全天守护", "desc": "数据持续监测，异常实时同步家人" }
+          ]
+        },
+        "glasses": {
+          "name": "AWAK GLASSES 智能眼镜",
+          "features": [
+            { "title": "无障碍沟通", "desc": "实时翻译与字幕支持，沟通更自由。" },
+            { "title": "轻盈体验", "desc": "49g轻量设计，佩戴舒适无负担。" },
+            { "title": "安全出行", "desc": "导航与路障提醒，出行更安心。" },
+            { "title": "智能识别", "desc": "高精度语音与降噪，使用更清晰。" },
+            { "title": "手语识别", "desc": "识别手语,表达实现双向交流理解" },
+            { "title": "轻盈长续", "desc": "轻量设计,结合长续航佩戴更舒适" }
+          ]
+        },
+        "watch": {
+          "name": "AWAK WATCH 专业运动智能手表",
+          "features": [
+            { "title": "科学训练", "desc": "训练分析与个性建议，提升每一次表现分析评估。" },
+            { "title": "健康监测", "desc": "睡眠、心率与状态追踪，全面了解身体变化。" },
+            { "title": "运动模式", "desc": "覆盖多种运动类型，适配不同场景。" },
+            { "title": "户外定位", "desc": "多频GPS精准定位，复杂环境也能安心。" },
+            { "title": "全能之选", "desc": "覆盖全年龄段,专业运动智能腕表" },
+            { "title": "持久续航", "desc": "长达十二天续航满足长时间使用" }
+          ]
+        }
+      }
+    },
+    "team": {
+      "heading1": "智能硬件+应用服务",
+      "heading2": "构建 7×24H 全周期健康与睡眠",
+      "cta": "立即购买",
+      "cards": {
+        "ring": {
+          "brand": "Awak Ring",
+          "category": "智能戒指",
+          "subtitle": "年轻人的第一款时尚智能戒指"
+        },
+        "band": {
+          "brand": "Awak Bracelet",
+          "category": "智能手环",
+          "subtitle": "55-75岁银发专属健康守护"
+        },
+        "watch": {
+          "brand": "Awak Watch",
+          "category": "专业运动智能手表",
+          "subtitle": "全年龄段专业级全场景运动腕表"
+        },
+        "glasses": {
+          "brand": "Awak Glasses",
+          "category": "智能眼镜",
+          "subtitle": "听视障人群民生刚需智能硬件"
+        }
+      }
+    }
+  }
+}
