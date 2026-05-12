@@ -8,13 +8,13 @@ export default function Hero() {
   const navigate = useNavigate();
   const { withPath } = useLocalePath();
   return (
-    <section className="relative flex flex-1 min-h-0 flex-col items-end justify-center pt-20 pb-6 md:pt-16 md:pb-8 mb-0 overflow-hidden bg-[#161617] text-white w-full pl-6 pr-6 md:pl-[170px] md:pr-[85px]">
-      {/* 交互式背景 - 视频/图片 */}
+    <section className="relative flex h-full min-h-0 flex-col items-end justify-center pt-24 pb-8 md:pt-20 md:pb-10 mb-0 overflow-hidden bg-[#161617] text-white w-full pl-6 pr-6 md:pl-[170px] md:pr-[85px]">
+      {/* 交互式背景 - 视频/图片（略下移构图，避免顶天） */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#161617]">
         <img 
           src="https://i.ibb.co/6JqSk9k4/hero.png"
           alt="Hero Background"
-          className="w-full h-full object-cover object-left transition-all duration-1000 scale-[1.02] translate-x-0"
+          className="w-full h-full object-cover object-left object-[20%_58%] md:object-[18%_52%] transition-all duration-1000 scale-[1.06] translate-y-[4%] md:translate-y-[6%]"
           referrerPolicy="no-referrer"
         />
       </div>

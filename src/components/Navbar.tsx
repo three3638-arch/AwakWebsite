@@ -16,9 +16,14 @@ const HW_ITEMS = [
 
 type NavRow =
   | { kind: 'dropdown'; key: 'hardware' }
-  | { kind: 'link'; key: 'ecosystem' | 'news' | 'contact'; path: '/ecosystem' | '/news' | '/contact' };
+  | {
+      kind: 'link';
+      key: 'brandStory' | 'ecosystem' | 'news' | 'contact';
+      path: '/brand-story' | '/ecosystem' | '/news' | '/contact';
+    };
 
 const NAV_ROWS: NavRow[] = [
+  { kind: 'link', key: 'brandStory', path: '/brand-story' },
   { kind: 'dropdown', key: 'hardware' },
   { kind: 'link', key: 'ecosystem', path: '/ecosystem' },
   { kind: 'link', key: 'news', path: '/news' },

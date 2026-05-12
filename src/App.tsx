@@ -4,7 +4,6 @@ import TrustBanner from './components/TrustBanner';
 import TeamSection from './components/TeamSection';
 import ImmersiveScenarios from './components/ImmersiveScenarios';
 import BrandDynamics from './components/BrandDynamics';
-import BrandSlogan from './components/BrandSlogan';
 import DataInsights from './components/DataInsights';
 import ValueProposition from './components/ValueProposition';
 import IntroSection from './components/IntroSection';
@@ -21,14 +20,17 @@ import CheckoutPage from './pages/CheckoutPage';
 import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
 import EcosystemPage from './pages/EcosystemPage';
+import BrandStoryPage from './pages/BrandStoryPage';
 import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
 
 function HomePage() {
   return (
     <>
-      <div className="flex min-h-[100dvh] flex-col">
-        <Hero />
-        <TrustBanner />
+      <div className="flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden">
+        <div className="min-h-0 h-[80%] shrink-0 overflow-hidden">
+          <Hero />
+        </div>
+        <TrustBanner className="h-[20%] shrink-0" />
       </div>
       <TeamSection />
       <section className="bg-[#F5F5F3]">
@@ -37,7 +39,6 @@ function HomePage() {
       <IntroSection />
       <ValueProposition />
       <BrandDynamics />
-      <BrandSlogan />
       <DataInsights />
       <FooterSections />
     </>
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/" element={<Navigate to={`/${DEFAULT_LOCALE}`} replace />} />
           <Route path="/:lang" element={<LocaleLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="brand-story" element={<BrandStoryPage />} />
             <Route path="ecosystem" element={<EcosystemPage />} />
             <Route path="products/ring" element={<SmartRingPage />} />
             <Route path="products/band" element={<SmartBraceletPage />} />

@@ -1,5 +1,6 @@
 {
   "nav": {
+    "brandStory": "Brand story",
     "hardware": "Hardware",
     "ecosystem": "Ecosystem",
     "news": "News",
@@ -54,10 +55,14 @@
     },
     "trust": {
       "stats": [
-        { "value": "1,000,000+", "label": "Target users" },
+        { "value": "6 people", "label": "Cumulative users served" },
         { "value": "50+", "label": "Health metrics" },
-        { "value": "99.2%", "label": "Satisfaction" },
-        { "value": "18 mo", "label": "Warranty" }
+        { "value": "24h", "label": "Sleep logging" },
+        { "value": "100+", "label": "Workout companions" },
+        { "value": "AI", "label": "Nutrition assist" },
+        { "value": "3s", "label": "Emergency SOS" },
+        { "value": "18 mo", "label": "Warranty" },
+        { "value": "99.2%", "label": "Algorithm accuracy" }
       ]
     },
     "intro": {
@@ -75,6 +80,17 @@
     "valueLoop": {
       "title": "The AWAK health loop",
       "subtitle": "From effortless logging to AI-guided actions—a closed loop for your digital health.",
+      "eyebrow": "Digital Health System",
+      "dialNodes": [
+        { "t1": "Health logging", "t2": "Emergency SOS", "n": "SOS", "u": "EMERGENCY" },
+        { "t1": "Sleep quality", "t2": "Live tracking", "n": "91", "u": "SLEEP SCORE" },
+        { "t1": "Morning vitality", "t2": "Active days", "n": "87", "u": "VITALITY" },
+        { "t1": "Meals logged", "t2": "Nutrition ledger", "n": "1840", "u": "KCAL" },
+        { "t1": "Workout tips", "t2": "Personalized picks", "n": "Z3", "u": "HR ZONE" },
+        { "t1": "Insurance & exams", "t2": "Cycle care", "n": "18m", "u": "NEXT CHECK" },
+        { "t1": "Style on the go", "t2": "Social presence", "n": "STYLE", "u": "TECH WEAR" },
+        { "t1": "Everything connected", "t2": "Smart living", "n": "12", "u": "DEVICES" }
+      ],
       "nodes": [
         { "title": "Capture", "desc": "Always-on sensing that collects what matters." },
         { "title": "Understand", "desc": "Clear takeaways—not charts you have to decode." },

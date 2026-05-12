@@ -1,296 +1,455 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+type DialNodeData = { a: number; t1: string; t2: string; n: string; u: string };
+
 /**
- * PC 首页「AWAK 健康闭环」—— 8 节点齿轮时钟轮（由设计稿 HTML 迁入 React）
+ * PC 首页「AWAK 健康闭环」—— 金属表盘 8 节点（设计稿迁入 React，白/灰/黑无绿色）
  */
 export default function ValueProposition() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const rootRef = useRef<HTMLElement>(null);
-  const stageWrapperRef = useRef<HTMLDivElement>(null);
-  const clockStageRef = useRef<HTMLDivElement>(null);
-  const gearGroupRef = useRef<SVGGElement>(null);
-  const gMarkersRef = useRef<SVGGElement>(null);
-  const gConnectorsRef = useRef<SVGGElement>(null);
-  const handGroupRef = useRef<SVGGElement>(null);
-  const cardsLayerRef = useRef<HTMLDivElement>(null);
-  const progressDotsRef = useRef<HTMLDivElement>(null);
+  const stageWrapRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const gBezelRef = useRef<SVGGElement>(null);
+  const gTicksRef = useRef<SVGGElement>(null);
+  const gNDotsRef = useRef<SVGGElement>(null);
+  const gConnsRef = useRef<SVGGElement>(null);
+  const handGRef = useRef<SVGGElement>(null);
+  const cLayerRef = useRef<HTMLDivElement>(null);
+  const dotsRowRef = useRef<HTMLDivElement>(null);
+  const hubNRef = useRef<HTMLDivElement>(null);
+  const hubURef = useRef<HTMLDivElement>(null);
+
+  const uid = 'vpd';
 
   useEffect(() => {
+    const dialRaw = t('home.valueLoop.dialNodes', { returnObjects: true });
+    const dialArr = Array.isArray(dialRaw) ? dialRaw : [];
+    const ANGLES = [0, 45, 90, 135, 180, 225, 270, 315] as const;
+    const NODES: DialNodeData[] = ANGLES.map((a, i) => {
+      const row = dialArr[i] as { t1?: string; t2?: string; n?: string; u?: string } | undefined;
+      return {
+        a,
+        t1: row?.t1 ?? '',
+        t2: row?.t2 ?? '',
+        n: row?.n ?? '—',
+        u: row?.u ?? '',
+      };
+    });
+
     const root = rootRef.current;
-    if (!root) return;
+    const stageWrap = stageWrapRef.current;
+    const stage = stageRef.current;
+    const gBezel = gBezelRef.current;
+    const gTicks = gTicksRef.current;
+    const gNDots = gNDotsRef.current;
+    const gConns = gConnsRef.current;
+    const handG = handGRef.current;
+    const cLayer = cLayerRef.current;
+    const dotsRow = dotsRowRef.current;
+    const hubN = hubNRef.current;
+    const hubU = hubURef.current;
 
-    const NS = 'http://www.w3.org/2000/svg';
-    const CX = 520;
-    const CY = 400;
-    const CARD_R = 265;
-    const RING_V = 200;
-    const RING_T = 213;
-    const RING_I = 180;
-    /** 卡片加宽（布局锚点与连线仍按该宽度计算）；高度基准用于定位，不强制裁切正文 */
-    const CARD_W = 220;
-    const CARD_H = 102;
-    const NUM_TEETH = 72;
-    const STAGE_W = 1040;
-
-    const NODES = [
-      {
-        angle: 0,
-        title: '健康记录\n紧急呼救',
-        desc: '全天候守护，异常立即预警',
-        iconD:
-          'M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z',
-        iconFill: true,
-      },
-      {
-        angle: 45,
-        title: '睡眠质量\n实时记录',
-        desc: '深睡分析，修复恢复质量',
-        iconD: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
-        iconFill: false,
-      },
-      {
-        angle: 90,
-        title: '元气晨起\n活力出行',
-        desc: '晨间健康评分，活力开启新一天',
-        iconD:
-          'M12 2v2m0 16v2m-8-10H2m18 0h2M5.64 5.64l-1.41 1.41m13.56 13.56-1.41 1.41M5.64 18.36l-1.41-1.41M18.36 5.64l-1.41-1.41',
-        iconFill: false,
-      },
-      {
-        angle: 135,
-        title: '饮食记录\n营养账单',
-        desc: 'AI识别食物，追踪全天营养摄入',
-        iconD: 'M3 11l19-9-9 19-2-8-8-2z',
-        iconFill: false,
-      },
-      {
-        angle: 180,
-        title: '运动建议\n个性选择',
-        desc: '体征驱动的专属个性化训练方案',
-        iconD: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
-        iconFill: false,
-      },
-      {
-        angle: 225,
-        title: '保险体检\n周期管理',
-        desc: '联动医疗机构，健康档案完整守护',
-        iconD: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
-        iconFill: false,
-      },
-      {
-        angle: 270,
-        title: '时尚出行\n社交认同',
-        desc: '外观即态度，科技与美学融合生活',
-        iconD: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
-        iconFill: false,
-      },
-      {
-        angle: 315,
-        title: '万物互联\n智慧生活',
-        desc: '打通设备生态，数据无缝流转共享',
-        iconD: 'M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01',
-        iconFill: false,
-      },
-    ] as const;
-
-    const CARD_OFFSETS: Record<number, { dx: number; dy: number }> = {
-      0: { dx: -CARD_W / 2, dy: -CARD_H - 16 },
-      45: { dx: 16, dy: -CARD_H },
-      90: { dx: 16, dy: -CARD_H / 2 },
-      135: { dx: 16, dy: 2 },
-      180: { dx: -CARD_W / 2, dy: 16 },
-      225: { dx: -CARD_W - 16, dy: 2 },
-      270: { dx: -CARD_W - 16, dy: -CARD_H / 2 },
-      315: { dx: -CARD_W - 16, dy: -CARD_H },
-    };
-
-    let activeIdx = 0;
-    let handAngle = 0;
-    let animReq: number | null = null;
-    let autoTimer: ReturnType<typeof setInterval> | null = null;
-    let pauseAuto = false;
-    let hoverPauseTimer: ReturnType<typeof setTimeout> | null = null;
-    let handAnimStart: number | null = null;
-    let handFromAngle = 0;
-    let handToAngle = 0;
-    let handDelta = 0;
-    const HAND_DUR = 900;
-    const staggerTimeouts: ReturnType<typeof setTimeout>[] = [];
-
-    const gearGroup = gearGroupRef.current;
-    const gMarkers = gMarkersRef.current;
-    const gConnectors = gConnectorsRef.current;
-    const cardsLayer = cardsLayerRef.current;
-    const progressDots = progressDotsRef.current;
-    const handGroup = handGroupRef.current;
-    const stageWrapper = stageWrapperRef.current;
-    const clockStage = clockStageRef.current;
-
-    if (!gearGroup || !gMarkers || !gConnectors || !cardsLayer || !progressDots || !handGroup || !stageWrapper || !clockStage) {
+    if (
+      !root ||
+      !stageWrap ||
+      !stage ||
+      !gBezel ||
+      !gTicks ||
+      !gNDots ||
+      !gConns ||
+      !handG ||
+      !cLayer ||
+      !dotsRow ||
+      !hubN ||
+      !hubU
+    ) {
       return;
     }
 
-    root.style.setProperty('--vp-hl-card-w', `${CARD_W}px`);
-    root.style.setProperty('--vp-hl-card-h', `${CARD_H}px`);
+    const NS = 'http://www.w3.org/2000/svg';
+    const CX = 520;
+    const CY = 420;
 
-    const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const BEZEL_MID_R = 228;
+    const BEZEL_SW = 26;
+    const BEZEL_OUTER = 241;
+    const BEZEL_INNER = 215;
+    const TICK_OUTER_R = 207;
+    const RING_R = 188;
+    /** 连线起点略宽于表圈外沿；锚点半径增大使卡片外移，避免与大字号卡片叠在表盘上 */
+    const CONN_R_START = 220;
+    const ANCHOR_R = 302;
+    const CARD_W = 162;
 
-    function buildGear() {
-      const group = gearGroup;
-      const step = (2 * Math.PI) / NUM_TEETH;
-      let d = '';
-      for (let i = 0; i < NUM_TEETH; i++) {
-        const a0 = i * step - Math.PI / 2;
-        const a1 = a0 + step * 0.27;
-        const a2 = a0 + step * 0.4;
-        const a3 = a0 + step * 0.6;
-        const a4 = a0 + step * 0.73;
-        const a5 = (i + 1) * step - Math.PI / 2;
-        const pt = (r: number, a: number) =>
-          `${(CX + r * Math.cos(a)).toFixed(2)},${(CY + r * Math.sin(a)).toFixed(2)}`;
-        if (i === 0) d += `M${pt(RING_V, a0)} `;
-        d += `L${pt(RING_T, a1)} `;
-        d += `L${pt(RING_T, a2)} `;
-        d += `L${pt(RING_T, a3)} `;
-        d += `L${pt(RING_T, a4)} `;
-        d += `L${pt(RING_V, a5)} `;
-      }
-      d += 'Z ';
-      const NH = 128;
-      d += `M${(CX + RING_I).toFixed(2)},${CY.toFixed(2)} `;
-      for (let i = 1; i <= NH; i++) {
-        const a = -(i / NH) * 2 * Math.PI - Math.PI / 2;
-        d += `L${(CX + RING_I * Math.cos(a)).toFixed(2)},${(CY + RING_I * Math.sin(a)).toFixed(2)} `;
-      }
-      d += 'Z';
-      const path = document.createElementNS(NS, 'path');
-      path.setAttribute('d', d);
-      path.setAttribute('fill', 'rgba(255,255,255,0.09)');
-      path.setAttribute('fill-rule', 'evenodd');
-      path.setAttribute('stroke', 'rgba(255,255,255,0.07)');
-      path.setAttribute('stroke-width', '0.5');
-      group.appendChild(path);
-      const innerRim = document.createElementNS(NS, 'circle');
-      innerRim.setAttribute('cx', String(CX));
-      innerRim.setAttribute('cy', String(CY));
-      innerRim.setAttribute('r', String(RING_I));
-      innerRim.setAttribute('fill', 'none');
-      innerRim.setAttribute('stroke', 'rgba(255,255,255,0.1)');
-      innerRim.setAttribute('stroke-width', '1');
-      group.appendChild(innerRim);
-      const anim = document.createElementNS(NS, 'animateTransform');
-      anim.setAttribute('attributeName', 'transform');
-      anim.setAttribute('type', 'rotate');
-      anim.setAttribute('from', `0 ${CX} ${CY}`);
-      anim.setAttribute('to', `360 ${CX} ${CY}`);
-      anim.setAttribute('dur', '50s');
-      anim.setAttribute('repeatCount', 'indefinite');
-      group.appendChild(anim);
+    const LIGHT_DEG = 315;
+
+    const OFFSETS = [
+      { dx: -CARD_W / 2, dy: -74 },
+      { dx: 22, dy: -66 },
+      { dx: 22, dy: -30 },
+      { dx: 22, dy: 16 },
+      { dx: -CARD_W / 2, dy: 16 },
+      { dx: -CARD_W - 22, dy: 16 },
+      { dx: -CARD_W - 22, dy: -30 },
+      { dx: -CARD_W - 22, dy: -66 },
+    ];
+    const ALIGNS = ['center', 'left', 'left', 'left', 'center', 'right', 'right', 'right'] as const;
+
+    let activeIdx = 0;
+    let handAngle = 0;
+    let hFrom = 0;
+    let hTo = 0;
+    let hDelta = 0;
+    let hStart: number | null = null;
+    let hRaf: number | null = null;
+    let autoT: ReturnType<typeof setInterval> | null = null;
+    let paused = false;
+    const HAND_DUR = 950;
+
+    const staggerTimeouts: ReturnType<typeof setTimeout>[] = [];
+
+    function toRad(deg: number) {
+      return ((deg - 90) * Math.PI) / 180;
+    }
+    function ptX(r: number, deg: number) {
+      return (CX + r * Math.cos(toRad(deg))).toFixed(2);
+    }
+    function ptY(r: number, deg: number) {
+      return (CY + r * Math.sin(toRad(deg))).toFixed(2);
     }
 
-    function buildMarkers() {
-      const g = gMarkers;
-      NODES.forEach((node, i) => {
-        const rad = (node.angle * Math.PI) / 180;
-        const mx = CX + (RING_V - 1) * Math.sin(rad);
-        const my = CY - (RING_V - 1) * Math.cos(rad);
-        const glow = document.createElementNS(NS, 'circle');
-        glow.setAttribute('cx', mx.toFixed(2));
-        glow.setAttribute('cy', my.toFixed(2));
-        glow.setAttribute('r', '8');
-        glow.setAttribute('fill', 'rgba(200,240,0,0)');
-        glow.setAttribute('id', `marker-glow-${i}`);
-        (glow as unknown as HTMLElement).style.transition = 'fill .4s';
-        g.appendChild(glow);
-        const dot = document.createElementNS(NS, 'circle');
-        dot.setAttribute('cx', mx.toFixed(2));
-        dot.setAttribute('cy', my.toFixed(2));
-        dot.setAttribute('r', '3.5');
-        dot.setAttribute('fill', 'rgba(255,255,255,0.25)');
-        dot.setAttribute('id', `marker-dot-${i}`);
-        (dot as unknown as HTMLElement).style.transition = 'fill .4s,r .4s';
-        g.appendChild(dot);
+    function lightT(deg: number) {
+      const diff = Math.abs(((deg - LIGHT_DEG + 540) % 360) - 180);
+      return 1 - diff / 180;
+    }
+
+    function arcPath(r: number, startDeg: number, endDeg: number) {
+      const sr = toRad(startDeg + 90);
+      const er = toRad(endDeg + 90);
+      const x1 = (CX + r * Math.cos(sr)).toFixed(2);
+      const y1 = (CY + r * Math.sin(sr)).toFixed(2);
+      const x2 = (CX + r * Math.cos(er)).toFixed(2);
+      const y2 = (CY + r * Math.sin(er)).toFixed(2);
+      const large = endDeg - startDeg > 180 ? 1 : 0;
+      return `M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2}`;
+    }
+
+    function svgEl(tag: string, attrs: Record<string, string>) {
+      const el = document.createElementNS(NS, tag);
+      Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      return el;
+    }
+
+    function buildBezel() {
+      const g = gBezel;
+
+      g.appendChild(
+        svgEl('circle', {
+          cx: String(CX),
+          cy: String(CY),
+          r: String(BEZEL_OUTER + 5),
+          fill: 'none',
+          stroke: 'rgba(0,0,0,.7)',
+          'stroke-width': '5',
+        }),
+      );
+
+      const N = 72;
+      const STEP = 360 / N;
+      for (let i = 0; i < N; i++) {
+        const start = i * STEP;
+        const end = (i + 1) * STEP;
+        const mid = start + STEP / 2;
+        const lt = lightT(mid);
+        const L = 6 + lt * 34;
+        const S = lt * 2;
+        const color = `hsl(0,${S.toFixed(0)}%,${L.toFixed(0)}%)`;
+        g.appendChild(
+          svgEl('path', {
+            d: arcPath(BEZEL_MID_R, start, end + 0.3),
+            fill: 'none',
+            stroke: color,
+            'stroke-width': String(BEZEL_SW),
+            'stroke-linecap': 'butt',
+          }),
+        );
+      }
+
+      for (let i = 0; i < 36; i++) {
+        const start = i * 10;
+        const end = (i + 1) * 10;
+        const mid = start + 5;
+        const lt = lightT(mid);
+        const op = 0.08 + lt * 0.55;
+        const sw = 0.8 + lt * 1.0;
+        g.appendChild(
+          svgEl('path', {
+            d: arcPath(BEZEL_OUTER, start, end + 0.5),
+            fill: 'none',
+            stroke: `rgba(255,255,255,${op.toFixed(3)})`,
+            'stroke-width': sw.toFixed(2),
+            'stroke-linecap': 'butt',
+          }),
+        );
+      }
+
+      for (let i = 0; i < 36; i++) {
+        const start = i * 10;
+        const end = (i + 1) * 10;
+        const mid = start + 5;
+        const lt = lightT(mid);
+        const op = 0.04 + lt * 0.22;
+        g.appendChild(
+          svgEl('path', {
+            d: arcPath(BEZEL_INNER + 1.5, start, end + 0.5),
+            fill: 'none',
+            stroke: `rgba(255,255,255,${op.toFixed(3)})`,
+            'stroke-width': '1.5',
+            'stroke-linecap': 'butt',
+          }),
+        );
+      }
+
+      g.appendChild(
+        svgEl('circle', {
+          cx: String(CX),
+          cy: String(CY),
+          r: String(BEZEL_INNER - 1),
+          fill: 'none',
+          stroke: 'rgba(0,0,0,.55)',
+          'stroke-width': '2.5',
+        }),
+      );
+
+      g.appendChild(
+        svgEl('circle', {
+          cx: String(CX),
+          cy: String(CY),
+          r: String(BEZEL_OUTER + 2),
+          fill: 'none',
+          stroke: 'rgba(255,255,255,.06)',
+          'stroke-width': '1',
+        }),
+      );
+    }
+
+    function buildTicks() {
+      const g = gTicks;
+      for (let deg = 0; deg < 360; deg += 5) {
+        const isNode = deg % 45 === 0;
+        const isMed = deg % 15 === 0 && !isNode;
+        const lt = lightT(deg);
+        const tickLen = isNode ? 13 : isMed ? 8 : 5;
+        const sw = isNode ? 0.9 + lt * 0.8 : 0.5 + lt * 0.4;
+        const baseOp = isNode ? 0.45 : isMed ? 0.22 : 0.12;
+        const op = baseOp + lt * (isNode ? 0.45 : isMed ? 0.35 : 0.28);
+        const outerR = TICK_OUTER_R;
+        const innerR = TICK_OUTER_R - tickLen;
+        const x1 = ptX(innerR, deg);
+        const y1 = ptY(innerR, deg);
+        const x2 = ptX(outerR, deg);
+        const y2 = ptY(outerR, deg);
+        const ln = svgEl('line', {
+          x1,
+          y1,
+          x2,
+          y2,
+          stroke: '#D1D1D6',
+          'stroke-width': sw.toFixed(2),
+          opacity: Math.min(op, 0.92).toFixed(3),
+        });
+        g.appendChild(ln);
+
+        if (isNode && lt > 0.5) {
+          const sparkOp = (lt - 0.5) * 2 * 0.7;
+          g.appendChild(
+            svgEl('line', {
+              x1: ptX(innerR + 2, deg),
+              y1: ptY(innerR + 2, deg),
+              x2: ptX(outerR, deg),
+              y2: ptY(outerR, deg),
+              stroke: '#fff',
+              'stroke-width': (sw * 0.4).toFixed(2),
+              opacity: sparkOp.toFixed(3),
+            }),
+          );
+        }
+      }
+    }
+
+    function buildNodeDots() {
+      const g = gNDots;
+      NODES.forEach((n, i) => {
+        const x = ptX(RING_R, n.a);
+        const y = ptY(RING_R, n.a);
+        const gw = svgEl('circle', {
+          cx: x,
+          cy: y,
+          r: '8',
+          fill: 'rgba(255,255,255,0)',
+          id: `${uid}-ndgw-${i}`,
+        });
+        (gw as unknown as HTMLElement).style.transition = 'fill .4s';
+        g.appendChild(gw);
+
+        const dt = svgEl('circle', {
+          cx: x,
+          cy: y,
+          r: '2.8',
+          fill: 'rgba(255,255,255,.2)',
+          id: `${uid}-nddot-${i}`,
+        });
+        (dt as unknown as HTMLElement).style.transition = 'fill .4s, r .3s';
+        g.appendChild(dt);
       });
     }
 
     function buildConnectors() {
-      const g = gConnectors;
-      NODES.forEach((node, i) => {
-        const rad = (node.angle * Math.PI) / 180;
-        const s = Math.sin(rad);
-        const c = Math.cos(rad);
-        const x1 = CX + (RING_T + 8) * s;
-        const y1 = CY - (RING_T + 8) * c;
-        const x2 = CX + (CARD_R - 12) * s;
-        const y2 = CY - (CARD_R - 12) * c;
-        const line = document.createElementNS(NS, 'line');
-        line.setAttribute('x1', x1.toFixed(2));
-        line.setAttribute('y1', y1.toFixed(2));
-        line.setAttribute('x2', x2.toFixed(2));
-        line.setAttribute('y2', y2.toFixed(2));
-        line.setAttribute('stroke', 'rgba(255,255,255,0.08)');
-        line.setAttribute('stroke-width', '1');
-        line.setAttribute('stroke-dasharray', '4 3');
-        line.setAttribute('id', `conn-${i}`);
-        (line as unknown as HTMLElement).style.transition = 'stroke .4s,stroke-width .4s,opacity .4s';
-        g.appendChild(line);
+      const g = gConns;
+      NODES.forEach((n, i) => {
+        const rad = toRad(n.a);
+        const cos = Math.cos(rad);
+        const sin = Math.sin(rad);
+        const x1 = (CX + CONN_R_START * cos).toFixed(2);
+        const y1 = (CY + CONN_R_START * sin).toFixed(2);
+        const x2 = (CX + (ANCHOR_R - 14) * cos).toFixed(2);
+        const y2 = (CY + (ANCHOR_R - 14) * sin).toFixed(2);
+        const ln = svgEl('line', {
+          x1,
+          y1,
+          x2,
+          y2,
+          stroke: 'rgba(255,255,255,.05)',
+          'stroke-width': '1',
+          'stroke-dasharray': '3 5',
+          id: `${uid}-conn-${i}`,
+        });
+        (ln as unknown as HTMLElement).style.transition = 'stroke .4s,stroke-width .4s';
+        g.appendChild(ln);
       });
     }
 
     const cardClickHandlers: Array<() => void> = [];
     const cardEnterHandlers: Array<() => void> = [];
     const cardLeaveHandlers: Array<() => void> = [];
-    const pdotClickHandlers: Array<() => void> = [];
+    const pdClickHandlers: Array<() => void> = [];
+
+    function easeOutExpo(t: number) {
+      return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function sweepHand(target: number) {
+      if (hRaf != null) cancelAnimationFrame(hRaf);
+      hFrom = handAngle;
+      let d = target - hFrom;
+      if (d < 0) d += 360;
+      if (d === 0) d = 360;
+      hDelta = d;
+      hTo = target;
+      hStart = null;
+      hRaf = requestAnimationFrame(stepHand);
+    }
+
+    function stepHand(ts: number) {
+      if (hStart == null) hStart = ts;
+      const p = Math.min((ts - hStart) / HAND_DUR, 1);
+      const cur = hFrom + hDelta * easeOutExpo(p);
+      handAngle = cur % 360;
+      handG.setAttribute('transform', `translate(${CX},${CY}) rotate(${cur})`);
+      if (p < 1) hRaf = requestAnimationFrame(stepHand);
+      else {
+        handAngle = hTo;
+        hRaf = null;
+      }
+    }
+
+    function activateNode(idx: number) {
+      activeIdx = idx;
+      const n = NODES[idx];
+
+      NODES.forEach((_, i) => {
+        const c = document.getElementById(`${uid}-nc-${i}`);
+        if (c) {
+          c.classList.toggle('vpd-nc-on', i === idx);
+          c.style.zIndex = i === idx ? '30' : '10';
+        }
+      });
+      NODES.forEach((_, i) =>
+        document.getElementById(`${uid}-pd-${i}`)?.classList.toggle('vpd-pd-on', i === idx),
+      );
+
+      NODES.forEach((_, i) => {
+        document.getElementById(`${uid}-nddot-${i}`)?.setAttribute(
+          'fill',
+          i === idx ? 'rgba(255,255,255,.85)' : 'rgba(255,255,255,.2)',
+        );
+        document.getElementById(`${uid}-nddot-${i}`)?.setAttribute('r', i === idx ? '4.2' : '2.8');
+        document.getElementById(`${uid}-ndgw-${i}`)?.setAttribute(
+          'fill',
+          i === idx ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,0)',
+        );
+        document.getElementById(`${uid}-conn-${i}`)?.setAttribute(
+          'stroke',
+          i === idx ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.05)',
+        );
+        document.getElementById(`${uid}-conn-${i}`)?.setAttribute(
+          'stroke-width',
+          i === idx ? '1.4' : '1',
+        );
+      });
+
+      hubN.textContent = n.n;
+      hubU.textContent = n.u;
+      sweepHand(n.a);
+    }
+
+    function resetAuto() {
+      if (autoT) clearInterval(autoT);
+      autoT = setInterval(() => {
+        if (!paused) activateNode((activeIdx + 1) % 8);
+      }, 4000);
+    }
 
     function buildCards() {
-      const layer = cardsLayer;
-      const dotsCont = progressDots;
-      NODES.forEach((node, i) => {
-        const rad = (node.angle * Math.PI) / 180;
-        const ax = CX + CARD_R * Math.sin(rad);
-        const ay = CY - CARD_R * Math.cos(rad);
-        const off = CARD_OFFSETS[node.angle];
-        const left = ax + off.dx;
-        const top = ay + off.dy;
-        const titleLines = node.title.split('\n');
-        const fillAttr = node.iconFill
-          ? `fill="rgba(255,255,255,0.65)" stroke="none"`
-          : `fill="none" stroke="rgba(255,255,255,0.65)"`;
+      const layer = cLayer;
+      const dotsRowEl = dotsRow;
+      NODES.forEach((n, i) => {
+        const rad = toRad(n.a);
+        const ax = CX + ANCHOR_R * Math.cos(rad);
+        const ay = CY + ANCHOR_R * Math.sin(rad);
+        const off = OFFSETS[i];
+        const al = ALIGNS[i];
+
         const card = document.createElement('div');
-        card.className = 'vp-hl-node-card';
-        card.id = `ncard-${i}`;
-        card.style.left = `${Math.round(left)}px`;
-        card.style.top = `${Math.round(top)}px`;
-        card.style.boxSizing = 'border-box';
-        card.style.width = `${CARD_W}px`;
-        card.style.minWidth = `${CARD_W}px`;
+        card.className = 'vpd-nc';
+        card.id = `${uid}-nc-${i}`;
+        card.style.left = `${Math.round(ax + off.dx)}px`;
+        card.style.top = `${Math.round(ay + off.dy)}px`;
+        card.style.textAlign = al;
+        card.style.alignItems = al === 'center' ? 'center' : al === 'right' ? 'flex-end' : 'flex-start';
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.85)';
+
         card.innerHTML = `
-      <div class="vp-hl-card-icon-row">
-        <svg class="vp-hl-card-icon" width="16" height="16" viewBox="0 0 24 24"
-             ${fillAttr} stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true">
-          <path d="${node.iconD}"/>
-        </svg>
-      </div>
-      <div class="vp-hl-card-title">${titleLines.join('<br>')}</div>
-      <div class="vp-hl-card-desc">${node.desc}</div>
-      <div class="vp-hl-card-bar"></div>
-    `;
+      <div class="vpd-nc-dot"></div>
+      <div class="vpd-nc-t">${n.t1}<br/>${n.t2}</div>
+      <span class="vpd-nc-u"></span>`;
+
         const onClick = () => {
-          pauseAuto = false;
           activateNode(i);
-          resetAutoTimer();
+          paused = false;
+          resetAuto();
         };
         const onEnter = () => {
-          pauseAuto = true;
-          if (hoverPauseTimer) clearTimeout(hoverPauseTimer);
+          paused = true;
           activateNode(i);
         };
         const onLeave = () => {
-          hoverPauseTimer = setTimeout(() => {
-            pauseAuto = false;
-          }, 1800);
+          setTimeout(() => {
+            paused = false;
+          }, 2200);
         };
         card.addEventListener('click', onClick);
         card.addEventListener('mouseenter', onEnter);
@@ -299,443 +458,363 @@ export default function ValueProposition() {
         cardEnterHandlers.push(onEnter);
         cardLeaveHandlers.push(onLeave);
         layer.appendChild(card);
-        const pdot = document.createElement('div');
-        pdot.className = 'vp-hl-pdot';
-        pdot.id = `pdot-${i}`;
-        pdot.title = node.title.replace('\n', ' ');
-        const onPdotClick = () => activateNode(i);
-        pdot.addEventListener('click', onPdotClick);
-        pdotClickHandlers.push(onPdotClick);
-        dotsCont.appendChild(pdot);
+
+        const pd = document.createElement('div');
+        pd.className = 'vpd-pd';
+        pd.id = `${uid}-pd-${i}`;
+        const onPdClick = () => {
+          activateNode(i);
+          resetAuto();
+        };
+        pd.addEventListener('click', onPdClick);
+        pdClickHandlers.push(onPdClick);
+        dotsRowEl.appendChild(pd);
       });
     }
 
-    function activateNode(idx: number) {
-      activeIdx = idx;
-      const node = NODES[idx];
-      NODES.forEach((_, i) => {
-        const card = document.getElementById(`ncard-${i}`);
-        if (card) {
-          card.classList.toggle('vp-hl-node-card-active', i === idx);
-          card.style.zIndex = i === idx ? '25' : '10';
-        }
-      });
-      NODES.forEach((_, i) => {
-        const el = document.getElementById(`pdot-${i}`);
-        el?.classList.toggle('vp-hl-pdot-on', i === idx);
-      });
-      NODES.forEach((_, i) => {
-        const dot = document.getElementById(`marker-dot-${i}`);
-        const glow = document.getElementById(`marker-glow-${i}`);
-        dot?.setAttribute('fill', i === idx ? '#C8F000' : 'rgba(255,255,255,0.25)');
-        dot?.setAttribute('r', i === idx ? '5' : '3.5');
-        glow?.setAttribute('fill', i === idx ? 'rgba(200,240,0,0.15)' : 'rgba(200,240,0,0)');
-      });
-      NODES.forEach((_, i) => {
-        const conn = document.getElementById(`conn-${i}`);
-        if (conn) {
-          conn.setAttribute('stroke', i === idx ? 'rgba(200,240,0,0.45)' : 'rgba(255,255,255,0.08)');
-          conn.setAttribute('stroke-width', i === idx ? '1.5' : '1');
-        }
-      });
-      animateHand(node.angle);
-    }
-
-    function animateHand(targetAngle: number) {
-      let delta = targetAngle - handAngle;
-      if (delta <= 0) delta += 360;
-      if (delta === 360) delta = 0;
-      handFromAngle = handAngle;
-      handToAngle = targetAngle;
-      handDelta = delta;
-      handAnimStart = null;
-      if (animReq != null) cancelAnimationFrame(animReq);
-      animReq = requestAnimationFrame(stepHand);
-    }
-
-    function stepHand(ts: number) {
-      if (handAnimStart == null) handAnimStart = ts;
-      const elapsed = ts - handAnimStart;
-      const t = Math.min(elapsed / HAND_DUR, 1);
-      const eased = easeInOutCubic(t);
-      const currentAngle = handFromAngle + handDelta * eased;
-      handAngle = currentAngle % 360;
-      handGroup.setAttribute('transform', `translate(${CX},${CY}) rotate(${currentAngle})`);
-      if (t < 1) {
-        animReq = requestAnimationFrame(stepHand);
-      } else {
-        handAngle = handToAngle;
-        animReq = null;
-      }
-    }
-
-    function resetAutoTimer() {
-      if (autoTimer) clearInterval(autoTimer);
-      autoTimer = setInterval(() => {
-        if (pauseAuto) return;
-        const next = (activeIdx + 1) % NODES.length;
-        activateNode(next);
-      }, 3500);
-    }
+    const STAGE_W = 1040;
+    const STAGE_H = 840;
+    /** 允许略大于 1，配合左侧栏宽度「放大表盘」；下限避免极小屏叠爆 */
+    const SCALE_MIN = 0.38;
+    const SCALE_MAX = 1.26;
 
     function rescale() {
-      const stage = clockStage;
-      const wrapper = stageWrapper;
-      const w = window.innerWidth;
-      const s = Math.min(w / STAGE_W, 1);
+      const wrapW = stageWrap.clientWidth || window.innerWidth;
+      const base = wrapW / STAGE_W;
+      const s = Math.min(Math.max(base, SCALE_MIN), SCALE_MAX);
       stage.style.transform = `scale(${s})`;
-      stage.style.marginLeft = `${((w - STAGE_W) / 2) * (1 - s)}px`;
-      wrapper.style.height = `${800 * s}px`;
+      stage.style.marginLeft = '';
+      stage.style.marginRight = '';
+      stageWrap.style.height = `${STAGE_H * s}px`;
     }
 
-    const onResize = () => rescale();
-
-    const onKeyDown = (e: KeyboardEvent) => {
+    function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        activateNode((activeIdx + 1) % NODES.length);
-        resetAutoTimer();
+        activateNode((activeIdx + 1) % 8);
+        resetAuto();
       }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        activateNode((activeIdx - 1 + NODES.length) % NODES.length);
-        resetAutoTimer();
+        activateNode((activeIdx + 7) % 8);
+        resetAuto();
       }
-    };
+    }
 
-    buildGear();
-    buildMarkers();
+    buildBezel();
+    buildTicks();
+    buildNodeDots();
     buildConnectors();
     buildCards();
 
-    handGroup.setAttribute('transform', `translate(${CX},${CY}) rotate(0)`);
+    handG.setAttribute('transform', `translate(${CX},${CY}) rotate(0)`);
 
-    document.querySelectorAll('.vp-hl-node-card').forEach((c, i) => {
+    document.querySelectorAll(`#${uid}-root .vpd-nc`).forEach((c, i) => {
       const el = c as HTMLElement;
-      el.style.opacity = '0';
-      el.style.transform = 'scale(0.88)';
       const tid = setTimeout(() => {
-        el.style.transition = `opacity .55s cubic-bezier(.16,1,.3,1) ${i * 0.06}s,
-                            transform .55s cubic-bezier(.16,1,.3,1) ${i * 0.06}s,
-                            border-color .4s, background .4s`;
-        el.style.opacity = '0.72';
+        el.style.transition = `opacity .65s cubic-bezier(.16,1,.3,1) ${i * 0.045}s,
+                            transform .65s cubic-bezier(.16,1,.3,1) ${i * 0.045}s`;
+        el.style.opacity = '0.28';
         el.style.transform = '';
-      }, 300 + i * 50);
+      }, 250 + i * 55);
       staggerTimeouts.push(tid);
     });
 
     const activateTid = setTimeout(() => {
       activateNode(0);
-      resetAutoTimer();
+      resetAuto();
     }, 900);
     staggerTimeouts.push(activateTid);
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            root.style.opacity = '1';
-            obs.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 },
-    );
     root.style.opacity = '0';
-    root.style.transition = 'opacity .6s ease';
+    root.style.transition = 'opacity .7s ease';
+    const obs = new IntersectionObserver(
+      ([en]) => {
+        if (en.isIntersecting) root.style.opacity = '1';
+      },
+      { threshold: 0.12 },
+    );
     obs.observe(root);
 
     rescale();
-    window.addEventListener('resize', onResize);
+    const ro = new ResizeObserver(() => rescale());
+    ro.observe(stageWrap);
+    window.addEventListener('resize', rescale);
     document.addEventListener('keydown', onKeyDown);
 
     return () => {
-      root.style.removeProperty('--vp-hl-card-w');
-      root.style.removeProperty('--vp-hl-card-h');
       obs.disconnect();
-      window.removeEventListener('resize', onResize);
+      ro.disconnect();
+      window.removeEventListener('resize', rescale);
       document.removeEventListener('keydown', onKeyDown);
-      if (autoTimer) clearInterval(autoTimer);
-      if (animReq != null) cancelAnimationFrame(animReq);
-      if (hoverPauseTimer) clearTimeout(hoverPauseTimer);
+      if (autoT) clearInterval(autoT);
+      if (hRaf != null) cancelAnimationFrame(hRaf);
       staggerTimeouts.forEach(clearTimeout);
 
-      document.querySelectorAll('.vp-hl-node-card').forEach((card, i) => {
+      document.querySelectorAll(`#${uid}-root .vpd-nc`).forEach((card, i) => {
         card.removeEventListener('click', cardClickHandlers[i]);
         card.removeEventListener('mouseenter', cardEnterHandlers[i]);
         card.removeEventListener('mouseleave', cardLeaveHandlers[i]);
         card.remove();
       });
-      progressDots.querySelectorAll('.vp-hl-pdot').forEach((pdot, i) => {
-        pdot.removeEventListener('click', pdotClickHandlers[i]);
-        pdot.remove();
+      dotsRow.querySelectorAll('.vpd-pd').forEach((pd, i) => {
+        pd.removeEventListener('click', pdClickHandlers[i]);
+        pd.remove();
       });
-      gearGroup.innerHTML = '';
-      gMarkers.innerHTML = '';
-      gConnectors.innerHTML = '';
+
+      gBezel.innerHTML = '';
+      gTicks.innerHTML = '';
+      gNDots.innerHTML = '';
+      gConns.innerHTML = '';
+
       root.style.opacity = '';
       root.style.transition = '';
-      clockStage.style.transform = '';
-      clockStage.style.marginLeft = '';
-      stageWrapper.style.height = '';
+      stage.style.transform = '';
+      stage.style.marginLeft = '';
+      stage.style.marginRight = '';
+      stageWrap.style.height = '';
     };
-  }, []);
+  }, [t, i18n.language]);
 
   return (
     <>
       <style>{`
-#vp-hl-root *,#vp-hl-root *::before,#vp-hl-root *::after{box-sizing:border-box}
-#vp-hl-root{
+#${uid}-root *,#${uid}-root *::before,#${uid}-root *::after{box-sizing:border-box;margin:0;padding:0}
+#${uid}-root{
   font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;
-  color:#fff;
+  background:#060606;color:#fff;
+  overflow-x:hidden;
 }
-#vp-hl-root .vp-hl-section{
+#${uid}-root .vpd-sec{
   width:100%;
-  padding:64px 0 80px;
-  position:relative;
-  background:radial-gradient(ellipse 80% 60% at 50% 48%,rgba(18,22,8,0.9) 0%,#080808 70%);
-}
-#vp-hl-root .vp-hl-section-header{
-  text-align:center;
-  margin-bottom:52px;
-  position:relative;z-index:10;
-  padding:0 24px;
-}
-#vp-hl-root .vp-hl-section-title{
-  font-size:clamp(28px,4vw,42px);
-  font-weight:900;letter-spacing:-.05em;
-  color:#fff;line-height:1.1;margin-bottom:14px;
-}
-#vp-hl-root .vp-hl-section-sub{
-  font-size:14px;color:rgba(255,255,255,0.42);
-  letter-spacing:-.01em;line-height:1.75;
-  max-width:640px;margin:0 auto;
-}
-#vp-hl-root .vp-hl-stage-wrapper{
-  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
   display:flex;
+  flex-direction:column;
   justify-content:center;
-  align-items:flex-start;
-  overflow:hidden;
-}
-#vp-hl-root .vp-hl-clock-stage{
-  position:relative;
-  width:1040px;
-  height:800px;
-  flex-shrink:0;
-  transform-origin:top center;
-}
-#vp-hl-root .vp-hl-clock-svg{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  overflow:visible;
-}
-#vp-hl-root .vp-hl-cards-layer{
-  position:absolute;inset:0;
-  pointer-events:none;
-}
-#vp-hl-root .vp-hl-node-card{
-  position:absolute;
+  padding-top:max(2.5rem, env(safe-area-inset-top));
+  padding-bottom:max(2.5rem, env(safe-area-inset-bottom));
   box-sizing:border-box;
-  width:var(--vp-hl-card-w,220px) !important;
-  min-width:var(--vp-hl-card-w,220px) !important;
-  max-width:var(--vp-hl-card-w,220px) !important;
-  background:rgba(14,16,9,0.92);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:14px;
-  padding:14px 14px 16px;
-  pointer-events:all;
-  cursor:pointer;
-  transition:border-color .4s,background .4s,transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;
-  opacity:.72;
+  background:radial-gradient(ellipse 60% 55% at 50% 52%,
+    rgba(25,25,25,.75) 0%, #060606 68%);
+  position:relative;
 }
-#vp-hl-root .vp-hl-node-card:hover{
-  transform:scale(1.05) !important;
-  border-color:rgba(255,255,255,0.16);
-  opacity:1;
-  z-index:30;
+/* 页边距由外层 Tailwind px-6 md:px-[170px] 与 IntroSection「服务生态」一致 */
+#${uid}-root .vpd-inner{
+  box-sizing:border-box;
 }
-#vp-hl-root .vp-hl-node-card-active{
-  border-color:rgba(200,240,0,0.38);
-  background:rgba(18,22,10,0.96);
-  opacity:1;
-  z-index:25;
+#${uid}-root .vpd-copy{position:relative;z-index:10;min-width:0;}
+#${uid}-root .vpd-wrap{
+  display:flex;justify-content:center;align-items:center;
+  overflow:visible;min-width:0;
 }
-#vp-hl-root .vp-hl-node-card-active::after{
-  content:'';position:absolute;inset:-1px;
-  border-radius:14px;
-  background:linear-gradient(135deg,rgba(200,240,0,0.07) 0%,transparent 60%);
-  pointer-events:none;
+@media (min-width:1024px){
+  #${uid}-root .vpd-wrap{justify-content:flex-start;}
 }
-#vp-hl-root .vp-hl-card-icon-row{
-  display:flex;align-items:center;gap:7px;
+#${uid}-root .vpd-stage{
+  position:relative;width:1040px;height:840px;margin-left:auto;margin-right:auto;
+  flex-shrink:0;transform-origin:top center;
+}
+#${uid}-root .vpd-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+#${uid}-root .vpd-cl{position:absolute;inset:0;pointer-events:none;}
+#${uid}-root .vpd-nc{
+  position:absolute;width:162px;
+  pointer-events:all;cursor:pointer;
+  opacity:.28;
+  transform:scale(.95);
+  transition:opacity .5s cubic-bezier(.16,1,.3,1),
+             transform .5s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;
+}
+#${uid}-root .vpd-nc:hover{opacity:.75!important;transform:scale(1.04)!important;}
+#${uid}-root .vpd-nc-on{opacity:1!important;transform:scale(1)!important;z-index:30;}
+#${uid}-root .vpd-nc-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.28);
   margin-bottom:8px;
-}
-#vp-hl-root .vp-hl-card-icon{
+  transition:background .45s,transform .45s;
   flex-shrink:0;
-  opacity:.4;transition:opacity .4s;
 }
-#vp-hl-root .vp-hl-node-card-active .vp-hl-card-icon{opacity:.85}
-#vp-hl-root .vp-hl-card-title{
-  font-size:14px;font-weight:700;
-  letter-spacing:-.02em;line-height:1.32;
-  color:rgba(255,255,255,0.65);
-  margin-bottom:6px;transition:color .4s;
+#${uid}-root .vpd-nc-on .vpd-nc-dot{background:#fff;transform:scale(1.5);}
+#${uid}-root .vpd-nc-t{
+  font-size:clamp(15px,1.12vw,19px);font-weight:700;
+  letter-spacing:-.02em;line-height:1.38;
+  color:rgba(255,255,255,.38);
+  transition:color .45s;
+  white-space:nowrap;
 }
-#vp-hl-root .vp-hl-node-card-active .vp-hl-card-title{color:#fff}
-#vp-hl-root .vp-hl-card-desc{
-  font-size:10.5px;line-height:1.55;
-  color:rgba(255,255,255,0.28);
-  letter-spacing:-.005em;transition:color .4s;
+#${uid}-root .vpd-nc-on .vpd-nc-t{color:#fff;}
+#${uid}-root .vpd-nc-u{
+  display:block;margin-top:9px;height:1px;border-radius:1px;
+  background:#fff;width:0;opacity:0;
+  transition:width .55s cubic-bezier(.16,1,.3,1),opacity .3s;
 }
-#vp-hl-root .vp-hl-node-card-active .vp-hl-card-desc{color:rgba(255,255,255,0.48)}
-#vp-hl-root .vp-hl-card-bar{
-  position:absolute;bottom:0;left:50%;
-  transform:translateX(-50%);
-  height:2px;border-radius:1px;
-  background:#C8F000;
-  width:0;opacity:0;
-  transition:width .45s cubic-bezier(.16,1,.3,1),opacity .3s;
+#${uid}-root .vpd-nc-on .vpd-nc-u{width:28px;opacity:.6;}
+#${uid}-root .vpd-hub{
+  position:absolute;left:50%;top:50%;
+  width:102px;height:102px;
+  transform:translate(-50%,-52%);
+  border-radius:50%;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(20px) saturate(150%);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  border:1px solid rgba(255,255,255,.10);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;
+  z-index:25;pointer-events:none;
 }
-#vp-hl-root .vp-hl-node-card-active .vp-hl-card-bar{width:64px;opacity:1}
-#vp-hl-root .vp-hl-progress-wrap{
-  max-width:400px;margin:36px auto 0;
-  display:flex;align-items:center;gap:14px;
-  padding:0 24px;
+#${uid}-root .vpd-hub-brand{font-size:9px;font-weight:800;letter-spacing:.2em;
+  color:rgba(255,255,255,.35);text-transform:uppercase;}
+#${uid}-root .vpd-hub-n{font-size:22px;font-weight:900;letter-spacing:-.05em;
+  color:#fff;line-height:1;transition:opacity .3s;}
+#${uid}-root .vpd-hub-u{font-size:8px;font-weight:600;letter-spacing:.1em;
+  color:rgba(255,255,255,.28);text-transform:uppercase;}
+#${uid}-root .vpd-hub-ring{
+  position:absolute;inset:-10px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0);
+  animation:vpd-hubP 4s ease-in-out infinite;
 }
-#vp-hl-root .vp-hl-progress-dots{
-  display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+@keyframes vpd-hubP{
+  0%,100%{border-color:rgba(255,255,255,.0);transform:scale(1)}
+  50%{border-color:rgba(255,255,255,.10);transform:scale(1.08)}
 }
-#vp-hl-root .vp-hl-pdot{
-  width:5px;height:5px;border-radius:3px;
-  background:rgba(255,255,255,0.15);
-  cursor:pointer;
-  transition:width .3s,background .3s;
+#${uid}-root .vpd-dots{
+  display:flex;gap:8px;justify-content:center;align-items:center;
+  margin-top:clamp(1.25rem,3vh,2.25rem);width:100%;flex-wrap:wrap;
 }
-#vp-hl-root .vp-hl-pdot-on{width:18px;background:#C8F000}
+#${uid}-root .vpd-pd{width:5px;height:5px;border-radius:3px;
+  background:rgba(255,255,255,.12);cursor:pointer;
+  transition:width .35s cubic-bezier(.16,1,.3,1),background .3s;}
+#${uid}-root .vpd-pd-on{width:20px;background:rgba(255,255,255,.75);}
 `}</style>
 
-      <section ref={rootRef} id="vp-hl-root" className="relative isolate w-full overflow-x-hidden bg-[#080808]">
-        <div className="vp-hl-section">
-          <div className="vp-hl-section-header">
-            <h2 className="vp-hl-section-title">{t('home.valueLoop.title')}</h2>
-            <p className="vp-hl-section-sub">{t('home.valueLoop.subtitle')}</p>
-          </div>
-
-          <div ref={stageWrapperRef} className="vp-hl-stage-wrapper">
-            <div ref={clockStageRef} className="vp-hl-clock-stage">
+      <section ref={rootRef} id={`${uid}-root`} className="relative isolate w-full">
+        <div className="vpd-sec" id={`${uid}-sec`}>
+          <div className="vpd-inner mx-auto flex w-full max-w-[100vw] flex-col justify-center px-6 md:px-[170px]">
+            <div className="flex w-full flex-col items-stretch gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8 xl:gap-14">
+              <div
+                ref={stageWrapRef}
+                className="vpd-wrap w-full min-w-0 lg:w-[56%] lg:max-w-[58%] xl:w-[54%] xl:max-w-none"
+              >
+                <div ref={stageRef} className="vpd-stage">
               <svg
-                className="vp-hl-clock-svg"
-                viewBox="0 0 1040 800"
+                className="vpd-svg"
+                viewBox="0 0 1040 840"
                 xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-label={t('home.valueLoop.title')}
+                aria-hidden
               >
                 <defs>
-                  <filter id="vpHlFLimeGlow" x="-60%" y="-60%" width="220%" height="220%">
+                  <radialGradient id={`${uid}-gFace`} cx="44%" cy="38%" r="60%">
+                    <stop offset="0%" stopColor="#181818" />
+                    <stop offset="65%" stopColor="#111111" />
+                    <stop offset="100%" stopColor="#0c0c0c" />
+                  </radialGradient>
+                  <radialGradient id={`${uid}-gAmb`} cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="rgba(40,40,40,.5)" />
+                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                  </radialGradient>
+                  <radialGradient id={`${uid}-gCrystal`} cx="38%" cy="22%" r="55%">
+                    <stop offset="0%" stopColor="rgba(255,255,255,.05)" />
+                    <stop offset="60%" stopColor="rgba(255,255,255,.012)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                  </radialGradient>
+                  <filter id={`${uid}-fTip`} x="-500%" y="-500%" width="1100%" height="1100%">
                     <feGaussianBlur stdDeviation="5" result="b" />
                     <feMerge>
                       <feMergeNode in="b" />
                       <feMergeNode in="SourceGraphic" />
                     </feMerge>
                   </filter>
-                  <filter id="vpHlFBloom" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="10" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b" />
-                      <feMergeNode in="b" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
+                  <filter id={`${uid}-fShadow`} x="-8%" y="-8%" width="116%" height="116%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="12" floodColor="#000" floodOpacity=".8" />
                   </filter>
-                  <filter id="vpHlFTip" x="-200%" y="-200%" width="500%" height="500%">
-                    <feGaussianBlur stdDeviation="4" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b" />
-                      <feMergeNode in="b" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <radialGradient id="vpHlGAmbient" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="rgba(50,65,15,0.35)" />
-                    <stop offset="55%" stopColor="rgba(18,22,8,0.12)" />
-                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-                  </radialGradient>
+                  <clipPath id={`${uid}-cpFace`}>
+                    <circle cx="520" cy="420" r="215" />
+                  </clipPath>
                 </defs>
 
-                <ellipse cx="520" cy="400" rx="260" ry="240" fill="url(#vpHlGAmbient)" />
+                <circle cx="520" cy="420" r="280" fill={`url(#${uid}-gAmb)`} opacity=".7" />
 
-                <circle cx="520" cy="400" r="225" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+                <g ref={gBezelRef} filter={`url(#${uid}-fShadow)`} />
 
-                <g ref={gearGroupRef} />
+                <circle cx="520" cy="420" r="215" fill={`url(#${uid}-gFace)`} />
 
                 <circle
                   cx="520"
-                  cy="400"
-                  r="176"
-                  fill="rgba(255,255,255,0.015)"
-                  stroke="rgba(255,255,255,0.06)"
-                  strokeWidth="1"
-                />
-
-                <circle cx="520" cy="400" r="148" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
-
-                <g ref={gMarkersRef} />
-
-                <g ref={gConnectorsRef} />
-
-                <path
-                  id="vpHlActiveArc"
+                  cy="420"
+                  r="208"
                   fill="none"
-                  stroke="rgba(200,240,0,0.22)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  opacity="0"
-                  d=""
+                  stroke="rgba(255,255,255,.06)"
+                  strokeWidth=".6"
                 />
 
-                <g ref={handGroupRef}>
-                  {/*
-                    指针不从 (0,0) 起笔 + 使用 butt，避免圆端帽在圆心处形成「横向粗条」；
-                    起笔在轮毂外缘外，视觉上不再横穿表盘中心。
-                  */}
+                <g ref={gTicksRef} />
+
+                <ellipse
+                  cx="490"
+                  cy="360"
+                  rx="148"
+                  ry="110"
+                  fill={`url(#${uid}-gCrystal)`}
+                  clipPath={`url(#${uid}-cpFace)`}
+                />
+
+                <g ref={gNDotsRef} />
+
+                <g ref={gConnsRef} />
+
+                <g ref={handGRef} transform="translate(520,420) rotate(0)">
                   <line
                     x1="0"
-                    y1="-30"
+                    y1="6"
                     x2="0"
-                    y2="-172"
-                    stroke="#C8F000"
-                    strokeWidth="1.4"
-                    strokeLinecap="butt"
-                    vectorEffect="non-scaling-stroke"
+                    y2="-186"
+                    stroke="rgba(255,255,255,.04)"
+                    strokeWidth="10"
+                    strokeLinecap="round"
                   />
-                  <circle cx="0" cy="-172" r="5" fill="rgba(200,240,0,0.22)" />
-                  <circle cx="0" cy="-172" r="3" fill="#C8F000" />
+                  <line
+                    x1="0"
+                    y1="7"
+                    x2="0"
+                    y2="-187"
+                    stroke="#FFFFFF"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <rect x="-1.5" y="8" width="3" height="16" rx="1.5" fill="rgba(255,255,255,.25)" />
+                  <circle cx="0" cy="-187" r="9" fill="rgba(255,255,255,.10)" filter={`url(#${uid}-fTip)`} />
+                  <circle cx="0" cy="-187" r="3" fill="#fff" />
                 </g>
 
-                <circle cx="520" cy="400" r="30" fill="none" stroke="rgba(200,240,0,0.1)" strokeWidth="1.5">
-                  <animate attributeName="r" values="30;42;30" dur="3.2s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.8;0;0.8" dur="3.2s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="520" cy="400" r="22" fill="none" stroke="rgba(200,240,0,0.18)" strokeWidth="1">
-                  <animate attributeName="r" values="22;32;22" dur="3.2s" begin="0.8s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.6;0;0.6" dur="3.2s" begin="0.8s" repeatCount="indefinite" />
-                </circle>
-                <circle
-                  cx="520"
-                  cy="400"
-                  r="18"
-                  fill="rgba(12,15,6,0.97)"
-                  stroke="rgba(200,240,0,0.28)"
-                  strokeWidth="1.5"
-                />
-                <circle cx="520" cy="400" r="4.5" fill="#C8F000" opacity="0.9" filter="url(#vpHlFTip)" />
+                <circle cx="520" cy="420" r="48" fill="rgba(255,255,255,.04)" filter={`url(#${uid}-fTip)`} />
               </svg>
 
-              <div ref={cardsLayerRef} className="vp-hl-cards-layer" />
-            </div>
-          </div>
+              <div ref={cLayerRef} className="vpd-cl" />
 
-          <div className="vp-hl-progress-wrap">
-            <div ref={progressDotsRef} className="vp-hl-progress-dots" />
+              <div className="vpd-hub">
+                <div className="vpd-hub-ring" />
+                <div className="vpd-hub-brand">AWAK</div>
+                <div ref={hubNRef} className="vpd-hub-n">
+                  01
+                </div>
+                <div ref={hubURef} className="vpd-hub-u">
+                  HEALTH
+                </div>
+              </div>
+                </div>
+              </div>
+
+              <div className="vpd-copy flex w-full flex-col justify-center text-left lg:min-w-0 lg:flex-1 lg:pl-6 xl:pl-12">
+                <h2 className="mb-6 text-7xl font-black leading-[1.05] tracking-[-3px] text-white md:text-[90px] lg:text-[100px]">
+                  {t('home.valueLoop.title')}
+                </h2>
+                <p className="max-w-xl text-[17.5px] font-light leading-relaxed text-white/35 md:text-[22px]">
+                  {t('home.valueLoop.subtitle')}
+                </p>
+              </div>
+            </div>
+
+            <div ref={dotsRowRef} className="vpd-dots" />
           </div>
         </div>
       </section>
