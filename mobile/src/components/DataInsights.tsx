@@ -40,7 +40,7 @@ const ITEMS: InsightItem[] = [
     title: '睡眠恢复',
     valueHtml: (
       <>
-        深睡时长 <b className="font-semibold">+18%</b>
+        深睡时长 <b className="font-medium">+18%</b>
       </>
     ),
     kind: 'sleep',
@@ -49,7 +49,7 @@ const ITEMS: InsightItem[] = [
     title: '运动表现',
     valueHtml: (
       <>
-        心肺能力 <b className="font-semibold">+15%</b>
+        心肺能力 <b className="font-medium">+15%</b>
       </>
     ),
     kind: 'sport',
@@ -58,7 +58,7 @@ const ITEMS: InsightItem[] = [
     title: '体脂变化',
     valueHtml: (
       <>
-        12周体脂率 <b className="font-semibold">-4.2%</b>
+        12周体脂率 <b className="font-medium">-4.2%</b>
       </>
     ),
     kind: 'fat',
@@ -72,7 +72,7 @@ const ITEMS: InsightItem[] = [
     title: '基础代谢',
     valueHtml: (
       <>
-        每日代谢提升 <b className="font-semibold">+15%</b>
+        每日代谢提升 <b className="font-medium">+15%</b>
       </>
     ),
     kind: 'meta',
@@ -81,7 +81,7 @@ const ITEMS: InsightItem[] = [
     title: '健康达标',
     valueHtml: (
       <>
-        连续达标 <b className="font-semibold">88 天</b>
+        连续达标 <b className="font-medium">88 天</b>
       </>
     ),
     kind: 'goal',
@@ -304,18 +304,18 @@ export default function DataInsights() {
   );
 
   return (
-    <section className="overflow-hidden bg-[#F8F8F8] px-5 py-18 text-ink md:px-[170px] md:py-24">
-      <div className="mb-5">
+    <section className="overflow-hidden bg-black px-5 py-18 text-white md:px-[168px] md:py-24">
+      <div className="mb-8">
         <motion.h2
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[26px] font-normal leading-[1.25] tracking-[-0.02em] text-ink"
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="text-[26px] font-medium leading-[1.25] tracking-[-0.02em] text-white"
         >
           看懂数据，身体开始改变
         </motion.h2>
-        <p className="mt-3 max-w-[38rem] text-[14px] tracking-[-0.01em] text-black/45">
+        <p className="mt-3 max-w-[38rem] text-[14px] font-normal tracking-[-0.02em] text-[#a1a1aa]">
           通过可视化数据，直观看见身体变化。
         </p>
       </div>
@@ -371,14 +371,14 @@ function InsightsCarousel({
         {ITEMS.map((it, idx) => (
           <motion.article
             key={it.kind}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{ delay: idx * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: idx * 0.05, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             data-insight-card="true"
             className="group relative w-[min(16.25rem,calc(100vw-5.5rem))] shrink-0 snap-start md:max-w-[280px]"
           >
-            <div className="relative rounded-[12px] bg-black/5">
+            <div className="relative rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-[#09090b]">
               <div className="relative aspect-[7/11.2] w-full overflow-visible">
                 <div className="absolute inset-0 overflow-hidden rounded-[12px]">
                   <img
@@ -395,10 +395,10 @@ function InsightsCarousel({
                 </div>
 
                 <div className="absolute left-0 top-0 z-[15] max-w-[min(92%,17rem)] p-6">
-                  <h3 className="text-[17px] font-medium leading-[1.25] tracking-[-0.01em] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
+                  <h3 className="text-[17px] font-medium leading-[1.25] tracking-[-0.02em] text-white">
                     {it.title}
                   </h3>
-                  <div className="mt-1.5 text-[13px] leading-[1.45] text-white/92 [&_b]:font-semibold [&_b]:text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
+                  <div className="mt-1.5 text-[13px] leading-[1.45] text-[#a1a1aa] [&_b]:font-medium [&_b]:text-white">
                     {it.valueHtml}
                   </div>
                 </div>
@@ -408,13 +408,13 @@ function InsightsCarousel({
                 <div className="absolute bottom-3 left-0 right-0 z-[15] h-[30%] px-2 pt-1">
                   <div
                     className={[
-                      'flex h-full w-full flex-col rounded-[10px]',
-                      'bg-white/28 border-none',
+                      'flex h-full w-full flex-col rounded-[12px]',
+                      'border border-[rgba(255,255,255,0.1)] bg-white/[0.08]',
                       'backdrop-blur-xl [backdrop-filter:blur(22px)] [WebkitBackdropFilter:blur(22px)]',
                     ].join(' ')}
                   >
                     <div className="shrink-0 px-2.5 pb-0.5 pt-2">
-                      <p className="text-[11px] font-semibold tracking-wide text-ink/65">
+                      <p className="text-[11px] font-medium tracking-wide text-ink/65">
                         {CHART_STRIP_LABEL[it.kind]}
                       </p>
                     </div>
@@ -607,7 +607,7 @@ function InsightsCarousel({
                         onHover={(cx, cy, text) => showTipAt(cx, cy, text, 330)}
                         onLeave={() => setTip((t) => ({ ...t, open: false }))}
                       />
-                      <div className="pointer-events-none absolute right-1 top-0 text-[10px] font-semibold tabular-nums text-ink/65">
+                      <div className="pointer-events-none absolute right-1 top-0 text-[10px] font-medium tabular-nums text-ink/65">
                         88 天
                       </div>
                     </div>

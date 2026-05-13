@@ -3,7 +3,9 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 
-export default function FooterSections() {
+type FooterSectionsProps = { /** 仅首页：应用原子视觉（细线 / 去粗 / 荧光点缀交互） */ homeAtomic?: boolean };
+
+export default function FooterSections({ homeAtomic = false }: FooterSectionsProps) {
   const { withPath } = useLocalePath();
   const { t } = useTranslation('common');
 
@@ -46,23 +48,53 @@ export default function FooterSections() {
     [t],
   );
 
+  const socialBtnClass = homeAtomic
+    ? 'flex h-10 w-10 cursor-pointer items-center justify-center rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-transparent transition-colors hover:border-[#DDF700] hover:text-[#DDF700]'
+    : 'flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 transition-all hover:bg-[#C8FF00] hover:text-[#080808]';
+
+  const linkClass = homeAtomic
+    ? 'text-sm leading-[1.5] text-[#A7A7B2] transition-colors hover:text-[#DDF700]'
+    : 'text-sm text-white/40 transition-colors hover:text-[#C8FF00]';
+
+  const groupTitleClass = homeAtomic ? 'text-sm font-medium tracking-wider text-[#F5F5F5]' : 'text-sm font-bold tracking-wider text-white';
+
   return (
-    <footer className="bg-[#030303] border-t border-white/5 pt-24 pb-24">
-      <div className="w-full mx-auto px-6 md:px-[170px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-12 mb-32">
-          <div className="lg:col-span-1 space-y-8">
+    <footer
+      className={`border-t ${
+        homeAtomic
+          ? 'relative z-[3] border-[rgba(255,255,255,0.08)] bg-[rgba(9,9,11,0.82)] py-24 backdrop-blur-xl lg:py-28'
+          : 'border-white/5 bg-[#030303] pb-24 pt-24'
+      }`}
+    >
+      <div className={`mx-auto w-full ${homeAtomic ? 'wrap' : 'px-6 md:px-[170px]'}`}>
+        <div
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 ${homeAtomic ? 'mb-16 gap-12 md:mb-24 lg:gap-x-12' : 'mb-32 gap-12 md:gap-12'}`}
+        >
+          <div className="space-y-8 lg:col-span-1">
             <div className="space-y-4">
-              <h2 className="text-white text-3xl font-black tracking-tight">AWAK WILL</h2>
-              <p className="text-white/40 text-sm font-medium tracking-widest uppercase">{t('footer.tagline')}</p>
+              <h2
+                className={
+                  homeAtomic ? 'home-section-title text-[#F5F5F5]' : 'text-3xl font-medium tracking-[-0.02em] text-[#F5F5F5]'
+                }
+              >
+                AWAK WILL
+              </h2>
+              <p
+                className={`text-sm font-medium uppercase tracking-widest ${
+                  homeAtomic ? 'text-[#A7A7B2]' : 'text-white/40'
+                }`}
+              >
+                {t('footer.tagline')}
+              </p>
             </div>
             <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+              <div className={socialBtnClass}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+              <div className={socialBtnClass}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C8FF00] hover:text-[#080808] transition-all cursor-pointer">
+              <div className={socialBtnClass}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
               </div>
             </div>
@@ -71,11 +103,11 @@ export default function FooterSections() {
           <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16">
             {footerGroups.map((group) => (
               <div key={group.title} className="space-y-8">
-                <h4 className="text-white text-sm font-bold tracking-wider">{group.title}</h4>
-                <ul className="space-y-4">
+                <h4 className={groupTitleClass}>{group.title}</h4>
+                <ul className={homeAtomic ? 'space-y-3' : 'space-y-4'}>
                   {group.links.map((link) => (
                     <li key={link.name}>
-                      <Link to={withPath(link.path)} className="text-white/40 hover:text-[#C8FF00] transition-colors text-sm">
+                      <Link to={withPath(link.path)} className={linkClass}>
                         {link.name}
                       </Link>
                     </li>
@@ -86,15 +118,31 @@ export default function FooterSections() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/20 text-xs font-mono uppercase tracking-[0.2em]">
+        <div
+          className={`flex flex-col items-center justify-between gap-6 border-t pt-8 md:flex-row lg:gap-8 ${
+            homeAtomic ? 'border-[rgba(255,255,255,0.1)]' : 'border-white/5'
+          }`}
+        >
+          <p
+            className={`font-mono text-[12px] uppercase leading-[1.4] tracking-[0.2em] ${homeAtomic ? 'text-[#6F7078]' : 'text-white/20'}`}
+          >
             © {new Date().getFullYear()} AWAK WILL. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-8">
-            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+            <Link
+              to={withPath('/')}
+              className={`font-mono text-xs uppercase transition-colors ${
+                homeAtomic ? 'text-[#A7A7B2] hover:text-[#DDF700]' : 'text-white/20 hover:text-white'
+              }`}
+            >
               {t('footer.privacy')}
             </Link>
-            <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">
+            <Link
+              to={withPath('/')}
+              className={`font-mono text-xs uppercase transition-colors ${
+                homeAtomic ? 'text-[#A7A7B2] hover:text-[#DDF700]' : 'text-white/20 hover:text-white'
+              }`}
+            >
               {t('footer.terms')}
             </Link>
           </div>

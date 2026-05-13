@@ -1,13 +1,19 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Hero from './components/Hero';
 import TrustBanner from './components/TrustBanner';
+import HomeLifecycleStrip from './components/HomeLifecycleStrip';
 import TeamSection from './components/TeamSection';
 import ImmersiveScenarios from './components/ImmersiveScenarios';
+import HomeTechnologySection from './components/HomeTechnologySection';
 import BrandDynamics from './components/BrandDynamics';
+import HomeFamilySection from './components/HomeFamilySection';
+import HomeEcosystemSection from './components/HomeEcosystemSection';
 import DataInsights from './components/DataInsights';
 import ValueProposition from './components/ValueProposition';
 import IntroSection from './components/IntroSection';
 import FooterSections from './components/FooterSections';
+import HomeCursor from './components/HomeCursor';
+import HomeRevealObserver from './components/HomeRevealObserver';
 import LocaleLayout from './components/LocaleLayout';
 import SmartRingPage from './pages/SmartRingPage';
 import SmartBraceletPage from './pages/SmartBraceletPage';
@@ -25,23 +31,35 @@ import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
 
 function HomePage() {
   return (
-    <>
-      <div className="flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden">
-        <div className="min-h-0 h-[80%] shrink-0 overflow-hidden">
+    <div className="home-atomic home-page-root">
+      <div className="home-atmosphere" aria-hidden />
+      <div className="home-atmosphere-particles" aria-hidden />
+      <div className="grain" aria-hidden />
+      <HomeCursor />
+      <HomeRevealObserver />
+      <div className="home-page-content">
+      {/* 移动端：80/20 首屏；PC：Hero 独占 100vh（min 680），TrustBanner 紧随其后 */}
+      <div className="m-0 flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden p-0 lg:h-auto lg:max-h-none lg:overflow-visible">
+        <div className="min-h-0 h-[80%] shrink-0 overflow-hidden lg:h-[min(100vh,100dvh)] lg:min-h-[680px] lg:w-full lg:shrink-0 lg:basis-auto lg:overflow-visible">
           <Hero />
         </div>
-        <TrustBanner className="h-[20%] shrink-0" />
+        <TrustBanner className="h-[20%] shrink-0 lg:h-auto lg:shrink-0" />
       </div>
       <TeamSection />
-      <section className="bg-[#F5F5F3]">
+      <HomeLifecycleStrip />
+      <section className="bg-transparent p-0 lg:bg-transparent">
         <ImmersiveScenarios />
       </section>
+      <HomeTechnologySection />
+      <DataInsights />
       <IntroSection />
       <ValueProposition />
+      <HomeFamilySection />
       <BrandDynamics />
-      <DataInsights />
-      <FooterSections />
-    </>
+      <HomeEcosystemSection />
+      <FooterSections homeAtomic />
+      </div>
+    </div>
   );
 }
 

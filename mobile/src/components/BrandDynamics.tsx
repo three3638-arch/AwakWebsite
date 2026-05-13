@@ -48,14 +48,14 @@ export default function BrandDynamics() {
     return (
       <motion.article
         key={`${column}-${item.id}`}
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
-        transition={{ delay: idx * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ delay: idx * 0.06, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         onClick={() => navigate(withPath(`/news/${item.id}`))}
         className="group cursor-pointer"
       >
-        <div className="overflow-hidden rounded-[12px] bg-black/5">
+        <div className="overflow-hidden rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-[#09090b]">
           <div className={['relative w-full', aspectClass].join(' ')}>
             <img
               src={item.img}
@@ -65,15 +65,18 @@ export default function BrandDynamics() {
               referrerPolicy="no-referrer"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/25 to-transparent" aria-hidden />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 28%, rgba(0,0,0,0.12) 55%, rgba(0,0,0,0.02) 82%, rgba(0,0,0,0) 100%)',
+              }}
+              aria-hidden
+            />
             <div className="absolute inset-x-0 bottom-0 p-4 pt-10">
-              <h3 className="text-[17px] font-medium leading-[1.2] tracking-[-0.02em] text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)]">
-                {title}
-              </h3>
+              <h3 className="text-[17px] font-medium leading-[1.2] tracking-[-0.02em] text-white">{title}</h3>
               {excerpt ? (
-                <p className="mt-1.5 text-[13px] leading-[1.45] text-white/88 drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]">
-                  {excerpt}
-                </p>
+                <p className="mt-1.5 text-[13px] font-normal leading-[1.45] text-[#a1a1aa]">{excerpt}</p>
               ) : null}
             </div>
           </div>
@@ -83,28 +86,17 @@ export default function BrandDynamics() {
   };
 
   return (
-    <section className="overflow-hidden bg-[#F8F8F8] px-[12px] py-18 font-sans text-ink md:px-[170px]">
-      <div className="mb-5">
+    <section className="overflow-hidden bg-black px-4 py-16 font-sans text-white md:px-[168px] md:py-20">
+      <div className="mb-8">
         <motion.h2
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[26px] font-normal leading-[1.25] tracking-[-0.02em] text-ink"
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="text-[26px] font-medium leading-[1.25] tracking-[-0.02em] text-white md:text-[32px]"
         >
-          探索 AWAK 动态
-          <br />
-          照见生活新意
+          {t('home.brandDynamics.title')}
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-3 max-w-[44rem] text-[18px] font-normal leading-[1.6] tracking-[-0.01em] text-black/45"
-        >
-          在睡眠、运动与日常节律中，记录身体的真实变化与成长
-        </motion.p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

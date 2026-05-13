@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+SC:wght@100..900&display=swap');
 @import "tailwindcss";
 
+/* 首页原子规范（整页首页 `.home-atomic`） */
+.home-atomic,
+.home-first-screen {
+  --fs-bg: #000000;
+  --fs-surface: #09090b;
+  --fs-text: #ffffff;
+  --fs-muted: #a1a1aa;
+  --fs-accent: #ddf700;
+  --fs-border: rgba(255, 255, 255, 0.1);
+  --fs-radius: 12px;
+  --fs-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--fs-bg);
+  color: var(--fs-text);
+}
+
 :root {
   /* 背景 */
   --bg-dark:     #080808; 

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { CircleCheck, Clock, UsersRound } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 type DialNodeData = { a: number; t1: string; t2: string; n: string; u: string };
@@ -6,8 +7,14 @@ type DialNodeData = { a: number; t1: string; t2: string; n: string; u: string };
 /**
  * PC 首页「AWAK 健康闭环」—— 金属表盘 8 节点（设计稿迁入 React，白/灰/黑无绿色）
  */
+const VALUE_LOOP_COPY_ICONS = [Clock, CircleCheck, UsersRound] as const;
+
 export default function ValueProposition() {
   const { t, i18n } = useTranslation('common');
+  const copyFeatures = useMemo(() => {
+    const raw = t('home.valueLoop.copyFeatures', { returnObjects: true });
+    return Array.isArray(raw) ? (raw as { title: string; desc: string }[]) : [];
+  }, [t]);
   const rootRef = useRef<HTMLElement>(null);
   const stageWrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -579,9 +586,9 @@ export default function ValueProposition() {
       <style>{`
 #${uid}-root *,#${uid}-root *::before,#${uid}-root *::after{box-sizing:border-box;margin:0;padding:0}
 #${uid}-root{
-  font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI','PingFang SC','Noto Sans SC',system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;
-  background:#060606;color:#fff;
+  background:transparent;color:#f5f5f5;
   overflow-x:hidden;
 }
 #${uid}-root .vpd-sec{
@@ -591,12 +598,21 @@ export default function ValueProposition() {
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding-top:max(2.5rem, env(safe-area-inset-top));
-  padding-bottom:max(2.5rem, env(safe-area-inset-bottom));
+  padding-top:max(3rem, env(safe-area-inset-top));
+  padding-bottom:max(3rem, env(safe-area-inset-bottom));
   box-sizing:border-box;
-  background:radial-gradient(ellipse 60% 55% at 50% 52%,
-    rgba(25,25,25,.75) 0%, #060606 68%);
+  background:
+    radial-gradient(ellipse 75% 58% at 18% 28%, rgba(34,201,122,0.055) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 52% at 88% 72%, rgba(56,109,242,0.045) 0%, transparent 55%),
+    radial-gradient(ellipse 95% 70% at 50% 108%, rgba(255,255,255,0.035) 0%, transparent 52%),
+    radial-gradient(ellipse 60% 55% at 50% 52%, rgba(25,25,25,.78) 0%, #050508 72%);
   position:relative;
+}
+@media (min-width:1024px){
+  #${uid}-root .vpd-sec{
+    padding-top:max(5.5rem, env(safe-area-inset-top));
+    padding-bottom:max(5.5rem, env(safe-area-inset-bottom));
+  }
 }
 /* 页边距由外层 Tailwind px-6 md:px-[170px] 与 IntroSection「服务生态」一致 */
 #${uid}-root .vpd-inner{
@@ -621,8 +637,8 @@ export default function ValueProposition() {
   pointer-events:all;cursor:pointer;
   opacity:.28;
   transform:scale(.95);
-  transition:opacity .5s cubic-bezier(.16,1,.3,1),
-             transform .5s cubic-bezier(.16,1,.3,1);
+  transition:opacity .5s cubic-bezier(0.4, 0, 0.2, 1),
+             transform .5s cubic-bezier(0.4, 0, 0.2, 1);
   display:flex;flex-direction:column;
 }
 #${uid}-root .vpd-nc:hover{opacity:.75!important;transform:scale(1.04)!important;}
@@ -636,9 +652,9 @@ export default function ValueProposition() {
 }
 #${uid}-root .vpd-nc-on .vpd-nc-dot{background:#fff;transform:scale(1.5);}
 #${uid}-root .vpd-nc-t{
-  font-size:clamp(15px,1.12vw,19px);font-weight:700;
+  font-size:clamp(15px,1.12vw,19px);font-weight:300;
   letter-spacing:-.02em;line-height:1.38;
-  color:rgba(255,255,255,.38);
+  color:rgba(255,255,255,.62);
   transition:color .45s;
   white-space:nowrap;
 }
@@ -662,20 +678,20 @@ export default function ValueProposition() {
   align-items:center;justify-content:center;gap:2px;
   z-index:25;pointer-events:none;
 }
-#${uid}-root .vpd-hub-brand{font-size:9px;font-weight:800;letter-spacing:.2em;
+#${uid}-root .vpd-hub-brand{font-size:9px;font-weight:300;letter-spacing:.2em;
   color:rgba(255,255,255,.35);text-transform:uppercase;}
-#${uid}-root .vpd-hub-n{font-size:22px;font-weight:900;letter-spacing:-.05em;
+#${uid}-root .vpd-hub-n{font-size:22px;font-weight:300;letter-spacing:-.05em;
   color:#fff;line-height:1;transition:opacity .3s;}
-#${uid}-root .vpd-hub-u{font-size:8px;font-weight:600;letter-spacing:.1em;
+#${uid}-root .vpd-hub-u{font-size:8px;font-weight:300;letter-spacing:.1em;
   color:rgba(255,255,255,.28);text-transform:uppercase;}
 #${uid}-root .vpd-hub-ring{
   position:absolute;inset:-10px;border-radius:50%;
   border:1px solid rgba(255,255,255,0);
-  animation:vpd-hubP 4s ease-in-out infinite;
+  animation:vpd-hubP 7s ease-in-out infinite;
 }
 @keyframes vpd-hubP{
   0%,100%{border-color:rgba(255,255,255,.0);transform:scale(1)}
-  50%{border-color:rgba(255,255,255,.10);transform:scale(1.08)}
+  50%{border-color:rgba(255,255,255,.08);transform:scale(1.05)}
 }
 #${uid}-root .vpd-dots{
   display:flex;gap:8px;justify-content:center;align-items:center;
@@ -687,10 +703,10 @@ export default function ValueProposition() {
 #${uid}-root .vpd-pd-on{width:20px;background:rgba(255,255,255,.75);}
 `}</style>
 
-      <section ref={rootRef} id={`${uid}-root`} className="relative isolate w-full">
+      <section ref={rootRef} id={`${uid}-root`} className="relative z-[3] isolate w-full">
         <div className="vpd-sec" id={`${uid}-sec`}>
-          <div className="vpd-inner mx-auto flex w-full max-w-[100vw] flex-col justify-center px-6 md:px-[170px]">
-            <div className="flex w-full flex-col items-stretch gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8 xl:gap-14">
+          <div className="vpd-inner wrap mx-auto flex w-full max-w-[100vw] flex-col justify-center">
+            <div className="flex w-full flex-col items-stretch gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 xl:gap-16">
               <div
                 ref={stageWrapRef}
                 className="vpd-wrap w-full min-w-0 lg:w-[56%] lg:max-w-[58%] xl:w-[54%] xl:max-w-none"
@@ -804,13 +820,43 @@ export default function ValueProposition() {
                 </div>
               </div>
 
-              <div className="vpd-copy flex w-full flex-col justify-center text-left lg:min-w-0 lg:flex-1 lg:pl-6 xl:pl-12">
-                <h2 className="mb-6 text-7xl font-black leading-[1.05] tracking-[-3px] text-white md:text-[90px] lg:text-[100px]">
+              <div className="vpd-copy relative flex w-full flex-col justify-center text-left lg:min-w-0 lg:flex-1 lg:pl-6 xl:pl-12">
+                <div
+                  className="pointer-events-none absolute right-0 top-0 hidden lg:flex lg:h-9 lg:w-9 lg:items-center lg:justify-center"
+                  aria-hidden
+                >
+                  <span className="flex h-full w-full items-center justify-center rounded-full border border-white/[0.14]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/90" />
+                  </span>
+                </div>
+
+                <h2 className="home-section-title mb-6 text-white">
                   {t('home.valueLoop.title')}
                 </h2>
-                <p className="max-w-xl text-[17.5px] font-light leading-relaxed text-white/35 md:text-[22px]">
-                  {t('home.valueLoop.subtitle')}
-                </p>
+
+                <ul className="flex max-w-xl flex-col gap-14 lg:gap-[72px]">
+                  {copyFeatures.map((item, i) => {
+                    const Icon = VALUE_LOOP_COPY_ICONS[i] ?? Clock;
+                    return (
+                      <li key={`${item.title}-${i}`} className="flex gap-5 lg:gap-6">
+                        <span
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.06] lg:h-12 lg:w-12"
+                          aria-hidden
+                        >
+                          <Icon className="h-[18px] w-[18px] text-white/90 lg:h-5 lg:w-5" strokeWidth={1.35} />
+                        </span>
+                        <div className="min-w-0 pt-1 lg:pt-1.5">
+                          <h3 className="text-[15px] font-normal leading-[1.45] tracking-[-0.01em] text-white md:text-[16px]">
+                            {item.title}
+                          </h3>
+                          <p className="mt-4 text-[13px] font-normal leading-[1.72] text-[#a7a7b2] md:text-[14px] md:leading-[1.75] lg:mt-5 lg:max-w-none lg:whitespace-nowrap">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
 

@@ -30,31 +30,44 @@ export default function Navbar() {
    * - 浅色页（资讯 / 登录）：未滚动时透明 + 黑字；滚动后半透明黑底 + 白字
    */
   const isLightUnderlying = basePath === '/auth' || basePath.startsWith('/news');
+  const isHomeIndex = basePath === '/';
   /** 使用「黑字系」前景（白底栏或浅底透明） */
   const useLightInk = scrolled !== isLightUnderlying;
 
-  const logoClass = useLightInk ? 'text-black' : 'text-white';
-  const mobileToggleClass = useLightInk ? 'text-black' : 'text-white';
+  const logoClass =
+    isHomeIndex && !isLightUnderlying ? 'text-white' : useLightInk ? 'text-black' : 'text-white';
+  const mobileToggleClass =
+    isHomeIndex && !isLightUnderlying ? 'text-white' : useLightInk ? 'text-black' : 'text-white';
 
-  const hardwareBtnClass = `flex items-center gap-1.5 text-[15px] font-medium transition-colors px-4 py-2 rounded-full ${
+  const navPadding = isHomeIndex ? 'px-6 md:px-[168px]' : 'px-6 md:px-[170px]';
+  const linkRadius = isHomeIndex ? 'rounded-[12px]' : 'rounded-full';
+
+  const hardwareBtnClass = `flex items-center gap-1.5 text-[15px] font-medium transition-colors px-4 py-2 ${linkRadius} ${
     useLightInk ? 'text-black/70 hover:text-black' : 'text-white/70 hover:text-white'
   }`;
 
-  const navShellClass = `fixed top-0 left-0 right-0 z-[var(--nav-z)] flex items-center justify-between px-6 md:px-[170px] ${
-    scrolled
-      ? isLightUnderlying
-        ? 'h-[var(--nav-height)] bg-[rgba(8,8,8,0.92)] backdrop-blur-[20px] border-b border-white/10'
-        : 'h-[var(--nav-height)] bg-[rgba(255,255,255,0.92)] backdrop-blur-[20px] border-b border-black/10'
-      : 'h-[var(--nav-height-expanded)] bg-transparent'
-  }`;
+  const navShellClass =
+    isHomeIndex && !isLightUnderlying
+      ? `fixed top-0 left-0 right-0 z-[var(--nav-z)] flex items-center justify-between ${navPadding} h-16 min-h-[64px] bg-[rgba(0,0,0,0.8)] backdrop-blur-[20px] border-b border-[rgba(255,255,255,0.1)]`
+      : `fixed top-0 left-0 right-0 z-[var(--nav-z)] flex items-center justify-between ${navPadding} ${
+          scrolled
+            ? isLightUnderlying
+              ? 'h-[var(--nav-height)] bg-[rgba(8,8,8,0.92)] backdrop-blur-[20px] border-b border-white/10'
+              : 'h-[var(--nav-height)] bg-[rgba(255,255,255,0.92)] backdrop-blur-[20px] border-b border-black/10'
+            : 'h-[var(--nav-height-expanded)] bg-transparent'
+        }`;
 
   return (
     <nav
       className={navShellClass}
       style={{ transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}
     >
-      <Link to={withPath('/')} className="relative z-10 flex items-center shrink-0">
-        <span className={`font-extrabold text-2xl tracking-[1px] ${logoClass}`}>AWAK</span>
+      <Link to={withPath('/')} className="relative z-10 flex shrink-0 items-center">
+        <span
+          className={`text-2xl ${isHomeIndex && !isLightUnderlying ? 'font-medium tracking-[-0.02em]' : 'font-extrabold tracking-[1px]'} ${logoClass}`}
+        >
+          AWAK
+        </span>
       </Link>
 
       {/* Desktop: 硬件 + 服务生态 / 品牌资讯 / 联系我们 */}
@@ -76,15 +89,25 @@ export default function Navbar() {
                 exit={{ opacity: 0, y: 10 }}
                 className="absolute top-full left-1/2 -translate-x-1/2 w-[320px] pt-4"
               >
-                <div className="bg-[#111111] border-none rounded-2xl overflow-hidden p-3 grid gap-1">
+                <div
+                  className={`grid gap-1 overflow-hidden p-3 ${
+                    isHomeIndex
+                      ? 'rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-[#09090b]'
+                      : 'rounded-2xl border-none bg-[#111111]'
+                  }`}
+                >
                   {NAV_HARDWARE_ITEMS.map((hw) => (
                     <Link
                       key={hw.id}
                       to={withPath(hw.path)}
-                      className="flex flex-col p-4 rounded-xl hover:bg-white/5 transition-all group"
+                      className={`group flex flex-col p-4 transition-colors hover:bg-white/5 ${isHomeIndex ? 'rounded-[12px]' : 'rounded-xl'}`}
                     >
-                      <span className="text-white text-sm font-bold block">{t(`navHw.${hw.id}.title`)}</span>
-                      <span className="text-white/40 text-[11px] block mt-1">{t(`navHw.${hw.id}.desc`)}</span>
+                      <span className={`block text-sm text-white ${isHomeIndex ? 'font-medium' : 'font-bold'}`}>
+                        {t(`navHw.${hw.id}.title`)}
+                      </span>
+                      <span className={`mt-1 block text-[11px] ${isHomeIndex ? 'text-[#a1a1aa]' : 'text-white/40'}`}>
+                        {t(`navHw.${hw.id}.desc`)}
+                      </span>
                     </Link>
                   ))}
                   <div className="my-2 border-t border-white/10" role="separator" />
@@ -92,7 +115,9 @@ export default function Navbar() {
                     <Link
                       key={page.key}
                       to={withPath(page.path)}
-                      className={`block p-4 rounded-xl text-sm font-bold transition-all ${
+                      className={`block p-4 text-sm transition-colors ${isHomeIndex ? 'rounded-[12px]' : 'rounded-xl'} ${
+                        isHomeIndex ? 'font-medium' : 'font-bold'
+                      } ${
                         basePath === page.path ? 'bg-white/10 text-white' : 'text-white/90 hover:bg-white/5'
                       }`}
                     >
@@ -110,7 +135,11 @@ export default function Navbar() {
         {!['/store', '/checkout'].includes(basePath) && (
           <Link
             to={withPath('/store')}
-            className="flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-[14px] sm:text-[15px] font-semibold transition-all bg-accent text-ink hover:bg-accent-hover"
+            className={`flex items-center gap-2 px-4 py-2.5 text-[14px] transition-colors sm:px-6 sm:text-[15px] ${
+              isHomeIndex
+                ? 'rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-white font-medium text-black hover:border-[#DDF700]'
+                : 'rounded-full bg-accent font-semibold text-ink transition-all hover:bg-accent-hover'
+            }`}
           >
             <ShoppingCart className="w-[15px] h-[15px] shrink-0" style={{ strokeWidth: 2.5 }} />
             <span className="whitespace-nowrap">{t('nav.store')}</span>
@@ -138,7 +167,11 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute left-0 right-0 top-full flex flex-col gap-6 border-b border-white/5 bg-[#080808] p-6 md:hidden"
+            className={`absolute left-0 right-0 top-full flex flex-col gap-6 border-b p-6 md:hidden ${
+              isHomeIndex
+                ? 'border-[rgba(255,255,255,0.1)] bg-[#09090b]'
+                : 'border-white/5 bg-[#080808]'
+            }`}
           >
             <div className="flex justify-end">
               <button
@@ -160,8 +193,14 @@ export default function Navbar() {
                     className="flex flex-col gap-1 rounded-lg py-1 text-left transition-colors hover:bg-white/5"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <span className="text-sm font-bold text-white">{t(`navHw.${hw.id}.title`)}</span>
-                    <span className="text-[11px] font-normal leading-snug text-white/40">{t(`navHw.${hw.id}.desc`)}</span>
+                    <span className={`text-sm text-white ${isHomeIndex ? 'font-medium' : 'font-bold'}`}>
+                      {t(`navHw.${hw.id}.title`)}
+                    </span>
+                    <span
+                      className={`text-[11px] font-normal leading-snug ${isHomeIndex ? 'text-[#a1a1aa]' : 'text-white/40'}`}
+                    >
+                      {t(`navHw.${hw.id}.desc`)}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -172,9 +211,9 @@ export default function Navbar() {
                 <Link
                   key={page.key}
                   to={withPath(page.path)}
-                  className={`rounded-lg py-2 pl-4 text-sm font-bold transition-colors ${
-                    basePath === page.path ? 'text-white' : 'text-white/90 hover:text-white'
-                  }`}
+                  className={`rounded-lg py-2 pl-4 text-sm transition-colors ${
+                    isHomeIndex ? 'font-medium' : 'font-bold'
+                  } ${basePath === page.path ? 'text-white' : 'text-white/90 hover:text-white'}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t(`nav.${page.key}`)}

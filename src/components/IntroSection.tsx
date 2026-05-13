@@ -1,169 +1,213 @@
-import { motion } from 'motion/react';
-import { useRef, useMemo } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
+import { Activity, CalendarRange, Moon, Users, Utensils } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-// 动画配置常量，确保持续时间和缓动效果高级且统一
-const duration = 1.2;
-const ease = [0.16, 1, 0.3, 1]; // 自定义高级缓动曲线 (easeOutExpo)
+const easeStd: [number, number, number, number] = [0.4, 0, 0.2, 1];
+const easeReveal: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-// 错位进场动画配置
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // 子元素依次进场的时间间隔
-      delayChildren: 0.3,    // 容器加载后的延迟
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    filter: "blur(0px)",
-    transition: { duration: 1, ease }
+  hidden: { opacity: 0, x: -32, filter: 'blur(12px)' },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 1.08, ease: easeReveal },
   },
 };
 
+function useDesktopLg() {
+  const [ok, setOk] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const fn = () => setOk(mq.matches);
+    fn();
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  }, []);
+  return ok;
+}
+
+function IntroAppVisual() {
+  const isDesktop = useDesktopLg();
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-5, 5]), {
+    stiffness: 260,
+    damping: 34,
+    mass: 0.55,
+  });
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [3.8, -3.8]), {
+    stiffness: 260,
+    damping: 34,
+    mass: 0.55,
+  });
+
+  const shadowLift = useTransform(rotateY, (ry) => {
+    const t = Math.min(Math.max(ry / 5, -1), 1);
+    const y = 28 + t * 12;
+    const blur = 52 + Math.abs(t) * 18;
+    const alpha = 0.09 + Math.abs(t) * 0.04;
+    return `0 ${y}px ${blur}px rgba(0,0,0,${alpha})`;
+  });
+
+  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDesktop || !wrapRef.current) return;
+    const r = wrapRef.current.getBoundingClientRect();
+    mx.set(((e.clientX - r.left) / r.width - 0.5) * 0.78);
+    my.set(((e.clientY - r.top) / r.height - 0.5) * 0.78);
+  };
+
+  const handleLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
+
+  return (
+    <motion.div
+      className="relative flex h-full min-h-0 w-full flex-1 flex-col"
+      initial={
+        isDesktop ? { opacity: 0, y: 48, filter: 'blur(14px)' } : { opacity: 0, x: 36, filter: 'blur(14px)' }
+      }
+      whileInView={{ opacity: 1, y: 0, x: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={{ duration: 1.28, delay: 0.08, ease: easeReveal }}
+    >
+      <div
+        ref={wrapRef}
+        className="relative mx-auto flex h-full min-h-[280px] w-full max-w-[min(100%,520px)] flex-1 items-center justify-center overflow-visible px-4 py-6 lg:max-h-none lg:max-w-none lg:min-h-0 lg:flex-1 lg:px-10 lg:py-0"
+        onMouseMove={isDesktop ? handleMove : undefined}
+        onMouseLeave={isDesktop ? handleLeave : undefined}
+      >
+        <motion.div
+          className="relative flex h-full max-h-full w-full max-w-full items-center justify-center [transform-style:preserve-3d] max-lg:[transform:none]"
+          style={
+            isDesktop
+              ? {
+                  rotateX,
+                  rotateY,
+                  transformPerspective: 1180,
+                }
+              : undefined
+          }
+        >
+          <motion.img
+            src="https://i.ibb.co/RkYkRwH5/app.png"
+            alt="AwakHealth App Interface"
+            style={isDesktop ? { boxShadow: shadowLift } : undefined}
+            className="home-float-slow relative z-10 h-auto w-full cursor-grab object-contain active:cursor-grabbing max-lg:!animate-none lg:h-full lg:max-h-full lg:w-auto lg:max-w-full lg:shadow-[0_32px_72px_rgba(0,0,0,0.12)]"
+            referrerPolicy="no-referrer"
+          />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+const INTRO_FEAT_ICONS = [Moon, Activity, Utensils, CalendarRange, Users] as const;
+
 export default function IntroSection() {
-  const constraintsRef = useRef(null); // 用于 3D 悬浮的引用
   const { t } = useTranslation('common');
   const introStats = useMemo(
     () => t('home.intro.stats', { returnObjects: true }) as { label: string; value: string; desc: string }[],
     [t],
   );
+  const introFeatures = useMemo(() => {
+    const raw = t('home.intro.features', { returnObjects: true });
+    return Array.isArray(raw) ? (raw as { title: string; tag: string }[]) : [];
+  }, [t]);
+  const introTitleLines = useMemo(
+    () =>
+      t('home.intro.title')
+        .split('\n')
+        .map((s) => s.trim())
+        .filter(Boolean),
+    [t],
+  );
 
   return (
-    <section className="py-2 bg-[#FFFFFF] text-brand-black overflow-hidden relative">
-      {/* 🌟 超级炫酷背景：流动光束 */}
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-black/10 to-transparent animate-pulse" />
-        <div className="absolute top-0 right-1/3 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-black/5 to-transparent animate-pulse delay-700" />
-      </div>
-
-      <motion.div 
-        className="w-full mx-auto px-6 md:px-[170px] relative z-10"
+    <section
+      id="intro-app"
+      className="intro-app-spec relative z-[3] overflow-visible bg-gradient-to-b from-[#f7f8fa] via-white to-[#f4f5f8] py-0 text-[#080808] lg:flex lg:min-h-0 lg:flex-col"
+    >
+      <motion.div
+        className="relative z-10 mx-auto flex min-h-0 w-full flex-1 flex-col justify-center wrap py-0 lg:min-h-0 lg:flex-1"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }} // 当 30% 进入视口时触发
+        viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
-          
-          {/* 🌟 Left Content: 错位依次进场 */}
-          <div className="w-full lg:w-2/5 max-w-3xl">
-            <div className="space-y-4 mb-6">
-              
-              {/* 1. 服务生态：流光标题 */}
-              <motion.div variants={itemVariants} className="relative group overflow-hidden inline-block">
-                <h2 className="text-7xl md:text-[90px] lg:text-[100px] font-black leading-[1.05] tracking-[-3px] mb-2 relative z-10 text-brand-black">
-                  {t('home.intro.title')}
+        <div className="intro-app-cols flex flex-col items-center gap-12 lg:min-h-0 lg:overflow-visible">
+          <div className="flex w-full max-w-3xl shrink-0 flex-col justify-center lg:max-w-none lg:min-h-0">
+            <div className="intro-app-content mb-4 lg:mb-0">
+              <motion.div variants={itemVariants} className="relative max-w-xl overflow-hidden lg:max-w-none">
+                <h2 className="intro-app-section-h home-section-title relative z-10 flex flex-col gap-1 text-[#080808] lg:[&>span]:inline lg:[&>span]:whitespace-nowrap">
+                  {introTitleLines.map((line, i) => (
+                    <span key={i} className="block lg:inline">
+                      {line}
+                    </span>
+                  ))}
                 </h2>
-                {/* 超级炫酷：滑过的流光 */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-transparent z-0"
-                  initial={{ x: '-100%' }}
-                  whileInView={{ x: '100%' }}
-                  transition={{ delay: 1, duration: 1.5, ease: "easeInOut", repeat: Infinity, repeatDelay: 3 }}
-                  style={{ mixBlendMode: 'multiply', opacity: 0.5 }}
-                />
               </motion.div>
 
-              {/* 2. APP名称：淡入 & 模糊解冻 */}
-              <motion.p variants={itemVariants} className="text-xl font-light text-brand-black/80 mb-8 mt-4">
-                {t('home.intro.appLine')}
+              <motion.p variants={itemVariants} className="intro-app-desc max-w-xl lg:max-w-none">
+                {t('home.intro.body')}
               </motion.p>
-              
-              {/* 3. 描述文本：淡入 & 上浮 */}
-              <motion.div variants={itemVariants} className="space-y-4 mb-6">
-                <p className="text-base md:text-lg font-light text-brand-black/60 leading-relaxed max-w-xl pl-6">
-                  {t('home.intro.body')}
-                </p>
+
+              <motion.div variants={itemVariants} className="intro-app-feats">
+                {introFeatures.map((feat, i) => {
+                  const Icon = INTRO_FEAT_ICONS[i] ?? Moon;
+                  return (
+                    <div key={i} className="intro-feat-card">
+                      <span className="intro-feat-card-icon" aria-hidden>
+                        <Icon className="h-5 w-5" strokeWidth={1.35} />
+                      </span>
+                      <div className="intro-feat-card-body">
+                        <span className="intro-feat-card-title">{feat.title}</span>
+                        <span className="intro-feat-card-tag">{feat.tag}</span>
+                      </div>
+                    </div>
+                  );
+                })}
               </motion.div>
 
-              {/* 4. 按钮组：弹性光圈效果 */}
-              <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-6 mt-4">
-                <motion.button
-                  whileHover={{ 
-                    scale: 0.97
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className="px-8 py-3 bg-accent text-brand-black font-medium text-sm rounded-full relative overflow-hidden group shadow-none"
-                >
-                  <span className="relative z-10">{t('home.intro.ctaTry')}</span>
-                  {/* 悬浮时的背景光波 */}
-                  <div className="absolute inset-0 bg-brand-black/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
-                </motion.button>
-              </motion.div>
-
-              {/* 5. 状态栏：数字“加载”动画 (模拟视觉) */}
-              <motion.div 
-                variants={itemVariants} 
-                className="grid grid-cols-3 gap-8 pt-6"
-              >
+              <motion.div variants={itemVariants} className="intro-app-kpis">
                 {introStats.map((stat, i) => (
-                  <div key={i}>
-                    {/* 炫酷：模拟数字滚动淡入 */}
-                    <motion.p 
-                      className="text-2xl font-light mb-2 text-brand-black"
-                      initial={{ opacity: 0, filter: "blur(5px)" }}
-                      whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                      transition={{ delay: 1.2 + i * 0.2, duration: 0.8 }}
+                  <div key={i} className="intro-app-kpi">
+                    <motion.span
+                      className="intro-app-kpi-n"
+                      initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+                      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.12 + i * 0.07, duration: 0.85, ease: easeReveal }}
                     >
                       {stat.label}
-                    </motion.p>
-                    <p className="font-mono text-xs text-brand-black/40 uppercase tracking-widest">{stat.desc}</p>
+                    </motion.span>
+                    <span className="intro-app-kpi-l">{stat.desc}</span>
                   </div>
                 ))}
               </motion.div>
             </div>
           </div>
 
-          {/* 🌟 Right Content: 3D 视差悬浮 & 呼吸光晕 */}
-          <div className="w-full lg:w-3/5 relative flex justify-center items-center" ref={constraintsRef}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 60, rotateY: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ 
-                duration: 1.5, 
-                ease: ease,
-                scale: { delay: 0.2, duration: 1.2, ease } // 组合动画，让进场更有层次
-              }}
-              className="relative z-10 cursor-grab active:cursor-grabbing"
-              
-              /* 超级炫酷：鼠标 3D 悬浮视差 */
-              whileHover={{ 
-                rotateX: [0, -5, 5, 0], 
-                rotateY: [0, 10, -10, 0],
-                transition: { duration: 0.5 }
-              }}
-            >
-              <img 
-                src="https://i.ibb.co/RkYkRwH5/app.png" 
-                alt="AwakHealth App Interface" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              
-              {/* 超级炫酷装饰：呼吸光晕 */}
-              <motion.div 
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-accent rounded-full blur-3xl -z-10" 
-                animate={{
-                  opacity: [0.03, 0.08, 0.03],
-                  scale: [1, 1.05, 1],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            </motion.div>
+          <div className="relative flex w-full min-h-0 min-w-0 shrink-0 items-stretch justify-center overflow-visible lg:min-h-0 lg:self-stretch">
+            <IntroAppVisual />
           </div>
         </div>
       </motion.div>

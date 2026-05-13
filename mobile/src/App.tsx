@@ -12,6 +12,7 @@ import DataInsights from './components/DataInsights';
 import ValueProposition from './components/ValueProposition';
 import IntroSection, { INTRO_APP_TAB_IMAGE_URLS } from './components/IntroSection';
 import { DATA_INSIGHTS_IMAGE_URLS } from './components/DataInsights';
+import HomeLifecycleStrip from './components/HomeLifecycleStrip';
 import FooterSections from './components/FooterSections';
 import LocaleLayout from './components/LocaleLayout';
 import SmartRingPage from './pages/SmartRingPage';
@@ -63,10 +64,11 @@ function useHomePageImagePreload() {
 function HomePage() {
   useHomePageImagePreload();
   return (
-    <div className="hds-home bg-base text-fg-primary font-sans antialiased selection:bg-accent selection:text-ink">
+    <div className="home-atomic hds-home font-sans antialiased selection:bg-[#DDF700] selection:text-black">
       <div className="flex min-h-[100dvh] flex-col">
         <Hero />
       </div>
+      <HomeLifecycleStrip />
       <TeamSection />
       <ImmersiveScenarios />
       <IntroSection />
@@ -74,7 +76,7 @@ function HomePage() {
       <DataInsights />
       <BrandDynamics />
       <BrandSlogan />
-      <FooterSections />
+      <FooterSections homeAtomic />
     </div>
   );
 }

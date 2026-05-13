@@ -14,6 +14,26 @@
     "zh": "简体中文",
     "en": "English"
   },
+  "brandStoryPage": {
+    "label": "Brand story",
+    "title": "Tech in rhythm with health",
+    "lede": "AWAK believes wearables should translate rhythms into trustworthy everyday decisions—not only log data.",
+    "pillars": [
+      {
+        "title": "Begin with rhythm",
+        "body": "We start from sleep and heart signals to build a long-term language of health—not one-off snapshots."
+      },
+      {
+        "title": "Earn trust",
+        "body": "Clinical-grade algorithm discipline runs through product iterations so conclusions arrive responsibly."
+      },
+      {
+        "title": "Return to daily life",
+        "body": "Ring, band, watch, and glasses share one account and timeline—turning fragments into actionable guidance."
+      }
+    ],
+    "closing": "We grow this digital life loop with developers, institutions, and families."
+  },
   "navHw": {
     "ring": { "title": "AWAK RING Smart Ring", "desc": "Understand how your body changes" },
     "watch": { "title": "AWAK WATCH Sports Smartwatch", "desc": "Own your training" },
@@ -48,6 +68,8 @@
   },
   "home": {
     "hero": {
+      "label": "AWAK HEALTH",
+      "scrollHint": "SCROLL",
       "title": "Health you can understand",
       "subtitle": "Leading-grade precision | Med-grade AI | Health for everyone",
       "ctaBuy": "Buy now",
@@ -66,20 +88,34 @@
       ]
     },
     "intro": {
-      "title": "Service ecosystem",
-      "appLine": "AwakHealth app — full-stack wellness",
-      "body": "End-to-end sleep, fitness, nutrition, and guidance—with community and AI support for retail, insurance, and checkups.",
+      "title": "Full-stack wellness within reach",
+      "appLine": "Health, sleep, fitness, and nutrition—end to end. Covers sleep care, vitals, workouts, AI nutrition guidance, and community—plus retail, insurance, and checkups.",
+      "body": "Health, sleep, fitness, and nutrition—end to end. Covers sleep care, vitals, workouts, AI nutrition guidance, and community—plus retail, insurance, and checkups.",
+      "features": [
+        { "title": "Smart sleep analysis & coaching", "tag": "SLEEP AI" },
+        { "title": "Personalized training plans", "tag": "SPORT" },
+        { "title": "AI nutritionist meal guidance", "tag": "NUTRITION" },
+        { "title": "Checkups & insurance in one flow", "tag": "SERVICE" },
+        { "title": "Household health records", "tag": "FAMILY" }
+      ],
       "ctaTry": "Try now",
       "ctaDemo": "Watch demo",
       "stats": [
-        { "label": "Checkups", "value": "Year-one offer", "desc": "Year-one bonus included" },
-        { "label": "¥1M", "value": "1,000,000", "desc": "Medical reimbursement" },
-        { "label": "One-stop", "value": "Full journey", "desc": "Checkups & insurance booking" }
+        { "label": "Checkup services", "value": "", "desc": "Annual health screening" },
+        { "label": "First-year perks", "value": "", "desc": "Exclusive bonus included" },
+        { "label": "Medical coverage", "value": "", "desc": "Up to ¥1M reimbursement" },
+        { "label": "One-stop service", "value": "", "desc": "Checkups × insurance booking" }
       ]
     },
     "valueLoop": {
       "title": "The AWAK health loop",
-      "subtitle": "From effortless logging to AI-guided actions—a closed loop for your digital health.",
+      "subtitle": "From effortless logging to AI-guided actions—a closed loop for your digital life. Every heartbeat, every breath, points you toward healthier living.",
+      "copyEyebrow": "Health loop",
+      "copyFeatures": [
+        { "title": "Always-on sensing", "desc": "Runs 24/7—sleep, activity, and rest—with no gaps in your data." },
+        { "title": "AI-guided actions", "desc": "Personalized nudges across sleep, meals, workouts, and care." },
+        { "title": "Family care", "desc": "Watch over up to six family members—parents, partner, kids—one account for whole-home peace of mind." }
+      ],
       "eyebrow": "Digital Health System",
       "dialNodes": [
         { "t1": "Health logging", "t2": "Emergency SOS", "n": "SOS", "u": "EMERGENCY" },
@@ -99,16 +135,133 @@
         { "title": "Improve", "desc": "Sharper every day—the more you use it." }
       ]
     },
+    "family": {
+      "sectionLabel": "FAMILY",
+      "title": "Wellness for every life stage",
+      "cards": [
+        {
+          "name": "Individuals",
+          "role": "Rhythm · sleep & activity",
+          "detail": "Align sleep stages, daily movement, and recovery on one timeline so you can see how each day’s rhythm shifts—not just isolated numbers."
+        },
+        {
+          "name": "Households",
+          "role": "Family care · shared insight",
+          "detail": "One account links multiple family members. You choose what to share so alerts and trends arrive as one trusted narrative, not scattered screenshots."
+        },
+        {
+          "name": "Seniors",
+          "role": "Remote watch · alerts",
+          "detail": "Built for aging-in-place: vitals and safety signals can notify trusted contacts with clear context—what changed, and who should act."
+        },
+        {
+          "name": "Chronic care",
+          "role": "Trends · follow-up cues",
+          "detail": "Long-horizon curves for BP, weight, and heart rate sit next to follow-up milestones so visits start from shared context, not guesswork."
+        },
+        {
+          "name": "Workplace",
+          "role": "Programs · privacy-safe data",
+          "detail": "Programs for teams and institutions with aggregated insight and minimal identifiers—useful statistics without exposing who is who."
+        },
+        {
+          "name": "Ecosystem",
+          "role": "Partners · interoperability",
+          "detail": "APIs and SDKs let partners ingest rhythm summaries into the apps and services you already use—connected, consent-first, and interoperable."
+        }
+      ],
+      "ctaIntro": "From one person to the whole household, AWAK turns fragmented signals into one trustworthy language you can act on every day.",
+      "ctaLabel": "Brand story"
+    },
     "brandDynamics": {
       "title": "News & stories",
+      "more": "All stories",
       "news": {
-        "b1": { "title": "AWAK Spring 2026 keynote recap", "subtitle": "Where tech meets aesthetics" },
-        "b2": { "title": "The art of breathing", "subtitle": "A chat with our Chief Health Officer" },
-        "b3": { "title": "City cycling initiative", "subtitle": "Connecting communities by route" },
-        "b4": { "title": "The future of inclusive design", "subtitle": "Technology that serves everyone" },
-        "b5": { "title": "Materials lab", "subtitle": "Finding gentler ways to wear all day" },
-        "b6": { "title": "Global sleep research summit", "subtitle": "Inside deep sleep" },
-        "b7": { "title": "Ecosystem partners", "subtitle": "Building an open blueprint for digital life" }
+        "b1": {
+          "title": "AWAK Spring 2026 keynote recap",
+          "subtitle": "Where tech meets aesthetics",
+          "date": "2026.03.18",
+          "excerpt": "Full recap: new wearables matrix, AWAK Cloud updates, and the open-stack roadmap."
+        },
+        "b2": {
+          "title": "The art of breathing",
+          "subtitle": "A chat with our Chief Health Officer",
+          "date": "2026.02.26",
+          "excerpt": "From breath and rhythm to signals you can track—without losing the human side."
+        },
+        "b3": {
+          "title": "City cycling initiative",
+          "subtitle": "Connecting communities by route",
+          "date": "2026.02.09",
+          "excerpt": "Partnering with riders and cities to map healthier mobility networks."
+        },
+        "b4": {
+          "title": "The future of inclusive design",
+          "subtitle": "Technology that serves everyone",
+          "date": "2026.01.22",
+          "excerpt": "Accessibility in interaction, type, and feedback—shipping into the next generation."
+        },
+        "b5": {
+          "title": "Materials lab",
+          "subtitle": "Finding gentler ways to wear all day",
+          "date": "2026.01.05",
+          "excerpt": "Skin-friendly wear tests and durability learnings from our first materials sprint."
+        },
+        "b6": {
+          "title": "Global sleep research summit",
+          "subtitle": "Inside deep sleep",
+          "date": "2025.12.14",
+          "excerpt": "Working with researchers on staging and recovery—rolling into the next model release."
+        },
+        "b7": {
+          "title": "Ecosystem partners",
+          "subtitle": "Building an open blueprint for digital life",
+          "date": "2025.11.30",
+          "excerpt": "Entry paths for developers and institutions—programs, APIs, and compliance guidance."
+        }
+      }
+    },
+    "ecosystem": {
+      "sectionLabel": "ECOSYSTEM",
+      "title": "An open stack linking devices, cloud, and partners",
+      "cards": [
+        {
+          "title": "Wearables portfolio",
+          "desc": "Ring, band, glasses, and watch on one account—vitals and timelines stay connected."
+        },
+        {
+          "title": "AWAK Cloud",
+          "desc": "Sync, analytics, and insights in one place—complex data becomes actionable guidance."
+        },
+        {
+          "title": "Partners & integrations",
+          "desc": "APIs and SDKs for developers and enterprises—clinical, insurance, and workplace paths."
+        },
+        {
+          "title": "Privacy & compliance",
+          "desc": "End-to-end encryption and data minimization—you control sharing and exports."
+        }
+      ]
+    },
+    "technology": {
+      "sectionLabel": "TECHNOLOGY",
+      "title": "Multimodal sensing & on-device compute",
+      "description": "Optical, inertial, bioelectric and ambient signals share one low-power pipeline—noise suppression and feature extraction happen locally, then high-confidence rhythm summaries sync to the cloud. You see conclusions, not raw waveforms.",
+      "specs": [
+        { "n": "50+", "l": "Physiology streams fused" },
+        { "n": "<5s", "l": "Typical vital latency" },
+        { "n": "7×24", "l": "Continuous wearable runtime" },
+        { "n": "Clinical-grade", "l": "Algorithm QA path" }
+      ],
+      "sensor": {
+        "centerNum": "12",
+        "centerTag": "CHANNELS",
+        "nodes": [
+          { "label": "PPG" },
+          { "label": "ACC / GYRO" },
+          { "label": "TEMP" },
+          { "label": "EDA" }
+        ]
       }
     },
     "slogan": {
@@ -119,6 +272,8 @@
     "dataInsights": {
       "headline1": "Understand the data",
       "headline2": "Change your life",
+      "headlineSingle": "Understand the data, change your life",
+      "sectionIntro": "By continuously tracking sleep, activity, heart rate, and how your body changes, Awak turns complex health data into clear, actionable feedback—helping you spot issues earlier and build healthier habits with confidence.",
       "chartStart": "Start",
       "chartMid": "Week 6",
       "chartEnd": "Week 12",
@@ -148,6 +303,11 @@
       }
     },
     "immersive": {
+      "desktopCollage": {
+        "line1": "Awak meets diverse smart wearables\nfor full-lifecycle wellness needs",
+        "line2": "From sleep health to care for older adults",
+        "line3": "From training to barrier-free companionship"
+      },
       "products": {
         "ring": {
           "name": "Smart ring",
@@ -196,8 +356,8 @@
       }
     },
     "team": {
-      "heading1": "Hardware + apps",
-      "heading2": "24/7 health & sleep—always on",
+      "heading1": "AI companion 24/7",
+      "heading2": "Full-cycle health concierge",
       "cta": "Buy now",
       "cards": {
         "ring": {
