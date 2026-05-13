@@ -24,7 +24,6 @@ export default function ValueProposition() {
   const gConnsRef = useRef<SVGGElement>(null);
   const handGRef = useRef<SVGGElement>(null);
   const cLayerRef = useRef<HTMLDivElement>(null);
-  const dotsRowRef = useRef<HTMLDivElement>(null);
   const hubNRef = useRef<HTMLDivElement>(null);
   const hubURef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +53,6 @@ export default function ValueProposition() {
     const gConns = gConnsRef.current;
     const handG = handGRef.current;
     const cLayer = cLayerRef.current;
-    const dotsRow = dotsRowRef.current;
     const hubN = hubNRef.current;
     const hubU = hubURef.current;
 
@@ -68,7 +66,6 @@ export default function ValueProposition() {
       !gConns ||
       !handG ||
       !cLayer ||
-      !dotsRow ||
       !hubN ||
       !hubU
     ) {
@@ -341,7 +338,6 @@ export default function ValueProposition() {
     const cardClickHandlers: Array<() => void> = [];
     const cardEnterHandlers: Array<() => void> = [];
     const cardLeaveHandlers: Array<() => void> = [];
-    const pdClickHandlers: Array<() => void> = [];
 
     function easeOutExpo(t: number) {
       return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
@@ -383,9 +379,6 @@ export default function ValueProposition() {
           c.style.zIndex = i === idx ? '30' : '10';
         }
       });
-      NODES.forEach((_, i) =>
-        document.getElementById(`${uid}-pd-${i}`)?.classList.toggle('vpd-pd-on', i === idx),
-      );
 
       NODES.forEach((_, i) => {
         document.getElementById(`${uid}-nddot-${i}`)?.setAttribute(
@@ -421,7 +414,6 @@ export default function ValueProposition() {
 
     function buildCards() {
       const layer = cLayer;
-      const dotsRowEl = dotsRow;
       NODES.forEach((n, i) => {
         const rad = toRad(n.a);
         const ax = CX + ANCHOR_R * Math.cos(rad);
@@ -465,17 +457,6 @@ export default function ValueProposition() {
         cardEnterHandlers.push(onEnter);
         cardLeaveHandlers.push(onLeave);
         layer.appendChild(card);
-
-        const pd = document.createElement('div');
-        pd.className = 'vpd-pd';
-        pd.id = `${uid}-pd-${i}`;
-        const onPdClick = () => {
-          activateNode(i);
-          resetAuto();
-        };
-        pd.addEventListener('click', onPdClick);
-        pdClickHandlers.push(onPdClick);
-        dotsRowEl.appendChild(pd);
       });
     }
 
@@ -562,10 +543,6 @@ export default function ValueProposition() {
         card.removeEventListener('mouseleave', cardLeaveHandlers[i]);
         card.remove();
       });
-      dotsRow.querySelectorAll('.vpd-pd').forEach((pd, i) => {
-        pd.removeEventListener('click', pdClickHandlers[i]);
-        pd.remove();
-      });
 
       gBezel.innerHTML = '';
       gTicks.innerHTML = '';
@@ -593,11 +570,13 @@ export default function ValueProposition() {
 }
 #${uid}-root .vpd-sec{
   width:100%;
+  box-sizing:border-box;
   min-height:100vh;
   min-height:100dvh;
   display:flex;
   flex-direction:column;
   justify-content:center;
+  align-items:stretch;
   padding-top:max(3rem, env(safe-area-inset-top));
   padding-bottom:max(3rem, env(safe-area-inset-bottom));
   box-sizing:border-box;
@@ -610,24 +589,67 @@ export default function ValueProposition() {
 }
 @media (min-width:1024px){
   #${uid}-root .vpd-sec{
-    padding-top:max(5.5rem, env(safe-area-inset-top));
-    padding-bottom:max(5.5rem, env(safe-area-inset-bottom));
+    padding-top:max(var(--home-layout-section-y, 96px), env(safe-area-inset-top));
+    padding-bottom:max(var(--home-layout-section-y, 96px), env(safe-area-inset-bottom));
   }
 }
-/* 页边距由外层 Tailwind px-6 md:px-[170px] 与 IntroSection「服务生态」一致 */
+/* 横向留白由全局 .wrap（padding + max-width）控制，与 #data-insights 内层一致 */
 #${uid}-root .vpd-inner{
   box-sizing:border-box;
 }
-#${uid}-root .vpd-copy{position:relative;z-index:10;min-width:0;}
+/* z-index 低于左侧表盘区，避免文案栏盖住表盘交互；对齐勿用 center，见 lg 断点 */
+#${uid}-root .vpd-copy{position:relative;z-index:1;min-width:0;}
+/* 右侧文案与特性卡片样式 */
+#${uid}-root .vpd-copy-eyebrow{
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);display:block;margin-bottom:18px;
+  font-weight:400;
+}
+#${uid}-root .vpd-copy-title{
+  font-family:"PingFang SC","PingFang TC",system-ui,sans-serif;
+  font-size:clamp(28px,4vw,52px);font-weight:500;letter-spacing:-.02em;
+  color:#fff;line-height:1.1;margin-bottom:18px;
+}
+#${uid}-root .vpd-copy-lede{
+  font-size:14.5px;color:rgba(255,255,255,.4);line-height:1.85;margin-bottom:48px;
+  font-weight:300;font-family:"PingFang SC","PingFang TC",system-ui,sans-serif;
+}
+#${uid}-root .vpd-feat-cards{display:flex;flex-direction:column;gap:2px}
+#${uid}-root .vpd-fc{
+  display:flex;align-items:flex-start;gap:16px;padding:22px 24px;
+  background:rgba(255,255,255,.028);
+}
+#${uid}-root .vpd-fc:hover{background:rgba(255,255,255,.052)}
+#${uid}-root .vpd-fc-icon{
+  width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+  color:rgba(255,255,255,.5);
+}
+#${uid}-root .vpd-fc-icon svg{width:16px;height:16px;stroke:rgba(255,255,255,.5);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#${uid}-root .vpd-fc h3{font-size:14.5px;color:rgba(255,255,255,.85);font-weight:500;margin-bottom:5px;font-family:"PingFang SC","PingFang TC",system-ui,sans-serif;line-height:1.35}
+#${uid}-root .vpd-fc p{font-size:13px;color:rgba(255,255,255,.38);line-height:1.65;font-family:"PingFang SC","PingFang TC",system-ui,sans-serif;font-weight:300;margin:0}
+/* 左栏：vpd-stage 布局仍为 1040×840，scale() 不改变占位宽度；用 host 承接高度并裁剪横向溢出，flex 居中使表盘在栏内对齐 */
 #${uid}-root .vpd-wrap{
-  display:flex;justify-content:center;align-items:center;
-  overflow:visible;min-width:0;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  align-items:stretch;
+  overflow:visible;min-width:0;width:100%;
 }
 @media (min-width:1024px){
-  #${uid}-root .vpd-wrap{justify-content:flex-start;}
+  #${uid}-root .vpd-wrap{
+    position:relative;
+    z-index:2;
+    overflow:visible;
+  }
+}
+#${uid}-root .vpd-stage-host{
+  display:flex;width:100%;min-width:0;
+  justify-content:center;align-items:flex-start;
+  overflow-x:clip;overflow-y:visible;
 }
 #${uid}-root .vpd-stage{
-  position:relative;width:1040px;height:840px;margin-left:auto;margin-right:auto;
+  position:relative;width:1040px;height:840px;margin:0;
   flex-shrink:0;transform-origin:top center;
 }
 #${uid}-root .vpd-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
@@ -693,24 +715,18 @@ export default function ValueProposition() {
   0%,100%{border-color:rgba(255,255,255,.0);transform:scale(1)}
   50%{border-color:rgba(255,255,255,.08);transform:scale(1.05)}
 }
-#${uid}-root .vpd-dots{
-  display:flex;gap:8px;justify-content:center;align-items:center;
-  margin-top:clamp(1.25rem,3vh,2.25rem);width:100%;flex-wrap:wrap;
-}
-#${uid}-root .vpd-pd{width:5px;height:5px;border-radius:3px;
-  background:rgba(255,255,255,.12);cursor:pointer;
-  transition:width .35s cubic-bezier(.16,1,.3,1),background .3s;}
-#${uid}-root .vpd-pd-on{width:20px;background:rgba(255,255,255,.75);}
 `}</style>
 
-      <section ref={rootRef} id={`${uid}-root`} className="relative z-[3] isolate w-full">
+      <section ref={rootRef} id={`${uid}-root`} className="home-value-proposition relative z-[3] isolate w-full">
         <div className="vpd-sec" id={`${uid}-sec`}>
-          <div className="vpd-inner wrap mx-auto flex w-full max-w-[100vw] flex-col justify-center">
-            <div className="flex w-full flex-col items-stretch gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 xl:gap-16">
-              <div
-                ref={stageWrapRef}
-                className="vpd-wrap w-full min-w-0 lg:w-[56%] lg:max-w-[58%] xl:w-[54%] xl:max-w-none"
-              >
+          {/* 双栏结构与首页「看懂数据才能改变生活」(#data-insights)一致：flex + lg:gap-x-10 xl:gap-x-12 */}
+          <div className="vpd-inner relative z-10 mx-auto w-full min-w-0 wrap py-8 lg:py-0">
+            <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-stretch lg:gap-x-10 xl:gap-x-12">
+              <div className="vpd-wrap order-2 flex w-full min-w-0 flex-col lg:order-1 lg:min-h-0 lg:h-full lg:w-[60%] lg:max-w-[60%] lg:flex-shrink-0 lg:self-stretch">
+                <div
+                  ref={stageWrapRef}
+                  className="vpd-stage-host w-full min-w-0 shrink-0"
+                >
                 <div ref={stageRef} className="vpd-stage">
               <svg
                 className="vpd-svg"
@@ -818,9 +834,10 @@ export default function ValueProposition() {
                 </div>
               </div>
                 </div>
+                </div>
               </div>
 
-              <div className="vpd-copy relative flex w-full flex-col justify-center text-left lg:min-w-0 lg:flex-1 lg:pl-6 xl:pl-12">
+              <div className="vpd-copy order-1 relative flex min-h-0 min-w-0 flex-1 flex-col items-start text-left lg:order-2 lg:ml-0 lg:h-full lg:min-h-0 lg:w-[40%] lg:max-w-[40%] lg:flex-shrink-0 lg:justify-between lg:space-y-10">
                 <div
                   className="pointer-events-none absolute right-0 top-0 hidden lg:flex lg:h-9 lg:w-9 lg:items-center lg:justify-center"
                   aria-hidden
@@ -830,28 +847,21 @@ export default function ValueProposition() {
                   </span>
                 </div>
 
-                <h2 className="home-section-title mb-6 text-white">
-                  {t('home.valueLoop.title')}
-                </h2>
+                <h2 className="vpd-copy-title w-full max-w-[36rem]">{t('home.valueLoop.title')}</h2>
 
-                <ul className="flex max-w-xl flex-col gap-14 lg:gap-[72px]">
+                <p className="vpd-copy-lede w-full max-w-[36rem]">{t('home.valueLoop.subtitle')}</p>
+
+                <ul className="vpd-feat-cards w-full max-w-[36rem]">
                   {copyFeatures.map((item, i) => {
                     const Icon = VALUE_LOOP_COPY_ICONS[i] ?? Clock;
                     return (
-                      <li key={`${item.title}-${i}`} className="flex gap-5 lg:gap-6">
-                        <span
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.06] lg:h-12 lg:w-12"
-                          aria-hidden
-                        >
-                          <Icon className="h-[18px] w-[18px] text-white/90 lg:h-5 lg:w-5" strokeWidth={1.35} />
+                      <li key={`${item.title}-${i}`} className="vpd-fc">
+                        <span className="vpd-fc-icon" aria-hidden>
+                          <Icon className="h-4 w-4" strokeWidth={1.5} />
                         </span>
-                        <div className="min-w-0 pt-1 lg:pt-1.5">
-                          <h3 className="text-[15px] font-normal leading-[1.45] tracking-[-0.01em] text-white md:text-[16px]">
-                            {item.title}
-                          </h3>
-                          <p className="mt-4 text-[13px] font-normal leading-[1.72] text-[#a7a7b2] md:text-[14px] md:leading-[1.75] lg:mt-5 lg:max-w-none lg:whitespace-nowrap">
-                            {item.desc}
-                          </p>
+                        <div className="min-w-0">
+                          <h3>{item.title}</h3>
+                          <p>{item.desc}</p>
                         </div>
                       </li>
                     );
@@ -859,8 +869,6 @@ export default function ValueProposition() {
                 </ul>
               </div>
             </div>
-
-            <div ref={dotsRowRef} className="vpd-dots" />
           </div>
         </div>
       </section>

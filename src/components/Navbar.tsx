@@ -191,14 +191,14 @@ export default function Navbar() {
         />
         <button
           type="button"
-          className={`nav-cta-icon p-2 transition-colors ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : isHomeIndex ? 'text-[#A7A7B2] hover:text-[#F5F5F5] lg:text-inherit' : 'text-white/70 hover:text-white'}`}
+          className={`nav-cta-icon p-2 transition-colors ${isHomeIndex ? 'inline-flex' : 'max-lg:inline-flex lg:hidden'} ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : isHomeIndex ? 'text-[#A7A7B2] hover:text-[#F5F5F5] lg:text-inherit' : 'text-white/70 hover:text-white'}`}
           aria-label={t('nav.search')}
         >
           <Search className="w-[18px] h-[18px]" />
         </button>
         <Link
           to={withPath('/auth')}
-          className={`nav-cta-icon p-2 transition-colors ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : isHomeIndex ? 'text-[#A7A7B2] hover:text-[#F5F5F5] lg:text-inherit' : 'text-white/70 hover:text-white'}`}
+          className={`nav-cta-icon p-2 transition-colors ${isHomeIndex ? 'inline-flex' : 'max-lg:inline-flex lg:hidden'} ${isLightPage && scrolled ? 'text-black/70 hover:text-black' : isHomeIndex ? 'text-[#A7A7B2] hover:text-[#F5F5F5] lg:text-inherit' : 'text-white/70 hover:text-white'}`}
           aria-label={t('nav.account')}
         >
           <User className="w-[18px] h-[18px]" />
@@ -210,7 +210,9 @@ export default function Navbar() {
               isHomeIndex ? 'nav-home-store btn btn-w ml-2' : 'ml-2 h-12 min-h-[48px] rounded-full bg-[#DDF700] px-6 py-2.5 text-[15px] font-semibold text-[#080808] transition-all hover:bg-[#E6FF00]'
             }`}
           >
-            <ShoppingCart className="h-4 w-4 shrink-0 lg:h-[27px] lg:w-[27px]" style={{ strokeWidth: 2.5 }} />
+            {!isHomeIndex ? (
+              <ShoppingCart className="h-4 w-4 shrink-0 lg:h-[27px] lg:w-[27px]" style={{ strokeWidth: 2.5 }} />
+            ) : null}
             {t('nav.store')}
           </Link>
         )}

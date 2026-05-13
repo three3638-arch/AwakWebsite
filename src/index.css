@@ -21,14 +21,17 @@
   --light: #f5f5f7;
   --white: #ffffff;
   --display: Syne, sans-serif;
-  --body: 'DM Sans', sans-serif;
+  /* 首页正文：系统栈 + 中文回退（与参考 body 一致） */
+  --home-font-body-stack: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Microsoft YaHei',
+    sans-serif;
+  --body: var(--home-font-body-stack);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
   /* 首页各区块主标题 — 统一阶梯字号 */
   --home-section-title-size: clamp(1.75rem, 3vw, 2.5rem);
-  /* 主标题下一行说明/导语 — 统一字号与行高 */
+  /* 主标题下一行说明/导语 — 统一字号与行高（正文 1.5–1.6×） */
   --home-section-lede-size: 15.5px;
-  --home-section-lede-lh: 1.82;
+  --home-section-lede-lh: 1.58;
 
   --fs-bg: var(--black);
   --fs-surface: #09090b;
@@ -54,11 +57,13 @@
   --home-space-hero-pad-y: 180px;
   --home-page-padding-x-lg: 100px;
   --home-page-padding-x-2xl: 100px;
-  --home-font-sans: var(--body), Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --home-font-sans: var(--home-font-body-stack);
   --home-font-cjk: 'PingFang SC', 'Noto Sans SC', 'Source Han Sans SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     sans-serif;
   font-family: var(--home-font-sans), var(--home-font-cjk);
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: var(--black);
   color: var(--white);
   overflow-x: hidden;
@@ -67,9 +72,9 @@
 .home-atomic .home-section-title {
   font-family: var(--display);
   font-size: var(--home-section-title-size);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.22;
 }
 
 .home-atomic .home-section-lede {
@@ -122,41 +127,75 @@
   z-index: 920;
 }
 
+body:has(.home-atomic.home-page-root) {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* ============================================================
    PC 首页首屏 HERO：左侧整图（无铺底/无装饰），右侧 hero-content 单独铺色
    ============================================================ */
 @media (min-width: 1024px) {
+  .home-atomic.home-page-root #hero {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
   .home-atomic #hero {
     height: 100vh;
     min-height: 680px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 1fr auto;
+    align-items: stretch;
     background: transparent;
     overflow: hidden;
     position: relative;
   }
 
-  .home-atomic #hero .hero-content {
+  .home-atomic #hero > img {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    height: auto;
+    max-height: 100%;
+  }
+
+  /* 首屏左侧主图：左侧留白缩小约 30%（略向左扩展视觉占比） */
+  .home-atomic.home-page-root #hero > img {
+    margin-left: calc(var(--home-page-padding-x-lg) * -0.3);
+  }
+
+  .home-atomic #hero > .hero-content {
+    grid-column: 2;
+    grid-row: 1;
     padding-right: 64px;
     padding-left: 2rem;
     z-index: 60;
     background: var(--black);
-    min-height: 100%;
+    min-height: 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
+  .home-atomic #hero > .hero-trust-slot {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: stretch;
+  }
+
   .home-atomic #hero .hero-label {
     font-size: 11px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.08em;
     color: var(--g4);
     text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 14px;
     margin-bottom: 32px;
+    font-weight: 300;
   }
 
   .home-atomic #hero .hero-label::before {
@@ -170,9 +209,9 @@
   .home-atomic #hero .hero-title {
     font-family: var(--display);
     font-size: clamp(42px, 5.5vw, 78px);
-    line-height: 1.06;
-    font-weight: 400;
-    letter-spacing: -0.025em;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     margin-bottom: 24px;
     color: var(--white);
   }
@@ -189,7 +228,7 @@
     letter-spacing: 0.035em;
     margin-bottom: 48px;
     font-weight: 400;
-    max-width: 36rem;
+    max-width: min(50rem, 100%);
   }
 
   .home-atomic #hero .hero-sub.hero-sub-split {
@@ -241,9 +280,10 @@
 
   .home-atomic #hero .scroll-text {
     font-size: 9.5px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--g5);
+    font-weight: 300;
   }
 }
 
@@ -285,6 +325,850 @@
 }
 
 /* ============================================================
+   PC 仅首页根（.home-atomic.home-page-root）：字阶 Body16 / 辅助14 / 小标题18–20 / 中标题24–32 / 首屏H1 40–48 / 下限12px
+   首页导航通过 body:has(...) 限定，其它路由不变。
+   ============================================================ */
+@media (min-width: 1024px) {
+  .home-atomic.home-page-root {
+    --home-section-title-size: clamp(1.5rem, 2.5vw, 2rem);
+    --home-section-lede-size: 1rem;
+    --home-section-lede-lh: 1.5625;
+    --home-typography-h1: clamp(2.5rem, 4.2vw, 3rem);
+    --home-typography-h4: clamp(1.125rem, 1.25vw, 1.25rem);
+    --home-typography-aux: 0.875rem;
+    --home-typography-caption: 0.75rem;
+    /* 布局：容器 1280、页边距 80–120、列槽 32、Section 96/120/160、卡片 48/64、内容组 28、元素 16、微调 8 */
+    --home-page-padding-x-lg: clamp(80px, 5.5vw, 120px);
+    --home-page-padding-x-2xl: clamp(80px, 5.5vw, 120px);
+    --home-layout-container-max: 1280px;
+    --home-layout-gutter: 32px;
+    /*
+     * 首页卡片栅格（12 列基准、内容区 max 1280、槽 24px）:
+     * | 类型 | 每行 | 单卡占列 | 目标宽 | 场景 |
+     * | 1 行 4 张 | 4 | 3/12 | 302px | 产品、功能点、知识卡 |
+     * | 1 行 3 张 | 3 | 4/12 | 410px | 博客摘要、核心服务、主功能模块 |
+     * | 1 行 2 张 | 2 | 6/12 | 628px | 深度内容、数据看板大组件 |
+     * | 通栏 | 1 | 12/12 | 1280px | Banner 级横条 |
+     * 单卡高度上限 500px；内边距 32/40px（数据密 24px 起）；圆角外 8px / 内 4px；悬停 translateY(-4px)。
+     */
+    --home-card-grid-gap: 24px;
+    --home-card-w-4: 302px;
+    --home-card-w-3: 410px;
+    --home-card-w-2: 628px;
+    --home-card-w-1: 1280px;
+    --home-card-radius: 8px;
+    --home-card-radius-inner: 4px;
+    --home-card-pad: 32px;
+    --home-card-pad-lg: 40px;
+    --home-card-pad-compact: 24px;
+    --home-card-max-height: 500px;
+    --home-card-gap-title-body: clamp(12px, 1vw, 16px);
+    --home-card-gap-body-action: clamp(24px, 2vw, 32px);
+    --home-layout-section-y: 96px;
+    --home-layout-section-y-md: 120px;
+    --home-layout-section-y-loose: 160px;
+    --home-layout-card-gap: 48px;
+    --home-layout-card-gap-lg: 64px;
+    --home-layout-stack-gap: 28px;
+    --home-layout-element-gap: 16px;
+    --home-layout-micro-gap: 8px;
+    /* 页边距再收紧 40%（相对原 clamp 80–120） */
+    --home-page-padding-x-compact: clamp(48px, 3.3vw, 72px);
+  }
+
+  .home-atomic.home-page-root #hero .hero-title {
+    font-size: var(--home-typography-h1);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #hero .hero-label {
+    font-size: var(--home-typography-caption);
+    letter-spacing: 0.06em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #hero .scroll-text {
+    font-size: var(--home-typography-caption);
+    letter-spacing: 0.06em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root .home-trust-banner .home-trust-stat-value {
+    font-size: var(--home-typography-h4) !important;
+    font-weight: 600 !important;
+  }
+
+  .home-atomic.home-page-root .home-trust-banner .home-trust-stat-label {
+    font-size: var(--home-typography-aux) !important;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #team h3 {
+    font-size: var(--home-typography-h4) !important;
+    font-weight: 600 !important;
+  }
+
+  .home-atomic.home-page-root #team .mt-1 {
+    font-size: var(--home-typography-aux) !important;
+    font-weight: 300 !important;
+  }
+
+  .home-atomic.home-page-root .home-lifecycle-strip .wrap.r.d2 {
+    font-size: inherit !important;
+  }
+
+  .home-atomic.home-page-root .home-lifecycle-strip .lifecycle-display {
+    font-size: var(--home-section-title-size) !important;
+    line-height: 1.22;
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root .home-lifecycle-strip .lifecycle-lede {
+    font-size: var(--home-section-lede-size) !important;
+    line-height: var(--home-section-lede-lh) !important;
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #technology .tech-h2 {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #technology .section-label {
+    letter-spacing: 0.06em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #technology .tech-desc {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #technology .spec-n {
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #technology .spec-l {
+    font-size: var(--home-typography-aux);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #technology .sensor-arm .s-lbl {
+    font-size: var(--home-typography-caption);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #technology .s-num {
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #technology .s-tag {
+    font-size: var(--home-typography-caption);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel {
+    max-height: var(--home-card-max-height);
+    padding: var(--home-card-pad);
+    border-radius: var(--home-card-radius);
+    box-sizing: border-box;
+    overflow: auto;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel:hover {
+    transform: translateY(-4px);
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-area {
+    height: 240px;
+    min-height: 0;
+    max-height: 260px;
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel h3 {
+    margin-bottom: var(--home-card-gap-title-body);
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel .border-t {
+    margin-top: var(--home-card-gap-body-action);
+    padding-top: var(--home-card-gap-title-body);
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel .border-t p {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+  }
+
+  .home-atomic.home-page-root #data-insights button[type='button'] {
+    font-size: var(--home-typography-caption);
+    letter-spacing: 0.08em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #data-insights .order-1 .home-section-title {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #data-insights .order-1 .home-section-lede {
+    font-size: var(--home-section-lede-size);
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #data-insights .order-1 span.block.font-medium {
+    font-size: clamp(1.5rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #data-insights .order-1 h4 {
+    font-size: var(--home-typography-aux);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-section-h {
+    font-size: var(--home-section-title-size);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-desc {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-afeat-t {
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-afeat-g {
+    font-size: var(--home-typography-caption);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card-title {
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card-tag {
+    font-size: var(--home-typography-aux);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #family .fam-header .heading {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #family .fam-header .label {
+    font-size: var(--home-typography-caption);
+    letter-spacing: 0.06em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #family .persona .p-name {
+    font-size: var(--home-typography-h4);
+  }
+
+  .home-atomic.home-page-root #family .persona .p-sub {
+    font-size: var(--home-typography-aux);
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #family .persona-detail .pd-name {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #family .persona-detail .pd-sub {
+    font-size: var(--home-typography-h4);
+  }
+
+  .home-atomic.home-page-root #family .persona-detail .pd-copy {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+  }
+
+  .home-atomic.home-page-root #family .fam-copy p {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+  }
+
+  .home-atomic.home-page-root #family .btn-outline {
+    font-size: var(--home-typography-aux);
+  }
+
+  .home-atomic.home-page-root #news .news-hdr h2 {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #news .news-hdr .section-label {
+    font-size: var(--home-typography-caption);
+  }
+
+  .home-atomic.home-page-root #news .news-more {
+    font-size: var(--home-typography-aux);
+  }
+
+  .home-atomic.home-page-root #news .ndate {
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #eco .eco-hdr h2 {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #eco .eco-hdr .section-label {
+    font-size: var(--home-typography-caption);
+    letter-spacing: 0.06em;
+    font-weight: 300;
+  }
+
+  .home-atomic.home-page-root #eco .etitle {
+    font-size: var(--home-typography-h4);
+  }
+
+  .home-atomic.home-page-root #eco .edesc {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+  }
+
+  .home-atomic.home-page-root #vpd-root .home-section-title {
+    font-size: var(--home-section-title-size);
+  }
+
+  .home-atomic.home-page-root #vpd-root .home-section-lede {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-copy h3 {
+    font-size: var(--home-typography-h4);
+    font-weight: 600;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-copy li p {
+    font-size: var(--home-section-lede-size);
+    line-height: var(--home-section-lede-lh);
+    max-width: 42rem;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-hub-brand {
+    font-size: var(--home-typography-caption) !important;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-hub-n {
+    font-size: var(--home-typography-h4) !important;
+    font-weight: 600 !important;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-hub-u {
+    font-size: var(--home-typography-caption) !important;
+  }
+
+  .home-atomic.home-page-root #vpd-root .vpd-nc-t {
+    font-size: var(--home-typography-aux) !important;
+  }
+
+  .home-atomic.home-page-root footer .home-section-title {
+    font-size: var(--home-typography-h4);
+  }
+
+  .home-atomic.home-page-root footer a {
+    font-size: var(--home-typography-aux);
+  }
+
+  .home-atomic.home-page-root footer .font-mono {
+    font-size: var(--home-typography-caption);
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-logo {
+    font-size: var(--home-typography-h4);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-links a,
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-links button {
+    font-size: var(--home-typography-aux);
+    letter-spacing: 0.06em;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-links button svg,
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-links a svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .btn {
+    font-size: var(--home-section-lede-size);
+    padding: 8px 22px;
+    line-height: 1.25;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec .nav-cta-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec a.nav-home-store.btn.btn-w {
+    background: #ddf700 !important;
+    color: #080808 !important;
+    font-size: calc(var(--home-section-lede-size) * 0.9) !important;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec a.nav-home-store.btn.btn-w:hover {
+    background: #e6ff00 !important;
+  }
+
+  .home-atomic.home-page-root #immersive-desktop .home-immersive-tile-title {
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ============================================================
+   首页「全栈健康服务」— 五枚功能卡：任意屏宽固定两行（3 + 2）
+   （变量在 lg 定义；此处给 fallback 以免窄屏缺 token）
+   ============================================================ */
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-feats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-items: stretch;
+  justify-content: start;
+  width: 100%;
+  gap: clamp(6px, 1.5vw, 24px);
+  margin-bottom: var(--home-layout-card-gap, 48px);
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:nth-child(2) {
+  grid-column: 3 / 5;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:nth-child(3) {
+  grid-column: 5 / 7;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:nth-child(4) {
+  grid-column: 1 / 3;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:nth-child(5) {
+  grid-column: 3 / 5;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-title,
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-tag {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card {
+  gap: clamp(6px, 1.2vw, 16px);
+  padding: clamp(10px, 2vw, 32px);
+  border-radius: var(--home-card-radius, 8px);
+  max-height: var(--home-card-max-height, 500px);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-title {
+  font-size: clamp(11px, 2.4vw, 14.5px);
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-tag {
+  font-size: clamp(9px, 1.8vw, 10.5px);
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 全栈服务：KPI 四格 — 与上方功能卡同视觉、无表格式线条 */
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(max-content, 1fr));
+  justify-items: stretch;
+  justify-content: start;
+  width: 100%;
+  gap: clamp(6px, 1.5vw, 24px);
+  margin-bottom: var(--home-layout-card-gap, 48px);
+  border: none;
+}
+
+@media (min-width: 1024px) {
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis {
+    max-width: 60%;
+  }
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card:nth-child(1) {
+  grid-column: auto;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card:nth-child(2) {
+  grid-column: auto;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card:nth-child(3) {
+  grid-column: auto;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card:nth-child(4) {
+  grid-column: auto;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-stat-card-desc {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card {
+  min-width: max-content;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card-title,
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card-tag {
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+/* 全栈服务：大标题与导语单行（可横向轻扫，不换行） */
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-title-one-line {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-title-one-line::-webkit-scrollbar {
+  display: none;
+}
+
+.home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-desc-one-line {
+  white-space: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* 看懂数据：四枚 Tab 单行、均分或压缩字号 */
+.home-atomic.home-page-root #data-insights .home-data-dimension-tabs {
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+}
+
+.home-atomic.home-page-root #data-insights .home-data-dimension-tab {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ============================================================
+   PC 仅首页根：布局节奏（与上文字阶同域 token 配套）
+   ============================================================ */
+@media (min-width: 1024px) {
+  body:has(.home-atomic.home-page-root) {
+    --home-nav-inline-pad: clamp(80px, 5.5vw, 120px);
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec {
+    padding: calc(14px * 1.1) var(--home-nav-inline-pad) !important;
+  }
+
+  body:has(.home-atomic.home-page-root) nav.nav-home-spec.sx {
+    padding: calc(10px * 1.1) var(--home-nav-inline-pad) !important;
+  }
+
+  .home-atomic.home-page-root .wrap,
+  .home-atomic.home-page-root .home-wrap {
+    max-width: var(--home-layout-container-max);
+  }
+
+  .home-atomic.home-page-root #hero .hero-content {
+    padding-left: var(--home-page-padding-x-lg);
+    padding-right: var(--home-layout-card-gap-lg);
+  }
+
+  .home-atomic.home-page-root .home-trust-banner .wrap {
+    column-gap: var(--home-layout-element-gap);
+    row-gap: var(--home-layout-micro-gap);
+  }
+
+  .home-atomic.home-page-root .home-lifecycle-strip {
+    padding-top: var(--home-layout-section-y-loose);
+    /* 与下方通栏拼贴衔接：略收紧底留白 */
+    padding-bottom: calc(var(--home-layout-section-y-loose) * 0.68);
+  }
+
+  /* 智能硬件应用场景：通栏无页边距；纵向槽 4px，横向保留呼吸感 */
+  .home-atomic.home-page-root #immersive-desktop .home-immersive-frame {
+    padding: 0;
+  }
+
+  .home-atomic.home-page-root #immersive-desktop .home-immersive-frame .home-immersive-masonry {
+    row-gap: 4px;
+    column-gap: 4px;
+  }
+
+  /* 拼贴全宽后，与上下区块的视觉间距单独校准 */
+  .home-atomic.home-page-root #technology {
+    padding: calc(var(--home-layout-section-y-md) * 0.82) 0;
+  }
+
+  .home-atomic.home-page-root #technology > .wrap,
+  .home-atomic.home-page-root #data-insights > .wrap,
+  .home-atomic.home-page-root #intro-app.intro-app-spec > .wrap {
+    padding-left: var(--home-page-padding-x-compact);
+    padding-right: var(--home-page-padding-x-compact);
+  }
+
+  .home-atomic.home-page-root #technology .two-col {
+    gap: var(--home-layout-card-gap-lg);
+  }
+
+  .home-atomic.home-page-root #technology .section-label {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #technology .tech-desc {
+    margin: var(--home-layout-stack-gap) 0 var(--home-layout-card-gap);
+  }
+
+  .home-atomic.home-page-root #technology .tech-spec-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--home-card-grid-gap);
+    width: 100%;
+    max-width: min(100%, var(--home-card-w-2));
+  }
+
+  .home-atomic.home-page-root #technology .tech-spec-card {
+    border-radius: var(--home-card-radius);
+    padding: var(--home-card-pad-compact);
+    max-height: var(--home-card-max-height);
+    overflow: hidden;
+    box-sizing: border-box;
+    gap: var(--home-card-gap-title-body);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .home-atomic.home-page-root #technology .tech-spec-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .home-atomic.home-page-root #data-insights {
+    padding-block: calc(var(--home-layout-section-y-loose) * 0.88);
+  }
+
+  .home-atomic.home-page-root #data-insights > .wrap > .flex {
+    gap: var(--home-layout-card-gap-lg);
+    align-items: stretch;
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .wrap {
+    padding-block: calc(var(--home-layout-section-y-md) * 0.88);
+  }
+
+  /* 首屏底部统计条：整体上移约 20%（视觉重心） */
+  .home-atomic.home-page-root #hero .hero-trust-slot .home-trust-banner--embedded > .wrap {
+    transform: translateY(-20%);
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-cols {
+    gap: var(--home-layout-card-gap-lg);
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-section-h {
+    margin-bottom: var(--home-layout-stack-gap);
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-desc {
+    margin-bottom: var(--home-layout-card-gap);
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-icon {
+    border-radius: var(--home-card-radius-inner);
+  }
+
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card-body {
+    gap: var(--home-layout-micro-gap);
+  }
+
+
+  .home-atomic.home-page-root #family {
+    padding: var(--home-layout-section-y-md) 0;
+  }
+
+  .home-atomic.home-page-root #family .fam-header {
+    margin-bottom: var(--home-layout-card-gap);
+  }
+
+  .home-atomic.home-page-root #family .fam-header .label {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #family .persona-block {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    gap: calc(2.5rem * 0.7);
+  }
+
+  .home-atomic.home-page-root #family .persona-rail {
+    gap: var(--home-layout-element-gap);
+    margin-bottom: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .home-atomic.home-page-root #family .persona {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    padding: calc(var(--home-layout-stack-gap) * 1.1) var(--home-layout-element-gap)
+      calc((var(--home-layout-stack-gap) + 4px) * 1.1);
+  }
+
+  .home-atomic.home-page-root #family .persona .p-icon {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #family .persona-detail {
+    margin-bottom: var(--home-layout-card-gap);
+    padding: var(--home-layout-stack-gap) var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #family .persona-detail .pd-name {
+    margin-bottom: var(--home-layout-micro-gap);
+  }
+
+  .home-atomic.home-page-root #family .persona-detail .pd-sub {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #family .fam-copy p {
+    margin-bottom: var(--home-layout-stack-gap);
+  }
+
+  .home-atomic.home-page-root #eco {
+    padding: var(--home-layout-section-y-md) 0;
+  }
+
+  .home-atomic.home-page-root #eco .eco-hdr {
+    margin-bottom: var(--home-layout-card-gap-lg);
+  }
+
+  .home-atomic.home-page-root #eco .eco-hdr .section-label {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #eco .eco-grid {
+    gap: var(--home-card-grid-gap);
+  }
+
+  .home-atomic.home-page-root #eco .eicon {
+    margin-bottom: var(--home-layout-element-gap);
+  }
+
+  .home-atomic.home-page-root #eco .etitle {
+    margin-bottom: var(--home-card-gap-title-body);
+  }
+
+  .home-atomic.home-page-root #news {
+    padding: var(--home-layout-section-y-md) 0;
+  }
+
+  .home-atomic.home-page-root #news .news-hdr {
+    margin-bottom: var(--home-layout-card-gap);
+    gap: var(--home-layout-stack-gap);
+  }
+
+  .home-atomic.home-page-root #news .news-grid {
+    gap: var(--home-card-grid-gap);
+  }
+
+  .home-atomic.home-page-root #news .ncard {
+    display: flex;
+    max-height: var(--home-card-max-height);
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--home-card-radius);
+    box-sizing: border-box;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .home-atomic.home-page-root #news .ncard:hover {
+    transform: translateY(-4px);
+  }
+
+  .home-atomic.home-page-root #news .ncard .nbody {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: var(--home-card-pad);
+    box-sizing: border-box;
+  }
+
+  .home-atomic.home-page-root #news .ncard .nimg {
+    flex-shrink: 0;
+    max-height: min(300px, 52vh);
+  }
+
+  .home-atomic.home-page-root #news .ndate {
+    margin-bottom: var(--home-card-gap-title-body);
+  }
+
+  .home-atomic.home-page-root #news .ntitle {
+    margin-bottom: var(--home-card-gap-title-body);
+  }
+
+  .home-atomic.home-page-root footer {
+    padding-top: var(--home-layout-section-y) !important;
+    padding-bottom: var(--home-layout-section-y) !important;
+  }
+
+  .home-atomic.home-page-root #team .home-team-overlay {
+    padding: var(--home-layout-card-gap) var(--home-page-padding-x-lg);
+  }
+
+  /* 全栈服务（Intro）与健康闭环（VPD）之间拉开间距，避免两坨挤在一起 */
+  .home-atomic.home-page-root #vpd-root {
+    margin-top: clamp(40px, 5vw, 88px);
+  }
+
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel {
+    max-height: none;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+}
+
+/* ============================================================
    FAMILY — 首页「陪伴每一个人的健康旅程」（PC persona rail + detail）
    ============================================================ */
 .home-atomic #family {
@@ -305,19 +1189,29 @@
   display: block;
   color: var(--g4);
   font-size: 11px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 16px;
+  font-weight: 300;
 }
 
 .home-atomic #family .fam-header .heading {
   font-family: var(--display);
   font-size: var(--home-section-title-size);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--black);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.22;
   margin: 0;
+}
+
+.home-atomic #family .persona-block {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.5rem;
 }
 
 .home-atomic #family .persona-rail {
@@ -325,7 +1219,22 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .home-atomic.home-page-root #family .persona-block {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .home-atomic.home-page-root #family .persona-block .persona-detail {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
 }
 
 .home-atomic #family .persona {
@@ -384,7 +1293,7 @@
   font-size: 11.5px;
   color: var(--g4);
   line-height: 1.35;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 .home-atomic #family .persona-detail {
@@ -399,7 +1308,8 @@
   pointer-events: none;
   transition:
     opacity 0.45s var(--ease-out),
-    transform 0.45s var(--ease-out);
+    transform 0.45s var(--ease-out),
+    background-color 0.35s var(--ease-out);
 }
 
 .home-atomic #family .persona-detail.show {
@@ -411,16 +1321,17 @@
 .home-atomic #family .persona-detail .pd-name {
   font-family: var(--display);
   font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--black);
   letter-spacing: -0.02em;
   margin-bottom: 8px;
+  line-height: 1.2;
 }
 
 .home-atomic #family .persona-detail .pd-sub {
   font-size: 14px;
   color: var(--g3);
-  font-weight: 400;
+  font-weight: 300;
   margin-bottom: 20px;
 }
 
@@ -428,7 +1339,7 @@
   margin: 0;
   font-size: 15px;
   color: var(--g3);
-  line-height: 1.75;
+  line-height: var(--home-section-lede-lh);
   font-weight: 400;
 }
 
@@ -447,7 +1358,7 @@
 .home-atomic #family .fam-copy p {
   font-size: 15.5px;
   color: var(--g3);
-  line-height: 1.8;
+  line-height: var(--home-section-lede-lh);
   font-weight: 400;
   margin: 0 0 28px;
 }
@@ -524,18 +1435,19 @@
 .home-atomic #eco .eco-hdr .section-label {
   color: var(--g4);
   font-size: 11px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 16px;
+  font-weight: 300;
 }
 
 .home-atomic #eco .eco-hdr h2 {
   font-family: var(--display);
   font-size: var(--home-section-title-size);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--black);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.22;
 }
 
 .home-atomic #eco .eco-grid {
@@ -547,6 +1459,38 @@
 .home-atomic #eco .ecard {
   background: var(--light);
   padding: 36px 28px;
+}
+
+@media (min-width: 1024px) {
+  .home-atomic.home-page-root #eco .eco-grid {
+    grid-template-columns: repeat(4, minmax(0, var(--home-card-w-4)));
+    justify-content: center;
+    gap: var(--home-card-grid-gap);
+  }
+
+  .home-atomic.home-page-root #eco .ecard {
+    max-height: var(--home-card-max-height);
+    overflow: hidden;
+    border-radius: var(--home-card-radius);
+    padding: var(--home-card-pad-lg);
+    box-sizing: border-box;
+    transition:
+      transform 0.35s var(--ease-out),
+      box-shadow 0.35s var(--ease-out);
+  }
+
+  .home-atomic.home-page-root #eco .ecard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .home-atomic.home-page-root #eco .eicon {
+    border-radius: var(--home-card-radius-inner);
+  }
+
+  .home-atomic.home-page-root #eco .etitle {
+    margin-bottom: var(--home-card-gap-title-body);
+  }
 }
 
 .home-atomic #eco .eicon {
@@ -570,7 +1514,7 @@
 .home-atomic #eco .edesc {
   font-size: 13px;
   color: var(--g3);
-  line-height: 1.72;
+  line-height: var(--home-section-lede-lh);
   font-weight: 400;
 }
 
@@ -610,10 +1554,10 @@
 .home-atomic #news .news-hdr h2 {
   font-family: var(--display);
   font-size: var(--home-section-title-size);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--white);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.22;
   margin: 0;
 }
 
@@ -635,14 +1579,37 @@
 }
 
 @media (min-width: 1024px) {
-  .home-atomic #news .news-grid {
+  /* PC 首页：12 列 — 主卡 6 列×2 行（≈628）、侧卡各 3 列（≈302） */
+  .home-atomic.home-page-root #news .news-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, auto));
+    align-items: stretch;
   }
 
-  .home-atomic #news .news-grid .ncard-main {
+  .home-atomic.home-page-root #news .news-grid .ncard:nth-child(1) {
+    grid-column: 1 / 7;
     grid-row: 1 / 3;
+  }
+
+  .home-atomic.home-page-root #news .news-grid .ncard:nth-child(2) {
+    grid-column: 7 / 10;
+    grid-row: 1;
+  }
+
+  .home-atomic.home-page-root #news .news-grid .ncard:nth-child(3) {
+    grid-column: 10 / 13;
+    grid-row: 1;
+  }
+
+  .home-atomic.home-page-root #news .news-grid .ncard:nth-child(4) {
+    grid-column: 7 / 10;
+    grid-row: 2;
+  }
+
+  .home-atomic.home-page-root #news .news-grid .ncard:nth-child(5) {
+    grid-column: 10 / 13;
+    grid-row: 2;
   }
 }
 
@@ -675,6 +1642,12 @@
   transform: scale(1.04);
 }
 
+@media (min-width: 1024px) {
+  .home-atomic.home-page-root #news .ncard:hover .nimg-bg {
+    transform: scale(1.02);
+  }
+}
+
 .home-atomic #news .nbg1 {
   background: linear-gradient(135deg, var(--g1), var(--mid));
 }
@@ -704,12 +1677,13 @@
   color: var(--g3);
   letter-spacing: 0.08em;
   margin-bottom: 11px;
+  font-weight: 300;
 }
 
 .home-atomic #news .ntitle {
   font-size: 15px;
   color: var(--g6);
-  line-height: 1.5;
+  line-height: 1.55;
   font-weight: 400;
   margin-bottom: 8px;
 }
@@ -717,12 +1691,14 @@
 .home-atomic #news .ncard-main .ntitle {
   font-family: var(--display);
   font-size: 20px;
+  font-weight: 600;
+  line-height: 1.22;
 }
 
 .home-atomic #news .nexcerpt {
   font-size: 13px;
   color: var(--g4);
-  line-height: 1.62;
+  line-height: var(--home-section-lede-lh);
   font-weight: 400;
   margin: 0;
 }
@@ -739,6 +1715,14 @@
   }
 
   .home-atomic #news .ncard:hover .nimg-bg {
+    transform: none !important;
+  }
+
+  .home-atomic.home-page-root #eco .ecard:hover,
+  .home-atomic.home-page-root #news .ncard:hover,
+  .home-atomic.home-page-root #technology .tech-spec-card:hover,
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-feat-card:hover,
+  .home-atomic.home-page-root #data-insights .home-data-chart-panel:hover {
     transform: none !important;
   }
 }
@@ -778,18 +1762,19 @@
 .home-atomic #technology .section-label {
   color: var(--g4);
   font-size: 11px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 16px;
+  font-weight: 300;
 }
 
 .home-atomic #technology .tech-h2 {
   font-family: var(--display);
   font-size: var(--home-section-title-size);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--black);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.22;
   margin: 0;
 }
 
@@ -1175,61 +2160,7 @@
   color: #52525b;
 }
 
-.home-atomic #intro-app.intro-app-spec .intro-app-kpis {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid rgba(44, 44, 46, 0.35);
-}
-
-.home-atomic #intro-app.intro-app-spec .intro-app-kpi {
-  padding: 22px;
-  border-right: 1px solid rgba(44, 44, 46, 0.35);
-  text-align: center;
-}
-
-.home-atomic #intro-app.intro-app-spec .intro-app-kpi:nth-child(2n) {
-  border-right: none;
-}
-
-@media (min-width: 1024px) {
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpis {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi:nth-child(2n) {
-    border-right: 1px solid rgba(44, 44, 46, 0.35);
-  }
-
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi:last-child {
-    border-right: none;
-  }
-
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi {
-    padding: 24px;
-  }
-
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi-l {
-    font-size: 17.5px;
-    line-height: 1.5;
-  }
-}
-
-.home-atomic #intro-app.intro-app-spec .intro-app-kpi-n {
-  font-family: var(--display);
-  font-size: 22px;
-  color: var(--black);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.home-atomic #intro-app.intro-app-spec .intro-app-kpi-l {
-  font-size: 11.5px;
-  color: #48484a;
-  font-weight: 400;
-  line-height: 1.45;
-}
+/* 非首页 / 旧类名：KPI 已迁到「功能卡」样式，此处不再画格线 */
 
 @media (min-width: 1024px) {
   .home-atomic #intro-app.intro-app-spec {
@@ -1238,24 +2169,19 @@
 
   .home-atomic #intro-app.intro-app-spec .intro-app-cols {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     gap: 80px;
     align-items: center;
   }
 }
 
 @media (max-width: 1023px) {
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi {
-    padding: 16px 8px;
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis {
+    grid-template-columns: 1fr;
   }
 
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi-n {
-    font-size: clamp(15px, 3.8vw, 22px);
-  }
-
-  .home-atomic #intro-app.intro-app-spec .intro-app-kpi-l {
-    font-size: 10px;
-    line-height: 1.35;
+  .home-atomic.home-page-root #intro-app.intro-app-spec .intro-app-kpis .intro-feat-card {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1335,7 +2261,9 @@ nav.nav-home-spec {
   --light: #f5f5f7;
   --white: #ffffff;
   --display: Syne, sans-serif;
-  --body: 'DM Sans', sans-serif;
+  --home-font-body-stack: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Microsoft YaHei',
+    sans-serif;
+  --body: var(--home-font-body-stack);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 

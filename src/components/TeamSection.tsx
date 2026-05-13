@@ -25,7 +25,10 @@ export default function TeamSection() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative z-[3] m-0 mt-0 w-full bg-transparent px-6 py-8 md:px-8 md:py-10 lg:m-0 lg:mt-0 lg:h-[100vh] lg:max-h-[100vh] lg:min-h-0 lg:overflow-hidden lg:p-0 lg:px-0 lg:py-0">
+    <section
+      id="team"
+      className="relative z-[3] m-0 mt-0 w-full bg-transparent px-6 py-8 md:px-8 md:py-10 lg:m-0 lg:mt-0 lg:h-[100vh] lg:max-h-[100vh] lg:min-h-0 lg:overflow-hidden lg:p-0 lg:px-0 lg:py-0"
+    >
       {/* 桌面：顶部多段黑→透明，避免硬分割 */}
       <div
         className="pointer-events-none absolute left-0 right-0 top-0 z-[55] hidden h-[22%] min-h-[140px] lg:block"
@@ -79,7 +82,7 @@ export default function TeamSection() {
                 aria-hidden
               />
 
-              <div className="pointer-events-none absolute inset-0 z-[100] flex max-w-full flex-col items-center justify-center px-4 text-center md:px-6 max-lg:pb-10 lg:items-start lg:justify-start lg:px-8 lg:pb-8 lg:pt-10 lg:text-left">
+              <div className="home-team-overlay pointer-events-none absolute inset-0 z-[100] flex max-w-full flex-col items-center justify-center px-4 text-center md:px-6 max-lg:pb-10 lg:items-start lg:justify-start lg:px-0 lg:pb-0 lg:pt-0 lg:text-left">
                 <h3 className="font-medium uppercase leading-[1.15] tracking-[-0.02em] text-[#FFFFFF] [font-size:clamp(1.75rem,2.2vw,2rem)]">
                   {brand}
                 </h3>

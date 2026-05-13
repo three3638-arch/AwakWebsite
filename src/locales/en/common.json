@@ -132,7 +132,8 @@
         { "title": "Understand", "desc": "Clear takeaways—not charts you have to decode." },
         { "title": "Act", "desc": "Doable steps tuned to your moment." },
         { "title": "Feedback", "desc": "See change after every move." },
-        { "title": "Improve", "desc": "Sharper every day—the more you use it." }
+        { "title": "Improve", "desc": "Sharper every day—the more you use it." },
+        { "title": "Household", "desc": "One account links family members and services." }
       ]
     },
     "family": {
@@ -273,7 +274,7 @@
       "headline1": "Understand the data",
       "headline2": "Change your life",
       "headlineSingle": "Understand the data, change your life",
-      "sectionIntro": "By continuously tracking sleep, activity, heart rate, and how your body changes, Awak turns complex health data into clear, actionable feedback—helping you spot issues earlier and build healthier habits with confidence.",
+      "sectionIntro": "Keep tracking how your body changes—so health data turns into clearer, more grounded everyday feedback.",
       "chartStart": "Start",
       "chartMid": "Week 6",
       "chartEnd": "Week 12",

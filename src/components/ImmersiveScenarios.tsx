@@ -252,7 +252,10 @@ export default function ImmersiveScenarios() {
       </section>
 
       {/* PC ≥1024px：20 张不规则拼贴 + 顶黑/底白多段渐变 + 大图叠字 + 左右交错进场 */}
-      <section className="relative z-[3] hidden h-[100dvh] max-h-[100vh] w-full overflow-hidden bg-transparent text-white lg:block">
+      <section
+        id="immersive-desktop"
+        className="relative z-[3] hidden h-[100dvh] max-h-[100vh] w-full overflow-hidden bg-transparent text-white lg:block"
+      >
         <div
           className="pointer-events-none absolute left-0 right-0 top-0 z-[40] h-[26%] min-h-[120px]"
           style={{
@@ -270,9 +273,9 @@ export default function ImmersiveScenarios() {
           aria-hidden
         />
 
-        <div className="absolute inset-0 z-10 box-border p-2">
+        <div className="home-immersive-frame absolute inset-0 z-10 box-border p-2 lg:p-0">
           <div
-            className="grid h-full w-full gap-2"
+            className="home-immersive-masonry grid h-full w-full gap-[4px]"
             style={{
               gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
               gridTemplateRows: 'repeat(10, minmax(0, 1fr))',
@@ -287,7 +290,7 @@ export default function ImmersiveScenarios() {
               const showDesc = tier <= 1 && cells >= 10 && item.title.trim().length > 0;
 
               const titleClass =
-                'text-[clamp(12px,1.05vw,16px)] font-medium leading-snug tracking-[-0.01em]';
+                'home-immersive-tile-title text-[clamp(12px,1.05vw,16px)] font-medium leading-snug tracking-[-0.01em]';
               const descClass = 'mt-1 line-clamp-2 text-[11px] font-normal leading-relaxed text-white/85';
 
               const fromLeft = idx % 2 === 0;
@@ -297,7 +300,7 @@ export default function ImmersiveScenarios() {
               return (
                 <motion.article
                   key={`collage-${idx}-${item.src}`}
-                  className="home-shadow-allow group/tile relative min-h-0 overflow-hidden rounded-[14px] border border-white/[0.08] bg-neutral-900/40 shadow-[0_28px_72px_rgba(0,0,0,0.45)] backdrop-blur-[2px] transition-shadow duration-700 ease-out hover:border-white/[0.12] hover:shadow-[0_36px_88px_rgba(0,0,0,0.55)]"
+                  className="home-shadow-allow group/tile relative min-h-0 overflow-hidden rounded-[8px] border border-white/[0.08] bg-neutral-900/40 shadow-[0_28px_72px_rgba(0,0,0,0.45)] backdrop-blur-[2px] transition-[transform,box-shadow] duration-300 ease-out hover:border-white/[0.12] hover:shadow-[0_32px_72px_rgba(0,0,0,0.5)]"
                   style={{
                     gridRow: `${r1} / ${r2}`,
                     gridColumn: `${c1} / ${c2}`,
@@ -314,7 +317,7 @@ export default function ImmersiveScenarios() {
                     duration: dur,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  whileHover={{ y: -2, rotate: fromLeft ? 0.4 : -0.4 }}
+                  whileHover={{ y: -4, rotate: fromLeft ? 0.35 : -0.35 }}
                 >
                   <img
                     src={item.src}

@@ -226,6 +226,11 @@
         "glasses": "智能眼镜",
         "watch": "智能手表"
       },
+      "desktopCollage": {
+        "line1": "Awak 以多元智能穿戴覆盖\n全生命周期的健康需求",
+        "line2": "从睡眠健康到银发守护",
+        "line3": "从运动训练到无障碍陪伴"
+      },
       "products": {
         "ring": {
           "name": "AWAK RING 智能戒指",

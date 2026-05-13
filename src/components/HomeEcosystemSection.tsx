@@ -13,7 +13,6 @@ export default function HomeEcosystemSection() {
     <section id="eco" className="relative z-[3]">
       <div className="wrap r d4">
         <header className="eco-hdr">
-          <p className="section-label">{t('home.ecosystem.sectionLabel')}</p>
           <h2>{t('home.ecosystem.title')}</h2>
         </header>
 

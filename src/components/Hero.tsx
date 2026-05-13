@@ -3,6 +3,7 @@ import { Fragment, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
+import TrustBanner from './TrustBanner';
 
 const easeStd: [number, number, number, number] = [0.4, 0, 0.2, 1];
 const easeReveal: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -65,7 +66,7 @@ export default function Hero() {
       <img
         src={HERO_IMAGE}
         alt=""
-        className="pointer-events-none z-[50] h-full w-full origin-center scale-[0.7] select-none object-contain object-center max-lg:absolute max-lg:inset-0 lg:relative lg:col-start-1 lg:row-start-1 lg:min-h-[680px] lg:min-w-0"
+        className="pointer-events-none z-[50] h-full w-full origin-center scale-[0.7] select-none object-contain object-center max-lg:absolute max-lg:inset-0 lg:relative lg:col-start-1 lg:row-start-1 lg:min-h-[680px] lg:min-w-0 lg:scale-[0.63]"
         referrerPolicy="no-referrer"
         draggable={false}
       />
@@ -143,9 +144,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="scroll-hint hidden lg:flex" aria-hidden>
-        <div className="scroll-line" />
-        <span className="scroll-text">{t('home.hero.scrollHint')}</span>
+      <div className="hero-trust-slot hidden w-full lg:block">
+        <TrustBanner embedded />
       </div>
     </section>
   );

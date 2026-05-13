@@ -40,10 +40,10 @@ function HomePage() {
       <div className="home-page-content">
       {/* 移动端：80/20 首屏；PC：Hero 独占 100vh（min 680），TrustBanner 紧随其后 */}
       <div className="m-0 flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden p-0 lg:h-auto lg:max-h-none lg:overflow-visible">
-        <div className="min-h-0 h-[80%] shrink-0 overflow-hidden lg:h-[min(100vh,100dvh)] lg:min-h-[680px] lg:w-full lg:shrink-0 lg:basis-auto lg:overflow-visible">
+        <div className="min-h-0 h-[80%] shrink-0 overflow-hidden lg:h-auto lg:min-h-0 lg:w-full lg:shrink-0 lg:basis-auto lg:overflow-visible">
           <Hero />
         </div>
-        <TrustBanner className="h-[20%] shrink-0 lg:h-auto lg:shrink-0" />
+        <TrustBanner className="h-[20%] shrink-0 lg:hidden" />
       </div>
       <TeamSection />
       <HomeLifecycleStrip />

@@ -220,6 +220,11 @@
         "glasses": "Smart glasses",
         "watch": "Smart watch"
       },
+      "desktopCollage": {
+        "line1": "Awak meets diverse smart wearables\nfor full-lifecycle wellness needs",
+        "line2": "From sleep health to care for older adults",
+        "line3": "From training to barrier-free companionship"
+      },
       "products": {
         "ring": {
           "name": "AWAK RING Smart Ring",

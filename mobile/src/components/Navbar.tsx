@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { ChevronDown, Menu, X, ShoppingCart } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
@@ -135,13 +135,12 @@ export default function Navbar() {
         {!['/store', '/checkout'].includes(basePath) && (
           <Link
             to={withPath('/store')}
-            className={`flex items-center gap-2 px-4 py-2.5 text-[14px] transition-colors sm:px-6 sm:text-[15px] ${
+            className={`inline-flex items-center justify-center px-4 py-2.5 text-[14px] transition-colors sm:px-6 sm:text-[15px] ${
               isHomeIndex
-                ? 'rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-white font-medium text-black hover:border-[#DDF700]'
+                ? 'rounded-[12px] border border-white/15 bg-accent font-semibold text-ink hover:bg-accent-hover'
                 : 'rounded-full bg-accent font-semibold text-ink transition-all hover:bg-accent-hover'
             }`}
           >
-            <ShoppingCart className="w-[15px] h-[15px] shrink-0" style={{ strokeWidth: 2.5 }} />
             <span className="whitespace-nowrap">{t('nav.store')}</span>
           </Link>
         )}

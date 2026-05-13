@@ -10,11 +10,6 @@ const easeStd: [number, number, number, number] = [0.4, 0, 0.2, 1];
 export default function Hero() {
   const { t } = useTranslation('common');
 
-  const subtitleParts = t('home.hero.subtitle')
-    .split(/→/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-
   const title = t('home.hero.title');
   const titleChars = useMemo(() => Array.from(title), [title]);
 
@@ -75,14 +70,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.42, duration: 0.6, ease: easeStd }}
-              className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-left text-base font-normal leading-[1.7] tracking-[-0.02em] text-[#a1a1aa] md:text-[18px]"
+              className="mt-6 text-left text-base font-normal leading-[1.7] tracking-[-0.02em] text-[#a1a1aa] md:text-[18px]"
             >
-              {subtitleParts.map((part, i) => (
-                <span key={i} className="inline-flex items-center gap-2">
-                  {i > 0 && <span className="text-[#a1a1aa]/70">→</span>}
-                  <span>{part}</span>
-                </span>
-              ))}
+              {t('home.hero.subtitle')}
             </motion.div>
 
             <motion.p

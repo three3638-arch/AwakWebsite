@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
-import { Activity, CalendarRange, Moon, Users, Utensils } from 'lucide-react';
+import { Gift, HeartPulse, LayoutGrid, Stethoscope } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const easeStd: [number, number, number, number] = [0.4, 0, 0.2, 1];
@@ -111,7 +111,7 @@ function IntroAppVisual() {
             src="https://i.ibb.co/RkYkRwH5/app.png"
             alt="AwakHealth App Interface"
             style={isDesktop ? { boxShadow: shadowLift } : undefined}
-            className="home-float-slow relative z-10 h-auto w-full cursor-grab object-contain active:cursor-grabbing max-lg:!animate-none lg:h-full lg:max-h-full lg:w-auto lg:max-w-full lg:shadow-[0_32px_72px_rgba(0,0,0,0.12)]"
+            className="home-float-slow relative z-10 h-auto w-full origin-center cursor-grab object-contain active:cursor-grabbing max-lg:!animate-none lg:h-full lg:max-h-full lg:w-auto lg:max-w-full lg:scale-[1.2] lg:shadow-[0_32px_72px_rgba(0,0,0,0.12)]"
             referrerPolicy="no-referrer"
           />
         </motion.div>
@@ -120,7 +120,7 @@ function IntroAppVisual() {
   );
 }
 
-const INTRO_FEAT_ICONS = [Moon, Activity, Utensils, CalendarRange, Users] as const;
+const INTRO_STAT_ICONS = [Stethoscope, Gift, HeartPulse, LayoutGrid] as const;
 
 export default function IntroSection() {
   const { t } = useTranslation('common');
@@ -128,10 +128,6 @@ export default function IntroSection() {
     () => t('home.intro.stats', { returnObjects: true }) as { label: string; value: string; desc: string }[],
     [t],
   );
-  const introFeatures = useMemo(() => {
-    const raw = t('home.intro.features', { returnObjects: true });
-    return Array.isArray(raw) ? (raw as { title: string; tag: string }[]) : [];
-  }, [t]);
   const introTitleLines = useMemo(
     () =>
       t('home.intro.title')
@@ -153,55 +149,38 @@ export default function IntroSection() {
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <div className="intro-app-cols flex flex-col items-center gap-12 lg:min-h-0 lg:overflow-visible">
-          <div className="flex w-full max-w-3xl shrink-0 flex-col justify-center lg:max-w-none lg:min-h-0">
+        <div className="intro-app-cols flex flex-col items-center gap-12 lg:min-h-0 lg:items-start lg:overflow-visible">
+          <div className="flex w-full max-w-3xl shrink-0 flex-col justify-center lg:max-w-none lg:min-h-0 lg:w-full lg:justify-start">
             <div className="intro-app-content mb-4 lg:mb-0">
               <motion.div variants={itemVariants} className="relative max-w-xl overflow-hidden lg:max-w-none">
-                <h2 className="intro-app-section-h home-section-title relative z-10 flex flex-col gap-1 text-[#080808] lg:[&>span]:inline lg:[&>span]:whitespace-nowrap">
+                <h2 className="intro-app-section-h intro-app-title-one-line home-section-title relative z-10 flex flex-row flex-wrap gap-x-2 text-[#080808] [&>span]:inline [&>span]:whitespace-nowrap">
                   {introTitleLines.map((line, i) => (
-                    <span key={i} className="block lg:inline">
+                    <span key={i} className="inline whitespace-nowrap">
                       {line}
                     </span>
                   ))}
                 </h2>
               </motion.div>
 
-              <motion.p variants={itemVariants} className="intro-app-desc max-w-xl lg:max-w-none">
+              <motion.p variants={itemVariants} className="intro-app-desc intro-app-desc-one-line max-w-xl lg:max-w-none">
                 {t('home.intro.body')}
               </motion.p>
 
-              <motion.div variants={itemVariants} className="intro-app-feats">
-                {introFeatures.map((feat, i) => {
-                  const Icon = INTRO_FEAT_ICONS[i] ?? Moon;
+              <motion.div variants={itemVariants} className="intro-app-kpis">
+                {introStats.map((stat, i) => {
+                  const Icon = INTRO_STAT_ICONS[i] ?? Stethoscope;
                   return (
-                    <div key={i} className="intro-feat-card">
+                    <div key={`${stat.label}-${i}`} className="intro-feat-card intro-stat-card">
                       <span className="intro-feat-card-icon" aria-hidden>
                         <Icon className="h-5 w-5" strokeWidth={1.35} />
                       </span>
                       <div className="intro-feat-card-body">
-                        <span className="intro-feat-card-title">{feat.title}</span>
-                        <span className="intro-feat-card-tag">{feat.tag}</span>
+                        <span className="intro-feat-card-title">{stat.label}</span>
+                        <span className="intro-feat-card-tag intro-stat-card-desc">{stat.desc}</span>
                       </div>
                     </div>
                   );
                 })}
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="intro-app-kpis">
-                {introStats.map((stat, i) => (
-                  <div key={i} className="intro-app-kpi">
-                    <motion.span
-                      className="intro-app-kpi-n"
-                      initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
-                      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.12 + i * 0.07, duration: 0.85, ease: easeReveal }}
-                    >
-                      {stat.label}
-                    </motion.span>
-                    <span className="intro-app-kpi-l">{stat.desc}</span>
-                  </div>
-                ))}
               </motion.div>
             </div>
           </div>
