@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 import TrustBanner from './TrustBanner';
+import HeroUnicornStudioBackground from './HeroUnicornStudioBackground';
 
 const easeStd: [number, number, number, number] = [0.4, 0, 0.2, 1];
 const easeReveal: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -26,50 +27,58 @@ export default function Hero() {
   );
 
   const ctaBuy = (
-    <motion.button
-      type="button"
-      whileHover={{
-        borderColor: 'rgba(221, 247, 0, 1)',
-        y: -2,
-        boxShadow: '0 20px 48px rgba(0,0,0,0.35)',
-      }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ duration: 0.45, ease: easeStd }}
-      onClick={() => navigate(withPath('/store'))}
-      className="home-shadow-allow flex h-12 min-h-[48px] min-w-[160px] items-center justify-center rounded-[12px] border border-white bg-white px-6 text-[14px] font-medium tracking-wide text-black shadow-[0_16px_48px_rgba(0,0,0,0.25)] lg:px-8"
-    >
-      {t('home.hero.ctaBuy')}
-    </motion.button>
+    <span className="magnetic-btn inline-block">
+      <motion.button
+        type="button"
+        whileHover={{
+          borderColor: 'rgba(212, 255, 0, 0.95)',
+          y: -2,
+          boxShadow: '0 20px 48px rgba(0,0,0,0.35)',
+        }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ duration: 0.45, ease: easeStd }}
+        onClick={() => navigate(withPath('/store'))}
+        className="home-shadow-allow flex h-12 min-h-[48px] min-w-[160px] items-center justify-center rounded-[12px] border border-white bg-white px-6 text-[14px] font-medium tracking-wide text-black shadow-[0_16px_48px_rgba(0,0,0,0.25)] lg:px-8 lg:ring-1 lg:ring-[#d4ff00]/25"
+      >
+        {t('home.hero.ctaBuy')}
+      </motion.button>
+    </span>
   );
 
   const ctaApp = (
-    <motion.button
-      type="button"
-      whileHover={{
-        borderColor: 'rgba(221, 247, 0, 1)',
-        color: '#ddf700',
-        y: -2,
-      }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ duration: 0.45, ease: easeStd }}
-      className="flex h-12 min-h-[48px] min-w-[160px] items-center justify-center rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-white/[0.04] px-6 text-[14px] font-medium tracking-wide text-white backdrop-blur-md lg:px-8"
-    >
-      {t('home.hero.ctaApp')}
-    </motion.button>
+    <span className="magnetic-btn inline-block">
+      <motion.button
+        type="button"
+        whileHover={{
+          borderColor: 'rgba(212, 255, 0, 0.85)',
+          color: '#d4ff00',
+          y: -2,
+        }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ duration: 0.45, ease: easeStd }}
+        className="flex h-12 min-h-[48px] min-w-[160px] items-center justify-center rounded-[12px] border border-[rgba(255,255,255,0.12)] bg-white/[0.04] px-6 text-[14px] font-medium tracking-wide text-white backdrop-blur-md lg:px-8 lg:ring-1 lg:ring-[#d4ff00]/22"
+      >
+        {t('home.hero.ctaApp')}
+      </motion.button>
+    </span>
   );
 
   return (
     <section
       id="hero"
-      className="relative z-[3] mb-0 flex h-full min-h-0 w-full flex-col items-end justify-center overflow-hidden bg-transparent px-6 pb-8 pt-20 text-[#F5F5F5] md:pb-10 md:pt-20 lg:h-full lg:min-h-0 lg:w-full lg:items-center lg:justify-center lg:px-0 lg:pb-0 lg:pt-0 lg:text-[var(--white)]"
+      className="product-hero relative z-[3] mb-0 flex h-full min-h-0 w-full flex-col items-end justify-center overflow-hidden bg-transparent px-6 pb-8 pt-20 text-[#F5F5F5] md:pb-10 md:pt-20 lg:h-full lg:min-h-0 lg:w-full lg:items-center lg:justify-center lg:px-0 lg:pb-0 lg:pt-0 lg:text-[var(--white)]"
     >
-      <img
-        src={HERO_IMAGE}
-        alt=""
-        className="pointer-events-none z-[50] h-full w-full origin-center scale-[0.7] select-none object-contain object-center max-lg:absolute max-lg:inset-0 lg:relative lg:col-start-1 lg:row-start-1 lg:min-h-[680px] lg:min-w-0 lg:scale-[0.63]"
-        referrerPolicy="no-referrer"
-        draggable={false}
-      />
+      <HeroUnicornStudioBackground />
+      <div className="home-hero-image-layer pointer-events-none z-[50] h-full w-full select-none max-lg:absolute max-lg:inset-0 lg:relative lg:col-start-1 lg:row-start-1 lg:min-h-[680px] lg:min-w-0">
+        <img
+          src={HERO_IMAGE}
+          alt=""
+          className="ring-shadow h-full w-full origin-center scale-[0.7] object-contain object-center lg:scale-[0.63]"
+          referrerPolicy="no-referrer"
+          draggable={false}
+        />
+      </div>
+      <span className="home-hero-light-sweep" aria-hidden />
 
       {/* 移动端文案区（层级高于图片，避免被盖住） */}
       <div className="relative z-[60] wrap mx-auto flex w-full flex-col items-end pb-4 text-right md:pb-6 lg:hidden">
@@ -113,17 +122,17 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* PC 文案区（右侧单独铺色，与左侧纯图分离） */}
+      {/* PC 文案区（右侧栅格列，与左侧主图分离） */}
       <div className="hero-content relative z-[60] hidden w-full min-w-0 flex-col lg:col-start-2 lg:row-start-1 lg:flex">
         <div className="hero-label">{t('home.hero.label')}</div>
         <h1 className="hero-title">
           {titleParts.length >= 2 ? (
             <>
-              {titleParts[0]}
-              <em> {titleParts[1]}</em>
+              <span className="split-text-reveal hero-title-part">{titleParts[0]}</span>
+              <em className="text-glow split-text-reveal hero-title-part not-italic"> {titleParts[1]}</em>
             </>
           ) : (
-            title
+            <span className="split-text-reveal hero-title-part">{title}</span>
           )}
         </h1>
         <p className="hero-sub hero-sub-split">

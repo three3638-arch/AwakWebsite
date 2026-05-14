@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInView } from 'motion/react';
 
+import HomeLifecycleStripBackdrop from './HomeLifecycleStripBackdrop';
+import SplashCursor from './SplashCursor';
+
 /**
  * 首页：位于「AI 伴身」模块下方；逐字显现，主文案使用规范最大 Display（约 56–72px）
  */
@@ -75,15 +78,33 @@ export default function HomeLifecycleStrip() {
     : n1a >= line1First.length;
 
   return (
-    <section className="home-lifecycle-strip relative z-[3] m-0 w-full border-0 bg-transparent px-6 py-16 md:px-8 md:py-24 lg:px-0 lg:py-0">
+    <section
+      id="home-lifecycle-copy"
+      className="home-lifecycle-strip relative isolate z-[40] m-0 mt-0 flex min-h-[85dvh] w-full flex-col items-center justify-center overflow-hidden border-0 bg-[#000000] px-6 pt-0 pb-16 md:px-8 md:pb-24 lg:mt-0 lg:min-h-[min(90dvh,960px)] lg:px-0 lg:py-0"
+    >
+      <HomeLifecycleStripBackdrop />
+      <div className="pointer-events-none absolute inset-0 z-[1] min-h-0 w-full overflow-hidden">
+        <SplashCursor
+          DYE_RESOLUTION={640}
+          DENSITY_DISSIPATION={2}
+          SPLAT_FORCE={8500}
+          SPLAT_RADIUS={0.3}
+          CURL={4}
+          BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+          SHADING={false}
+          RAINBOW_MODE={false}
+          COLOR="#DDF700"
+          TRANSPARENT
+        />
+      </div>
       <div
         ref={wrapRef}
-        className="wrap r d2 mx-auto max-w-[min(96vw,920px)] text-center font-medium leading-[1.03] tracking-[-0.03em] text-[#F5F5F5] [font-size:clamp(3.5rem,5.5vw,4.5rem)] lg:max-w-none lg:overflow-x-auto lg:[font-size:clamp(5.058rem,7.948vw,6.503rem)]"
+        className="lifecycle-strip-inner relative z-[2] wrap r d2 mx-auto w-full max-w-[min(96vw,920px)] text-center font-medium leading-[1.03] tracking-[-0.03em] text-[#ffffff] [font-size:clamp(3.5rem,5.5vw,4.5rem)] lg:max-w-[min(100%,56rem)] lg:overflow-x-auto lg:pt-0 lg:pb-[clamp(3.2rem,9.6vh,6rem)] lg:font-normal lg:[font-size:clamp(1.75rem,2.75vw,2.25rem)]"
       >
         <p className="lifecycle-display block min-h-[1.15em]">
           {line1First.slice(0, n1a)}
           {n1a < line1First.length ? (
-            <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-[#F5F5F5]/80 align-middle">
+            <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-white/90 align-middle">
               &nbsp;
             </span>
           ) : null}
@@ -92,7 +113,7 @@ export default function HomeLifecycleStrip() {
           <p className="lifecycle-display mt-2 block min-h-[1.15em] lg:mt-4">
             {line1Second.slice(0, n1b)}
             {n1a >= line1First.length && n1b < line1Second.length ? (
-              <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-[#F5F5F5]/80 align-middle">
+              <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-white/90 align-middle">
                 &nbsp;
               </span>
             ) : null}
@@ -101,15 +122,15 @@ export default function HomeLifecycleStrip() {
         <p className="lifecycle-display mt-2 block min-h-[1.15em] lg:mt-8">
           {line2.slice(0, n2)}
           {line1AllDone && n2 < line2.length ? (
-            <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-[#F5F5F5]/80 align-middle">
+            <span aria-hidden className="ml-0.5 inline-block w-[2px] animate-pulse bg-white/90 align-middle">
               &nbsp;
             </span>
           ) : null}
         </p>
-        <p className="lifecycle-lede home-section-lede mx-auto mt-6 max-w-[min(100%,42rem)] tracking-normal text-[#A7A7B2] lg:mt-12 lg:max-w-[min(100%,56rem)] lg:text-[83.25px] lg:leading-[1.5625]">
+        <p className="lifecycle-lede home-section-lede mx-auto mt-6 max-w-[min(100%,42rem)] text-center tracking-normal text-[#d4d4d8] lg:mt-10 lg:max-w-[min(100%,56rem)] lg:leading-[1.5625]">
           {line3.slice(0, n3)}
           {line1AllDone && n2 >= line2.length && n3 < line3.length ? (
-            <span aria-hidden className="ml-0.5 inline-block h-[1em] w-[2px] animate-pulse bg-[#A7A7B2]/90 align-middle">
+            <span aria-hidden className="ml-0.5 inline-block h-[1em] w-[2px] animate-pulse bg-[#d4d4d8]/90 align-middle">
               &nbsp;
             </span>
           ) : null}

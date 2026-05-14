@@ -139,35 +139,48 @@
         "b1": {
           "title": "Spring ’26 recap",
           "subtitle": "Where tech meets aesthetics",
-          "excerpt": "New wearables, tighter loop."
+          "excerpt": "Full recap: new wearables matrix, AWAK Cloud updates, and the open-stack roadmap—plus how rhythm data turns into actionable guidance."
         },
         "b2": {
           "title": "Art of breath",
           "subtitle": "A chat with our Chief Health Officer",
-          "excerpt": "Read signals. Act daily."
+          "excerpt": "From breath and rhythm to signals you can track—without losing the human side, with practice tempos you can reuse in daily training."
         },
         "b3": {
           "title": "City cycling",
           "subtitle": "Connecting communities by route",
-          "excerpt": "Commute meets training & crew."
+          "excerpt": "Partnering with riders and cities to map healthier mobility networks so commuting, social rides, and light training share one timeline."
         },
         "b4": {
           "title": "Inclusive design",
           "subtitle": "Technology that serves everyone",
-          "excerpt": "Tech that serves everyone."
+          "excerpt": "Accessibility in interaction, type, and feedback—shipping into the next generation, with reusable component specs and QA checklists."
         },
         "b5": {
           "title": "Materials lab",
           "subtitle": "Finding gentler ways to wear all day",
-          "excerpt": "Softer wear, all day long."
+          "excerpt": "Skin-friendly wear tests and durability learnings from our first materials sprint, plus the next batch of candidates and ergonomics studies."
         },
         "b6": {
           "title": "Sleep summit",
           "subtitle": "Inside deep sleep",
-          "excerpt": "Deep sleep & rhythm, decoded."
+          "excerpt": "Working with researchers on staging and recovery—rolling into the next model release, with notes on explainable staging from the floor."
         },
-        "b7": { "title": "Ecosystem partners", "subtitle": "Building an open blueprint for digital life" },
-        "b8": { "title": "User stories", "subtitle": "Turning change into visible progress" }
+        "b7": {
+          "title": "Ecosystem partners",
+          "subtitle": "Building an open blueprint for digital life",
+          "excerpt": "Entry paths for developers and institutions—programs, APIs, and compliance guidance so you can choose SDKs, webhooks, or bulk exports."
+        },
+        "b8": {
+          "title": "Clinical collaboration white paper",
+          "subtitle": "Wearable vitals and remote follow-up",
+          "excerpt": "Joint guidance from hospitals and research partners on using wearable vitals outside the clinic—sampling cadence, alerts, and audit trails."
+        },
+        "b9": {
+          "title": "Winter sports safety guide",
+          "subtitle": "Rhythm and load in cold weather",
+          "excerpt": "How heart rate, temperature, and training load couple in the cold—practical tips for outdoor runs and ski days so early warnings stay readable."
+        }
       }
     },
     "slogan": {

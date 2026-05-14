@@ -588,9 +588,14 @@ export default function ValueProposition() {
   position:relative;
 }
 @media (min-width:1024px){
+  #${uid}-root{overflow-x:visible;}
   #${uid}-root .vpd-sec{
     padding-top:max(var(--home-layout-section-y, 96px), env(safe-area-inset-top));
     padding-bottom:max(var(--home-layout-section-y, 96px), env(safe-area-inset-bottom));
+  }
+  /* 「AWAK 健康闭环」PC：表盘区右移基础上再向左偏移约 10%（相对本栏宽度） */
+  #${uid}-root .vpd-stage-host{
+    transform:translateX(calc(clamp(72px, 18vw, 280px) - 10%));
   }
 }
 /* 横向留白由全局 .wrap（padding + max-width）控制，与 #data-insights 内层一致 */
@@ -717,7 +722,7 @@ export default function ValueProposition() {
 }
 `}</style>
 
-      <section ref={rootRef} id={`${uid}-root`} className="home-value-proposition relative z-[3] isolate w-full">
+      <section ref={rootRef} id={`${uid}-root`} className="home-value-proposition relative z-[3] isolate w-full overflow-x-hidden lg:overflow-x-visible">
         <div className="vpd-sec" id={`${uid}-sec`}>
           {/* 双栏结构与首页「看懂数据才能改变生活」(#data-insights)一致：flex + lg:gap-x-10 xl:gap-x-12 */}
           <div className="vpd-inner relative z-10 mx-auto w-full min-w-0 wrap py-8 lg:py-0">
@@ -837,7 +842,7 @@ export default function ValueProposition() {
                 </div>
               </div>
 
-              <div className="vpd-copy order-1 relative flex min-h-0 min-w-0 flex-1 flex-col items-start text-left lg:order-2 lg:ml-0 lg:h-full lg:min-h-0 lg:w-[40%] lg:max-w-[40%] lg:flex-shrink-0 lg:justify-between lg:space-y-10">
+              <div className="vpd-copy order-1 relative flex min-h-0 min-w-0 flex-1 flex-col items-start text-left lg:order-2 lg:ml-0 lg:h-full lg:min-h-0 lg:w-[40%] lg:max-w-[40%] lg:flex-shrink-0 lg:justify-between lg:space-y-10 lg:translate-x-[50%]">
                 <div
                   className="pointer-events-none absolute right-0 top-0 hidden lg:flex lg:h-9 lg:w-9 lg:items-center lg:justify-center"
                   aria-hidden

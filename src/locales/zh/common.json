@@ -182,43 +182,55 @@
           "title": "AWAK 2026 春季发布会回顾",
           "subtitle": "探索科技与美学的共生",
           "date": "2026.03.18",
-          "excerpt": "发布会完整回顾：新一代穿戴矩阵、AWAK Cloud 升级与开放生态路线。"
+          "excerpt": "发布会完整回顾：新一代穿戴矩阵、AWAK Cloud 升级与开放生态路线，现场也解读了节律数据如何沉淀为可执行建议。"
         },
         "b2": {
           "title": "关于呼吸的艺术",
           "subtitle": "对话首席健康官",
           "date": "2026.02.26",
-          "excerpt": "从节律与呼吸入手，谈如何把主观感受转译为可追踪的信号。"
+          "excerpt": "从节律与呼吸入手，谈如何把主观感受转译为可追踪的信号，并给出可在日常训练里直接套用的练习节奏。"
         },
         "b3": {
           "title": "城市骑行计划",
           "subtitle": "用轨迹连接社区",
           "date": "2026.02.09",
-          "excerpt": "联合骑行社群与城市伙伴，用轨迹数据讲述身边的健康网络。"
+          "excerpt": "联合骑行社群与城市伙伴，用轨迹数据讲述身边的健康网络，让通勤、社交与轻运动在同一条时间线上被看见。"
         },
         "b4": {
           "title": "无障碍设计的未来",
           "subtitle": "让技术服务于每一个人",
           "date": "2026.01.22",
-          "excerpt": "交互、字体与反馈路径的可及性实践，进入下一代产品定义。"
+          "excerpt": "交互、字体与反馈路径的可及性实践，进入下一代产品定义，我们整理了可复用的组件规范与验证清单。"
         },
         "b5": {
           "title": "材质实验室",
           "subtitle": "寻找更亲肤的佩戴答案",
           "date": "2026.01.05",
-          "excerpt": "长期佩戴场景下的温润触感与耐久测试，一期结论公开。"
+          "excerpt": "长期佩戴场景下的温润触感与耐久测试，一期结论公开，同时公布了下一批候选材料与人体工学实验计划。"
         },
         "b6": {
           "title": "全球睡眠研究峰会",
           "subtitle": "解码深度睡眠的奥秘",
           "date": "2025.12.14",
-          "excerpt": "与学界共建睡眠分期与恢复指标，下一版算法将同步推送。"
+          "excerpt": "与学界共建睡眠分期与恢复指标，下一版算法将同步推送，文章也整理了会议里对「可解释分期」的关键共识。"
         },
         "b7": {
           "title": "生态伙伴计划",
           "subtitle": "共筑开放的数字生命蓝图",
           "date": "2025.11.30",
-          "excerpt": "面向开发者与机构的接入路径、联合方案与合规指引一览。"
+          "excerpt": "面向开发者与机构的接入路径、联合方案与合规指引一览，帮助你判断在何种场景下该走 SDK、Webhook 还是批量导出。"
+        },
+        "b8": {
+          "title": "临床合作白皮书",
+          "subtitle": "可穿戴体征与院外随访",
+          "date": "2025.11.12",
+          "excerpt": "联合三甲与科研机构发布可穿戴体征在院外随访中的应用指引，涵盖采样频率、异常回传与安全留痕，便于伙伴对齐交付标准。"
+        },
+        "b9": {
+          "title": "冬季运动防护指南",
+          "subtitle": "低温场景下的节律与负荷",
+          "date": "2025.10.28",
+          "excerpt": "结合低温环境下心率、体温与运动负荷的耦合关系，整理户外跑步与滑雪场景的佩戴建议，帮你读懂身体给出的预警信号。"
         }
       }
     },
@@ -263,7 +275,71 @@
           { "label": "TEMP" },
           { "label": "EDA" }
         ]
-      }
+      },
+      "carouselAria": "多模态传感示意轮播",
+      "carouselDot": "第 {{index}} 张",
+      "carousel": [
+        {
+          "image": "https://i.ibb.co/zWLc5k7G/4.jpg",
+          "title": "PPG 光学链路",
+          "dataRows": [
+            { "label": "采样率", "value": "256 Hz" },
+            { "label": "通道", "value": "绿光 + 红外" },
+            { "label": "输出", "value": "心率 / SpO₂ / HRV" },
+            { "label": "延迟", "value": "< 2 s（典型）" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/zVcfTmFX/2.jpg",
+          "title": "IMU 惯性阵列",
+          "dataRows": [
+            { "label": "加速度", "value": "±16 g" },
+            { "label": "陀螺仪", "value": "2000 dps" },
+            { "label": "用途", "value": "姿态 / 步态 / 活动" },
+            { "label": "融合", "value": "9 轴解算" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/zWdVr7yj/3.jpg",
+          "title": "温度传感",
+          "dataRows": [
+            { "label": "精度", "value": "±0.1 °C" },
+            { "label": "量程", "value": "20–45 °C" },
+            { "label": "场景", "value": "皮肤 / 环境" },
+            { "label": "周期", "value": "连续 / 定时" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/DHN2kG05/MG-Super-Knit-Band-WHOOP-The-Worlds-Most-Powerful-Fitness-Membership.webp",
+          "title": "EDA 皮电",
+          "dataRows": [
+            { "label": "指标", "value": "皮肤电导" },
+            { "label": "用途", "value": "压力 / 唤醒" },
+            { "label": "采样", "value": "低频省功耗" },
+            { "label": "校准", "value": "个体基线" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/rGrWSFvw/51-Pinterest.webp",
+          "title": "多源融合",
+          "dataRows": [
+            { "label": "输入", "value": "4+ 物理模态" },
+            { "label": "对齐", "value": "时间戳同步" },
+            { "label": "降噪", "value": "端侧滤波" },
+            { "label": "置信度", "value": "分层输出" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/4ZRqFkWq/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring-2.jpg",
+          "title": "边缘计算",
+          "dataRows": [
+            { "label": "算力", "value": "NPU + MCU" },
+            { "label": "推理", "value": "本地特征" },
+            { "label": "上云", "value": "节律摘要" },
+            { "label": "功耗", "value": "亚毫瓦级待机" }
+          ]
+        }
+      ]
     },
     "slogan": {
       "titleLine1": "智能科技",
@@ -364,22 +440,46 @@
         "ring": {
           "brand": "智能戒指",
           "category": "年轻时尚元气感知",
-          "subtitle": ""
+          "subtitle": "",
+          "dataRows": [
+            { "label": "连续心率", "value": "24h 监测" },
+            { "label": "血氧 SpO₂", "value": "夜间追踪" },
+            { "label": "睡眠评分", "value": "深度分析" },
+            { "label": "典型续航", "value": "7 天+" }
+          ]
         },
         "band": {
           "brand": "智能手环",
           "category": "银发守护紧急呼救",
-          "subtitle": ""
+          "subtitle": "",
+          "dataRows": [
+            { "label": "紧急呼救", "value": "一键 SOS" },
+            { "label": "心率预警", "value": "实时推送" },
+            { "label": "活动追踪", "value": "步数·热量" },
+            { "label": "典型续航", "value": "14 天" }
+          ]
         },
         "watch": {
           "brand": "智能手表",
           "category": "高精心率跑马无忧",
-          "subtitle": ""
+          "subtitle": "",
+          "dataRows": [
+            { "label": "定位", "value": "双频 GPS" },
+            { "label": "心率区间", "value": "5 区训练" },
+            { "label": "运动模式", "value": "100+ 种" },
+            { "label": "防水等级", "value": "5 ATM" }
+          ]
         },
         "glasses": {
           "brand": "智能眼镜",
           "category": "听视陪伴轻松出行",
-          "subtitle": ""
+          "subtitle": "",
+          "dataRows": [
+            { "label": "开放聆听", "value": "OWS 声学" },
+            { "label": "通话降噪", "value": "AI 增强" },
+            { "label": "综合续航", "value": "全天使用" },
+            { "label": "佩戴重量", "value": "轻量设计" }
+          ]
         }
       }
     }

@@ -177,6 +177,30 @@ const MOCK_ARTICLES: Article[] = [
     date: '2024.02.20',
     readingTime: '5分钟',
     author: 'AWAK 生态部'
+  },
+  {
+    id: 'b8',
+    category: 'INSIGHTS',
+    tag: '行业洞察 INSIGHTS',
+    title: '临床合作白皮书',
+    subtitle: '可穿戴体征与院外随访',
+    summary: '联合三甲与科研机构，梳理可穿戴体征在院外随访中的采样、回传与合规要点，便于伙伴对齐交付标准。',
+    img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80',
+    date: '2024.02.12',
+    readingTime: '9分钟',
+    author: 'AWAK 医学事务组'
+  },
+  {
+    id: 'b9',
+    category: 'STORIES',
+    tag: '用户故事 STORIES',
+    title: '冬季运动防护指南',
+    subtitle: '低温场景下的节律与负荷',
+    summary: '结合低温环境下心率、体温与运动负荷的耦合关系，整理户外跑步与滑雪场景的佩戴与恢复建议。',
+    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80',
+    date: '2024.02.05',
+    readingTime: '7分钟',
+    author: 'AWAK 运动科学组'
   }
 ];
 

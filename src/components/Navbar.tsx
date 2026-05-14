@@ -83,7 +83,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-[9997] flex items-center justify-between ${
         isHomeIndex
-          ? `nav-home-spec nav-home-typography px-6 max-lg:h-14 max-lg:min-h-[56px] max-lg:bg-[rgba(0,0,0,0.8)] max-lg:backdrop-blur-[20px] max-lg:border-b max-lg:border-[rgba(255,255,255,0.1)] ${scrolled ? 'sx' : ''}`
+          ? `magnetic-nav-home nav-home-spec nav-home-typography px-6 max-lg:h-14 max-lg:min-h-[56px] max-lg:bg-[rgba(0,0,0,0.8)] max-lg:backdrop-blur-[20px] max-lg:border-b max-lg:border-[rgba(255,255,255,0.1)] ${scrolled ? 'sx' : ''}`
           : `${navPaddingDefault} ${navSurfaceDefault}`
       }`}
       style={{
@@ -105,7 +105,7 @@ export default function Navbar() {
         {NAV_ROWS.map((item) => (
           <NavItemTag
             key={item.key}
-            className="relative"
+            className={isHomeIndex ? 'relative magnetic-btn' : 'relative'}
             onMouseEnter={() => item.kind === 'dropdown' && setIsHardwareOpen(true)}
             onMouseLeave={() => item.kind === 'dropdown' && setIsHardwareOpen(false)}
           >
@@ -204,17 +204,19 @@ export default function Navbar() {
           <User className="w-[18px] h-[18px]" />
         </Link>
         {!['/store', '/checkout'].includes(basePath) && (
-          <Link
-            to={withPath('/store')}
-            className={`hidden md:flex items-center gap-2 font-medium transition-colors ${
-              isHomeIndex ? 'nav-home-store btn btn-w ml-2' : 'ml-2 h-12 min-h-[48px] rounded-full bg-[#DDF700] px-6 py-2.5 text-[15px] font-semibold text-[#080808] transition-all hover:bg-[#E6FF00]'
-            }`}
-          >
-            {!isHomeIndex ? (
-              <ShoppingCart className="h-4 w-4 shrink-0 lg:h-[27px] lg:w-[27px]" style={{ strokeWidth: 2.5 }} />
-            ) : null}
-            {t('nav.store')}
-          </Link>
+          <span className={isHomeIndex ? 'magnetic-btn ml-2 inline-flex' : 'ml-2 inline-flex'}>
+            <Link
+              to={withPath('/store')}
+              className={`hidden md:flex items-center gap-2 font-medium transition-colors ${
+                isHomeIndex ? 'nav-home-store btn btn-w' : 'h-12 min-h-[48px] rounded-full bg-[#DDF700] px-6 py-2.5 text-[15px] font-semibold text-[#080808] transition-all hover:bg-[#E6FF00]'
+              }`}
+            >
+              {!isHomeIndex ? (
+                <ShoppingCart className="h-4 w-4 shrink-0 lg:h-[27px] lg:w-[27px]" style={{ strokeWidth: 2.5 }} />
+              ) : null}
+              {t('nav.store')}
+            </Link>
+          </span>
         )}
 
         <button

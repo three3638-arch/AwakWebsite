@@ -182,43 +182,55 @@
           "title": "AWAK Spring 2026 keynote recap",
           "subtitle": "Where tech meets aesthetics",
           "date": "2026.03.18",
-          "excerpt": "Full recap: new wearables matrix, AWAK Cloud updates, and the open-stack roadmap."
+          "excerpt": "Full recap: new wearables matrix, AWAK Cloud updates, and the open-stack roadmap—plus how rhythm data turns into actionable guidance."
         },
         "b2": {
           "title": "The art of breathing",
           "subtitle": "A chat with our Chief Health Officer",
           "date": "2026.02.26",
-          "excerpt": "From breath and rhythm to signals you can track—without losing the human side."
+          "excerpt": "From breath and rhythm to signals you can track—without losing the human side, with practice tempos you can reuse in daily training."
         },
         "b3": {
           "title": "City cycling initiative",
           "subtitle": "Connecting communities by route",
           "date": "2026.02.09",
-          "excerpt": "Partnering with riders and cities to map healthier mobility networks."
+          "excerpt": "Partnering with riders and cities to map healthier mobility networks so commuting, social rides, and light training share one timeline."
         },
         "b4": {
           "title": "The future of inclusive design",
           "subtitle": "Technology that serves everyone",
           "date": "2026.01.22",
-          "excerpt": "Accessibility in interaction, type, and feedback—shipping into the next generation."
+          "excerpt": "Accessibility in interaction, type, and feedback—shipping into the next generation, with reusable component specs and QA checklists."
         },
         "b5": {
           "title": "Materials lab",
           "subtitle": "Finding gentler ways to wear all day",
           "date": "2026.01.05",
-          "excerpt": "Skin-friendly wear tests and durability learnings from our first materials sprint."
+          "excerpt": "Skin-friendly wear tests and durability learnings from our first materials sprint, plus the next batch of candidates and ergonomics studies."
         },
         "b6": {
           "title": "Global sleep research summit",
           "subtitle": "Inside deep sleep",
           "date": "2025.12.14",
-          "excerpt": "Working with researchers on staging and recovery—rolling into the next model release."
+          "excerpt": "Working with researchers on staging and recovery—rolling into the next model release, with notes on explainable staging from the floor."
         },
         "b7": {
           "title": "Ecosystem partners",
           "subtitle": "Building an open blueprint for digital life",
           "date": "2025.11.30",
-          "excerpt": "Entry paths for developers and institutions—programs, APIs, and compliance guidance."
+          "excerpt": "Entry paths for developers and institutions—programs, APIs, and compliance guidance so you can choose SDKs, webhooks, or bulk exports."
+        },
+        "b8": {
+          "title": "Clinical collaboration white paper",
+          "subtitle": "Wearable vitals and remote follow-up",
+          "date": "2025.11.12",
+          "excerpt": "Joint guidance from hospitals and research partners on using wearable vitals outside the clinic—sampling cadence, alerts, and audit trails."
+        },
+        "b9": {
+          "title": "Winter sports safety guide",
+          "subtitle": "Rhythm and load in cold weather",
+          "date": "2025.10.28",
+          "excerpt": "How heart rate, temperature, and training load couple in the cold—practical tips for outdoor runs and ski days so early warnings stay readable."
         }
       }
     },
@@ -263,7 +275,71 @@
           { "label": "TEMP" },
           { "label": "EDA" }
         ]
-      }
+      },
+      "carouselAria": "Multimodal sensing carousel",
+      "carouselDot": "Slide {{index}}",
+      "carousel": [
+        {
+          "image": "https://i.ibb.co/zWLc5k7G/4.jpg",
+          "title": "PPG optical stack",
+          "dataRows": [
+            { "label": "Sample rate", "value": "256 Hz" },
+            { "label": "Channels", "value": "Green + IR" },
+            { "label": "Outputs", "value": "HR / SpO₂ / HRV" },
+            { "label": "Latency", "value": "< 2 s (typ.)" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/zVcfTmFX/2.jpg",
+          "title": "IMU inertial array",
+          "dataRows": [
+            { "label": "Accel", "value": "±16 g" },
+            { "label": "Gyro", "value": "2000 dps" },
+            { "label": "Use", "value": "Pose / gait / activity" },
+            { "label": "Fusion", "value": "9-axis solve" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/zWdVr7yj/3.jpg",
+          "title": "Temperature",
+          "dataRows": [
+            { "label": "Accuracy", "value": "±0.1 °C" },
+            { "label": "Range", "value": "20–45 °C" },
+            { "label": "Scene", "value": "Skin / ambient" },
+            { "label": "Cadence", "value": "Cont. / timed" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/DHN2kG05/MG-Super-Knit-Band-WHOOP-The-Worlds-Most-Powerful-Fitness-Membership.webp",
+          "title": "EDA galvanic",
+          "dataRows": [
+            { "label": "Metric", "value": "Skin conductance" },
+            { "label": "Use", "value": "Stress / arousal" },
+            { "label": "Sampling", "value": "Low-power" },
+            { "label": "Calib.", "value": "Personal baseline" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/rGrWSFvw/51-Pinterest.webp",
+          "title": "Multi-source fusion",
+          "dataRows": [
+            { "label": "Inputs", "value": "4+ modalities" },
+            { "label": "Align", "value": "Timestamp sync" },
+            { "label": "Denoise", "value": "On-device filters" },
+            { "label": "Confidence", "value": "Tiered outputs" }
+          ]
+        },
+        {
+          "image": "https://i.ibb.co/4ZRqFkWq/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring-2.jpg",
+          "title": "Edge compute",
+          "dataRows": [
+            { "label": "Compute", "value": "NPU + MCU" },
+            { "label": "Inference", "value": "Local features" },
+            { "label": "Cloud", "value": "Rhythm summaries" },
+            { "label": "Power", "value": "Sub-mW standby" }
+          ]
+        }
+      ]
     },
     "slogan": {
       "titleLine1": "Smart tech",
@@ -364,22 +440,46 @@
         "ring": {
           "brand": "Awak Ring",
           "category": "Smart ring",
-          "subtitle": "A stylish smart ring for everyday wellness"
+          "subtitle": "A stylish smart ring for everyday wellness",
+          "dataRows": [
+            { "label": "Heart rate", "value": "24h tracking" },
+            { "label": "SpO₂", "value": "Overnight" },
+            { "label": "Sleep score", "value": "Deep insights" },
+            { "label": "Battery", "value": "7+ days" }
+          ]
         },
         "band": {
           "brand": "Awak Bracelet",
           "category": "Smart band",
-          "subtitle": "Dedicated care for ages 55–75"
+          "subtitle": "Dedicated care for ages 55–75",
+          "dataRows": [
+            { "label": "Emergency", "value": "One-tap SOS" },
+            { "label": "HR alerts", "value": "Live push" },
+            { "label": "Activity", "value": "Steps & kcal" },
+            { "label": "Battery", "value": "14 days" }
+          ]
         },
         "watch": {
           "brand": "Awak Watch",
           "category": "Sports smartwatch",
-          "subtitle": "Pro-grade training on your wrist"
+          "subtitle": "Pro-grade training on your wrist",
+          "dataRows": [
+            { "label": "GNSS", "value": "Dual-band" },
+            { "label": "HR zones", "value": "5-zone" },
+            { "label": "Workouts", "value": "100+ modes" },
+            { "label": "Water resist", "value": "5 ATM" }
+          ]
         },
         "glasses": {
           "brand": "Awak Glasses",
           "category": "Smart glasses",
-          "subtitle": "Essential assistive tech for hearing & vision needs"
+          "subtitle": "Essential assistive tech for hearing & vision needs",
+          "dataRows": [
+            { "label": "Open audio", "value": "OWS" },
+            { "label": "Calls", "value": "AI noise cut" },
+            { "label": "Battery", "value": "All-day" },
+            { "label": "Weight", "value": "Light fit" }
+          ]
         }
       }
     }

@@ -65,6 +65,16 @@ const LG_MASONRY_PLACEMENTS: [number, number, number, number][] = [
   [1, 5, 3, 6],
 ];
 
+const LARGE_TILE_INDEXES = new Set(
+  LG_MASONRY_PLACEMENTS.map((placement, idx) => {
+    const [r1, c1, r2, c2] = placement;
+    return { idx, cells: (r2 - r1) * (c2 - c1) };
+  })
+    .sort((a, b) => b.cells - a.cells || a.idx - b.idx)
+    .slice(0, 6)
+    .map((item) => item.idx),
+);
+
 function buildDesktopCollageItems(t: TFunction): { src: string; title: string; desc: string }[] {
   const out: { src: string; title: string; desc: string }[] = [];
   for (const id of PRODUCT_IDS) {
@@ -94,6 +104,21 @@ function placementTier(pl: [number, number, number, number]): 0 | 1 | 2 | 3 {
   return 3;
 }
 
+function buildScenarioInsight(title: string, desc: string, index: number) {
+  const safeTitle = title || '智能硬件场景';
+  return {
+    summary: `${safeTitle}会把硬件采集到的身体状态、环境变化和行为节奏整合成一条连续的健康线索，让用户在真实生活场景里更快理解风险、恢复和行动建议。`,
+    detail: desc
+      ? `${desc} 系统会在后台同步分析心率、睡眠、运动、位置与异常事件，并把关键提醒压缩成可以马上执行的建议。`
+      : '系统会在后台同步分析心率、睡眠、运动、位置与异常事件，并把关键提醒压缩成可以马上执行的建议。',
+    metrics: [
+      { label: '响应速度', value: index % 2 === 0 ? '<3s' : '<5s' },
+      { label: '数据维度', value: `${6 + (index % 4)}项` },
+      { label: '场景覆盖', value: index % 3 === 0 ? '全天候' : '高频' },
+    ],
+  };
+}
+
 export default function ImmersiveScenarios() {
   const { t } = useTranslation('common');
   const productsData = useMemo(() => {
@@ -112,6 +137,12 @@ export default function ImmersiveScenarios() {
   }, [t]);
 
   const [activeProductId, setActiveProductId] = useState<(typeof PRODUCT_IDS)[number]>(PRODUCT_IDS[0]);
+  const [selectedScenario, setSelectedScenario] = useState<{
+    index: number;
+    title: string;
+    desc: string;
+    src: string;
+  } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.3 });
@@ -120,6 +151,9 @@ export default function ImmersiveScenarios() {
     productsData.find((p) => p.id === activeProductId) ?? productsData[0];
 
   const desktopCollageItems = useMemo(() => buildDesktopCollageItems(t), [t]);
+  const selectedInsight = selectedScenario
+    ? buildScenarioInsight(selectedScenario.title, selectedScenario.desc, selectedScenario.index)
+    : null;
 
   return (
     <>
@@ -189,7 +223,7 @@ export default function ImmersiveScenarios() {
                 return (
                   <div
                     key={idx}
-                    className={`group/item relative aspect-[16/10] flex-shrink-0 snap-start overflow-hidden rounded-[12px] border border-[rgba(255,255,255,0.1)] bg-[#09090b] ${widthClass}`}
+                    className={`group/item relative aspect-[16/10] flex-shrink-0 snap-start overflow-hidden rounded-[12px] bg-[#09090b] ${widthClass}`}
                   >
                     <img
                       src={feature.img}
@@ -254,7 +288,7 @@ export default function ImmersiveScenarios() {
       {/* PC ≥1024px：20 张不规则拼贴 + 顶黑/底白多段渐变 + 大图叠字 + 左右交错进场 */}
       <section
         id="immersive-desktop"
-        className="relative z-[3] hidden h-[100dvh] max-h-[100vh] w-full overflow-hidden bg-transparent text-white lg:block"
+        className="relative z-[3] hidden h-[100dvh] max-h-[100vh] w-full overflow-hidden bg-black text-white lg:block"
       >
         <div
           className="pointer-events-none absolute left-0 right-0 top-0 z-[40] h-[26%] min-h-[120px]"
@@ -268,7 +302,7 @@ export default function ImmersiveScenarios() {
           className="pointer-events-none absolute bottom-0 left-0 right-0 z-[40] h-[28%] min-h-[120px]"
           style={{
             background:
-              'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.78) 10%, rgba(255,255,255,0.42) 28%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0.05) 72%, rgba(255,255,255,0.012) 88%, rgba(255,255,255,0) 100%)',
+              'linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.72) 18%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)',
           }}
           aria-hidden
         />
@@ -288,6 +322,7 @@ export default function ImmersiveScenarios() {
               const cells = (r2 - r1) * (c2 - c1);
               const showOverlay = tier <= 2 && cells >= 6;
               const showDesc = tier <= 1 && cells >= 10 && item.title.trim().length > 0;
+              const isLargeInteractiveTile = LARGE_TILE_INDEXES.has(idx);
 
               const titleClass =
                 'home-immersive-tile-title text-[clamp(12px,1.05vw,16px)] font-medium leading-snug tracking-[-0.01em]';
@@ -300,7 +335,7 @@ export default function ImmersiveScenarios() {
               return (
                 <motion.article
                   key={`collage-${idx}-${item.src}`}
-                  className="home-shadow-allow group/tile relative min-h-0 overflow-hidden rounded-[8px] border border-white/[0.08] bg-neutral-900/40 shadow-[0_28px_72px_rgba(0,0,0,0.45)] backdrop-blur-[2px] transition-[transform,box-shadow] duration-300 ease-out hover:border-white/[0.12] hover:shadow-[0_32px_72px_rgba(0,0,0,0.5)]"
+                  className="home-shadow-allow group/tile relative min-h-0 overflow-hidden rounded-[8px] bg-neutral-900/40 shadow-[0_28px_72px_rgba(0,0,0,0.45)] backdrop-blur-[2px] transition-[transform,box-shadow] duration-300 ease-out hover:shadow-[0_32px_72px_rgba(0,0,0,0.5)]"
                   style={{
                     gridRow: `${r1} / ${r2}`,
                     gridColumn: `${c1} / ${c2}`,
@@ -336,11 +371,106 @@ export default function ImmersiveScenarios() {
                       {showDesc && item.desc ? <p className={descClass}>{item.desc}</p> : null}
                     </div>
                   ) : null}
+
+                  {isLargeInteractiveTile ? (
+                    <div className="group/control absolute bottom-4 right-4 z-[5]">
+                      <button
+                        type="button"
+                        aria-label={`查看${item.title || `场景 ${idx + 1}`}介绍`}
+                        onClick={() => setSelectedScenario({ index: idx, title: item.title, desc: item.desc, src: item.src })}
+                        className="home-shadow-allow flex h-8 w-8 items-center justify-center rounded-full bg-white text-[18px] font-light leading-none text-black shadow-[0_14px_32px_rgba(0,0,0,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#DDF700] hover:text-black"
+                      >
+                        +
+                      </button>
+
+                      <div className="pointer-events-none absolute bottom-[calc(100%+10px)] right-0 w-[230px] translate-y-2 rounded-[16px] border border-white/20 bg-white/[0.08] p-4 text-left opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 group-hover/tile:translate-y-0 group-hover/tile:opacity-100 group-hover/control:translate-y-0 group-hover/control:opacity-100">
+                        <div className="mb-3 flex items-center justify-between pb-2">
+                          <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">DATA</span>
+                          <span className="font-mono text-[10px] text-[#DDF700]">0{idx + 1}</span>
+                        </div>
+                        <div className="grid grid-cols-[52px_1fr] gap-x-3 gap-y-2 text-[11px] leading-relaxed">
+                          <span className="text-white/42">场景</span>
+                          <span className="line-clamp-1 text-white/90">{item.title || '智能硬件场景'}</span>
+                          <span className="text-white/42">说明</span>
+                          <span className="line-clamp-3 text-white/72">{item.desc || '点击查看完整介绍'}</span>
+                          <span className="text-white/42">状态</span>
+                          <span className="text-[#DDF700]">可查看</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
                 </motion.article>
               );
             })}
           </div>
         </div>
+
+        <AnimatePresence>
+          {selectedScenario && selectedInsight ? (
+            <motion.div
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/68 px-6 backdrop-blur-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedScenario(null)}
+            >
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={selectedScenario.title || '场景介绍'}
+                className="home-shadow-allow relative grid w-full max-w-[1080px] overflow-hidden rounded-[32px] bg-[#080809] shadow-[0_44px_140px_rgba(0,0,0,0.62)] md:grid-cols-[1fr_1.18fr]"
+                initial={{ y: 34, scale: 0.96, opacity: 0, filter: 'blur(12px)' }}
+                animate={{ y: 0, scale: 1, opacity: 1, filter: 'blur(0px)' }}
+                exit={{ y: 18, scale: 0.98, opacity: 0, filter: 'blur(8px)' }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="relative min-h-[520px] overflow-hidden">
+                  <img
+                    src={selectedScenario.src}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                </div>
+
+                <div className="relative flex min-h-[520px] flex-col justify-center p-8 md:p-12">
+                  <button
+                    type="button"
+                    aria-label="关闭场景介绍"
+                    onClick={() => setSelectedScenario(null)}
+                    className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.08] text-[22px] font-light text-white/80 transition-colors duration-300 hover:bg-white/14 hover:text-white"
+                  >
+                    ×
+                  </button>
+                  <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.18em] text-[#DDF700]">
+                    Scenario.0{selectedScenario.index + 1}
+                  </div>
+                  <h3 className="max-w-[420px] text-[clamp(2rem,3vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.04em] text-white">
+                    {selectedScenario.title || '智能硬件应用场景'}
+                  </h3>
+                  <p className="mt-6 max-w-[560px] text-[16px] font-normal leading-[1.85] text-white/72">
+                    {selectedInsight.summary}
+                  </p>
+                  <p className="mt-4 max-w-[560px] text-[14px] font-normal leading-[1.8] text-white/52">
+                    {selectedInsight.detail}
+                  </p>
+                  <div className="mt-8 grid max-w-[560px] grid-cols-3 gap-3">
+                    {selectedInsight.metrics.map((metric) => (
+                      <div key={metric.label} className="rounded-[18px] bg-white/[0.06] p-4">
+                        <div className="text-[11px] uppercase tracking-[0.16em] text-white/38">{metric.label}</div>
+                        <div className="mt-3 text-[clamp(1.35rem,2vw,2rem)] font-medium leading-none text-white">
+                          {metric.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </section>
     </>
   );

@@ -21,3 +21,6 @@ yarn-error.log*
 
 # Vite cache
 .vite/
+
+# Upstream reference (re-clone: git clone https://github.com/barvian/CodropsCarousels.git vendor/CodropsCarousels)
+vendor/CodropsCarousels/

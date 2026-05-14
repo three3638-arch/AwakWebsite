@@ -19,6 +19,8 @@ const STORE_LINK: Record<(typeof CARD_IDS)[number], string> = {
   glasses: '/store/glasses',
 };
 
+type TeamDataRow = { label: string; value: string };
+
 export default function TeamSection() {
   const { withPath } = useLocalePath();
   const { t } = useTranslation('common');
@@ -27,7 +29,7 @@ export default function TeamSection() {
   return (
     <section
       id="team"
-      className="relative z-[3] m-0 mt-0 w-full bg-transparent px-6 py-8 md:px-8 md:py-10 lg:m-0 lg:mt-0 lg:h-[100vh] lg:max-h-[100vh] lg:min-h-0 lg:overflow-hidden lg:p-0 lg:px-0 lg:py-0"
+      className="relative z-[3] m-0 mt-0 mb-0 w-full bg-transparent px-6 pt-8 pb-0 md:px-8 md:pt-10 md:pb-0 lg:m-0 lg:mt-0 lg:mb-0 lg:h-[100vh] lg:max-h-[100vh] lg:min-h-0 lg:overflow-hidden lg:bg-black lg:p-0 lg:px-0 lg:py-0"
     >
       {/* 桌面：顶部多段黑→透明，避免硬分割 */}
       <div
@@ -54,6 +56,10 @@ export default function TeamSection() {
           const brand = t(`home.team.cards.${id}.brand`);
           const category = t(`home.team.cards.${id}.category`);
           const subtitle = t(`home.team.cards.${id}.subtitle`);
+          const dataRowsRaw = t(`home.team.cards.${id}.dataRows`, { returnObjects: true });
+          const dataRows: TeamDataRow[] = Array.isArray(dataRowsRaw)
+            ? (dataRowsRaw as TeamDataRow[])
+            : [];
 
           return (
             <motion.div
@@ -63,7 +69,7 @@ export default function TeamSection() {
               viewport={{ once: true }}
               transition={{ duration: 1.15, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -3 }}
-              className="group relative flex min-h-[42vw] cursor-pointer flex-col overflow-hidden bg-neutral-900/90 sm:min-h-[36vw] md:min-h-0 md:aspect-[3/5] md:max-h-[min(72vh,720px)] lg:min-h-0 lg:max-h-none lg:aspect-auto"
+              className="group relative flex min-h-[42vw] cursor-pointer flex-col overflow-hidden bg-neutral-900/90 sm:min-h-[36vw] md:min-h-0 md:aspect-[3/5] md:max-h-[min(72vh,720px)] lg:min-h-0 lg:max-h-none lg:aspect-auto lg:bg-black"
               onClick={() => navigate(withPath(PRODUCT_LINK[id]))}
             >
               <img
@@ -96,10 +102,50 @@ export default function TeamSection() {
                 ) : null}
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 z-[110] flex translate-y-3 justify-center opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              {/* PC：悬停才显示右上角箭头（无描边、无文案） */}
+              <div className="pointer-events-none absolute right-4 top-4 z-[120] hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:block">
                 <button
                   type="button"
-                  className="pointer-events-auto mb-4 rounded-[12px] border border-[rgba(255,255,255,0.14)] bg-white px-8 py-2.5 text-sm font-medium text-black transition-colors hover:border-[#DDF700] md:px-10 md:py-3 lg:border-white/18 lg:bg-black/45 lg:text-white lg:backdrop-blur-xl lg:hover:border-white/28 lg:hover:bg-black/58"
+                  className="tech-team-cta-arrow pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border-0 bg-white/12 text-[1.35rem] leading-none text-white shadow-none outline-none ring-0 backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/40"
+                  aria-label={t('home.team.cta')}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    navigate(withPath(STORE_LINK[id]));
+                  }}
+                >
+                  <span aria-hidden>→</span>
+                </button>
+              </div>
+
+              {/* PC：悬停时底部数据表（毛玻璃；悬停 translateY 30% 下移） */}
+              <div
+                className="pointer-events-none absolute bottom-[10%] left-1/2 z-[105] hidden h-[25%] w-[80%] -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-[30%] group-hover:opacity-100 lg:block"
+                aria-hidden
+              >
+                <div className="box-border flex h-full w-full flex-col overflow-hidden rounded-[10px] border border-white/25 bg-white/12 px-2.5 py-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150">
+                  <table className="h-full w-full border-collapse text-left [font-size:clamp(9px,0.62vw,11px)] leading-tight text-white/95">
+                    <tbody>
+                      {dataRows.slice(0, 4).map((row, ri) => (
+                        <tr key={ri} className="border-b border-white/[0.12] last:border-b-0">
+                          <th
+                            scope="row"
+                            className="w-[46%] max-w-[46%] py-[3px] pr-2 align-middle font-normal text-white/55"
+                          >
+                            {row.label}
+                          </th>
+                          <td className="py-[3px] align-middle font-normal text-white/90">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* 平板/手机：底部悬停 CTA（PC 使用右上角按钮） */}
+              <div className="absolute inset-x-0 bottom-0 z-[110] flex translate-y-3 justify-center opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 lg:hidden">
+                <button
+                  type="button"
+                  className="pointer-events-auto mb-4 rounded-[12px] border border-[rgba(255,255,255,0.14)] bg-white px-8 py-2.5 text-sm font-medium text-black transition-colors hover:border-[#DDF700] md:px-10 md:py-3"
                   onClick={(event) => {
                     event.stopPropagation();
                     navigate(withPath(STORE_LINK[id]));

@@ -14,6 +14,8 @@ import IntroSection from './components/IntroSection';
 import FooterSections from './components/FooterSections';
 import HomeCursor from './components/HomeCursor';
 import HomeRevealObserver from './components/HomeRevealObserver';
+import HomeAmbientWebGL from './components/HomeAmbientWebGL';
+import HomeCinematicTransition from './components/HomeCinematicTransition';
 import LocaleLayout from './components/LocaleLayout';
 import SmartRingPage from './pages/SmartRingPage';
 import SmartBraceletPage from './pages/SmartBraceletPage';
@@ -28,13 +30,19 @@ import AuthPage from './pages/AuthPage';
 import EcosystemPage from './pages/EcosystemPage';
 import BrandStoryPage from './pages/BrandStoryPage';
 import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
+import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 function HomePage() {
+  useSmoothScroll();
+
   return (
     <div className="home-atomic home-page-root">
+      <div className="cyber-glow-cursor pointer-events-none hidden lg:block" aria-hidden />
+      <HomeAmbientWebGL />
       <div className="home-atmosphere" aria-hidden />
       <div className="home-atmosphere-particles" aria-hidden />
       <div className="grain" aria-hidden />
+      <div className="home-ambient-light" aria-hidden />
       <HomeCursor />
       <HomeRevealObserver />
       <div className="home-page-content">
@@ -45,18 +53,35 @@ function HomePage() {
         </div>
         <TrustBanner className="h-[20%] shrink-0 lg:hidden" />
       </div>
-      <TeamSection />
+      <div className="animate-reveal">
+        <TeamSection />
+      </div>
+      {/* 全生命周期主文案：不用 animate-reveal，避免 GSAP 初始 opacity:0 导致整段像未生效 */}
       <HomeLifecycleStrip />
-      <section className="bg-transparent p-0 lg:bg-transparent">
+      <section className="animate-reveal bg-transparent p-0 lg:bg-transparent">
         <ImmersiveScenarios />
       </section>
-      <HomeTechnologySection />
-      <DataInsights />
-      <IntroSection />
-      <ValueProposition />
-      <HomeFamilySection />
-      <BrandDynamics />
-      <HomeEcosystemSection />
+      <div className="animate-reveal">
+        <IntroSection />
+      </div>
+      <div className="animate-reveal">
+        <HomeTechnologySection />
+      </div>
+      <div className="animate-reveal">
+        <DataInsights />
+      </div>
+      <div className="animate-reveal">
+        <ValueProposition />
+      </div>
+      <div className="animate-reveal">
+        <HomeFamilySection />
+      </div>
+      <div className="animate-reveal">
+        <BrandDynamics />
+      </div>
+      <div className="animate-reveal">
+        <HomeEcosystemSection />
+      </div>
       <FooterSections homeAtomic />
       </div>
     </div>
@@ -78,6 +103,7 @@ export default function App() {
   return (
     <Router>
       <main className="min-h-screen bg-white overflow-x-hidden">
+        <HomeCinematicTransition />
         <Routes>
           <Route path="/" element={<Navigate to={`/${DEFAULT_LOCALE}`} replace />} />
           <Route path="/:lang" element={<LocaleLayout />}>
