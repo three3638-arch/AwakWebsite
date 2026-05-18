@@ -26,6 +26,18 @@ mkdir -p dist/m
 rm -rf dist/m/*
 cp -a mobile/dist/. dist/m/
 
+echo "==> Building AwakOKR client"
+(
+  cd awakokr/client
+  npm ci
+  npm run build
+)
+
+echo "==> Merging AwakOKR client into dist/okr"
+mkdir -p dist/okr
+rm -rf dist/okr/*
+cp -a awakokr/client/dist/. dist/okr/
+
 echo "==> Uploading dist to ${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_TMP_DIR}"
 ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '${REMOTE_TMP_DIR}'"
 scp -r dist/* "${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_TMP_DIR}/"

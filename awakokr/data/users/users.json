@@ -1,0 +1,20 @@
+[
+  {
+    "id": "5df05a5f-a104-49c0-aaa0-246d2ab2e801",
+    "username": "admin",
+    "displayName": "系统管理员",
+    "passwordHash": "$2a$10$Kaiu1I6tEzY4x6h5h0al7.YSS3DVrStnpX2RvYVXwEmsdno.j3NNu",
+    "role": "admin",
+    "team": "管理团队",
+    "createdAt": "2026-05-15T14:46:35.226Z"
+  },
+  {
+    "id": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "username": "zhangzhenghe",
+    "displayName": "张钲禾",
+    "passwordHash": "$2a$10$FnAC3IVvesdPIK152s.TbuWPGdejKnJ.UFSGdpnB2luxaM6XZvyaW",
+    "role": "member",
+    "team": "software",
+    "createdAt": "2026-05-15T15:15:33.004Z"
+  }
+]

@@ -15,6 +15,8 @@
 - `/var/www/website/assets/…`
 - `/var/www/website/m/index.html`
 - `/var/www/website/m/assets/…`
+- `/var/www/website/okr/index.html`（AwakOKR 前端）
+- Node 进程 `127.0.0.1:3001` 提供 `/api/*`（见 `server-fragment.awak.conf`）
 
 ## 行为摘要
 

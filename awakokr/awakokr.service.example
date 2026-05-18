@@ -1,0 +1,17 @@
+[Unit]
+Description=AwakOKR API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/awakokr/server
+Environment=PORT=3001
+Environment=DATA_DIR=/opt/awakokr/data
+Environment=JWT_SECRET=change-me
+Environment=CORS_ORIGINS=https://your-domain.com
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

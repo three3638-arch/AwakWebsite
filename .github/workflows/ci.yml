@@ -24,8 +24,11 @@ jobs:
         working-directory: mobile
         run: npm ci
 
+      - name: Install AwakOKR dependencies
+        run: npm ci --prefix awakokr/client && npm ci --prefix awakokr/server
+
       - name: Typecheck
         run: npm run lint
 
-      - name: Build PC + mobile merged dist
+      - name: Build PC + mobile + okr merged dist
         run: npm run build:site

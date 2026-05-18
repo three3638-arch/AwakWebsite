@@ -1,0 +1,30 @@
+[
+  {
+    "id": "944001ad-737b-4672-92a1-9a8a41f88a76",
+    "krId": "5d934de4-e8cf-45f9-b82b-bb849e993d05",
+    "title": "完成官网的信息结构设计",
+    "description": "",
+    "status": "completed",
+    "progress": 100,
+    "plannedStart": "2026-04-06",
+    "plannedEnd": "2026-04-08",
+    "actualEnd": "2026-05-18T02:03:21.705Z",
+    "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "createdAt": "2026-05-18T02:03:16.700Z",
+    "updatedAt": "2026-05-18T02:03:21.705Z"
+  },
+  {
+    "id": "e33fa40e-cab6-4061-bb09-d67259442508",
+    "krId": "5d934de4-e8cf-45f9-b82b-bb849e993d05",
+    "title": "完成官网的UI设计和初稿开发",
+    "description": "",
+    "status": "not_started",
+    "progress": 69,
+    "plannedStart": "2026-04-09",
+    "plannedEnd": "2026-04-17",
+    "actualEnd": null,
+    "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "createdAt": "2026-05-18T02:04:38.883Z",
+    "updatedAt": "2026-05-18T02:04:45.728Z"
+  }
+]

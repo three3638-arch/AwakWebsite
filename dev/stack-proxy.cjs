@@ -1,9 +1,11 @@
 /**
  * Single-entry dev proxy: http://127.0.0.1:8080
  * - Mirrors nginx/dev UA redirect + /m prefix routing
+ * - /okr → AwakOKR client, /api → AwakOKR API
  * - Supports Vite HMR WebSockets (no Docker required)
  *
- * Env: STACK_PROXY_PORT (default 8080), STACK_PC_PORT (3003), STACK_MOBILE_PORT (3004)
+ * Env: STACK_PROXY_PORT (8080), STACK_PC_PORT (3003), STACK_MOBILE_PORT (3004),
+ *      STACK_OKR_PORT (3005), STACK_OKR_API_PORT (3001)
  */
 'use strict';
 
@@ -12,6 +14,8 @@ const httpProxy = require('http-proxy');
 
 const PC_PORT = Number(process.env.STACK_PC_PORT || 3003);
 const MOBILE_PORT = Number(process.env.STACK_MOBILE_PORT || 3004);
+const OKR_PORT = Number(process.env.STACK_OKR_PORT || 3005);
+const OKR_API_PORT = Number(process.env.STACK_OKR_API_PORT || 3001);
 const LISTEN_PORT = Number(process.env.STACK_PROXY_PORT || 8080);
 
 const proxy = httpProxy.createProxyServer({
@@ -24,7 +28,7 @@ proxy.on('error', (err, req, res) => {
   if (res && typeof res.writeHead === 'function' && !res.headersSent) {
     res.writeHead(502, {'Content-Type': 'text/plain; charset=utf-8'});
     res.end(
-      `Bad Gateway (${err.code || err.message}). Start PC :${PC_PORT} and mobile :${MOBILE_PORT} first.`,
+      `Bad Gateway (${err.code || err.message}). Start dev servers (PC :${PC_PORT}, mobile :${MOBILE_PORT}, okr :${OKR_PORT}, api :${OKR_API_PORT}) first.`,
     );
   }
 });
@@ -43,10 +47,18 @@ function shouldRedirectToMobile(req) {
   if (/prefer_desktop=1/.test(cookie)) return false;
   const url = req.url || '';
   if (url.startsWith('/m')) return false;
+  if (url.startsWith('/okr')) return false;
+  if (url.startsWith('/api')) return false;
   return isMobileUA(req.headers['user-agent'] || '');
 }
 
 function targetFor(url) {
+  if ((url || '').startsWith('/api')) {
+    return `http://127.0.0.1:${OKR_API_PORT}`;
+  }
+  if ((url || '').startsWith('/okr')) {
+    return `http://127.0.0.1:${OKR_PORT}`;
+  }
   return (url || '').startsWith('/m')
     ? `http://127.0.0.1:${MOBILE_PORT}`
     : `http://127.0.0.1:${PC_PORT}`;
@@ -67,6 +79,9 @@ server.on('upgrade', (req, socket, head) => {
 
 server.listen(LISTEN_PORT, '0.0.0.0', () => {
   console.log(
-    `[stack-proxy] http://127.0.0.1:${LISTEN_PORT}/  → PC :${PC_PORT}, /m → mobile :${MOBILE_PORT}`,
+    `[stack-proxy] http://127.0.0.1:${LISTEN_PORT}/`,
+  );
+  console.log(
+    `  PC :${PC_PORT}  |  /m → mobile :${MOBILE_PORT}  |  /okr → okr :${OKR_PORT}  |  /api → okr-api :${OKR_API_PORT}`,
   );
 });

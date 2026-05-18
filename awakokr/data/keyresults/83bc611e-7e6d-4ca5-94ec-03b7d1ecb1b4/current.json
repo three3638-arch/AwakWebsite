@@ -1,0 +1,16 @@
+[
+  {
+    "id": "5d934de4-e8cf-45f9-b82b-bb849e993d05",
+    "objectiveId": "83bc611e-7e6d-4ca5-94ec-03b7d1ecb1b4",
+    "title": "4月30日之前完成PC官网上线",
+    "description": "",
+    "weight": 20,
+    "targetValue": 100,
+    "currentValue": 85,
+    "score": null,
+    "version": 1,
+    "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "createdAt": "2026-05-18T02:02:15.831Z",
+    "updatedAt": "2026-05-18T02:04:45.730Z"
+  }
+]

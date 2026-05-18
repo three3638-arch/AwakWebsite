@@ -1,0 +1,22 @@
+[
+  {
+    "version": 1,
+    "data": {
+      "id": "f634075c-a5fe-4296-881b-7e3383daa04f",
+      "objectiveId": "8ab327e9-e4dc-4f44-93e7-018a4504284a",
+      "title": "完成手机官网信息结构",
+      "description": "",
+      "weight": 40,
+      "targetValue": 100,
+      "currentValue": 0,
+      "score": null,
+      "version": 1,
+      "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+      "createdAt": "2026-05-15T15:58:54.179Z",
+      "updatedAt": "2026-05-15T15:58:54.179Z"
+    },
+    "modifiedAt": "2026-05-15T15:59:34.233Z",
+    "modifiedBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "changeNote": ""
+  }
+]

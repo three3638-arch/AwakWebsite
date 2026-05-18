@@ -1,0 +1,32 @@
+[
+  {
+    "id": "31d43e0f-5180-4b60-90f1-d0c0725da33d",
+    "cycleId": "44d84051-6f2d-4691-a648-f3b9fc22e23e",
+    "title": "支持产品销售的软件最小范围筹备",
+    "description": "包括官网（PC+手机）、APP基础版，和其他运营最小依赖",
+    "parentObjectiveId": null,
+    "createdBy": "5df05a5f-a104-49c0-aaa0-246d2ab2e801",
+    "createdAt": "2026-05-15T15:20:22.549Z",
+    "updatedAt": "2026-05-15T15:20:22.549Z"
+  },
+  {
+    "id": "83bc611e-7e6d-4ca5-94ec-03b7d1ecb1b4",
+    "cycleId": "44d84051-6f2d-4691-a648-f3b9fc22e23e",
+    "title": "高质量交付“销售支持最小软件包”",
+    "description": "包括PC官网、手机官网和 MVP版本的APP",
+    "parentObjectiveId": "31d43e0f-5180-4b60-90f1-d0c0725da33d",
+    "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "createdAt": "2026-05-18T02:00:09.256Z",
+    "updatedAt": "2026-05-18T02:00:09.256Z"
+  },
+  {
+    "id": "840e2baa-a582-4dd5-bfcd-5e1d8f6aeb34",
+    "cycleId": "44d84051-6f2d-4691-a648-f3b9fc22e23e",
+    "title": "学习和使用AI软件，团队效率提升50%",
+    "description": "",
+    "parentObjectiveId": null,
+    "createdBy": "371fa614-f45c-45f1-bb8d-4cb9f0badf3a",
+    "createdAt": "2026-05-18T02:00:44.644Z",
+    "updatedAt": "2026-05-18T02:00:44.644Z"
+  }
+]
