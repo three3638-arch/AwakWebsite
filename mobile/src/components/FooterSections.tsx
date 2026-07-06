@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
+import { PRODUCT_BRAND_NAME } from '../../../shared/lib/companyIdentity';
 
 type FooterSectionsProps = { /** 仅首页：应用原子视觉（细线 / 去粗 / 荧光点缀交互） */ homeAtomic?: boolean };
 
@@ -32,6 +33,7 @@ export default function FooterSections({ homeAtomic = false }: FooterSectionsPro
         title: t('footer.groups.support'),
         links: [
           { name: t('footer.links.help'), path: '/' },
+          { name: t('footer.legal'), path: '/legal' },
           { name: t('footer.links.manual'), path: '/' },
           { name: t('footer.links.warranty'), path: '/' },
         ],
@@ -68,7 +70,7 @@ export default function FooterSections({ homeAtomic = false }: FooterSectionsPro
         <div className="mb-32 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-12 lg:grid-cols-5">
           <div className="space-y-8 lg:col-span-1">
             <div className="space-y-4">
-              <h2 className="text-3xl font-medium tracking-[-0.02em] text-white">AWAK WILL</h2>
+              <h2 className="text-3xl font-medium tracking-[-0.02em] text-white">{PRODUCT_BRAND_NAME}</h2>
               <p
                 className={`text-sm font-medium uppercase tracking-widest ${
                   homeAtomic ? 'text-[#a1a1aa]' : 'text-white/40'
@@ -116,11 +118,11 @@ export default function FooterSections({ homeAtomic = false }: FooterSectionsPro
           <p
             className={`font-mono text-xs uppercase tracking-[0.2em] ${homeAtomic ? 'text-[#a1a1aa]' : 'text-white/20'}`}
           >
-            © {new Date().getFullYear()} AWAK WILL. ALL RIGHTS RESERVED.
+            {t('footer.copyright', { year: new Date().getFullYear() })}
           </p>
           <div className="flex gap-8">
             <Link
-              to={withPath('/')}
+              to={withPath('/legal/privacy')}
               className={`font-mono text-xs uppercase transition-colors ${
                 homeAtomic ? 'text-[#a1a1aa] hover:text-[#DDF700]' : 'text-white/20 hover:text-white'
               }`}
@@ -128,7 +130,7 @@ export default function FooterSections({ homeAtomic = false }: FooterSectionsPro
               {t('footer.privacy')}
             </Link>
             <Link
-              to={withPath('/')}
+              to={withPath('/legal/terms')}
               className={`font-mono text-xs uppercase transition-colors ${
                 homeAtomic ? 'text-[#a1a1aa] hover:text-[#DDF700]' : 'text-white/20 hover:text-white'
               }`}

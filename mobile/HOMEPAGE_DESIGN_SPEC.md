@@ -1,4 +1,4 @@
-# AWAK 全站设计规范（首页对齐 + 工程单一事实来源）
+# Awak Health 全站设计规范（首页对齐 + 工程单一事实来源）
 
 本文档与 [`src/index.css`](src/index.css)、[`src/lib/siteNav.ts`](src/lib/siteNav.ts) 保持一致：**样式以 CSS / Tailwind 令牌为准**，避免页面硬编码分叉。
 

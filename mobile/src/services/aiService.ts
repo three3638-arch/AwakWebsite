@@ -13,7 +13,7 @@ export const getHealthInsight = async (weather: string) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `你是一个专业的健康顾问。目前天气是：${weather}。请根据天气情况，为 AWAK 智能戒指的用户提供一条简短（20字以内）且具有科技感的健康建议。`,
+      contents: `你是一个专业的健康顾问。目前天气是：${weather}。请根据天气情况，为 Awak Health 智能戒指的用户提供一条简短（20字以内）且具有科技感的健康建议。`,
     });
 
     return response.text;

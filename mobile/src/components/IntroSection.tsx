@@ -68,7 +68,7 @@ export default function IntroSection() {
                     <motion.img
                       key={appTab}
                       src={APP_TAB_IMAGES[appTab]}
-                      alt="AwakHealth App"
+                      alt="Awak Health App"
                       loading="eager"
                       decoding="async"
                       className="h-auto w-full origin-center scale-[1.15] object-contain"

@@ -35,7 +35,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/DPCgLWM0/Circular-Ring-2-Your-Personal-Health-Companion-Smart-Ring.jpg',
     date: '2026.12.01',
     readingTime: '6分钟',
-    author: 'AWAK 编辑部',
+    author: 'Awak Health 编辑部',
     authorAvatar: 'https://i.pravatar.cc/150?u=awak1',
     tags: ['里程碑', '行业趋势', '健康系统', '感知未来'],
   },
@@ -48,7 +48,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/Myn1FPYF/Oura-Ring-der-Smart-Ring-fu-r-Fitness-Stress-Schlaf-und-Gesundheit.png',
     date: '2024.11.20',
     readingTime: '5分钟',
-    author: 'AWAK 产品部'
+    author: 'Awak Health 产品部'
   },
   {
     id: '003',
@@ -59,7 +59,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/jvdwpsVj/jimeng-2026-04-03-1901-1-logo.png',
     date: '2024.11.15',
     readingTime: '8分钟',
-    author: 'AWAKWILL Lab'
+    author: 'Awak Health Lab'
   },
   {
     id: '004',
@@ -81,7 +81,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/xt80TrsD/Heart-Attack-Myocardial-Infarction-Medline-Plus.jpg',
     date: '2024.11.05',
     readingTime: '7分钟',
-    author: 'AWAK 编辑部'
+    author: 'Awak Health 编辑部'
   },
   {
     id: '006',
@@ -92,19 +92,19 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200',
     date: '2024.10.30',
     readingTime: '6分钟',
-    author: 'AWAKWILL Lab'
+    author: 'Awak Health Lab'
   },
   {
     id: 'b1',
     category: 'BRAND',
     tag: '品牌动态 BRAND',
-    title: 'AWAK 2026 春季发布会回顾',
+    title: 'Awak Health 2026 春季发布会回顾',
     subtitle: '探索科技与美学的共生',
     summary: '探索科技与美学的共生。本次发布会展示了全新的感知交互逻辑，以及我们在材质科技上的最新突破。',
     img: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80',
     date: '2024.03.20',
     readingTime: '10分钟',
-    author: 'AWAK 编辑部'
+    author: 'Awak Health 编辑部'
   },
   {
     id: 'b2',
@@ -116,7 +116,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80',
     date: '2024.03.15',
     readingTime: '8分钟',
-    author: 'AWAKWILL Lab'
+    author: 'Awak Health Lab'
   },
   {
     id: 'b3',
@@ -128,7 +128,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/wFCQp2wk/image.png',
     date: '2024.03.10',
     readingTime: '5分钟',
-    author: 'AWAK 社区团队'
+    author: 'Awak Health 社区团队'
   },
   {
     id: 'b4',
@@ -140,7 +140,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/8LKkcKPL/Open-positions-at-Oura.jpg',
     date: '2024.03.05',
     readingTime: '12分钟',
-    author: 'AWAK 设计部'
+    author: 'Awak Health 设计部'
   },
   {
     id: 'b5',
@@ -152,7 +152,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80',
     date: '2024.03.01',
     readingTime: '6分钟',
-    author: 'AWAK 材质中心'
+    author: 'Awak Health 材质中心'
   },
   {
     id: 'b6',
@@ -164,7 +164,7 @@ const MOCK_ARTICLES: Article[] = [
     img: 'https://i.ibb.co/m5J3KvJN/Alzheimers.jpg',
     date: '2024.02.25',
     readingTime: '15分钟',
-    author: 'AWAKWILL Lab'
+    author: 'Awak Health Lab'
   },
   {
     id: 'b7',
@@ -172,11 +172,11 @@ const MOCK_ARTICLES: Article[] = [
     tag: '品牌动态 BRAND',
     title: '生态伙伴计划',
     subtitle: '共筑开放的数字生命蓝图',
-    summary: '共筑开放的数字生命蓝图。我们宣布开放 API 接口，邀请更多健康服务提供商加入 AWAK 生态。',
+    summary: '共筑开放的数字生命蓝图。我们宣布开放 API 接口，邀请更多健康服务提供商加入 Awak Health 生态。',
     img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80',
     date: '2024.02.20',
     readingTime: '5分钟',
-    author: 'AWAK 生态部'
+    author: 'Awak Health 生态部'
   }
 ];
 
@@ -411,16 +411,16 @@ const ArticleDetail = ({ article, onBack }: { article: Article, onBack: () => vo
         </div>
         <div className="article-card-img-wrap mb-16 !aspect-[21/9]"><img src={article.img} alt="Hero" /></div>
         <div className="max-w-none text-[#0D0D0D] space-y-6 md:space-y-8">
-          <p className="text-[14px] md:text-[18px] font-normal text-black/60 leading-[1.6]">AWAKWILL 实验室预见：智能穿戴的终局并非只是监测工具，而是人类感官的数字化延伸与全周期健康管理的控制中枢。</p>
+          <p className="text-[14px] md:text-[18px] font-normal text-black/60 leading-[1.6]">Awak Health 实验室预见：智能穿戴的终局并非只是监测工具，而是人类感官的数字化延伸与全周期健康管理的控制中枢。</p>
           <div className="space-y-4 md:space-y-6 text-[#0D0D0D] [&_p]:text-[14px] [&_p]:font-normal [&_p]:text-black/80 [&_p]:leading-[1.6]">
             <p>
               跨入 2026 年，我们正处在一个健康感知技术全面爆发的奇点。过去，我们习惯于在感到不适时才去寻求医疗干预。而今天，随着传感技术的微量化与 AI 算力的下沉，我们第一次拥有了实时与身体对话的能力。智能穿戴不再只是手腕上的装饰，它正在演变成一套精密的人机连接系统。
             </p>
             <p>
-              AWAKWILL 实验室的最新研究表明，行业正经历从“单点监测”向“全周期健康管理”的范式转移。这意味着，感知不再仅限于心率或睡眠的简单记录，而是通过对连续性生理指标的深度学习，构建出一个动态的、预测性的数字生命模型。通过这种模型，我们可以在疾病露头之前，就通过微小的生活习惯调整实现精准干预。
+              Awak Health 实验室的最新研究表明，行业正经历从“单点监测”向“全周期健康管理”的范式转移。这意味着，感知不再仅限于心率或睡眠的简单记录，而是通过对连续性生理指标的深度学习，构建出一个动态的、预测性的数字生命模型。通过这种模型，我们可以在疾病露头之前，就通过微小的生活习惯调整实现精准干预。
             </p>
             <p>
-              我们正致力于将“透明科技”理念贯彻到底。未来的感知器应该是无感的，它静默地存在于你的指尖、手腕或眼眶中，却在那最关键的时刻给出最具价值的洞察。这一进程的加速，得益于我们在材质科技和低功耗算力上的突破。今天的 AWAK 生态，已经不再是孤立的设备，而是一个多端协同、数据互通的生命守护网络。
+              我们正致力于将“透明科技”理念贯彻到底。未来的感知器应该是无感的，它静默地存在于你的指尖、手腕或眼眶中，却在那最关键的时刻给出最具价值的洞察。这一进程的加速，得益于我们在材质科技和低功耗算力上的突破。今天的 Awak Health 生态，已经不再是孤立的设备，而是一个多端协同、数据互通的生命守护网络。
             </p>
             <h2 className="text-[24px] font-normal tracking-[-0.03em] leading-[1.1] pt-6 md:pt-8">从监测到干预：健康管理的闭环进化</h2>
             <p>
@@ -430,10 +430,10 @@ const ArticleDetail = ({ article, onBack }: { article: Article, onBack: () => vo
               随着全球老龄化的趋势以及人们对主动健康管理的空前重视，健康感知市场的扩张速度超乎想象。这不仅是商业的成功，更是科技平权的胜利。我们让曾经昂贵的医学级监测技术，走进了千家万户，服务于每一个关注生命质量的个体。
             </p>
             <p>
-              展望 2027，AWAKWILL 将继续深耕开放 API 生态。我们深知，健康是一个复杂的系统工程，单打独斗无法解决所有问题。通过与全球顶尖医疗机构、保险服务商以及专业运动品牌的深度融合，我们将共同描绘出一份前所未有的数字生命蓝图。
+              展望 2027，Awak Health 将继续深耕开放 API 生态。我们深知，健康是一个复杂的系统工程，单打独斗无法解决所有问题。通过与全球顶尖医疗机构、保险服务商以及专业运动品牌的深度融合，我们将共同描绘出一份前所未有的数字生命蓝图。
             </p>
             <p>
-              感谢每一个在这个加速时代中选择 AWAK 的伙伴。你们的每一份数据，都是人类向主动健康时代迈进的一小步。让我们一起，感知生命，接管未来。
+              感谢每一个在这个加速时代中选择 Awak Health 的伙伴。你们的每一份数据，都是人类向主动健康时代迈进的一小步。让我们一起，感知生命，接管未来。
             </p>
           </div>
         </div>
@@ -456,9 +456,9 @@ const ArticleDetail = ({ article, onBack }: { article: Article, onBack: () => vo
 
 const BrandChronicle = () => {
     const milestones = [
-        { year: '2026', title: '加速扩张', desc: '健康感知时代正式开启,AWAK 进入高速增长轨道。', side: 'left' },
+        { year: '2026', title: '加速扩张', desc: '健康感知时代正式开启,Awak Health 进入高速增长轨道。', side: 'left' },
         { year: '2026', title: '技术融合', desc: '全周期健康管理系统上线,实现从监测到干预的跨越。', side: 'right' },
-        { year: '2027', title: '生态爆发', desc: 'AWAK 生态伙伴突破 500家,共建数字生命新标杆。', side: 'left' },
+        { year: '2027', title: '生态爆发', desc: 'Awak Health 生态伙伴突破 500家,共建数字生命新标杆。', side: 'left' },
         { year: '2027', title: '全球领先', desc: '成为全球领先的主动健康管理服务商。', side: 'right' },
     ];
     const scrollRef = useRef(null);

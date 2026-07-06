@@ -269,7 +269,7 @@ const SmartGlassesPage: React.FC = () => {
           />
         </div>
         <div className="px-6 md:px-[170px]">
-          <p className="mb-1.5 text-[11px] font-normal tracking-[0.1em] text-[#888] uppercase">AWAK ECOSYSTEM</p>
+          <p className="mb-1.5 text-[11px] font-normal tracking-[0.1em] text-[#888] uppercase">Awak Health ECOSYSTEM</p>
           <h2 className="mb-10 text-[28px] font-normal leading-[1.15] tracking-[-0.05em] text-[#0A0A0A] md:text-3xl">
             配合 AWAK RING & AWAK WATCH <br />
             健康数据更完整

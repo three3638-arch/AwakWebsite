@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 type DialNodeData = { a: number; t1: string; t2: string; n: string; u: string };
 
 /**
- * PC 首页「AWAK 健康闭环」—— 金属表盘 8 节点（设计稿迁入 React，白/灰/黑无绿色）
+ * PC 首页「Awak Health 健康闭环」—— 金属表盘 8 节点（设计稿迁入 React，白/灰/黑无绿色）
  */
 const VALUE_LOOP_COPY_ICONS = [Clock, CircleCheck, UsersRound] as const;
 
@@ -593,7 +593,7 @@ export default function ValueProposition() {
     padding-top:max(var(--home-layout-section-y, 96px), env(safe-area-inset-top));
     padding-bottom:max(var(--home-layout-section-y, 96px), env(safe-area-inset-bottom));
   }
-  /* 「AWAK 健康闭环」PC：表盘区右移基础上再向左偏移约 10%（相对本栏宽度） */
+  /* 「Awak Health 健康闭环」PC：表盘区右移基础上再向左偏移约 10%（相对本栏宽度） */
   #${uid}-root .vpd-stage-host{
     transform:translateX(calc(clamp(72px, 18vw, 280px) - 10%));
   }
@@ -830,7 +830,7 @@ export default function ValueProposition() {
 
               <div className="vpd-hub">
                 <div className="vpd-hub-ring" />
-                <div className="vpd-hub-brand">AWAK</div>
+                <div className="vpd-hub-brand">Awak Health</div>
                 <div ref={hubNRef} className="vpd-hub-n">
                   01
                 </div>

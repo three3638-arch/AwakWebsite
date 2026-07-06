@@ -17,7 +17,7 @@
   "brandStoryPage": {
     "label": "品牌故事",
     "title": "科技与健康同频",
-    "lede": "AWAK 相信可穿戴不应只是记录数据，而应把节律翻译为可信任的日常决策——让每一次跳动都被读懂，每一步都被守护。",
+    "lede": "Awak Health 相信可穿戴不应只是记录数据，而应把节律翻译为可信任的日常决策——让每一次跳动都被读懂，每一步都被守护。",
     "pillars": [
       {
         "title": "始于节律",
@@ -42,8 +42,10 @@
   },
   "footer": {
     "tagline": "感知生命律动",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
+    "privacy": "隐私政策",
+    "terms": "用户协议",
+    "legal": "法律信息",
+    "copyright": "© {{year}} 觉醒意志（杭州）健康科技有限公司 版权所有",
     "groups": {
       "products": "产品",
       "company": "公司",
@@ -63,12 +65,27 @@
       "warranty": "保修政策",
       "ios": "iOS 下载",
       "android": "Android 下载",
-      "web": "AwakHealth Web"
+      "web": "Awak Health Web"
+    }
+  },
+  "legal": {
+    "indexTitle": "法律信息",
+    "indexDescription": "查阅 Awak 用户协议、隐私政策及相关法律文件。",
+    "backToIndex": "法律信息",
+    "versionLabel": "版本 v{{version}} · 更新 {{date}}",
+    "englishNotice": "英文译本，以中文版本为准",
+    "contactHint": "如有疑问请联系",
+    "viewFullPrivacy": "查看完整隐私政策",
+    "documents": {
+      "terms": "用户服务协议",
+      "privacy": "隐私政策",
+      "healthDataConsent": "健康数据使用授权书",
+      "deviceSafety": "可穿戴设备使用须知"
     }
   },
   "home": {
     "hero": {
-      "label": "AWAK HEALTH",
+      "label": "Awak Health",
       "scrollHint": "SCROLL",
       "title": "指尖健康  触手可及",
       "subtitle": "家人健康守护 | 医疗级AI算法 | 全周期健康管理",
@@ -108,7 +125,7 @@
       ]
     },
     "valueLoop": {
-      "title": "AWAK 健康闭环",
+      "title": "Awak Health 健康闭环",
       "subtitle": "从无感记录到由 AI 驱动的行动建议，为您构建完美的数字生命闭环。每一次心跳，每一个呼吸，都成为更健康生活的指引。",
       "copyEyebrow": "健康闭环",
       "copyFeatures": [
@@ -168,10 +185,10 @@
         {
           "name": "开放生态",
           "role": "伙伴接入 · 互通互联",
-          "detail": "以 API / SDK 与标准数据接口连接伙伴应用与服务，把 AWAK 采集的节律摘要安全接入你已有的健康与工作流。"
+          "detail": "以 API / SDK 与标准数据接口连接伙伴应用与服务，把 Awak Health 采集的节律摘要安全接入你已有的健康与工作流。"
         }
       ],
-      "ctaIntro": "从一人到一家，AWAK 用同一套可信数据语言，把碎片化的健康线索连成可行动的日常。",
+      "ctaIntro": "从一人到一家，Awak Health 用同一套可信数据语言，把碎片化的健康线索连成可行动的日常。",
       "ctaLabel": "了解品牌故事"
     },
     "brandDynamics": {
@@ -179,10 +196,10 @@
       "more": "全部动态",
       "news": {
         "b1": {
-          "title": "AWAK 2026 春季发布会回顾",
+          "title": "Awak Health 2026 春季发布会回顾",
           "subtitle": "探索科技与美学的共生",
           "date": "2026.03.18",
-          "excerpt": "发布会完整回顾：新一代穿戴矩阵、AWAK Cloud 升级与开放生态路线，现场也解读了节律数据如何沉淀为可执行建议。"
+          "excerpt": "发布会完整回顾：新一代穿戴矩阵、Awak Health Cloud 升级与开放生态路线，现场也解读了节律数据如何沉淀为可执行建议。"
         },
         "b2": {
           "title": "关于呼吸的艺术",
@@ -243,7 +260,7 @@
           "desc": "戒指、手环、眼镜与手表统一接入，同一账户串联体征与时间线。"
         },
         {
-          "title": "AWAK Cloud",
+          "title": "Awak Health Cloud",
           "desc": "同步、分析与洞察聚合在一处，把复杂数据转成可执行的建议。"
         },
         {

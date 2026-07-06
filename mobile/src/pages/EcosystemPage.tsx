@@ -11,13 +11,15 @@ import {
   FileText,
   RefreshCw,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import FooterSections from '../components/FooterSections';
 import { useLocalePath } from '../hooks/useLocalePath';
 
 export default function EcosystemPage() {
   const navigate = useNavigate();
   const { withPath } = useLocalePath();
+  const { t } = useTranslation('common');
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
 
@@ -38,7 +40,7 @@ export default function EcosystemPage() {
           <X className="w-4 h-4" strokeWidth={1.5} />
         </button>
         <div className="overflow-y-auto px-6 py-8 md:px-10 md:py-10">
-          <h2 className="mb-[14px] text-[24px] font-normal tracking-[-0.03em] text-[#0D0D0D]">AWAK 用户隐私保护政策</h2>
+          <h2 className="mb-[14px] text-[24px] font-normal tracking-[-0.03em] text-[#0D0D0D]">Awak Health 用户隐私保护政策</h2>
           <div className="space-y-6 text-[14px] font-normal leading-[1.6] text-black/60">
             <section>
               <h3 className="mb-2 text-[18px] font-normal text-[#0D0D0D]">1. 数据收集与加密</h3>
@@ -46,7 +48,7 @@ export default function EcosystemPage() {
             </section>
             <section>
               <h3 className="mb-2 text-[18px] font-normal text-[#0D0D0D]">2. 数据所有权</h3>
-              <p>您对您的生理数据拥有 100% 的绝对所有权。AWAK 仅作为数据的处理与分析方。我们承诺永远不会向任何第三方广告商、保险公司或数据中介出售您的个人身份健康信息。</p>
+              <p>您对您的生理数据拥有 100% 的绝对所有权。Awak Health 仅作为数据的处理与分析方。我们承诺永远不会向任何第三方广告商、保险公司或数据中介出售您的个人身份健康信息。</p>
             </section>
             <section>
               <h3 className="mb-2 text-[18px] font-normal text-[#0D0D0D]">3. 匿名化与研究</h3>
@@ -54,8 +56,17 @@ export default function EcosystemPage() {
             </section>
             <section>
               <h3 className="mb-2 text-[18px] font-normal text-[#0D0D0D]">4. 您的权利</h3>
-              <p>您可以随时通过 AwakHealth App 查阅、导出、更正或请求删除您的全部数据。一旦您选择注销账户，我们将在 7 个工作日内从全球范围内所有的服务器上彻底销毁您的所有数字生命痕迹。</p>
+              <p>您可以随时通过 Awak Health App 查阅、导出、更正或请求删除您的全部数据。一旦您选择注销账户，我们将在 7 个工作日内从全球范围内所有的服务器上彻底销毁您的所有数字生命痕迹。</p>
             </section>
+          </div>
+          <div className="mt-8 border-t border-black/10 pt-6">
+            <Link
+              to={withPath('/legal/privacy')}
+              className="inline-flex items-center gap-2 text-[14px] font-medium text-[#0D0D0D] transition-colors hover:text-[#DDF700]"
+              onClick={() => setIsPrivacyModalOpen(false)}
+            >
+              {t('legal.viewFullPrivacy')}
+            </Link>
           </div>
         </div>
       </motion.div>
@@ -82,7 +93,7 @@ export default function EcosystemPage() {
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="mb-2 text-[32px] font-normal leading-[1.15] tracking-[-0.04em] text-white"
               >
-                AWAK 不只是一枚戒指
+                Awak Health 不只是一枚戒指
               </motion.h1>
             </div>
             <div className="overflow-hidden">
@@ -131,7 +142,7 @@ export default function EcosystemPage() {
               {
                 title: '智能解析 (App)',
                 icon: Smartphone,
-                points: ['AwakHealth 核心算法', '生成个体生理基线表', '多维度趋势预测分析'],
+                points: ['Awak Health 核心算法', '生成个体生理基线表', '多维度趋势预测分析'],
                 delay: 0.08,
               },
               {
@@ -174,7 +185,7 @@ export default function EcosystemPage() {
         </div>
       </section>
 
-      {/* 04. AwakHealth App */}
+      {/* 04. Awak Health App */}
       <section className="bg-[#FAFAFA] py-[72px]">
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-8 px-6 text-left md:grid-cols-12 md:gap-12 md:px-[170px]">
           <div className="md:col-span-7">
@@ -182,7 +193,7 @@ export default function EcosystemPage() {
               你的数字健康控制中心
             </h2>
             <p className="mb-8 max-w-xl text-[14px] font-normal leading-[1.6] text-black/60 md:mb-12 md:leading-[1.7]">
-              AwakHealth 不是一个冷冰冰的数据看板，而是懂你的私人健康助理。每一次心跳，每一夜睡眠，都化作最直观的建议。
+              Awak Health 不是一个冷冰冰的数据看板，而是懂你的私人健康助理。每一次心跳，每一夜睡眠，都化作最直观的建议。
             </p>
             <div className="mb-0 space-y-6 md:space-y-8">
               {[
@@ -218,7 +229,7 @@ export default function EcosystemPage() {
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
             {[
               { title: '全时监测', desc: '戒指采集核心体征', icon: Activity },
-              { title: 'AI 分析', desc: 'AwakHealth 算法解读', icon: Sparkles },
+              { title: 'AI 分析', desc: 'Awak Health 算法解读', icon: Sparkles },
               { title: '干预方案', desc: 'AI 生成改善策略', icon: ClipboardList },
               { title: '数据同步', desc: '蓝牙秒级上传云端', icon: CloudUpload },
               { title: '健康报告', desc: '生成个性化洞察', icon: FileText },
@@ -517,7 +528,7 @@ export default function EcosystemPage() {
               神圣不可侵犯
             </h2>
             <p className="mt-6 text-[14px] font-normal leading-[1.7] tracking-[-0.01em] text-[#888] m-0">
-              在 AWAK，我们深知生理数据的极度敏感性。每一组心跳、每一次深睡数据，都经过彻底的金融级端到端加密，即便在我们自己的服务器上也无法被随意解析窥探。
+              在 Awak Health，我们深知生理数据的极度敏感性。每一组心跳、每一次深睡数据，都经过彻底的金融级端到端加密，即便在我们自己的服务器上也无法被随意解析窥探。
             </p>
 
             <div className="mt-8 space-y-6 text-[14px] font-normal leading-[1.7] tracking-[-0.01em]">
@@ -576,7 +587,7 @@ export default function EcosystemPage() {
               <div className="relative z-10">
                 <div className="mb-[18px]">
                   <span className="text-[12px] font-normal uppercase tracking-[0.06em] text-white/40">
-                    还没有 AWAK 硬件
+                    还没有 Awak Health 硬件
                   </span>
                 </div>
 

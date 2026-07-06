@@ -269,7 +269,7 @@ const SmartWatchPage: React.FC = () => {
         <div className="mb-8 flex justify-center px-6">
           <img
             src="https://i.ibb.co/G43Fy2S7/image.png"
-            alt="AWAK Synergy"
+            alt="Awak Health Synergy"
             className="h-auto w-full max-w-[300px] object-contain"
           />
         </div>

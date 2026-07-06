@@ -470,7 +470,7 @@ const SmartRingPage: React.FC = () => {
             className="border-b border-black/10 p-6"
             icon={<Zap className="h-[22px] w-[22px] text-ink" strokeWidth={1.5} />}
             name="即时反馈"
-            desc="配合 AWAK App 实时获取改善建议"
+            desc="配合 Awak Health App 实时获取改善建议"
           />
           <BoxItem
             className="border-r border-black/10 p-6"

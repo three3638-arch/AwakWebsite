@@ -12,8 +12,16 @@ export default defineConfig(({mode}) => {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },
     resolve: {
+      dedupe: ['react', 'react-dom', 'react-router-dom', 'i18next', 'react-i18next'],
       alias: {
         '@': path.resolve(__dirname, '.'),
+        '@legal': path.resolve(__dirname, '../shared/features/legal'),
+        '@shared': path.resolve(__dirname, '../shared'),
+        react: path.resolve(__dirname, 'node_modules/react'),
+        'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+        'react/jsx-runtime': path.resolve(__dirname, 'node_modules/react/jsx-runtime'),
+        i18next: path.resolve(__dirname, 'node_modules/i18next'),
+        'react-i18next': path.resolve(__dirname, 'node_modules/react-i18next'),
       },
     },
     server: {

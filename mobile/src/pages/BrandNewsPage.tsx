@@ -5,7 +5,7 @@ import FooterSections from '../components/FooterSections';
 
 const newsItems = [
   {
-    title: "AWAK 2026 春季发布会回顾",
+    title: "Awak Health 2026 春季发布会回顾",
     subtitle: "探索科技与美学的共生",
     img: "https://i.ibb.co/xKX2CFGN/1.png",
     size: "flex-[2]"
@@ -59,7 +59,7 @@ export default function BrandNewsPage() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="mb-4 block font-mono text-[11px] font-normal uppercase tracking-[0.2em] text-fg-tertiary">
-            AWAK NEWS & VISION
+            Awak Health News & Vision
           </span>
           <h1 className="max-w-[min(100%,20ch)] text-[clamp(40px,8vw,72px)] font-normal leading-none tracking-tighter text-fg-primary">
             品牌动态

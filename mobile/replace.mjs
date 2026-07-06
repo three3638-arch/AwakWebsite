@@ -37,7 +37,7 @@ const newReplacement = `      {/* SECTION 7: DATA COMPARISON (BEFORE vs AFTER) *
           </div>
           <div className="flex gap-6 overflow-x-auto pb-8 snap-x hide-scrollbar">
             <AccessoryCard
-              name="AwakHealth Premium 会员"
+              name="Awak Health Premium 会员"
               desc="AI 深度解读 / 365天数据历史 / 家庭版支持"
               price="¥39/月"
               action="立即订阅"
@@ -226,7 +226,7 @@ const newReplacement = `      {/* SECTION 7: DATA COMPARISON (BEFORE vs AFTER) *
                  <span className="relative z-10 text-white/30 tracking-widest text-sm font-bold uppercase">Premium AI</span>
               </div>
               <div className="p-8">
-                <h3 className="text-xl font-bold mb-2 text-white">AwakHealth Premium</h3>
+                <h3 className="text-xl font-bold mb-2 text-white">Awak Health Premium</h3>
                 <p className="text-[#C8FF00] font-mono mb-4 text-sm">解锁AI深度分析</p>
                 <p className="text-white/50 text-sm mb-8 h-10">Ring数据配合AI解读，效果提升3×</p>
                 <div className="flex items-center justify-between mt-auto">

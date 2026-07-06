@@ -302,11 +302,11 @@
 }
 
 @theme {
-  /* Typography — Eight Sleep × AWAK (DM Sans + Noto Sans SC) */
+  /* Typography — Eight Sleep × Awak Health (DM Sans + Noto Sans SC) */
   --font-sans: "DM Sans", "Noto Sans SC", -apple-system, system-ui, sans-serif;
   --font-display: "DM Sans", "Noto Sans SC", sans-serif;
 
-  /* Legacy / shared — AWAK accent (#C8F000)，lime 上文字用 text-ink */
+  /* Legacy / shared — Awak Health accent (#C8F000)，lime 上文字用 text-ink */
   --color-accent: #c8f000;
   --color-accent-hover: #d4ff00;
   --color-accent-glow: rgba(200, 255, 0, 0.12);
@@ -321,7 +321,7 @@
   --color-error: #FF4D4D;
   --color-warning: #FF7A35;
 
-  /* Eight Sleep × AWAK — surfaces & text */
+  /* Eight Sleep × Awak Health — surfaces & text */
   --color-base: #080808;
   --color-surface-base: #080808;
   --color-surface-1: #0f0f0f;

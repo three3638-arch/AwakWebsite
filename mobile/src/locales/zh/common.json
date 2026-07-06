@@ -21,8 +21,10 @@
   },
   "footer": {
     "tagline": "感知生命律动",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
+    "privacy": "隐私政策",
+    "terms": "用户协议",
+    "legal": "法律信息",
+    "copyright": "© {{year}} 觉醒意志（杭州）健康科技有限公司 版权所有",
     "groups": {
       "products": "产品",
       "company": "公司",
@@ -42,7 +44,22 @@
       "warranty": "保修政策",
       "ios": "iOS 下载",
       "android": "Android 下载",
-      "web": "AwakHealth Web"
+      "web": "Awak Health Web"
+    }
+  },
+  "legal": {
+    "indexTitle": "法律信息",
+    "indexDescription": "查阅 Awak 用户协议、隐私政策及相关法律文件。",
+    "backToIndex": "法律信息",
+    "versionLabel": "版本 v{{version}} · 更新 {{date}}",
+    "englishNotice": "英文译本，以中文版本为准",
+    "contactHint": "如有疑问请联系",
+    "viewFullPrivacy": "查看完整隐私政策",
+    "documents": {
+      "terms": "用户服务协议",
+      "privacy": "隐私政策",
+      "healthDataConsent": "健康数据使用授权书",
+      "deviceSafety": "可穿戴设备使用须知"
     }
   },
   "home": {
@@ -96,13 +113,13 @@
       "glasses": { "l1": "听见看见", "l2": "更自由地连接世界" }
     },
     "topSticky": {
-      "title": "AWAK 智能硬件",
+      "title": "Awak Health 智能硬件",
       "price": "¥349 起",
       "ctaCart": "加入购物车"
     },
     "intro": {
       "title": "全链路健康生态\n从睡眠运动营养链接商城险检需求",
-      "appLine": "AwakHealth APP — 全栈健康服务",
+      "appLine": "Awak Health APP — 全栈健康服务",
       "body": "",
       "ctaTry": "立即体验",
       "ctaDemo": "查看演示",
@@ -120,7 +137,7 @@
       ]
     },
     "valueLoop": {
-      "title": "AWAK 健康闭环\n昼夜守护身体节律",
+      "title": "Awak Health 健康闭环\n昼夜守护身体节律",
       "subtitle": "从无感记录到由AI驱动的行动建议，为您构建完美的数字生命闭环。",
       "cards": [
         { "icon": "sleep", "title": "清晨｜身体唤醒", "desc": "生成当日状态评分" },
@@ -145,7 +162,7 @@
         "b1": {
           "title": "春发精彩回顾",
           "subtitle": "探索科技与美学的共生",
-          "excerpt": "发布会完整回顾：新一代穿戴矩阵、AWAK Cloud 升级与开放生态路线，现场也解读了节律数据如何沉淀为可执行建议。"
+          "excerpt": "发布会完整回顾：新一代穿戴矩阵、Awak Health Cloud 升级与开放生态路线，现场也解读了节律数据如何沉淀为可执行建议。"
         },
         "b2": {
           "title": "呼吸的艺术",

@@ -255,7 +255,7 @@ export default function CheckoutPage() {
                         <input type="email" placeholder="邮箱地址（接收订单收据）" className="co-input" />
                         <div className="co-checkbox-wrap mt-2" onClick={() => setNewsletter(!newsletter)}>
                           <div className={`co-checkbox ${newsletter ? 'checked' : ''}`} />
-                          <span className="text-[13px] text-fg-tertiary">订阅 AWAK 最新动态和优惠信息</span>
+                          <span className="text-[13px] text-fg-tertiary">订阅 Awak Health 最新动态和优惠信息</span>
                         </div>
                       </div>
                     </section>
@@ -513,11 +513,11 @@ export default function CheckoutPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-6 relative">
                       <div className="w-[84px] h-[84px] rounded-2xl bg-white/5 flex items-center justify-center p-3 relative">
-                        <img src="https://i.ibb.co/JWDBKFgn/image.png" alt="AWAK Smart Ring" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                        <img src="https://i.ibb.co/JWDBKFgn/image.png" alt="Awak Health Smart Ring" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                         <div className="absolute -right-3 -top-3 flex h-7 w-7 items-center justify-center rounded-full border-none bg-accent text-[13px] font-normal text-ink">1</div>
                       </div>
                       <div className="flex flex-col">
-                        <span className="font-normal text-fg-primary text-[16px] tracking-tight">AWAK Smart Ring</span>
+                        <span className="font-normal text-fg-primary text-[16px] tracking-tight">Awak Health Smart Ring</span>
                         <span className="text-[13px] text-fg-tertiary font-normal mt-1 bg-black/5 px-2 py-0.5 rounded-md self-start">Obsidian · Size 9</span>
                       </div>
                     </div>
@@ -617,7 +617,7 @@ export default function CheckoutPage() {
                   <img src="https://i.ibb.co/JWDBKFgn/image.png" alt="Product" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex flex-col flex-1">
-                  <span className="font-normal text-fg-primary text-[15px]">AWAK Smart Ring</span>
+                  <span className="font-normal text-fg-primary text-[15px]">Awak Health Smart Ring</span>
                   <span className="text-[13px] text-fg-tertiary font-normal uppercase tracking-tight">Obsidian · Size 9</span>
                 </div>
                 <div className="flex flex-col items-end">
@@ -638,7 +638,7 @@ export default function CheckoutPage() {
              <div className="group flex cursor-pointer flex-col justify-between rounded-card-lg border-none bg-surface-2 p-6 transition-all hover:scale-[1.02]" onClick={() => navigate(withPath('/auth'))}>
                <div>
                   <h4 className="font-normal text-[15px] text-fg-primary mb-2 flex items-center gap-2"><Download className="w-4 h-4 text-fg-primary" /> 准备好迎接你的设备</h4>
-                  <p className="text-[12px] text-fg-tertiary leading-relaxed mb-4 font-normal">下载 AwakHealth App，注册账号并探索生态系统，为激活做准备。</p>
+                  <p className="text-[12px] text-fg-tertiary leading-relaxed mb-4 font-normal">下载 Awak Health App，注册账号并探索生态系统，为激活做准备。</p>
                </div>
                <span className="inline-flex max-w-max items-center gap-1 rounded-full bg-accent px-4 py-2 text-[12px] font-normal text-ink transition-transform group-hover:translate-x-1">立即下载 <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden /></span>
              </div>

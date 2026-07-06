@@ -495,10 +495,10 @@ export default function AuthPage() {
                         >
                           <div className={`checkbox-box ${agreed ? 'checked' : ''} ${privacyError ? 'error' : ''}`} />
                           <div className="text-[13px] text-[#444444] leading-[1.6]">
-                            我已阅读并同意 AWAK 的 
-                            <Link to={withPath('/privacy')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>用户服务协议</Link>
+                            我已阅读并同意 Awak Health 的 
+                            <Link to={withPath('/legal/terms')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>用户服务协议</Link>
                             和
-                            <Link to={withPath('/privacy')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>隐私政策</Link>
+                            <Link to={withPath('/legal/privacy')} className="text-[#080808] hover:underline mx-1" onClick={e=>e.stopPropagation()}>隐私政策</Link>
                           </div>
                         </div>
                         {privacyError && <div className="text-[#FF4D4D] text-[12px] mt-1 pl-7">请阅读并同意用户协议</div>}
@@ -648,7 +648,7 @@ export default function AuthPage() {
 
             {/* Footer Copyright */}
             <div className="mt-auto pt-24 text-center text-[#9B9B96] text-[12px] font-normal tracking-wide">
-              &copy; {new Date().getFullYear()} AWAK Health Inc. All rights reserved.
+              &copy; {new Date().getFullYear()} Awak Health. All rights reserved.
             </div>
           </motion.div>
         </div>
@@ -657,7 +657,7 @@ export default function AuthPage() {
         <div className="hidden md:flex w-[55%] h-full bg-[#080808] relative items-center justify-center overflow-hidden">
           {/* Background Watermark */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden text-clip whitespace-nowrap">
-            <span className="text-[300px] font-normal text-white opacity-[0.02] leading-none tracking-tighter select-none">AWAK</span>
+            <span className="text-[300px] font-normal text-white opacity-[0.02] leading-none tracking-tighter select-none">Awak Health</span>
           </div>
           
           {/* Content Container */}
@@ -739,12 +739,12 @@ export default function AuthPage() {
                 <X className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </button>
               <div className="w-10 h-10 mb-8 rounded-[12px] flex items-center justify-center bg-white/5">
-                 <span className="text-white font-normal text-sm tracking-widest">AWAK</span>
+                 <span className="text-white font-normal text-sm tracking-widest">Awak Health</span>
               </div>
               
-              <h3 className="text-white text-[32px] font-normal mb-4 tracking-[-1px]">欢迎加入 AWAK</h3>
+              <h3 className="text-white text-[32px] font-normal mb-4 tracking-[-1px]">欢迎加入 Awak Health</h3>
               <p className="text-[#9B9B96] leading-[1.6] mb-8">
-                你的账号已创建成功。接下来，戴上 AWAK Ring 并打开 AwakHealth App，开始你的健康旅程。
+                你的账号已创建成功。接下来，戴上 AWAK Ring 并打开 Awak Health App，开始你的健康旅程。
               </p>
 
               {/* Coupon Gift */}

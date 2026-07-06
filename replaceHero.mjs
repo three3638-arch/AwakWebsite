@@ -67,7 +67,7 @@ const newHero = `      {/* Configurator Section - PRODUCT HERO REWRITTEN */}
             
             {/* ① 产品标识行 */}
             <div className="flex flex-col gap-2 mb-6">
-              <span className="text-[12px] text-[#9B9B96] tracking-[0.2em] uppercase">AWAK</span>
+              <span className="text-[12px] text-[#9B9B96] tracking-[0.2em] uppercase">Awak Health</span>
               <h1 className="text-[32px] font-bold text-white leading-tight">智能戒指 AWAK Ring</h1>
               <div className="flex items-center gap-2 mt-1">
                 <div className="flex">

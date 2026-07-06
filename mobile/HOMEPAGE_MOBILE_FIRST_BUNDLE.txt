@@ -1,4 +1,4 @@
-AWAK 首页 Mobile-first 相关源码合并（生成时间以本地为准）
+Awak Health 首页 Mobile-first 相关源码合并（生成时间以本地为准）
 
 
 
@@ -8,7 +8,7 @@ FILE: index.html
 
 <!doctype html>
 <!--
-  AWAK 首页（Vite + React + TSX）本地预览说明
+  Awak Health 首页（Vite + React + TSX）本地预览说明
   ─────────────────────────────────────────
   本页仅作为 Vite 入口：直接双击用浏览器打开 index.html 无法运行（/src/main.tsx 需由开发服务器解析）。
 
@@ -28,7 +28,7 @@ FILE: index.html
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#161617" />
-    <title>AWAK</title>
+    <title>Awak Health</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -269,7 +269,7 @@ export default function Navbar() {
     return (
       <nav className="fixed top-0 left-0 right-0 z-[9997] flex items-center justify-between px-6 md:px-[170px] h-[72px] bg-transparent">
         <Link to={withPath('/')} className="flex items-center">
-          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">AWAK</span>
+          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">Awak Health</span>
         </Link>
         <LanguageMenu tone="onLight" />
       </nav>
@@ -294,7 +294,7 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Link to={withPath('/')} className="relative z-10 flex items-center">
-        <span className={`font-extrabold text-2xl tracking-[1px] ${isLightPage && scrolled ? 'text-black' : 'text-white'}`}>AWAK</span>
+        <span className={`font-extrabold text-2xl tracking-[1px] ${isLightPage && scrolled ? 'text-black' : 'text-white'}`}>Awak Health</span>
       </Link>
       
       {/* Desktop Navigation */}
@@ -1071,7 +1071,7 @@ export default function IntroSection() {
             >
               <img 
                 src="https://i.ibb.co/RkYkRwH5/app.png" 
-                alt="AwakHealth App Interface" 
+                alt="Awak Health App Interface" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -1295,7 +1295,7 @@ export default function ValueProposition() {
                   transition={{ duration: 0.6, delay: idx * 0.25 }}
                   className={`vp-awak-module ${node.className}`}
                 >
-                  <div className="mb-2.5 font-mono text-sm text-[#555]">AWAK / SYSTEM_{node.id}</div>
+                  <div className="mb-2.5 font-mono text-sm text-[#555]">Awak Health / SYSTEM_{node.id}</div>
                   <h3 className="m-0 mb-2 text-xl font-semibold text-white">{node.title}</h3>
                   <p className="m-0 text-[13px] leading-normal text-[#888]">{node.desc}</p>
                 </motion.div>
@@ -1313,7 +1313,7 @@ export default function ValueProposition() {
             >
               <span className="mt-2 inline-flex h-2 w-2 shrink-0 rounded-full bg-[#d4ff00] shadow-[0_0_18px_rgba(212,255,0,0.55)]" />
               <div className="min-w-0">
-                <div className="font-mono text-[11px] text-[#666] mb-1">AWAK / SYSTEM_{node.id}</div>
+                <div className="font-mono text-[11px] text-[#666] mb-1">Awak Health / SYSTEM_{node.id}</div>
                 <div className="text-white text-[16px] font-semibold tracking-tight">{node.title}</div>
                 <div className="text-[#888] text-[13px] leading-relaxed mt-1">{node.desc}</div>
               </div>
@@ -1806,7 +1806,7 @@ export default function FooterSections() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-12 mb-20 md:mb-32">
           <div className="lg:col-span-1 space-y-8">
             <div className="space-y-4">
-              <h2 className="text-white text-3xl font-black tracking-tight">AWAK WILL</h2>
+              <h2 className="text-white text-3xl font-black tracking-tight">Awak Health</h2>
               <p className="text-white/40 text-sm font-medium tracking-widest uppercase">{t('footer.tagline')}</p>
             </div>
             <div className="flex gap-4">
@@ -1867,7 +1867,7 @@ export default function FooterSections() {
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-white/20 text-xs font-mono uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} AWAK WILL. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} Awak Health. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-8">
             <Link to={withPath('/')} className="text-white/20 hover:text-white transition-colors text-xs font-mono uppercase">

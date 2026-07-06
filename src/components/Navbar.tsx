@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 import { stripLocalePrefix } from '../lib/locale';
 import LanguageMenu from './LanguageMenu';
+import { PRODUCT_BRAND_NAME } from '../../shared/lib/companyIdentity';
 
 const HW_ITEMS = [
   { id: 'ring' as const, path: '/products/ring' },
@@ -65,7 +66,7 @@ export default function Navbar() {
     return (
       <nav className="fixed top-0 left-0 right-0 z-[9997] flex items-center justify-between px-6 md:px-[170px] h-[72px] bg-transparent">
         <Link to={withPath('/')} className="flex items-center">
-          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">AWAK</span>
+          <span className="font-extrabold text-2xl tracking-[1px] text-[#080808]">{PRODUCT_BRAND_NAME}</span>
         </Link>
         <LanguageMenu tone="onLight" />
       </nav>
@@ -97,7 +98,7 @@ export default function Navbar() {
         <span
           className={`${isHomeIndex ? 'max-lg:text-2xl max-lg:font-medium max-lg:tracking-[-0.03em] max-lg:text-[#F5F5F5]' : 'text-2xl font-extrabold tracking-[1px]'} ${isLightPage && scrolled ? 'text-black' : !isHomeIndex ? 'text-white' : ''}`}
         >
-          AWAK
+          {PRODUCT_BRAND_NAME}
         </span>
       </Link>
 

@@ -238,7 +238,7 @@ const SmartWatchPage: React.FC = () => {
         <div className="bg-[#F5F5F7] border-none shadow-[0_2px_10_rgba(0,0,0,0.02)] rounded-[24px] p-12 md:p-24 flex flex-col md:flex-row items-center gap-20 relative overflow-hidden">
            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-black/[0.05] blur-[100px] rounded-full" />
            <div className="w-full md:w-1/3">
-             <img src="https://i.ibb.co/G43Fy2S7/image.png" alt="AWAK Synergy" className="w-full h-auto object-contain rotate-12 drop-shadow-2xl hover:scale-110 transition-transform duration-500" />
+             <img src="https://i.ibb.co/G43Fy2S7/image.png" alt="Awak Health Synergy" className="w-full h-auto object-contain rotate-12 drop-shadow-2xl hover:scale-110 transition-transform duration-500" />
            </div>
            <div className="w-full md:w-2/3 flex flex-col gap-8">
               <h2 className="text-[#000000] text-4xl md:text-6xl font-black tracking-tight uppercase">配合 AWAK RING <br/>健康数据更完整</h2>

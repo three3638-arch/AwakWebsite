@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-06-18",
+  "documents": [
+    {
+      "slug": "terms",
+      "version": "1.0",
+      "updatedAt": "2026-06-18",
+      "titleKey": "legal.documents.terms"
+    },
+    {
+      "slug": "privacy",
+      "version": "1.0",
+      "updatedAt": "2026-06-18",
+      "titleKey": "legal.documents.privacy"
+    },
+    {
+      "slug": "health-data-consent",
+      "version": "1.0",
+      "updatedAt": "2026-06-18",
+      "titleKey": "legal.documents.healthDataConsent"
+    },
+    {
+      "slug": "device-safety",
+      "version": "1.0",
+      "updatedAt": "2026-06-18",
+      "titleKey": "legal.documents.deviceSafety"
+    }
+  ]
+}

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-    MessageSquare, 
     Mail, 
-    Phone, 
     Users, 
     ChevronDown,
     ArrowDown,
@@ -31,7 +29,7 @@ const Hero = ({ onScrollToForm }: { onScrollToForm: () => void }) => (
                         我们随时在
                     </h1>
                     <p className="body-l text-white/75 max-w-[500px] mb-6">
-                        无论是购前咨询、售后服务还是合作提案，AWAK 团队平均在 4 小时内回复。
+                        无论是购前咨询、售后服务还是合作提案，Awak Health 团队平均在 4 小时内回复。
                     </p>
                     <span className="caption text-[#9B9B96] block">
                         客服时间：周一至周日 9:00–21:00（北京时间）
@@ -60,56 +58,47 @@ const Hero = ({ onScrollToForm }: { onScrollToForm: () => void }) => (
 const EntryCards = () => {
     const cards = [
         { 
-            icon: MessageSquare, 
-            title: '在线客服', 
-            desc: '直接与客服专员对话，解答购前疑问和使用问题', 
-            action: '立即开始对话 →',
-            badge: '实时响应' 
-        },
-        { 
             icon: Mail, 
             title: '发送邮件', 
-            desc: '详细描述你的问题，我们会在4小时内回复', 
-            action: 'support@awakring.com',
+            desc: '详细描述你的问题，我们会在 4 小时内回复', 
+            href: 'mailto:support@awakwill.com',
+            action: 'support@awakwill.com',
             badge: '≤4小时回复' 
-        },
-        { 
-            icon: Phone, 
-            title: '电话咨询', 
-            desc: '工作日致电，与专属顾问直接沟通', 
-            action: '400-XXX-XXXX',
-            badge: '工作日9:00-18:00' 
         },
         { 
             icon: Users, 
             title: '商务合作', 
             desc: '媒体采访、品牌合作、渠道代理等商务需求', 
-            action: 'bd@awakring.com',
+            href: 'mailto:bd@awakwill.com',
+            action: 'bd@awakwill.com',
             badge: '≤24小时回复' 
         },
     ];
 
     return (
         <section className="bg-[#080808] py-24">
-            <div className="container-max grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="container-max mx-auto max-w-4xl">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
                 {cards.map((card, i) => (
-                    <motion.div 
-                        key={i}
+                    <motion.a
+                        key={card.title}
+                        href={card.href}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1, duration: 0.6 }}
-                        className="bg-[#1A1A1A] p-8 rounded-[16px] min-h-[200px] flex flex-col group cursor-pointer hover:-translate-y-[6px] hover:shadow-[0_24px_60px_rgba(0,0,0,0.4)] transition-all duration-300"
+                        className="bg-[#1A1A1A] p-8 md:p-10 rounded-[16px] min-h-[220px] flex flex-col group cursor-pointer hover:-translate-y-[6px] hover:shadow-[0_24px_60px_rgba(0,0,0,0.4)] transition-all duration-300 no-underline"
                     >
                         <card.icon className="w-6 h-6 text-[#666666] group-hover:text-[#C8FF00] transition-colors" />
                         <h3 className="text-white font-bold text-lg mt-6">{card.title}</h3>
                         <p className="body-m text-[#9B9B96] mt-2 mb-6 line-clamp-2">{card.desc}</p>
                         <div className="mt-auto">
-                            <span className="text-white font-bold text-sm block group-hover:underline">{card.action}</span>
+                            <span className="text-white font-bold text-sm block group-hover:underline break-all">{card.action}</span>
                             <div className="response-badge">{card.badge}</div>
                         </div>
-                    </motion.div>
+                    </motion.a>
                 ))}
+                </div>
             </div>
         </section>
     );

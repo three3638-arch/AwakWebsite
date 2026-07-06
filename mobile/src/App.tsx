@@ -25,6 +25,8 @@ import StorePage from './pages/StorePage';
 import CheckoutPage from './pages/CheckoutPage';
 import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
+import LegalIndexPage from './pages/legal/LegalIndexPage';
+import LegalDocumentPage from './pages/legal/LegalDocumentPage';
 import EcosystemPage from './pages/EcosystemPage';
 import { DEFAULT_LOCALE, isSupportedLocale, ROUTER_BASENAME } from './lib/locale';
 
@@ -113,6 +115,8 @@ export default function App() {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="auth" element={<AuthPage />} />
+            <Route path="legal" element={<LegalIndexPage />} />
+            <Route path="legal/:slug" element={<LegalDocumentPage />} />
           </Route>
           <Route path="*" element={<LegacyRedirect />} />
         </Routes>

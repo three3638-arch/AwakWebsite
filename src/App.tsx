@@ -29,6 +29,8 @@ import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
 import EcosystemPage from './pages/EcosystemPage';
 import BrandStoryPage from './pages/BrandStoryPage';
+import LegalIndexPage from './pages/legal/LegalIndexPage';
+import LegalDocumentPage from './pages/legal/LegalDocumentPage';
 import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
@@ -122,6 +124,8 @@ export default function App() {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="auth" element={<AuthPage />} />
+            <Route path="legal" element={<LegalIndexPage />} />
+            <Route path="legal/:slug" element={<LegalDocumentPage />} />
           </Route>
           <Route path="*" element={<LegacyRedirect />} />
         </Routes>

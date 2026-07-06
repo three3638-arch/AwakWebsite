@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import i18n from '../i18n';
 import Navbar from './Navbar';
-import { DEFAULT_LOCALE, isSupportedLocale } from '../lib/locale';
+import { DEFAULT_LOCALE, isEmbedMode, isSupportedLocale } from '@shared/lib/locale';
 
 export default function LocaleLayout() {
   const { lang } = useParams<{ lang: string }>();
   const location = useLocation();
+  const embed = isEmbedMode(location.search);
 
   useEffect(() => {
     if (lang && isSupportedLocale(lang)) {
@@ -24,7 +25,7 @@ export default function LocaleLayout() {
 
   return (
     <>
-      <Navbar />
+      {!embed && <Navbar />}
       <Outlet />
     </>
   );

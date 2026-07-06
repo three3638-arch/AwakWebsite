@@ -22,5 +22,8 @@ yarn-error.log*
 # Vite cache
 .vite/
 
+# Local scratch (novel excerpts, etc.)
+temp/
+
 # Upstream reference (re-clone: git clone https://github.com/barvian/CodropsCarousels.git vendor/CodropsCarousels)
 vendor/CodropsCarousels/

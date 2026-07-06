@@ -4,7 +4,7 @@ export default function UserReviews() {
   const reviews = [
     { name: "张明", desc: "Awak Ring 用户", text: "Awak Ring 监测非常精准，睡眠深度比我之前用的手表准确很多。", rating: 5 },
     { name: "李华", desc: "Awak Watch 用户", text: "续航真的强，三天没充电还有电，数据分析也很到位。", rating: 5 },
-    { name: "王伟", desc: "全生态用户", text: "配合AwakHealth Premium，我的健康管理系统非常完善。", rating: 4 },
+    { name: "王伟", desc: "全生态用户", text: "配合Awak Health Premium，我的健康管理系统非常完善。", rating: 4 },
   ];
 
   return (

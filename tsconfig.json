@@ -16,14 +16,21 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@legal/*": [
+        "shared/features/legal/*"
+      ],
+      "@shared/*": [
+        "shared/*"
       ]
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "shared", "vite.config.ts"],
   "exclude": ["node_modules", "dist", "mobile", "awakokr"]
 }

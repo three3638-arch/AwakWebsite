@@ -17,7 +17,7 @@
   "brandStoryPage": {
     "label": "Brand story",
     "title": "Tech in rhythm with health",
-    "lede": "AWAK believes wearables should translate rhythms into trustworthy everyday decisions—not only log data.",
+    "lede": "Awak Health believes wearables should translate rhythms into trustworthy everyday decisions—not only log data.",
     "pillars": [
       {
         "title": "Begin with rhythm",
@@ -44,6 +44,8 @@
     "tagline": "Sense the rhythm of life",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
+    "legal": "Legal",
+    "copyright": "© {{year}} Awakening Will (hangzhou) Health Technology Co., Ltd All rights reserved.",
     "groups": {
       "products": "Products",
       "company": "Company",
@@ -63,12 +65,27 @@
       "warranty": "Warranty",
       "ios": "Download for iOS",
       "android": "Download for Android",
-      "web": "AwakHealth Web"
+      "web": "Awak Health Web"
+    }
+  },
+  "legal": {
+    "indexTitle": "Legal information",
+    "indexDescription": "Read Awak Terms of Service, Privacy Policy, and related legal documents.",
+    "backToIndex": "Legal",
+    "versionLabel": "Version v{{version}} · Updated {{date}}",
+    "englishNotice": "English translation of the official Chinese version",
+    "contactHint": "Questions? Contact",
+    "viewFullPrivacy": "View full Privacy Policy",
+    "documents": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "healthDataConsent": "Health Data Authorization",
+      "deviceSafety": "Wearable Device Safety Notice"
     }
   },
   "home": {
     "hero": {
-      "label": "AWAK HEALTH",
+      "label": "Awak Health",
       "scrollHint": "SCROLL",
       "title": "Health you can understand",
       "subtitle": "Leading-grade precision | Med-grade AI | Health for everyone",
@@ -108,7 +125,7 @@
       ]
     },
     "valueLoop": {
-      "title": "The AWAK health loop",
+      "title": "The Awak Health loop",
       "subtitle": "From effortless logging to AI-guided actions—a closed loop for your digital life. Every heartbeat, every breath, points you toward healthier living.",
       "copyEyebrow": "Health loop",
       "copyFeatures": [
@@ -171,7 +188,7 @@
           "detail": "APIs and SDKs let partners ingest rhythm summaries into the apps and services you already use—connected, consent-first, and interoperable."
         }
       ],
-      "ctaIntro": "From one person to the whole household, AWAK turns fragmented signals into one trustworthy language you can act on every day.",
+      "ctaIntro": "From one person to the whole household, Awak Health turns fragmented signals into one trustworthy language you can act on every day.",
       "ctaLabel": "Brand story"
     },
     "brandDynamics": {
@@ -179,10 +196,10 @@
       "more": "All stories",
       "news": {
         "b1": {
-          "title": "AWAK Spring 2026 keynote recap",
+          "title": "Awak Health Spring 2026 keynote recap",
           "subtitle": "Where tech meets aesthetics",
           "date": "2026.03.18",
-          "excerpt": "Full recap: new wearables matrix, AWAK Cloud updates, and the open-stack roadmap—plus how rhythm data turns into actionable guidance."
+          "excerpt": "Full recap: new wearables matrix, Awak Health Cloud updates, and the open-stack roadmap—plus how rhythm data turns into actionable guidance."
         },
         "b2": {
           "title": "The art of breathing",
@@ -243,7 +260,7 @@
           "desc": "Ring, band, glasses, and watch on one account—vitals and timelines stay connected."
         },
         {
-          "title": "AWAK Cloud",
+          "title": "Awak Health Cloud",
           "desc": "Sync, analytics, and insights in one place—complex data becomes actionable guidance."
         },
         {

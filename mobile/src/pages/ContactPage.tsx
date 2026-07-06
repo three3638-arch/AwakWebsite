@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-    MessageSquare, 
     Mail, 
-    Phone, 
     Users, 
     ChevronDown,
     ArrowDown,
@@ -31,7 +29,7 @@ const Hero = ({ onScrollToForm }: { onScrollToForm: () => void }) => (
                         我们随时在
                     </h1>
                     <p className="mb-3 max-w-[500px] text-[14px] font-normal leading-[1.6] text-white/70">
-                        无论是购前咨询、售后服务还是合作提案，AWAK 团队平均在 4 小时内回复。
+                        无论是购前咨询、售后服务还是合作提案，Awak Health 团队平均在 4 小时内回复。
                     </p>
                     <span className="block text-[12px] font-normal text-white/55">
                         客服时间：周一至周日 9:00–21:00（北京时间）
@@ -62,56 +60,47 @@ const Hero = ({ onScrollToForm }: { onScrollToForm: () => void }) => (
 const EntryCards = () => {
     const cards = [
         { 
-            icon: MessageSquare, 
-            title: '在线客服', 
-            desc: '直接与客服专员对话，解答购前疑问和使用问题', 
-            action: '立即开始对话 →',
-            badge: '实时响应' 
-        },
-        { 
             icon: Mail, 
             title: '发送邮件', 
-            desc: '详细描述你的问题，我们会在4小时内回复', 
-            action: 'support@awakring.com',
+            desc: '详细描述你的问题，我们会在 4 小时内回复', 
+            href: 'mailto:support@awakwill.com',
+            action: 'support@awakwill.com',
             badge: '≤4小时回复' 
-        },
-        { 
-            icon: Phone, 
-            title: '电话咨询', 
-            desc: '工作日致电，与专属顾问直接沟通', 
-            action: '400-XXX-XXXX',
-            badge: '工作日9:00-18:00' 
         },
         { 
             icon: Users, 
             title: '商务合作', 
             desc: '媒体采访、品牌合作、渠道代理等商务需求', 
-            action: 'bd@awakring.com',
+            href: 'mailto:bd@awakwill.com',
+            action: 'bd@awakwill.com',
             badge: '≤24小时回复' 
         },
     ];
 
     return (
         <section className="bg-[#0D0D0D] py-[72px]">
-            <div className="container-max grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+            <div className="container-max mx-auto max-w-2xl">
+                <div className="flex flex-col gap-3">
                 {cards.map((card, i) => (
-                    <motion.div 
-                        key={i}
+                    <motion.a
+                        key={card.title}
+                        href={card.href}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1, duration: 0.6 }}
-                        className="group flex min-h-[180px] cursor-pointer flex-col rounded-[12px] bg-[#161616] px-5 pb-6 pt-7 transition-colors hover:bg-[#1c1c1c]"
+                        className="group flex min-h-[160px] cursor-pointer flex-col rounded-[12px] bg-[#161616] px-5 pb-6 pt-7 no-underline transition-colors hover:bg-[#1c1c1c] sm:min-h-[180px] sm:px-8 sm:py-8"
                     >
                         <card.icon className="h-6 w-6 text-white/45 transition-colors group-hover:text-white/80" strokeWidth={1.5} />
                         <h3 className="mt-[18px] text-[18px] font-normal text-white">{card.title}</h3>
-                        <p className="mb-4 mt-2 line-clamp-2 text-[14px] font-normal leading-[1.6] text-white/55">{card.desc}</p>
+                        <p className="mb-4 mt-2 text-[14px] font-normal leading-[1.6] text-white/55">{card.desc}</p>
                         <div className="mt-auto">
-                            <span className="text-white font-normal text-[12px] block group-hover:underline">{card.action}</span>
+                            <span className="block break-all text-[12px] font-normal text-white group-hover:underline sm:text-[13px]">{card.action}</span>
                             <div className="response-badge">{card.badge}</div>
                         </div>
-                    </motion.div>
+                    </motion.a>
                 ))}
+                </div>
             </div>
         </section>
     );

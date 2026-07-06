@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 const newsItems = [
   {
-    title: "AWAK 2026 春季发布会回顾",
+    title: "Awak Health 2026 春季发布会回顾",
     subtitle: "探索科技与美学的共生",
     img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80",
     size: "flex-[2]"

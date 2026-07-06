@@ -126,7 +126,7 @@ const EDITORIAL_BY_CATEGORY: Record<
   ring: {
     h2Line1: '年轻时尚',
     h2Line2: '指尖健康触手可及',
-    body: '从心率到睡眠，从压力到血氧，AWAK 智能戒指持续追踪 50+ 项生理指标，让你成为最了解自己身体的人。',
+    body: '从心率到睡眠，从压力到血氧，Awak Health 智能戒指持续追踪 50+ 项生理指标，让你成为最了解自己身体的人。',
     chips: ['心率监测', '血氧饱和度', '睡眠分期', '压力指数', '+46项'],
   },
   bracelet: {
@@ -500,7 +500,7 @@ const allFaqs: Record<string, { q: string, a: string }[]> = {
     },
     {
       q: '如何连接到我的手机？',
-      a: '下载 AWAK APP，打开蓝牙，将戒指从充电仓中取出，APP 会自动识别并完成绑定，全程不超过 2 分钟。',
+      a: '下载 Awak Health App，打开蓝牙，将戒指从充电仓中取出，APP 会自动识别并完成绑定，全程不超过 2 分钟。',
     },
     {
       q: '支持哪些手机系统？',
@@ -513,7 +513,7 @@ const allFaqs: Record<string, { q: string, a: string }[]> = {
     },
     {
       q: '可以以旧换新吗？',
-      a: '支持以旧换新，适用于 AWAK 全系产品。以旧换新可享受额外 ¥80–¥150 的折扣优惠，具体金额根据旧设备成色评估确定。',
+      a: '支持以旧换新，适用于 Awak Health 全系产品。以旧换新可享受额外 ¥80–¥150 的折扣优惠，具体金额根据旧设备成色评估确定。',
     },
   ],
   bracelet: [
@@ -805,7 +805,7 @@ export default function StorePage() {
               className="text-2xl font-normal tracking-[1px] text-fg-primary"
               onClick={() => setRingMobileMenuOpen(false)}
             >
-              AWAK
+              Awak Health
             </Link>
             <button
               type="button"
@@ -1076,7 +1076,7 @@ export default function StorePage() {
             {/* ① 产品标识行 */}
             <div className={`flex flex-col gap-2 ${useUnified ? 'mb-4' : 'mb-6'}`}>
               {!useUnified && (
-                <span className="text-[length:var(--text-label)] uppercase tracking-[0.2em] text-[#6E6E73]">AWAK</span>
+                <span className="text-[length:var(--text-label)] uppercase tracking-[0.2em] text-[#6E6E73]">Awak Health</span>
               )}
               <h1
                 className={`font-normal text-[#FFFFFF] ${
@@ -1086,7 +1086,7 @@ export default function StorePage() {
                 }`}
               >
                 {(activeCategory as any).variants?.[activeThumb]?.name ||
-                  (useUnified ? activeCategory.name : `${activeCategory.name} AWAK`)}
+                  (useUnified ? activeCategory.name : `${activeCategory.name} Awak Health`)}
               </h1>
               {!useUnified && (
                 <div className="mt-1 flex items-center gap-2">
@@ -1527,7 +1527,7 @@ export default function StorePage() {
               你的身体会变得更显着不同
             </h2>
             <p className="m-0 mb-10 text-[11px] leading-[1.5] tracking-[0.01em] text-white/25">
-              数据来源：AWAK 用户长期运动与健康追踪数据（模拟结构化整理）
+              数据来源：Awak Health 用户长期运动与健康追踪数据（模拟结构化整理）
             </p>
 
             <div

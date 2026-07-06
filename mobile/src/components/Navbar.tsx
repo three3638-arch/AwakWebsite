@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 import { stripLocalePrefix } from '../lib/locale';
 import { NAV_HARDWARE_ITEMS, NAV_SECONDARY_PAGES } from '../lib/siteNav';
+import { PRODUCT_BRAND_NAME } from '../../../shared/lib/companyIdentity';
 
 export default function Navbar() {
   const { t } = useTranslation('common');
@@ -66,7 +67,7 @@ export default function Navbar() {
         <span
           className={`text-2xl ${isHomeIndex && !isLightUnderlying ? 'font-medium tracking-[-0.02em]' : 'font-extrabold tracking-[1px]'} ${logoClass}`}
         >
-          AWAK
+          {PRODUCT_BRAND_NAME}
         </span>
       </Link>
 

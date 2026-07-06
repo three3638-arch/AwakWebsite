@@ -109,7 +109,7 @@ function IntroAppVisual() {
         >
           <motion.img
             src="https://i.ibb.co/RkYkRwH5/app.png"
-            alt="AwakHealth App Interface"
+            alt="Awak Health App Interface"
             style={isDesktop ? { boxShadow: shadowLift } : undefined}
             className="home-float-slow relative z-10 h-auto w-full origin-center cursor-grab object-contain active:cursor-grabbing max-lg:!animate-none lg:h-full lg:max-h-full lg:w-auto lg:max-w-full lg:scale-[1.56] lg:shadow-[0_32px_72px_rgba(0,0,0,0.12)]"
             referrerPolicy="no-referrer"

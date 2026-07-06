@@ -1,6 +1,6 @@
 import type { Transition, Variants } from 'motion/react';
 
-/** AWAK 全局动效 ease — cubic-bezier(0.16, 1, 0.3, 1) */
+/** Awak Health 全局动效 ease — cubic-bezier(0.16, 1, 0.3, 1) */
 export const easeSpring = [0.16, 1, 0.3, 1] as const;
 
 export const spring: Transition = {

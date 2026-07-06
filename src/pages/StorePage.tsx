@@ -121,10 +121,10 @@ const allFaqs: Record<string, { q: string, a: string }[]> = {
   ring: [
     { q: '如何找到适合我的戒圈尺寸？', a: '提供专用量指纸条（随货附赠），或使用App内的尺寸测量功能，通过手机摄像头辅助测量。' },
     { q: '电池寿命多久？多久充一次电？', a: '标准使用模式下续航约7天。磁吸充电底座充满约需90分钟，建议每周充电一次，养成固定习惯。' },
-    { q: '如何连接到我的手机？', a: '下载 AwakHealth App（iOS/Android），打开蓝牙后按照App引导完成配对，全程约3分钟。' },
+    { q: '如何连接到我的手机？', a: '下载 Awak Health App（iOS/Android），打开蓝牙后按照App引导完成配对，全程约3分钟。' },
     { q: '支持哪些手机系统？', a: 'iOS 14 及以上版本 / Android 8.0 及以上版本。部分旧款机型功能受限，建议在下单前确认兼容性。' },
     { q: '可以游泳或洗澡时佩戴吗？', a: '可以。AWAK Ring 达到 IP68 防水等级，可在水深30米以内安全使用，支持游泳、淋浴等日常涉水场景。' },
-    { q: '可以以旧换新吗？', a: '支持。参与「AWAK Trade-in」计划，旧款设备抵扣最高¥200，具体折扣以活动页面为准。' }
+    { q: '可以以旧换新吗？', a: '支持。参与「Awak Health Trade-in」计划，旧款设备抵扣最高¥200，具体折扣以活动页面为准。' }
   ],
   bracelet: [
     { q: '什么是恢复评分？', a: '基于睡眠、HRV与心率计算的每日身体恢复状态' },
@@ -411,9 +411,9 @@ export default function StorePage() {
             
             {/* ① 产品标识行 */}
             <div className="flex flex-col gap-2 mb-6">
-              <span className="text-[length:var(--text-label)] text-[#6E6E73] tracking-[0.2em] uppercase">AWAK</span>
+              <span className="text-[length:var(--text-label)] text-[#6E6E73] tracking-[0.2em] uppercase">Awak Health</span>
               <h1 className="text-[length:var(--text-h1)] font-bold text-[#FFFFFF] leading-[var(--leading-title)]">
-                {(activeCategory as any).variants?.[activeThumb]?.name || `${activeCategory.name} AWAK`}
+                {(activeCategory as any).variants?.[activeThumb]?.name || `${activeCategory.name} Awak Health`}
               </h1>
               <div className="flex items-center gap-2 mt-1">
                 <div className="flex">
@@ -766,7 +766,7 @@ export default function StorePage() {
                 年轻时尚| 指尖健康触手可及
                 </h2>
                 <p className="text-[#86868B] text-lg md:text-xl max-w-2xl leading-relaxed">
-                  从心率到睡眠，从压力到血氧，AWAK 智能戒指持续追踪 50+ 项生理指标，让你成为最了解自己身体的人。
+                  从心率到睡眠，从压力到血氧，Awak Health 智能戒指持续追踪 50+ 项生理指标，让你成为最了解自己身体的人。
                 </p>
               </div>
 
@@ -876,7 +876,7 @@ export default function StorePage() {
         <div className="max-w-[1200px] mx-auto">
           <div className="mb-20 text-center md:text-left">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">90天后，你的身体会变得更显着不同</h2>
-            <p className="text-white/40 text-sm">数据来源：AWAK 用户长期运动与健康追踪数据（模拟结构化整理）</p>
+            <p className="text-white/40 text-sm">数据来源：Awak Health 用户长期运动与健康追踪数据（模拟结构化整理）</p>
           </div>
           <ComparisonTable categoryId={activeCategory.id} />
         </div>

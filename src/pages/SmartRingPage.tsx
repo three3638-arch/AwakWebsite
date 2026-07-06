@@ -248,7 +248,7 @@ const SmartRingPage: React.FC = () => {
               <h2 className="text-[#000000] text-4xl md:text-6xl font-black tracking-tight uppercase">AWAK BRACELET <br/>配合使用更完整</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                 <BoxItem icon={<Activity size={24}/>} name="多端协同" desc="戒指与手环数据互补，构建更精准的健康画像" />
-                <BoxItem icon={<Zap size={24}/>} name="即时反馈" desc="配合 AWAK App 实时获取改善建议" />
+                <BoxItem icon={<Zap size={24}/>} name="即时反馈" desc="配合 Awak Health App 实时获取改善建议" />
                 <BoxItem icon={<ShieldCheck size={24}/>} name="医生服务" desc="旗舰版用户享有一年私人健康报告解读" />
                 <BoxItem icon={<FileText size={20}/>} name="运动指导" desc="结合 AI 运动教练，发掘身体更大的潜能" />
               </div>
