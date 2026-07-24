@@ -1,0 +1,37 @@
+/* Override global `a { color: #F0F0F0 }` on PC/mobile base styles. */
+.beta-download-page a.beta-download-cta,
+.beta-download-page a.beta-download-cta:hover,
+.beta-download-page a.beta-download-cta:focus,
+.beta-download-page a.beta-download-cta:active {
+  color: #080808 !important;
+  text-decoration: none;
+}
+
+.beta-download-page a.beta-download-cta svg {
+  color: #080808 !important;
+}
+
+.beta-download-page button.beta-download-cta,
+.beta-download-page button.beta-download-cta:hover,
+.beta-download-page button.beta-download-cta:focus,
+.beta-download-page button.beta-download-cta:active {
+  color: #080808 !important;
+}
+
+.beta-download-page button.beta-download-cta svg {
+  color: #080808 !important;
+}
+
+.beta-download-step-num {
+  display: inline-flex;
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(221 247 0 / 0.15);
+  font-size: 12px;
+  font-weight: 600;
+  color: #ddf700;
+}

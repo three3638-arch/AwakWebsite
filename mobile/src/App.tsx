@@ -27,6 +27,7 @@ import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
 import LegalIndexPage from './pages/legal/LegalIndexPage';
 import LegalDocumentPage from './pages/legal/LegalDocumentPage';
+import BetaDownloadRoute from './pages/beta/BetaDownloadRoute';
 import EcosystemPage from './pages/EcosystemPage';
 import { DEFAULT_LOCALE, isSupportedLocale, ROUTER_BASENAME } from './lib/locale';
 
@@ -100,6 +101,7 @@ export default function App() {
       <main className="min-h-screen bg-white overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Navigate to={`/${DEFAULT_LOCALE}`} replace />} />
+          <Route path="/:lang/beta-download" element={<BetaDownloadRoute />} />
           <Route path="/:lang" element={<LocaleLayout />}>
             <Route index element={<HomePage />} />
             <Route path="ecosystem" element={<EcosystemPage />} />

@@ -1,8 +1,8 @@
 # 法律文档体系与产品对接说明
 
-**版本**：v1.0  
-**日期**：2026-06-18  
-**状态**：设计稿 v1.1（**官网 LEGAL-01 已实施**；App 侧 LEGAL-02~08 待开发）  
+**版本**：v1.1  
+**日期**：2026-07-07  
+**状态**：设计稿（本期仅修订协议文本，**不实施** App / 官网代码改动）  
 **关联真源**：`docs/Reference/协议/*.md`
 
 ---
@@ -75,20 +75,23 @@ flowchart LR
 
 ---
 
-## 5. 与现有 App 的对接设计（待开发）
+## 5. 与现有 App 的对接设计
 
-### 5.1 当前 App 状态（截至 2026-06-18）
+### 5.1 当前 App 状态（截至 2026-06-19 · App 已对接）
 
-| 模块 | 文件 | 现状 | 差距 |
-|------|------|------|------|
-| 内嵌法律正文 | `apps/mobile/lib/settings/legal_document_content.dart` | 短版用户协议 + 隐私政策 | 与新版四份文档不一致 |
-| 法律页 | `apps/mobile/lib/settings/legal_page.dart` | 支持内嵌 + 外链 `AWAK_LEGAL_*_URL` | 外链默认空；仅 terms/privacy 两种 |
-| 关于页 | `apps/mobile/lib/settings/about_page.dart` | 用户协议、隐私政策入口 | 官网仍为 `awak.health`，需改为 `awakwill.com` |
-| 注册勾选 | `auth_legal_consent_row.dart` / 登录页 | 勾选用户协议 + 隐私政策 | 部分入口仍为 placeholder |
-| 健康授权弹窗 | — | **未实现** | 需新建 |
-| 设备绑定须知 | — | **未实现** | 需新建 |
-| 友盟初始化 | `analytics_facade.dart` | 隐私同意后初始化 | 与隐私政策表述一致 ✓ |
-| 联系我们 | `help_page.dart`（待改名为联系流程） | 「我的 → 联系我们」→ `mailto:support@awakwill.com` | 与协议一致；完整帮助中心后续版本再做 |
+| 模块 | 文件 | 状态 |
+|------|------|------|
+| 法律 URL 拼接 | `lib/legal/legal_urls.dart` | ✓ `AWAK_LEGAL_BASE_URL` + locale/slug |
+| 法律 WebView | `lib/settings/legal_webview_page.dart` | ✓ 官网 `?embed=1` 全文 |
+| 注册/登录协议链 | `ux_l01_login_page.dart` / `ux_l02_register_page.dart` | ✓ WebView；注册 POST terms+privacy |
+| 健康数据授权 Gate | `lib/legal/health_data_consent_*.dart` + `main_shell.dart` | ✓ 同意前不 bootstrap BLE/sync |
+| 授权管理（最小） | `lib/legal/health_data_consent_status_page.dart` | ✓ 只读状态 + 官网链 |
+| 设备绑定须知 | `device_bind_page.dart` | ✓ 勾选 + POST device_safety；demo_sim 豁免 |
+| 关于页六链 | `about_page.dart` | ✓ 四协议 + 附录 A/B + 官网 awakwill.com |
+| S4 同意审计 | `services/api/src/app-legal/` | ✓ POST/GET `/v1/app/legal/consents` |
+| 内嵌短版正文 | `legal_document_content.dart` | 仅保留医疗免责声明摘要 |
+| LEGAL-07 完整撤回 | — | P2 延后 |
+| LEGAL-08 版本重签 | — | P2 延后 |
 
 ### 5.2 推荐对接策略（商业化一般做法）
 
@@ -142,7 +145,7 @@ sequenceDiagram
   alt 同意
     U->>Main: 进入首页
   else 拒绝
-    U->>Main: 退出应用
+    U->>Main: Shell 锁层（无法使用健康功能，须退出或重新同意）
   end
   U->>Bind: 绑定实体穿戴设备
   Bind->>U: 勾选设备使用须知
@@ -213,7 +216,7 @@ sequenceDiagram
 ### 6.5 审核备注（Review Notes）建议
 
 - 提供测试账号与密码  
-- 说明「虚拟演示设备」入口：首页未绑定区域 2 秒内连点 5 次 → 确认 → 模拟数据 Banner  
+- 说明「虚拟演示设备」入口（任选一路）：① 首页未绑定设备头区 ② 我的→我的设备→「暂无绑定设备」卡片；均为 2 秒内连点 5 次 → 确认 → 模拟数据 Banner  
 - 明确：**非医疗器械**；ECG 为参考用途  
 - 算法说明：核心评分与趋势由 **Awak 自有算法/模型** 完成；个性化建议由境内合规 AI 基于授权的健康指标、Awak 分析摘要及身体基础信息（性别/身高体重等）生成，**不向 AI 传输手机号、姓名、账号 ID**，不出境  
 - **当前提审版本配套实体硬件形态**（如智能戒指）可在审核备注中说明，无需写进对外协议正文  
@@ -246,19 +249,27 @@ sequenceDiagram
 | **四份对外协议**（用户/审核可见） | **不使用「首版」**；用「当前」「本应用当前」或「截至本政策/协议更新之日」描述可变能力；对长期承诺（如不出境）直接陈述事实 |
 | **本文档**（内部研发/法务） | 可保留「首版」「提审」「Phase」等里程碑用语 |
 
-协议文首统一为：`版本 v1.0` + `更新日期` + `适用范围`（重大修订时递增版本号并更新日期）。
+协议文首统一为：`版本 v1.x` + `更新日期` + `适用范围`（重大修订时递增版本号并更新日期）。
+
+### 8.0.1 修订记录
+
+| 版本 | 日期 | 摘要 |
+|------|------|------|
+| v1.0 | 2026-06-18 | 首版四份协议；iOS 中国区提审基线 |
+| v1.1 | 2026-07-07 | 扩展授权采集范围：身体成分、微体检、尿酸/血脂趋势、MET/活动负荷；统一未成年人 16+；授权书撤回后果与 App 锁层对齐；隐私政策附录 A 增补；文案 hotfix：App 内路径与去标识化开关已上线表述 |
 
 ### 8.1 对外法律文本称谓约定
 
 | 称谓 | 用途 |
 |------|------|
+| **觉醒意志（杭州）健康科技有限公司** / **Awakening Will (hangzhou) Health Technology Co., Ltd** | 法定主体（协议运营主体、英文 Operator、版权落款）；详见 [COMPANY-IDENTITY.md](./COMPANY-IDENTITY.md) |
 | **Awak 智能穿戴设备** / **本设备** | 四份对外协议正文主称（覆盖戒指、手环及后续品类） |
-| **Awak** / **本应用** | 软件侧 |
+| **Awak** / **本应用** / **Awak Health**（产品品牌） | 软件侧与营销；**不得**替代法定主体英文全称 |
 | 具体 SKU（如某型号戒指） | 仅出现在产品包装说明书、官网产品页、**App Store 审核备注**，不写进协议正文 |
 
 ### 8.2 业务事实表
 
-以下事实已写入四份协议 v1.0，后续产品变更须同步修订：
+以下事实已写入四份协议 v1.1，后续产品变更须同步修订：
 
 | 项 | 首版决策 |
 |----|----------|
@@ -274,6 +285,7 @@ sequenceDiagram
 | 第三方（对外协议） | 具名：阿里云（ECS/OSS/短信/境内 AI 推理算力）、友盟+；**不对外具名具体 LLM 商标** |
 | 第三方（内部合规备案） | 工程与法务另册维护实际 AI 技术服务链路，供监管抽查 |
 | 演示模式 | 模拟数据，须 UI + 协议双重声明 |
+| v0.1 扩展域 | 身体成分、微体检（含尿酸/血脂等）、MET 时序；协议 v1.1 已覆盖 |
 
 ---
 
@@ -294,13 +306,15 @@ sequenceDiagram
 ### 本期已完成（文本）
 
 - [x] 四份协议 v1.0 修订（`docs/Reference/协议/`）
+- [x] 四份协议 v1.1 修订（身体成分/微体检/尿酸血脂/MET；未成年人 16+；中英文镜像）
 - [x] 本对接说明文档
 
 ### 本期刻意不做（按需求）
 
-- [ ] App 代码改动（`legal_document_content.dart`、弹窗、绑定勾选等）
-- [x] 官网 `/legal/*` 页面上线（见 §12）
-- [ ] 服务端同意记录 API
+- [x] App 代码改动（WebView、健康授权 Gate、绑定勾选、S4 API）
+- [x] 官网 `/legal/*` 页面上线（§12）
+- [x] 服务端同意记录 API
+- [ ] LEGAL-07 完整撤回开关、LEGAL-08 版本比对重签（P2）
 
 ---
 
@@ -412,3 +426,4 @@ String legalUrl(String slug, {bool embed = true}) {
 ---
 
 *本文档随协议版本迭代；当 App 完成对接后，应更新 §5.1「当前 App 状态」表格并关闭对应 LEGAL-* 任务。*
+

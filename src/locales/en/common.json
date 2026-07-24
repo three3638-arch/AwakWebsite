@@ -83,6 +83,27 @@
       "deviceSafety": "Wearable Device Safety Notice"
     }
   },
+  "betaDownload": {
+    "title": "Awak Health Beta Download",
+    "lede": "Thank you for joining the Awak Health internal beta. Please read the notice below before downloading the Android test build.",
+    "disclaimerTitle": "Beta notice",
+    "disclaimerItems": [
+      "This is an invite-only internal test build, not a public release.",
+      "Features may be unstable; crashes, bugs, or data resets can occur.",
+      "Do not share this page link or the APK with anyone outside the beta program.",
+      "Health data and AI insights are for reference only and are not medical advice."
+    ],
+    "androidSectionTitle": "Android download",
+    "androidLogoAlt": "Awak Health app icon",
+    "downloadCta": "Download Android beta",
+    "versionHint": "Beta {{version}} · Released {{date}}",
+    "wechatNoticeTitle": "Open in your browser to download",
+    "wechatNoticeBody": "WeChat cannot install APK files directly. Use one of the options below:",
+    "wechatStepBrowser": "Tap ··· in the top-right corner, then choose “Open in browser”",
+    "wechatStepCopy": "Or copy this page link below and open it in Chrome or another browser",
+    "copyPageLink": "Copy page link",
+    "copied": "Copied"
+  },
   "home": {
     "hero": {
       "label": "Awak Health",

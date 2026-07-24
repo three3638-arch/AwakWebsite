@@ -31,6 +31,7 @@ import EcosystemPage from './pages/EcosystemPage';
 import BrandStoryPage from './pages/BrandStoryPage';
 import LegalIndexPage from './pages/legal/LegalIndexPage';
 import LegalDocumentPage from './pages/legal/LegalDocumentPage';
+import BetaDownloadRoute from './pages/beta/BetaDownloadRoute';
 import { DEFAULT_LOCALE, isSupportedLocale } from './lib/locale';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
@@ -108,6 +109,7 @@ export default function App() {
         <HomeCinematicTransition />
         <Routes>
           <Route path="/" element={<Navigate to={`/${DEFAULT_LOCALE}`} replace />} />
+          <Route path="/:lang/beta-download" element={<BetaDownloadRoute />} />
           <Route path="/:lang" element={<LocaleLayout />}>
             <Route index element={<HomePage />} />
             <Route path="brand-story" element={<BrandStoryPage />} />

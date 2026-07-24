@@ -62,6 +62,27 @@
       "deviceSafety": "可穿戴设备使用须知"
     }
   },
+  "betaDownload": {
+    "title": "Awak Health 内测版下载",
+    "lede": "感谢参与 Awak Health 内部测试。请仔细阅读以下说明后下载安装 Android 内测包。",
+    "disclaimerTitle": "内测声明",
+    "disclaimerItems": [
+      "本应用为内部测试版本，仅限受邀内测用户使用，非公开发布版本。",
+      "内测版本功能可能不稳定，存在缺陷、崩溃或数据重置风险。",
+      "请勿向非内测人员传播本页面链接或安装包。",
+      "应用内健康数据与 AI 建议仅供参考，不构成医疗诊断或治疗依据。"
+    ],
+    "androidSectionTitle": "Android 下载",
+    "androidLogoAlt": "Awak Health 应用图标",
+    "downloadCta": "下载 Android 内测包",
+    "versionHint": "内测版本 {{version}} · 发布 {{date}}",
+    "wechatNoticeTitle": "请在浏览器中下载",
+    "wechatNoticeBody": "微信内无法直接安装 APK，请使用以下任一方式完成下载：",
+    "wechatStepBrowser": "点击右上角「···」，选择「在浏览器中打开」",
+    "wechatStepCopy": "或点击下方按钮复制本页链接，粘贴到 Chrome 等浏览器打开后再下载",
+    "copyPageLink": "复制本页链接",
+    "copied": "已复制"
+  },
   "home": {
     "hero": {
       "title": "指尖健康  触手可及",
