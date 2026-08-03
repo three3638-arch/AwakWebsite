@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 import { PRODUCT_BRAND_NAME } from '../../shared/lib/companyIdentity';
+import { VISIBLE_PRODUCT_IDS } from '../lib/visibleProducts';
 
 type FooterSectionsProps = { /** 仅首页：应用原子视觉（细线 / 去粗 / 荧光点缀交互） */ homeAtomic?: boolean };
 
@@ -14,12 +15,10 @@ export default function FooterSections({ homeAtomic = false }: FooterSectionsPro
     () => [
       {
         title: t('footer.groups.products'),
-        links: [
-          { name: t('footer.links.ring'), path: '/products/ring' },
-          { name: t('footer.links.band'), path: '/products/band' },
-          { name: t('footer.links.watch'), path: '/products/watch' },
-          { name: t('footer.links.glasses'), path: '/products/glasses' },
-        ],
+        links: VISIBLE_PRODUCT_IDS.map((id) => ({
+          name: t(`footer.links.${id}`),
+          path: `/products/${id}`,
+        })),
       },
       {
         title: t('footer.groups.company'),

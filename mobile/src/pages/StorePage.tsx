@@ -480,6 +480,8 @@ const categories = [
   }
 ];
 
+const visibleCategories = categories.filter((c) => c.id !== 'watch' && c.id !== 'glasses');
+
 const colors = [
   { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: 'https://i.ibb.co/JWDBKFgn/image.png' },
   { id: 'titanium', name: '钛金银', enName: 'Titanium', price: 299, img: 'https://i.ibb.co/gbpwCydx/a618c6efdd3c4e599a9b760453c224ac.png' },
@@ -673,20 +675,24 @@ export default function StorePage() {
 
   const [activeCategory, setActiveCategory] = useState(() => {
     if (category) {
-      const found = categories.find(c => c.id === category);
+      const found = visibleCategories.find(c => c.id === category);
       if (found) return found;
     }
-    return categories[0];
+    return visibleCategories[0];
   });
 
   useEffect(() => {
+    if (category === 'watch' || category === 'glasses') {
+      navigate(withPath('/store/ring'), { replace: true });
+      return;
+    }
     if (category) {
-      const found = categories.find(c => c.id === category);
+      const found = visibleCategories.find(c => c.id === category);
       if (found) {
         setActiveCategory(found);
       }
     }
-  }, [category]);
+  }, [category, navigate, withPath]);
 
   useLayoutEffect(() => {
     // Force reset scroll position when entering/changing store routes.
@@ -765,7 +771,7 @@ export default function StorePage() {
   if (carePlan === 3) total += 60;
 
   const activeVariant = (activeCategory as any).variants?.[activeThumb];
-  const showPrice = activeVariant?.showPrice !== false;
+  const showPrice = activeCategory.id !== 'bracelet' && activeVariant?.showPrice !== false;
   const originalPrice = (selectedColor as { originalPrice?: number }).originalPrice ?? total * 1.4;
 
   const uCat = activeCategory.id as UnifiedStoreId;
@@ -786,7 +792,7 @@ export default function StorePage() {
       {/* FIXED SIDE NAVIGATION (DESKTOP) */}
       <div className="fixed left-10 top-1/2 z-[100] hidden w-[140px] -translate-y-1/2 flex-col items-center gap-6 rounded-[24px] bg-base/80 py-8 backdrop-blur-xl md:flex">
         <div className="flex flex-col items-center gap-2 w-full px-4">
-          {categories.map(cat => {
+          {visibleCategories.map(cat => {
             const isActive = activeCategory.id === cat.id;
             return (
               <Link
@@ -827,7 +833,7 @@ export default function StorePage() {
             </button>
           </div>
           <div className="cat-scroll hide-scrollbar flex items-center gap-2 overflow-x-auto px-6 pb-3">
-            {categories.map((cat) => (
+            {visibleCategories.map((cat) => (
               <Link
                 key={cat.id}
                 to={withPath(cat.path)}

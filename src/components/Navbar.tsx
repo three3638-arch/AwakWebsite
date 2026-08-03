@@ -7,13 +7,7 @@ import { useLocalePath } from '../hooks/useLocalePath';
 import { stripLocalePrefix } from '../lib/locale';
 import LanguageMenu from './LanguageMenu';
 import { PRODUCT_BRAND_NAME } from '../../shared/lib/companyIdentity';
-
-const HW_ITEMS = [
-  { id: 'ring' as const, path: '/products/ring' },
-  { id: 'band' as const, path: '/products/band' },
-  { id: 'watch' as const, path: '/products/watch' },
-  { id: 'glasses' as const, path: '/products/glasses' },
-];
+import { NAV_HARDWARE_ITEMS } from '../lib/siteNav';
 
 type NavRow =
   | { kind: 'dropdown'; key: 'hardware' }
@@ -162,7 +156,7 @@ export default function Navbar() {
                           : 'rounded-2xl border border-white/5 bg-[#111111]'
                       }`}
                     >
-                      {HW_ITEMS.map((hw) => (
+                      {NAV_HARDWARE_ITEMS.map((hw) => (
                         <Link
                           key={hw.id}
                           to={withPath(hw.path)}
@@ -246,7 +240,7 @@ export default function Navbar() {
                 </span>
                 {item.kind === 'dropdown' ? (
                   <div className="grid gap-4 pl-4">
-                    {HW_ITEMS.map((hw) => (
+                    {NAV_HARDWARE_ITEMS.map((hw) => (
                       <Link
                         key={hw.id}
                         to={withPath(hw.path)}

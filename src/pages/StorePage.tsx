@@ -4,6 +4,7 @@ import { Shield, RefreshCw, Lock, ZoomIn, Check, Search, User, ShoppingCart, X, 
 import { useNavigate, useParams, useLocation, Link } from 'react-router-dom';
 import FooterSections from '../components/FooterSections';
 import { useLocalePath } from '../hooks/useLocalePath';
+import { isStoreCategoryVisible, type StoreCategoryId } from '../lib/visibleProducts';
 
 const categories = [
   { 
@@ -110,6 +111,9 @@ const categories = [
     ]
   }
 ];
+
+/** 购买中心侧栏/顶栏：仅隐藏不可用品类，不删除 categories 数据 */
+const visibleCategories = categories.filter((c) => isStoreCategoryVisible(c.id as StoreCategoryId));
 
 const colors = [
   { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: 'https://i.ibb.co/JWDBKFgn/image.png' },
@@ -237,15 +241,15 @@ export default function StorePage() {
   
   const [activeCategory, setActiveCategory] = useState(() => {
     if (category) {
-      const found = categories.find(c => c.id === category);
+      const found = categories.find((c) => c.id === category);
       if (found) return found;
     }
-    return categories[0];
+    return visibleCategories[0];
   });
 
   useEffect(() => {
     if (category) {
-      const found = categories.find(c => c.id === category);
+      const found = categories.find((c) => c.id === category);
       if (found) {
         setActiveCategory(found);
       }
@@ -306,7 +310,7 @@ export default function StorePage() {
   if (carePlan === 3) total += 60;
 
   const activeVariant = (activeCategory as any).variants?.[activeThumb];
-  const showPrice = activeVariant?.showPrice !== false;
+  const showPrice = activeCategory.id !== 'bracelet' && activeVariant?.showPrice !== false;
   const originalPrice = (selectedColor as { originalPrice?: number }).originalPrice ?? total * 1.4;
 
   return (
@@ -314,7 +318,7 @@ export default function StorePage() {
       {/* FIXED SIDE NAVIGATION (DESKTOP) */}
       <div className="hidden md:flex fixed left-10 top-1/2 -translate-y-1/2 w-[140px] bg-[#000000]/80 backdrop-blur-xl flex-col items-center py-8 gap-6 z-[100] rounded-[24px]">
         <div className="flex flex-col items-center gap-2 w-full px-4">
-          {categories.map(cat => {
+          {visibleCategories.map(cat => {
             const isActive = activeCategory.id === cat.id;
             return (
               <Link
@@ -332,7 +336,7 @@ export default function StorePage() {
       {/* TOP NAVIGATION FOR MOBILE ONLY (Horizontal scroll) */}
       <div className="md:hidden bg-[#000000]/80 backdrop-blur-md border-b border-white/5 sticky top-[72px] z-[40] px-6 py-4">
         <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar">
-          {categories.map(cat => (
+          {visibleCategories.map(cat => (
             <button 
               key={cat.id} 
               onClick={() => setActiveCategory(cat)}

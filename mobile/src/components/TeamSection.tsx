@@ -4,42 +4,35 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
 import HomeHeroGlassPanel from './HomeHeroGlassPanel';
+import { VISIBLE_PRODUCT_IDS } from '../lib/visibleProducts';
 
-const CARD_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
-const HERO_CARD_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+const CARD_IDS = VISIBLE_PRODUCT_IDS;
+const HERO_CARD_IDS = VISIBLE_PRODUCT_IDS;
 
 const STORE_LINK: Record<(typeof CARD_IDS)[number], string> = {
   ring: '/store/ring',
   band: '/store/bracelet',
-  watch: '/store/watch',
-  glasses: '/store/glasses',
 };
 
 const HERO_CARD_IMAGE: Record<(typeof HERO_CARD_IDS)[number], string> = {
   ring: 'https://i.ibb.co/zWLc5k7G/4.jpg',
   band: 'https://i.ibb.co/zVcfTmFX/2.jpg',
-  watch: 'https://i.ibb.co/zWdVr7yj/3.jpg',
-  glasses: 'https://i.ibb.co/xthTPNrX/5.jpg',
 };
 
-/** 首页英雄四图 URL，供预加载 */
-export const HOME_HERO_CARD_IMAGE_URLS = Object.values(HERO_CARD_IMAGE);
+/** 首页英雄图 URL，供预加载（仅可见品类） */
+export const HOME_HERO_CARD_IMAGE_URLS = HERO_CARD_IDS.map((id) => HERO_CARD_IMAGE[id]);
 
 /** 「智能硬件+应用服务」横向产品卡四图 URL，供预加载 */
 const TEAM_PRODUCT_CARD_IMAGE: Record<(typeof CARD_IDS)[number], string> = {
   ring: 'https://i.ibb.co/FLXrp6qv/image.jpg',
   band: 'https://i.ibb.co/1t1FyW93/image.jpg',
-  watch: 'https://i.ibb.co/YBjhmq8w/image.jpg',
-  glasses: 'https://i.ibb.co/FL1q2zKP/image.jpg',
 };
 
-export const HOME_TEAM_PRODUCT_CARD_IMAGE_URLS = Object.values(TEAM_PRODUCT_CARD_IMAGE);
+export const HOME_TEAM_PRODUCT_CARD_IMAGE_URLS = CARD_IDS.map((id) => TEAM_PRODUCT_CARD_IMAGE[id]);
 
 const PRODUCT_PAGE_LINK: Record<(typeof HERO_CARD_IDS)[number], string> = {
   ring: '/products/ring',
   band: '/products/band',
-  watch: '/products/watch',
-  glasses: '/products/glasses',
 };
 
 /** 卡片随图片比例；在原先「高度为等比约 85%」基础上再高 10% → 系数 0.935（0.85×1.1）。 */

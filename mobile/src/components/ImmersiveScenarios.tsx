@@ -1,11 +1,12 @@
 import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import { useInView } from 'motion/react';
 import { useTranslation } from 'react-i18next';
+import { VISIBLE_PRODUCT_IDS } from '../lib/visibleProducts';
 
-const PRODUCT_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+const PRODUCT_IDS = VISIBLE_PRODUCT_IDS;
 
-/** 标签行展示顺序：戒指 → 手环 → 眼镜 → 手表 */
-const TAB_ROW_ORDER: (typeof PRODUCT_IDS)[number][] = ['ring', 'band', 'glasses', 'watch'];
+/** 标签行展示顺序：戒指 → 手环 */
+const TAB_ROW_ORDER = [...VISIBLE_PRODUCT_IDS] as const;
 
 const FEATURE_IMAGES: Record<(typeof PRODUCT_IDS)[number], string[]> = {
   ring: [
@@ -23,22 +24,6 @@ const FEATURE_IMAGES: Record<(typeof PRODUCT_IDS)[number], string[]> = {
     'https://i.ibb.co/hxQb6mB2/jimeng-2026-04-20-5496-logo.png',
     'https://i.ibb.co/zTJpVzSv/image.png',
     'https://i.ibb.co/99yZStWr/image.png',
-  ],
-  glasses: [
-    'https://i.ibb.co/fGyWsKLp/image.png',
-    'https://i.ibb.co/Xrkc6FL9/XRAI-AR2-The-Original-Captioning-Glasses-Redesigned.jpg',
-    'https://i.ibb.co/39b8QJZW/jimeng-2026-04-03-6916.png',
-    'https://i.ibb.co/bn5r2Hm/jimeng-2026-04-23-1745-1.png',
-    'https://i.ibb.co/Y4sjjjMg/jimeng-2026-04-23-1426.png',
-    'https://i.ibb.co/TxfjjQ91/jimeng-2026-04-23-5862-1.png',
-  ],
-  watch: [
-    'https://i.ibb.co/1fyLt5S6/jimeng-2026-04-03-6305.png',
-    'https://i.ibb.co/ynTmxzW7/image.png',
-    'https://i.ibb.co/yFD7J0BZ/image.png',
-    'https://i.ibb.co/HDfCRBt8/jimeng-2026-04-20-7301-1.png',
-    'https://i.ibb.co/DDk1xWyM/image.png',
-    'https://i.ibb.co/vx1DpGTL/jimeng-2026-04-22-7846.png',
   ],
 };
 

@@ -2,22 +2,27 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../hooks/useLocalePath';
+import { VISIBLE_PRODUCT_IDS } from '../lib/visibleProducts';
 
-const CARD_IDS = ['ring', 'band', 'watch', 'glasses'] as const;
+const CARD_IDS = VISIBLE_PRODUCT_IDS;
 
 const PRODUCT_LINK: Record<(typeof CARD_IDS)[number], string> = {
   ring: '/products/ring',
   band: '/products/band',
-  watch: '/products/watch',
-  glasses: '/products/glasses',
 };
 
 const STORE_LINK: Record<(typeof CARD_IDS)[number], string> = {
   ring: '/store/ring',
   band: '/store/bracelet',
-  watch: '/store/watch',
-  glasses: '/store/glasses',
 };
+
+const CARD_IMAGE: Record<(typeof CARD_IDS)[number], string> = {
+  ring: 'https://i.ibb.co/FLXrp6qv/image.jpg',
+  band: 'https://i.ibb.co/1t1FyW93/image.jpg',
+};
+
+const GRID_COLS_CLASS =
+  CARD_IDS.length <= 2 ? 'md:grid-cols-2 lg:grid-cols-2' : 'md:grid-cols-4 lg:grid-cols-4';
 
 type TeamDataRow = { label: string; value: string };
 
@@ -42,16 +47,9 @@ export default function TeamSection() {
       />
 
       {/* 四图：lg 全宽满高 + divide 细线；小屏 2×2 / md 四列 */}
-      <div className="grid min-h-0 flex-1 grid-cols-2 divide-x divide-[rgba(255,255,255,0.1)] md:grid-cols-4 lg:absolute lg:inset-x-0 lg:top-[14%] lg:h-[82%] lg:grid lg:min-h-0 lg:grid-cols-4 lg:gap-0 lg:divide-x">
+      <div className={`grid min-h-0 flex-1 grid-cols-2 divide-x divide-[rgba(255,255,255,0.1)] ${GRID_COLS_CLASS} lg:absolute lg:inset-x-0 lg:top-[14%] lg:h-[82%] lg:grid lg:min-h-0 lg:gap-0 lg:divide-x`}>
         {CARD_IDS.map((id, index) => {
-          const img =
-            id === 'ring'
-              ? 'https://i.ibb.co/FLXrp6qv/image.jpg'
-              : id === 'band'
-                ? 'https://i.ibb.co/1t1FyW93/image.jpg'
-                : id === 'watch'
-                  ? 'https://i.ibb.co/YBjhmq8w/image.jpg'
-                  : 'https://i.ibb.co/FL1q2zKP/image.jpg';
+          const img = CARD_IMAGE[id];
 
           const brand = t(`home.team.cards.${id}.brand`);
           const category = t(`home.team.cards.${id}.category`);
