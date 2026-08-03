@@ -386,23 +386,24 @@ const categories = [
         name: '轻量基础款', 
         img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png',
         colors: [
-          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png', price: 349 },
-          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: 'https://i.ibb.co/zTQKV09Y/jimeng-2026-04-20-2515.png', price: 349 },
-          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: 'https://i.ibb.co/8Djdy2VY/jimeng-2026-04-20-2444.png', price: 349 }
+          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png', price: 1588, originalPrice: 1688 },
+          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: 'https://i.ibb.co/zTQKV09Y/jimeng-2026-04-20-2515.png', price: 1588, originalPrice: 1688 },
+          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: 'https://i.ibb.co/8Djdy2VY/jimeng-2026-04-20-2444.png', price: 1588, originalPrice: 1688 }
         ]
       },
       { 
         name: '乐于运动款', 
         img: 'https://i.ibb.co/RTWNCcfq/175b79bdbb6542288e13cb040345e1b9.png',
         colors: [
-          { id: 'ice-blue', name: '冰地蓝', hex: '#A5CAD2', img: 'https://i.ibb.co/RTWNCcfq/175b79bdbb6542288e13cb040345e1b9.png', price: 349 },
-          { id: 'ultra-black', name: '极黑境', hex: '#0A0A0A', img: 'https://i.ibb.co/QvpYH5t5/image.png', price: 349 },
-          { id: 'white', name: '无垠白', hex: '#F5F5F5', img: 'https://i.ibb.co/4n0WTsxF/image.png', price: 349 },
-          { id: 'pink', name: '嫩霞粉', hex: '#E7B1B6', img: 'https://i.ibb.co/G43Fy2S7/image.png', price: 349 }
+          { id: 'ice-blue', name: '冰地蓝', hex: '#A5CAD2', img: 'https://i.ibb.co/RTWNCcfq/175b79bdbb6542288e13cb040345e1b9.png', price: 1588, originalPrice: 1688 },
+          { id: 'ultra-black', name: '极黑境', hex: '#0A0A0A', img: 'https://i.ibb.co/QvpYH5t5/image.png', price: 1588, originalPrice: 1688 },
+          { id: 'white', name: '无垠白', hex: '#F5F5F5', img: 'https://i.ibb.co/4n0WTsxF/image.png', price: 1588, originalPrice: 1688 },
+          { id: 'pink', name: '嫩霞粉', hex: '#E7B1B6', img: 'https://i.ibb.co/G43Fy2S7/image.png', price: 1588, originalPrice: 1688 }
         ]
       },
       { 
-        name: '健康时尚款', 
+        name: '健康时尚款',
+        showPrice: false,
         img: 'https://i.ibb.co/N28C7vWs/2.png',
         colors: [
           { id: 'rose-gold', name: '玫瑰金', hex: '#CAA193', img: 'https://i.ibb.co/N28C7vWs/2.png', price: 349 },
@@ -410,7 +411,7 @@ const categories = [
           { id: 'afterglow-gold', name: '余晖金', hex: '#C9A96E', img: 'https://i.ibb.co/pBPwm45s/5.png', price: 349 }
         ]
       },
-      { name: '唯一定制款', img: 'https://i.ibb.co/3mM22753/6.png' }
+      { name: '唯一定制款', showPrice: false, img: 'https://i.ibb.co/3mM22753/6.png' }
     ]
   },
   { 
@@ -763,6 +764,10 @@ export default function StorePage() {
   if (carePlan === 2) total += 45;
   if (carePlan === 3) total += 60;
 
+  const activeVariant = (activeCategory as any).variants?.[activeThumb];
+  const showPrice = activeVariant?.showPrice !== false;
+  const originalPrice = (selectedColor as { originalPrice?: number }).originalPrice ?? total * 1.4;
+
   const uCat = activeCategory.id as UnifiedStoreId;
   const useUnified = isUnifiedStoreLayout(activeCategory.id);
   const editorialContent = useUnified ? EDITORIAL_BY_CATEGORY[uCat] : null;
@@ -901,7 +906,7 @@ export default function StorePage() {
         </div>
         
         <div className="flex items-center gap-6">
-          <span className="text-lg font-normal text-white">¥{total.toFixed(2)}</span>
+          {showPrice && <span className="text-lg font-normal text-white">¥{total.toFixed(2)}</span>}
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
@@ -1101,20 +1106,22 @@ export default function StorePage() {
             </div>
 
             {/* ② 价格区 */}
-            <div
-              className={`flex flex-col ${
-                useUnified
-                  ? 'mb-4 py-0'
-                  : 'my-4 border-b border-t border-[rgba(255,255,255,0.08)] py-4'
-              }`}
-            >
-              <div className="mb-1 flex items-baseline">
-                <span className="text-[length:var(--text-hero)] font-normal tabular-nums leading-none text-[#FFFFFF]">¥{total.toFixed(2)}</span>
-                <span className="text-[length:var(--text-h3)] text-[#6E6E73] line-through ml-3 tabular-nums leading-none">¥{(total * 1.4).toFixed(2)}</span>
-                <span className="ml-3 -translate-y-1 rounded-[var(--r-sm)] bg-white/10 px-2 py-[2px] text-[11px] font-normal text-white">限时优惠</span>
+            {showPrice && (
+              <div
+                className={`flex flex-col ${
+                  useUnified
+                    ? 'mb-4 py-0'
+                    : 'my-4 border-b border-t border-[rgba(255,255,255,0.08)] py-4'
+                }`}
+              >
+                <div className="mb-1 flex items-baseline">
+                  <span className="text-[length:var(--text-hero)] font-normal tabular-nums leading-none text-[#FFFFFF]">¥{total.toFixed(2)}</span>
+                  <span className="text-[length:var(--text-h3)] text-[#6E6E73] line-through ml-3 tabular-nums leading-none">¥{originalPrice.toFixed(2)}</span>
+                  <span className="ml-3 -translate-y-1 rounded-[var(--r-sm)] bg-white/10 px-2 py-[2px] text-[11px] font-normal text-white">限时优惠</span>
+                </div>
+                <span className="text-[12px] text-[#86868B] tracking-tight">或每月仅需 ¥{(total / 3).toFixed(2)}，分3期免息</span>
               </div>
-              <span className="text-[12px] text-[#86868B] tracking-tight">或每月仅需 ¥{(total / 3).toFixed(2)}，分3期免息</span>
-            </div>
+            )}
 
             {/* ③ 颜色选择器 */}
             {activeCategory.id === 'ring' && (activeCategory as any).variants?.[activeThumb]?.colors ? (
@@ -1641,7 +1648,7 @@ export default function StorePage() {
                   <div className="flex flex-col flex-1">
                     <div className="flex justify-between items-start">
                       <span className="font-medium text-brand-white">{activeCategory.name}</span>
-                      <span className="font-mono font-normal text-accent">¥{total.toFixed(2)}</span>
+                      {showPrice && <span className="font-mono font-normal text-accent">¥{total.toFixed(2)}</span>}
                     </div>
                     <span className="text-sm text-neutral-gray mt-1">{activeCategory.id === 'ring' ? selectedColor.enName : ''}</span>
                     <span className="text-sm text-neutral-gray">{sizingOption === 'kit' ? '免费指围套装' : `尺寸 ${selectedSize}`}</span>
@@ -1650,10 +1657,12 @@ export default function StorePage() {
               </div>
 
               <div className="p-6 border-t border-white/10 flex flex-col gap-4">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">小计</span>
-                  <span className="font-mono text-xl font-normal">¥{total.toFixed(2)}</span>
-                </div>
+                {showPrice && (
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">小计</span>
+                    <span className="font-mono text-xl font-normal">¥{total.toFixed(2)}</span>
+                  </div>
+                )}
                 <button 
                   onClick={() => navigate(withPath('/checkout'))}
                   className="w-full rounded-full bg-accent py-4 text-sm font-normal uppercase tracking-widest text-ink transition-colors hover:brightness-105"
