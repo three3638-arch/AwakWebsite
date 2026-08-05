@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValue, useTransform, animate, useInView } from 'motion/react';
 import {
   Shield,
@@ -42,6 +42,7 @@ import FooterSections from '../components/FooterSections';
 import { useLocalePath } from '../hooks/useLocalePath';
 import { stripLocalePrefix } from '../lib/locale';
 import { NAV_HARDWARE_ITEMS, NAV_SECONDARY_PAGES } from '../lib/siteNav';
+import { BRACELET_STORE_IMAGES, RING_STORE_IMAGES, getStoreDisplayVariants, type StoreVariant } from '../lib/storeAssets';
 
 const RING_LIFESTYLE_CARDS: { tag: string; title: string; desc: string; image: string }[] = [
   {
@@ -209,7 +210,7 @@ type InboxCellDef = {
 
 const IN_THE_BOX_BY_CATEGORY: Record<UnifiedStoreId, { heroImage: string; cells: InboxCellDef[] }> = {
   ring: {
-    heroImage: 'https://i.ibb.co/WvZDYkvK/image.png',
+    heroImage: RING_STORE_IMAGES.inTheBox,
     cells: [
       {
         title: 'AWAK Ring × 1',
@@ -246,7 +247,7 @@ const IN_THE_BOX_BY_CATEGORY: Record<UnifiedStoreId, { heroImage: string; cells:
     ],
   },
   bracelet: {
-    heroImage: 'https://i.ibb.co/xS01Jf1z/image.png',
+    heroImage: BRACELET_STORE_IMAGES.inTheBox,
     cells: [
       {
         title: 'AWAK BRACELET × 1',
@@ -380,15 +381,17 @@ const categories = [
     name: '智能戒指', 
     icon: Circle, 
     path: '/store/ring',
-    img: 'https://i.ibb.co/JWDBKFgn/image.png',
+    img: RING_STORE_IMAGES.titaniumSilver,
     variants: [
       { 
         name: '轻量基础款', 
-        img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png',
+        img: RING_STORE_IMAGES.titaniumSilver,
         colors: [
-          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png', price: 1588, originalPrice: 1688 },
-          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: 'https://i.ibb.co/zTQKV09Y/jimeng-2026-04-20-2515.png', price: 1588, originalPrice: 1688 },
-          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: 'https://i.ibb.co/8Djdy2VY/jimeng-2026-04-20-2444.png', price: 1588, originalPrice: 1688 }
+          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: RING_STORE_IMAGES.titaniumSilver, price: 1588, originalPrice: 1688 },
+          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: RING_STORE_IMAGES.obsidianBlack, price: 1588, originalPrice: 1688 },
+          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: RING_STORE_IMAGES.brilliantGold, price: 1588, originalPrice: 1688 },
+          { id: 'matte-grey', name: '磨砂灰', hex: '#7A7A7E', img: RING_STORE_IMAGES.matteGrey, price: 1588, originalPrice: 1688 },
+          { id: 'pink-purple', name: '粉砚紫', hex: '#9B7B8E', img: RING_STORE_IMAGES.pinkPurple, price: 1588, originalPrice: 1688 },
         ]
       },
       { 
@@ -401,17 +404,6 @@ const categories = [
           { id: 'pink', name: '嫩霞粉', hex: '#E7B1B6', img: 'https://i.ibb.co/G43Fy2S7/image.png', price: 1588, originalPrice: 1688 }
         ]
       },
-      { 
-        name: '健康时尚款',
-        showPrice: false,
-        img: 'https://i.ibb.co/N28C7vWs/2.png',
-        colors: [
-          { id: 'rose-gold', name: '玫瑰金', hex: '#CAA193', img: 'https://i.ibb.co/N28C7vWs/2.png', price: 349 },
-          { id: 'liquid-silver', name: '流光银', hex: '#D1D1D1', img: 'https://i.ibb.co/sd1WxmPR/1.png', price: 349 },
-          { id: 'afterglow-gold', name: '余晖金', hex: '#C9A96E', img: 'https://i.ibb.co/pBPwm45s/5.png', price: 349 }
-        ]
-      },
-      { name: '唯一定制款', showPrice: false, img: 'https://i.ibb.co/3mM22753/6.png' }
     ]
   },
   { 
@@ -419,38 +411,38 @@ const categories = [
     name: '智能手环', 
     icon: Activity,
     path: '/store/bracelet',
-    img: 'https://i.ibb.co/tP4mcmbJ/image.png',
+    img: BRACELET_STORE_IMAGES.obsidianBlack,
     variants: [
       { 
         name: '尼龙编织款', 
-        img: 'https://i.ibb.co/CpcxK2Tn/image.png',
+        img: BRACELET_STORE_IMAGES.obsidianBlack,
         colors: [
-          { id: 'black-stone', name: '黑岩织', hex: '#1A1A1A', img: 'https://i.ibb.co/tP4mcmbJ/image.png', price: 349 },
-          { id: 'white-silk', name: '白素绕', hex: '#F5F5F5', img: 'https://i.ibb.co/KcH37hPf/image.png', price: 349 },
-          { id: 'glow-pink', name: '绯光粉', hex: '#E7B1B6', img: 'https://i.ibb.co/20GJBwQg/image.png', price: 349 },
-          { id: 'vibrant-green', name: '活力绿', hex: '#84C8A1', img: 'https://i.ibb.co/zVVzjQrT/image.png', price: 349 }
+          { id: 'black-stone', name: '黑岩织', hex: '#1A1A1A', img: BRACELET_STORE_IMAGES.obsidianBlack, price: 349 },
+          { id: 'white-silk', name: '白素绕', hex: '#F5F5F5', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'glow-pink', name: '绯光粉', hex: '#E7B1B6', img: BRACELET_STORE_IMAGES.roseGold, price: 349 },
+          { id: 'vibrant-green', name: '活力绿', hex: '#84C8A1', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 }
         ]
       },
       { 
-        name: '氟橡胶款', 
-        img: 'https://i.ibb.co/R4dhDPqm/image.png',
+        name: '尼龙编织款', 
+        img: BRACELET_STORE_IMAGES.titaniumSilver,
         colors: [
-          { id: 'titanium-gray', name: '钛影灰', hex: '#8E8E93', img: 'https://i.ibb.co/R4dhDPqm/image.png', price: 349 },
-          { id: 'deep-black', name: '深潜黑', hex: '#1C1C1E', img: 'https://i.ibb.co/XxLppHSM/image.png', price: 349 },
-          { id: 'quiet-blue', name: '静谧蓝', hex: '#003366', img: 'https://i.ibb.co/5XZ5pBNj/image.png', price: 349 },
-          { id: 'force-cyan', name: '原力青', hex: '#00CCCC', img: 'https://i.ibb.co/YBfXxfr3/image.png', price: 349 }
+          { id: 'titanium-gray', name: '钛影灰', hex: '#8E8E93', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'deep-black', name: '深潜黑', hex: '#1C1C1E', img: BRACELET_STORE_IMAGES.obsidianBlack, price: 349 },
+          { id: 'quiet-blue', name: '静谧蓝', hex: '#003366', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'force-cyan', name: '原力青', hex: '#00CCCC', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 }
         ]
       },
       { 
-        name: '小牛皮款', 
-        img: 'https://i.ibb.co/B2hd20Gs/b74a3d2c6aed46188e21855acb0e0dbc.png',
+        name: '尼龙编织款', 
+        img: BRACELET_STORE_IMAGES.liquidGold,
         colors: [
-          { id: 'brown-chestnut', name: '棕栗皮', hex: '#8B4513', img: 'https://i.ibb.co/sd1WxmPR/1.png', price: 349 },
-          { id: 'old-money', name: '老钱硬花纹', hex: '#D2B48C', img: 'https://i.ibb.co/Zzh63Kwy/5c980fca41cb4593ad9e4fed6b0dd0a7.png', price: 349 },
-          { id: 'nostalgic', name: '怀旧周纹', hex: '#A0522D', img: 'https://i.ibb.co/R4jDFqqN/6dc51ff0ace54bc0a7d1bf3edf6d49a1.png', price: 349 }
+          { id: 'brown-chestnut', name: '棕栗色', hex: '#8B4513', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 },
+          { id: 'old-money', name: '老钱硬花纹', hex: '#D2B48C', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 },
+          { id: 'nostalgic', name: '怀旧周纹', hex: '#A0522D', img: BRACELET_STORE_IMAGES.roseGold, price: 349 }
         ]
       },
-      { name: '金属定制款', img: 'https://i.ibb.co/SDKfLXfZ/e8ff86b611a34c178ee5dac824aee44c.png' }
+      { name: '尼龙编织款', img: BRACELET_STORE_IMAGES.roseGold }
     ]
   },
   { 
@@ -483,10 +475,10 @@ const categories = [
 const visibleCategories = categories.filter((c) => c.id !== 'watch' && c.id !== 'glasses');
 
 const colors = [
-  { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: 'https://i.ibb.co/JWDBKFgn/image.png' },
-  { id: 'titanium', name: '钛金银', enName: 'Titanium', price: 299, img: 'https://i.ibb.co/gbpwCydx/a618c6efdd3c4e599a9b760453c224ac.png' },
-  { id: 'liquid-gold', name: '流光金', enName: 'Liquid Gold', price: 449, img: 'https://i.ibb.co/3mM22753/6.png' },
-  { id: 'rose-gold', name: '玫瑰金', enName: 'Rose Gold', price: 549, img: 'https://i.ibb.co/sd1WxmPR/1.png' }
+  { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: BRACELET_STORE_IMAGES.obsidianBlack },
+  { id: 'titanium', name: '钛金银', enName: 'Titanium', price: 299, img: BRACELET_STORE_IMAGES.titaniumSilver },
+  { id: 'liquid-gold', name: '棕栗色', enName: 'Chestnut', price: 449, img: BRACELET_STORE_IMAGES.liquidGold },
+  { id: 'rose-gold', name: '粉砚紫', enName: 'Pink Purple', price: 549, img: BRACELET_STORE_IMAGES.roseGold }
 ];
 
 const allFaqs: Record<string, { q: string, a: string }[]> = {
@@ -719,6 +711,11 @@ export default function StorePage() {
   const [activeThumb, setActiveThumb] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
 
+  const displayVariants = useMemo(
+    () => getStoreDisplayVariants(activeCategory as { id: string; variants?: StoreVariant[] }),
+    [activeCategory],
+  );
+
   useEffect(() => {
     const handleScroll = () => {
       setShowStickyBar(window.scrollY > 50);
@@ -756,21 +753,22 @@ export default function StorePage() {
   }, [activeCategory.id]);
 
   useEffect(() => {
-    const variantColors = (activeCategory as any).variants?.[activeThumb]?.colors;
-    if (variantColors && variantColors.length > 0) {
+    const variantColors = displayVariants[activeThumb]?.colors as typeof colors | undefined;
+    if (activeCategory.id === 'bracelet') {
+      setSelectedColor(colors[0]);
+    } else if (variantColors && variantColors.length > 0) {
       setSelectedColor(variantColors[0]);
     } else if (!variantColors && activeCategory.id !== 'ring') {
-       // Fallback for other categories if they don't have variant colors yet
        setSelectedColor(colors[0]);
     }
-  }, [activeThumb, activeCategory]);
+  }, [activeThumb, activeCategory, displayVariants]);
 
   // Calculate total
   let total = selectedColor.price;
   if (carePlan === 2) total += 45;
   if (carePlan === 3) total += 60;
 
-  const activeVariant = (activeCategory as any).variants?.[activeThumb];
+  const activeVariant = displayVariants[activeThumb];
   const showPrice = activeCategory.id !== 'bracelet' && activeVariant?.showPrice !== false;
   const originalPrice = (selectedColor as { originalPrice?: number }).originalPrice ?? total * 1.4;
 
@@ -956,11 +954,9 @@ export default function StorePage() {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                       src={
-                        (activeCategory as any).variants?.[activeThumb]?.colors
-                          ? selectedColor.img ||
-                            (activeCategory as any).variants?.[activeThumb]?.img ||
-                            activeCategory.img
-                          : (activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img
+                        activeVariant?.colors
+                          ? selectedColor.img || activeVariant?.img || activeCategory.img
+                          : activeVariant?.img || activeCategory.img
                       }
                       alt={activeCategory.name}
                       className="h-full w-full object-contain"
@@ -980,9 +976,9 @@ export default function StorePage() {
                 aria-label="产品图切换"
                 className="z-20 flex max-md:absolute max-md:left-0 max-md:top-1/2 max-md:translate-x-6 max-md:-translate-y-1/2 max-md:flex-col max-md:gap-3 max-md:items-center md:static md:mt-[12px] md:translate-x-0 md:translate-y-0 md:flex-row md:justify-center md:gap-4"
               >
-                {((activeCategory as any).variants || []).map((v: any, idx: number) => (
+                {displayVariants.map((v: any, idx: number) => (
                   <button
-                    key={idx}
+                    key={v.name ?? idx}
                     type="button"
                     role="tab"
                     aria-selected={activeThumb === idx}
@@ -1003,7 +999,7 @@ export default function StorePage() {
                       className={`h-full w-full bg-white/5 object-contain transition-transform ${
                         activeCategory.id === 'ring' && v?.name?.includes('唯一定制款')
                           ? 'scale-[1.25]'
-                          : activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款')
+                          : activeCategory.id === 'bracelet' && !v?.colors
                             ? 'scale-[0.72]'
                             : 'scale-100'
                       }`}
@@ -1026,11 +1022,9 @@ export default function StorePage() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     src={
-                      (activeCategory as any).variants?.[activeThumb]?.colors
-                        ? selectedColor.img ||
-                          (activeCategory as any).variants?.[activeThumb]?.img ||
-                          activeCategory.img
-                        : (activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img
+                      activeVariant?.colors
+                        ? selectedColor.img || activeVariant?.img || activeCategory.img
+                        : activeVariant?.img || activeCategory.img
                     }
                     alt={activeCategory.name}
                     className="h-full w-full object-contain"
@@ -1044,9 +1038,9 @@ export default function StorePage() {
               </div>
 
               <div className="mt-8 flex gap-4" role="tablist" aria-label="产品图切换">
-                {((activeCategory as any).variants || []).map((v: any, idx: number) => (
+                {displayVariants.map((v: any, idx: number) => (
                   <button
-                    key={idx}
+                    key={v.name ?? idx}
                     type="button"
                     role="tab"
                     aria-selected={activeThumb === idx}
@@ -1062,7 +1056,7 @@ export default function StorePage() {
                       className={`h-full w-full bg-white/5 object-contain transition-transform ${
                         activeCategory.id === 'ring' && v?.name?.includes('唯一定制款')
                           ? 'scale-[1.25]'
-                          : activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款')
+                          : activeCategory.id === 'bracelet' && !v?.colors
                             ? 'scale-[0.72]'
                             : 'scale-100'
                       }`}
@@ -1096,7 +1090,7 @@ export default function StorePage() {
                     : 'text-[length:var(--text-h1)] leading-[var(--leading-title)]'
                 }`}
               >
-                {(activeCategory as any).variants?.[activeThumb]?.name ||
+                {activeVariant?.name ||
                   (useUnified ? activeCategory.name : `${activeCategory.name} Awak Health`)}
               </h1>
               {!useUnified && (
@@ -1130,14 +1124,14 @@ export default function StorePage() {
             )}
 
             {/* ③ 颜色选择器 */}
-            {activeCategory.id === 'ring' && (activeCategory as any).variants?.[activeThumb]?.colors ? (
+            {activeCategory.id === 'ring' && activeVariant?.colors ? (
               <div className="mb-5 mt-0">
                 <div className="mb-3 flex items-center gap-2">
                   <span className="text-[13px] text-white/40">颜色</span>
                   <span className="text-[13px] text-white">{selectedColor.name}</span>
                 </div>
                 <div className="flex gap-4">
-                  {(activeCategory as any).variants[activeThumb].colors.map((c: any) => {
+                  {activeVariant.colors.map((c: any) => {
                     const isSelected = selectedColor.id === c.id;
                     return (
                       <button 
@@ -1156,19 +1150,19 @@ export default function StorePage() {
                   })}
                 </div>
               </div>
-            ) : activeCategory.id === 'bracelet' && !((activeCategory as any).variants?.[activeThumb]?.name?.includes('定制款')) ? (
+            ) : activeCategory.id === 'bracelet' && activeVariant?.colors ? (
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-[13px] text-white/40">颜色</span>
                   <span className="text-[13px] text-white">{selectedColor.name}</span>
                 </div>
                 <div className="flex gap-4">
-                  {colors.map(c => {
+                  {colors.map((c) => {
                     const hexMap: Record<string, string> = {
-                      'obsidian': '#1A1A1A',
-                      'titanium': '#E8E8E4',
-                      'liquid-gold': '#C9A96E',
-                      'rose-gold': '#CAA193'
+                      obsidian: '#1A1A1A',
+                      titanium: '#E8E8E4',
+                      'liquid-gold': '#8B4513',
+                      'rose-gold': '#9B7B8E',
                     };
                     const isSelected = selectedColor.id === c.id;
                     return (
@@ -1649,7 +1643,7 @@ export default function StorePage() {
               <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
                 <div className="flex gap-4">
                   <div className="w-24 h-24 bg-brand-black border border-white/5 flex items-center justify-center p-2 rounded-xl">
-                    <img src={(activeCategory as any).variants?.[activeThumb]?.img || activeCategory.img} alt="Product" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    <img src={activeVariant?.img || activeCategory.img} alt="Product" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                   </div>
                   <div className="flex flex-col flex-1">
                     <div className="flex justify-between items-start">
@@ -1770,7 +1764,7 @@ export default function StorePage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              src={(activeCategory as any).variants?.[activeThumb]?.img || selectedColor.img}
+              src={activeVariant?.img || selectedColor.img}
               className="max-w-full max-h-full object-contain cursor-default"
               onClick={(e) => e.stopPropagation()}
               referrerPolicy="no-referrer"

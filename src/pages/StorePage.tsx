@@ -5,6 +5,7 @@ import { useNavigate, useParams, useLocation, Link } from 'react-router-dom';
 import FooterSections from '../components/FooterSections';
 import { useLocalePath } from '../hooks/useLocalePath';
 import { isStoreCategoryVisible, type StoreCategoryId } from '../lib/visibleProducts';
+import { BRACELET_STORE_IMAGES, RING_STORE_IMAGES } from '../lib/storeAssets';
 
 const categories = [
   { 
@@ -12,15 +13,17 @@ const categories = [
     name: '智能戒指', 
     icon: Circle, 
     path: '/store/ring',
-    img: 'https://i.ibb.co/JWDBKFgn/image.png',
+    img: RING_STORE_IMAGES.titaniumSilver,
     variants: [
       { 
         name: '轻量基础款', 
-        img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png',
+        img: RING_STORE_IMAGES.titaniumSilver,
         colors: [
-          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: 'https://i.ibb.co/k6WGBH5y/jimeng-2026-04-20-1780.png', price: 1588, originalPrice: 1688 },
-          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: 'https://i.ibb.co/zTQKV09Y/jimeng-2026-04-20-2515.png', price: 1588, originalPrice: 1688 },
-          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: 'https://i.ibb.co/8Djdy2VY/jimeng-2026-04-20-2444.png', price: 1588, originalPrice: 1688 }
+          { id: 'titanium', name: '钛金银', hex: '#E8E8E4', img: RING_STORE_IMAGES.titaniumSilver, price: 1588, originalPrice: 1688 },
+          { id: 'obsidian', name: '墨影黑', hex: '#1A1A1A', img: RING_STORE_IMAGES.obsidianBlack, price: 1588, originalPrice: 1688 },
+          { id: 'gold', name: '璀璨金', hex: '#E5C282', img: RING_STORE_IMAGES.brilliantGold, price: 1588, originalPrice: 1688 },
+          { id: 'matte-grey', name: '磨砂灰', hex: '#7A7A7E', img: RING_STORE_IMAGES.matteGrey, price: 1588, originalPrice: 1688 },
+          { id: 'pink-purple', name: '粉砚紫', hex: '#9B7B8E', img: RING_STORE_IMAGES.pinkPurple, price: 1588, originalPrice: 1688 },
         ]
       },
       { 
@@ -33,17 +36,6 @@ const categories = [
           { id: 'pink', name: '嫩霞粉', hex: '#E7B1B6', img: 'https://i.ibb.co/G43Fy2S7/image.png', price: 1588, originalPrice: 1688 }
         ]
       },
-      { 
-        name: '健康时尚款',
-        showPrice: false,
-        img: 'https://i.ibb.co/N28C7vWs/2.png',
-        colors: [
-          { id: 'rose-gold', name: '玫瑰金', hex: '#CAA193', img: 'https://i.ibb.co/N28C7vWs/2.png', price: 349 },
-          { id: 'liquid-silver', name: '流光银', hex: '#D1D1D1', img: 'https://i.ibb.co/sd1WxmPR/1.png', price: 349 },
-          { id: 'afterglow-gold', name: '余晖金', hex: '#C9A96E', img: 'https://i.ibb.co/pBPwm45s/5.png', price: 349 }
-        ]
-      },
-      { name: '唯一定制款', showPrice: false, img: 'https://i.ibb.co/3mM22753/6.png' }
     ]
   },
   { 
@@ -51,38 +43,44 @@ const categories = [
     name: '智能手环', 
     icon: Activity,
     path: '/store/bracelet',
-    img: 'https://i.ibb.co/tP4mcmbJ/image.png',
+    img: BRACELET_STORE_IMAGES.obsidianBlack,
     variants: [
       { 
         name: '尼龙编织款', 
-        img: 'https://i.ibb.co/CpcxK2Tn/image.png',
+        img: BRACELET_STORE_IMAGES.obsidianBlack,
         colors: [
-          { id: 'black-stone', name: '黑岩织', hex: '#1A1A1A', img: 'https://i.ibb.co/tP4mcmbJ/image.png', price: 349 },
-          { id: 'white-silk', name: '白素绕', hex: '#F5F5F5', img: 'https://i.ibb.co/KcH37hPf/image.png', price: 349 },
-          { id: 'glow-pink', name: '绯光粉', hex: '#E7B1B6', img: 'https://i.ibb.co/20GJBwQg/image.png', price: 349 },
-          { id: 'vibrant-green', name: '活力绿', hex: '#84C8A1', img: 'https://i.ibb.co/zVVzjQrT/image.png', price: 349 }
+          { id: 'black-stone', name: '黑岩织', hex: '#1A1A1A', img: BRACELET_STORE_IMAGES.obsidianBlack, price: 349 },
+          { id: 'white-silk', name: '白素绕', hex: '#F5F5F5', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'glow-pink', name: '绯光粉', hex: '#E7B1B6', img: BRACELET_STORE_IMAGES.roseGold, price: 349 },
+          { id: 'vibrant-green', name: '活力绿', hex: '#84C8A1', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 }
         ]
       },
       { 
-        name: '氟橡胶款', 
-        img: 'https://i.ibb.co/R4dhDPqm/image.png',
+        name: '尼龙编织款', 
+        img: BRACELET_STORE_IMAGES.titaniumSilver,
         colors: [
-          { id: 'titanium-gray', name: '钛影灰', hex: '#8E8E93', img: 'https://i.ibb.co/R4dhDPqm/image.png', price: 349 },
-          { id: 'deep-black', name: '深潜黑', hex: '#1C1C1E', img: 'https://i.ibb.co/XxLppHSM/image.png', price: 349 },
-          { id: 'quiet-blue', name: '静谧蓝', hex: '#003366', img: 'https://i.ibb.co/5XZ5pBNj/image.png', price: 349 },
-          { id: 'force-cyan', name: '原力青', hex: '#00CCCC', img: 'https://i.ibb.co/YBfXxfr3/image.png', price: 349 }
+          { id: 'titanium-gray', name: '钛影灰', hex: '#8E8E93', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'deep-black', name: '深潜黑', hex: '#1C1C1E', img: BRACELET_STORE_IMAGES.obsidianBlack, price: 349 },
+          { id: 'quiet-blue', name: '静谧蓝', hex: '#003366', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 },
+          { id: 'force-cyan', name: '原力青', hex: '#00CCCC', img: BRACELET_STORE_IMAGES.titaniumSilver, price: 349 }
         ]
       },
       { 
-        name: '小牛皮款', 
-        img: 'https://i.ibb.co/B2hd20Gs/b74a3d2c6aed46188e21855acb0e0dbc.png',
+        name: '尼龙编织款', 
+        img: BRACELET_STORE_IMAGES.liquidGold,
         colors: [
-          { id: 'brown-chestnut', name: '棕栗皮', hex: '#8B4513', img: 'https://i.ibb.co/sd1WxmPR/1.png', price: 349 },
-          { id: 'old-money', name: '老钱硬花纹', hex: '#D2B48C', img: 'https://i.ibb.co/Zzh63Kwy/5c980fca41cb4593ad9e4fed6b0dd0a7.png', price: 349 },
-          { id: 'nostalgic', name: '怀旧周纹', hex: '#A0522D', img: 'https://i.ibb.co/R4jDFqqN/6dc51ff0ace54bc0a7d1bf3edf6d49a1.png', price: 349 }
+          { id: 'brown-chestnut', name: '棕栗色', hex: '#8B4513', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 },
+          { id: 'old-money', name: '老钱硬花纹', hex: '#D2B48C', img: BRACELET_STORE_IMAGES.liquidGold, price: 349 },
+          { id: 'nostalgic', name: '怀旧周纹', hex: '#A0522D', img: BRACELET_STORE_IMAGES.roseGold, price: 349 }
         ]
       },
-      { name: '金属定制款', img: 'https://i.ibb.co/SDKfLXfZ/e8ff86b611a34c178ee5dac824aee44c.png' }
+      { 
+        name: '尼龙编织款', 
+        img: BRACELET_STORE_IMAGES.roseGold,
+        colors: [
+          { id: 'pink-purple', name: '粉砚紫', hex: '#9B7B8E', img: BRACELET_STORE_IMAGES.roseGold, price: 349 },
+        ],
+      }
     ]
   },
   { 
@@ -116,10 +114,10 @@ const categories = [
 const visibleCategories = categories.filter((c) => isStoreCategoryVisible(c.id as StoreCategoryId));
 
 const colors = [
-  { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: 'https://i.ibb.co/JWDBKFgn/image.png' },
-  { id: 'titanium', name: '钛金银', enName: 'Titanium', price: 299, img: 'https://i.ibb.co/gbpwCydx/a618c6efdd3c4e599a9b760453c224ac.png' },
-  { id: 'liquid-gold', name: '流光金', enName: 'Liquid Gold', price: 449, img: 'https://i.ibb.co/3mM22753/6.png' },
-  { id: 'rose-gold', name: '玫瑰金', enName: 'Rose Gold', price: 549, img: 'https://i.ibb.co/sd1WxmPR/1.png' }
+  { id: 'obsidian', name: '墨影黑', enName: 'Obsidian', price: 349, img: BRACELET_STORE_IMAGES.obsidianBlack },
+  { id: 'titanium', name: '钛金银', enName: 'Titanium', price: 299, img: BRACELET_STORE_IMAGES.titaniumSilver },
+  { id: 'liquid-gold', name: '棕栗色', enName: 'Chestnut', price: 449, img: BRACELET_STORE_IMAGES.liquidGold },
+  { id: 'rose-gold', name: '粉砚紫', enName: 'Pink Purple', price: 549, img: BRACELET_STORE_IMAGES.roseGold }
 ];
 
 const allFaqs: Record<string, { q: string, a: string }[]> = {
@@ -405,7 +403,7 @@ export default function StorePage() {
                   referrerPolicy="no-referrer"
                   className={`w-full h-full object-contain bg-white/5 transition-transform ${
                     activeCategory.id === 'ring' && v?.name?.includes('唯一定制款') ? 'scale-[1.25]' :
-                    activeCategory.id === 'bracelet' && v?.name?.includes('金属定制款') ? 'scale-[0.72]' :
+                    activeCategory.id === 'bracelet' && !v?.colors ? 'scale-[0.72]' :
                     'scale-100'
                   }`}
                 />
@@ -471,20 +469,14 @@ export default function StorePage() {
                   })}
                 </div>
               </div>
-            ) : activeCategory.id === 'bracelet' && !((activeCategory as any).variants?.[activeThumb]?.name?.includes('定制款')) ? (
+            ) : activeCategory.id === 'bracelet' && activeVariant?.colors ? (
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-[13px] text-white/40">颜色</span>
                   <span className="text-[13px] text-white">{selectedColor.name}</span>
                 </div>
                 <div className="flex gap-4">
-                  {colors.map(c => {
-                    const hexMap: Record<string, string> = {
-                      'obsidian': '#1A1A1A',
-                      'titanium': '#E8E8E4',
-                      'liquid-gold': '#C9A96E',
-                      'rose-gold': '#CAA193'
-                    };
+                  {activeVariant.colors.map((c: { id: string; name: string; hex?: string }) => {
                     const isSelected = selectedColor.id === c.id;
                     return (
                       <button 
@@ -496,7 +488,7 @@ export default function StorePage() {
                         {isSelected && <div className="absolute inset-0 rounded-full border-2 border-[#080808] z-10" />}
                         <div 
                           className="w-full h-full rounded-full relative z-0" 
-                          style={{ backgroundColor: hexMap[c.id] || '#555', border: `1px solid rgba(255,255,255,0.1)` }} 
+                          style={{ backgroundColor: c.hex || '#555', border: `1px solid rgba(255,255,255,0.1)` }} 
                         />
                       </button>
                     )
@@ -601,8 +593,8 @@ export default function StorePage() {
               <div className="w-full md:w-[60%] px-10 reveal">
                  <div className="relative w-full h-full">
                    <img 
-                     src={activeCategory.id === 'bracelet' ? 'https://i.ibb.co/xS01Jf1z/image.png' : 'https://i.ibb.co/WvZDYkvK/image.png'} 
-                     className="w-full h-auto scale-110 object-cover" 
+                     src={activeCategory.id === 'bracelet' ? BRACELET_STORE_IMAGES.inTheBox : RING_STORE_IMAGES.inTheBox} 
+                     className="w-full h-auto object-contain" 
                      alt="Packaging Large" 
                    />
                  </div>

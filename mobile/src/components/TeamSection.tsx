@@ -22,10 +22,13 @@ const HERO_CARD_IMAGE: Record<(typeof HERO_CARD_IDS)[number], string> = {
 /** 首页英雄图 URL，供预加载（仅可见品类） */
 export const HOME_HERO_CARD_IMAGE_URLS = HERO_CARD_IDS.map((id) => HERO_CARD_IMAGE[id]);
 
+/** 「智能硬件+应用服务」横向产品卡图（置于 mobile/public/home/） */
+const homeBase = import.meta.env.BASE_URL;
+
 /** 「智能硬件+应用服务」横向产品卡四图 URL，供预加载 */
 const TEAM_PRODUCT_CARD_IMAGE: Record<(typeof CARD_IDS)[number], string> = {
-  ring: 'https://i.ibb.co/FLXrp6qv/image.jpg',
-  band: 'https://i.ibb.co/1t1FyW93/image.jpg',
+  ring: `${homeBase}home/team-ring-card.png`,
+  band: `${homeBase}home/team-band-card.png`,
 };
 
 export const HOME_TEAM_PRODUCT_CARD_IMAGE_URLS = CARD_IDS.map((id) => TEAM_PRODUCT_CARD_IMAGE[id]);

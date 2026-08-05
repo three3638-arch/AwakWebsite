@@ -16,9 +16,11 @@ const STORE_LINK: Record<(typeof CARD_IDS)[number], string> = {
   band: '/store/bracelet',
 };
 
+const homeBase = import.meta.env.BASE_URL;
+
 const CARD_IMAGE: Record<(typeof CARD_IDS)[number], string> = {
-  ring: 'https://i.ibb.co/FLXrp6qv/image.jpg',
-  band: 'https://i.ibb.co/1t1FyW93/image.jpg',
+  ring: `${homeBase}home/team-ring-card.png`,
+  band: `${homeBase}home/team-band-card.png`,
 };
 
 const GRID_COLS_CLASS =
