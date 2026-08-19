@@ -1,6 +1,6 @@
 {
-  "version": "1.1",
-  "updatedAt": "2026-07-07",
+  "version": "1.2",
+  "updatedAt": "2026-08-12",
   "documents": [
     {
       "slug": "terms",
@@ -10,8 +10,8 @@
     },
     {
       "slug": "privacy",
-      "version": "1.1",
-      "updatedAt": "2026-07-07",
+      "version": "1.2",
+      "updatedAt": "2026-08-12",
       "titleKey": "legal.documents.privacy"
     },
     {
